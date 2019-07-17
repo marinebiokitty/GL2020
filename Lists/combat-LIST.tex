@@ -1,0 +1,46 @@
+%%%%%
+%%
+%% This file sets up the Combat datatype and creates Combat macros.
+%% These are for abilities that characters may have.
+%%
+%%%%%
+
+\DECLARESUBTYPE{Combat}{Align}
+
+
+%%%%%
+%% \combat{<name>}{<text>}{<effect>}{<offense>}{<defense>}
+%%
+%% \combat is a wrapper around \INSTANCE, useful for 1-shot cards.
+\newinstance{Combat}{\combat[5]}{
+  \s\MYname{#1}\s\MYtext{#2}\s\MYeffect{#3}\s\MYoffense{#4}\s\MYdefense{#5}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+
+\NEW{Combat}{\aTestCombat}{
+  \s\MYname	{Test Combat Card}
+  \s\MYtext	{This is a test card.}
+  \s\MYeffect	{This is a Test.}
+  \s\MYoffense	{\hit\none\none\hit\none}
+  \s\MYdefense	{\block\none\block[2]\none\none}
+  }
+
+\NEW{Combat}{\aBatWham}{
+  \s\MYname	{Patented Bat-Wham}
+  \s\MYtext	{A swirl of fists about the head and chest.}
+  \s\MYeffect	{A swirl of fists about the head and chest.  If hit, say
+		``Oof'' and stagger back a step.}
+  \s\MYoffense	{\hit\hit\hit\none\none}
+  \s\MYdefense	{\none\block\none\block\none}
+  }
+
+\NEW{Combat}{\aPokeEyeSharp}{
+  \s\MYname	{Poke in the Eye with a Sharp Stick}
+  \s\MYtext	{Funnier than a poke in the eye with a blunt stick.\\
+		Requires a sharp stick.}
+  \s\MYeffect	{I poke you in the eye with a sharp stick.  If hit, Clap
+		your hand over your eye and exclaim ``Ouch!''}
+  \s\MYoffense	{\hit[3]\none\none\none\none}
+  \s\MYdefense	{\block\none\none\block\block}
+  }

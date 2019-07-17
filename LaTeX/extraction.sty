@@ -1,0 +1,124 @@
+%%%%%
+%%
+%% extraction.sty creates a set of commands for extracting text from
+%% files.  TeX wasn't really designed for this, so other programming
+%% languages might be more effective or powerful in this regard.
+%% However, this works reliably.
+%%
+%% Commands provided:
+%%
+%%   \getextracts{<mark1>}{<mark2>}{<filename>}
+%%   \procextracts{<mark1>}{<mark2>}{<filename>}{<out1>}{<out2>}{<in1>}{<in2>}
+%%
+%%   \getextractenvs{<envname>}{<filename>}
+%%   \procextractenvs{<envname>}{<filename>}{<out1>}{<out2>}{<in1>}{<in2>}
+%%
+%%%%%
+
+
+%%%%%
+%% allows ! to be used in TeX command names, for this file, so
+%% internal commands that use it can't be used directly/messed with
+%% outside of this file.
+\catcode`\!11\relax
+
+
+%%%%%
+%% LaTeX changes the def of TeX's \input command and makes \@@input
+%% the old command.  Using \@@input technically breaks LaTeX's
+%% abstraction barrier, so it's best to do it only once, here.
+\let\!input\@@input
+
+
+%%%%%
+%% \getextracts{<mark1>}{<mark2>}{<filename>}
+%%
+%% Extracts text that is between <mark1> and <mark2> in <filename>.
+%% If there are multiple <mark1>/<mark2> pairs in <filename>, it
+%% extracts the text between all of them, in order.
+%%
+%% TeX groupings are ignored during extraction, so if <filename> is a
+%% TeX file, there could be unbalanced braces etc. between <mark1> and
+%% <mark2>.  \catcode changes _may_ cause odd effects, though often
+%% DTRT; for example, \obeyspaces (if in effect when an extraction
+%% command is used) causes problems with commands (in the input file)
+%% that take arguments (i.e. they will take " " as the first
+%% argument).
+%%
+%%
+%% \procextracts{<mark1>}{<mark2>}{<filename>}{<out1>}{<out2>}{<in1>}{<in2>}
+%%
+%% Acts like \getextracts, except puts <in1> before each set of
+%% extractions, <in2> after each set of extractions, <out1> before the
+%% whole extraction, and <out2> after the whole extraction (set of
+%% extractions -> 1 per each <mark1>/<mark2> pair).
+%%
+\newtoks\!toks
+\def\!scantoks{%
+  \expandafter\global\expandafter\!toks\expandafter{\expandafter}%
+  \expandafter\scantokens\expandafter{\the\!toks}%
+  }
+\def\!end{\!end}
+\def\!changecats{\advance\count0by1%
+  \ifnum\count0<255\let\!do\!changecats%
+    \ifnum\catcode\count0=1\catcode\count0=12\fi%
+    \ifnum\catcode\count0=2\catcode\count0=12\fi%
+    \ifnum\catcode\count0=6\catcode\count0=12\fi%
+  \else\let\!do\relax%
+  \fi\!do}
+
+\long\gdef\getextracts#1#2#3{\procextracts{#1}{#2}{#3}{}{}{}{}}%
+\long\gdef\procextracts#1#2#3#4#5#6#7{%
+  \begingroup%
+    \openin0=#3\relax%
+    \ifeof0%
+      \typeout{! \string\getextracts: "#3" not found.}%
+    \else%
+      \long\def\!get##1#1##2#2##3{%
+        \def\!tmp{##3}%
+        \ifx\!tmp\!end%
+          \let\!do\relax%
+        \else%
+          \def\!tmp{##2}%
+          \ifx\!tmp\!end\relax\else%
+            \let\!tmp\empty%
+            \global\!toks\expandafter{\the\!toks#6##2#7}%
+          \fi\def\!do{\!get##3}%
+        \fi\!do}%
+      \count0=0\!changecats%
+      \global\!toks{#4}%
+      \everyeof{#1\!end#2\!end}\expandafter\!get\!input#3\relax%
+      \global\!toks\expandafter{\the\!toks#5}%
+      \aftergroup\!scantoks%
+    \fi%
+    \closein0\relax%
+  \endgroup}%
+
+
+%%%%%
+%% \getextractenvs{<envname>}{<filename>}
+%%
+%% Acts like \getextracts, except uses \begin{<envname>} and
+%% \end{<envname>} as <mark1> and <mark2>, respectively.
+%%
+%%
+%% \procextractenvs{<envname>}{<filename>}{<out1>}{<out2>}{<in1>}{<in2>}
+%%
+%% Acts like \getextractenvs, except uses <in1>, <in2>, <out1>, and
+%% <out2> like \procextracts.
+%%
+\def\getextractenvs#1#2{\procextractenvs{#1}{#2}{}{}{}{}}
+\begingroup
+  \catcode`[=1 \catcode`]=2
+  \catcode`{=12 \catcode`}=12
+  \long\gdef\procextractenvs#1[\procextracts[\begin{#1}][\end{#1}]]
+\endgroup
+
+
+%%%%%
+%% Returns ! to its default behavior, so it can no longer be used in
+%% TeX command names.
+\catcode`\!12\relax
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

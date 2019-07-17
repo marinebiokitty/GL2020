@@ -1,0 +1,47 @@
+%%%%%
+%%
+%% Greensheets live in this directory.  This file doubles as a
+%% latex'able example greensheet.
+%%
+%% _template.tex serves as a bare-bones template suitable for
+%% copying when starting a new sheet.
+%%
+%% Greensheet macros (in ../Lists/green-LIST.tex, presumably) each
+%% have a file that lives here.  The argument to \name{...} probably
+%% should be the macro for the given greensheet, which will generate
+%% the greensheet's name as specified in green-LIST.tex.  However, you
+%% can also just use \name{Some Text} if you want.
+%%
+%%%%%
+
+\documentclass[green]{guildcamp4}
+\begin{document}
+
+\name{\gTest{}}
+
+
+\bigquote{``Use this macro for large quotes of prose and such.  It
+justifies everything like a paragraph, except with no
+indentation.''}{-- The Author}
+
+\cenquote{``This macro is good\\ For shorter quotes\\ Or things like
+song lyrics:\\ It centers.''}{-- The Author}
+
+
+\TODO{This is a test greensheet.}
+
+This is a test Greensheet.
+
+This is some text.  This is some text.  This is some text.  This is
+some text.  This is some text.  This is some text.  This is some text.
+This is some text.  This is some text.  This is some text.
+
+
+\begin{enum}[Directions]
+  \item Do one thing.
+  \item Do another thing.
+  \item Do something else.
+\end{enum}
+
+
+\end{document}

@@ -1,0 +1,115 @@
+%%%%%
+%%
+%% This file sets up the Abil datatype and creates Abil macros.  These
+%% are for abilities that characters may have.
+%%
+%%%%%
+
+\DECLARESUBTYPE{Abil}{Element}
+\PRESETS{Abil}{
+  \F\MYtext	%% text of ability, read by user
+  \F\MYeffect	%% effect text of ability, read by recipient(s)
+  }
+
+
+%%%%%
+%% \ability{<name>}{<text>}{<effect>}
+%%
+%% \ability is a wrapper around \INSTANCE, useful for 1-shot abilities,
+%% etc.
+\newinstance{Abil}{\ability[3]}{
+  \s\MYname{#1}\s\MYtext{#2}\s\MYeffect{#3}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\NEW{Abil}{\aTest}{
+  \s\MYname	{Test Ability}
+  \s\MYtext	{You are a test.}
+  \s\MYeffect	{This is a Test.}
+  }
+
+\NEW{Abil}{\aSpecial}{
+  \s\MYname	{Special Powers}
+  \s\MYtext	{You have special powers, as detailed in your \gTest{}
+		greensheet.}
+  \s\MYeffect	{I have special powers!}
+  \s\MYgreens	{\gTest{}}
+  \suite
+  }
+
+\NEW{Abil}{\aFiremansCarry}{
+  \s\MYname	{Fireman's Carry}
+  \s\MYtext	{You can carry a body as if it were two hands bulky.}
+  \s\MYeffect	{I can carry this body well.}
+  }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+  
+%% Basic DarkWater-style Martial Attack abilities
+
+
+%% Everyone has these 3
+\NEW{Abil}{\aAssist}{
+  \s\MYname	{Assist}
+  \s\MYtext	{You can assist someone else's attack.  You must be
+		within ZoC of both the attacker and target.  Within two
+		seconds of an attack, direct this at the attacker,
+		saying ``\MYname'' and your CR.}
+  \s\MYeffect	{I assist your attack.}
+  }
+
+\NEW{Abil}{\aKnockOut}{
+  \s\MYname	{Knock Out}
+  \s\MYtext	{You can knock someone out as an attack.  This requires
+		a {\bf blunt} weapon.  Say ``\MYname'' and your CR.}
+  \s\MYeffect	{I knock you out.}
+  }
+
+\NEW{Abil}{\aWound}{
+  \s\MYname	{Wound}
+  \s\MYtext	{You can wound someone as an attack.  This requires an
+		{\bf edged} weapon, such as a knife.  Say ``\MYname'' and
+		your CR.}
+  \s\MYeffect	{I wound you.}
+  }
+
+
+%% the \basecombat macro can be prepended to the Char abils list
+%% (in char-LIST.tex)
+\def\basecombat{\aKnockOut{}\aWound{}\aAssist{}}
+
+%% only some people have these
+\NEW{Abil}{\aDisarm}{
+  \s\MYname	{Disarm}
+  \s\MYtext	{You can disarm one item from someone as an attack.  Say
+		``\MYname'' and your CR.  Point at the item you want to
+		disarm.  If the attack works, they must drop that item.}
+  \s\MYeffect	{I disarm that item.}
+  }
+
+\NEW{Abil}{\aRestrain}{
+  \s\MYname	{Restrain}
+  \s\MYtext	{You can restrain someone as an attack.  Say ``\MYname''
+		and your CR.  You may freely drag, attack, or (if you have
+		a weapon) killing-blow them.  To do anything else, or if
+		your health state changes, incant ``release'' and let them
+		go.}
+  \s\MYeffect	{I restrain you.  You are restrained until I incant
+		``release.''}
+  }
+\NEW{Abil}{\aThrow}{
+  \s\MYname	{Throw}
+  \s\MYtext	{You can throw someone as an attack.  Say ``\MYname'' and
+		your CR.  Point in the direction you want to throw them.}
+  \s\MYeffect	{I throw you.  Go in the direction I point ten full steps
+		or until you hit a wall or similar.}
+  }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

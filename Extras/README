@@ -1,0 +1,152 @@
+Extras/README
+
+This directory contains a few things that don't fit directly within
+basic GameTeX.  Some of them are write-ups of how to add something to
+GameTeX, which come in the form of README-<something> files.  Others
+are stand-alone files.
+
+
+
+
+Advanced GameTeX:
+
+The following are files on using advanced features of GameTeX, adding
+complex elements, and similar.
+
+
+
+README-class: This file covers how to change the base class and
+options used by the GameTeX class.
+
+
+
+README-identity: This file describes the Identity datatype and many
+ways it can be used.  The Identity datatype is for giving characters
+(and other things) alternate names, namebadges, charsheets, statcards,
+skilllists, and/or other information.
+
+
+
+README-meta: This file is a copy of the GameTeX distribution README,
+which (among other things) describes the version numbers and known
+issues.
+
+
+
+README-namemappings: This file documents a variety of commands for
+controlling and accessing parts and forms of a character's name.
+
+
+
+README-players: This file covers how to cleanly have players who play
+more than one character, using the Player datatype.  This is useful
+when you have GM helpers (and GMs) playing multiple NPCs.
+
+
+
+README-punt: This file details how to use \punt and \unpunt to have
+extra control over production.  This comes in handy when a particular
+sheet is not ready for handout (and must be distributed later), or
+when an element is updated after handout and you want to distribute
+the new version easily.
+
+
+
+
+Miscellaneous:
+
+The following are a collection of things potentially useful that are
+not necessarily part of GameTeX.
+
+
+
+README-numbers: This file has every three-digit number listed in a
+random order.  This can be very useful for giving items and other
+elements unique numbers.  When you want to assign a number, you can
+just use one from the list and mark it as used.
+
+You can reuse numbers between sets of numbers (item numbers, badge
+numbers, whatever) as long as the sets are distinguished, probably by
+having different numbers of digits.  For example, item numbers can
+have five digits, the first two of which are determined by type of
+item (or whatever; encode what you want) and the last three of which
+are from the random list.  Badge numbers may only be 4 digits, the
+first of which is the character's age in decades.  Simply use
+different marks within README-numbers to reuse numbers between sets.
+
+Obviously this may be unwieldy if you want to encode huge amounts of
+secret information into "random" numbers.  However, many clever tricks
+(such as mixing in letters) can extend how much you can encode into a
+few extra non-random digits.
+
+
+
+README-pdf: This file describes a simple tcsh alias, dvipdf, for
+converting DVI files to PDF with good, efficient use of fonts.
+
+
+
+README-rcs: This file documents a simple way to use RCS, with a few
+tcsh aliases that will usually suffice.
+
+
+
+README-s-packets: This file describes how to tape "s-packets" to the
+wall.
+
+
+
+changeclass.pl: This perl script changes the gameclass throughout
+GameTeX.  It is a useful shortcut when you first set up a game.
+
+usage: ./changeclass.pl gamepath oldclass newclass
+
+Specify the gamepath (like the game's environment variable), the
+existing gameclass name, and the new gameclass name.  For example,
+"./changeclass.pl /mit/assassin/games/London/ game london" would
+change the gameclass from "game" to "london" for the game that lives
+in "/mit/assassin/games/London/."
+
+The script changes the definition of \gameclassname in the .cls file,
+the name of the .cls file, the value of $gameclass in gametex.pl (see
+below), and all of the "\documentclass...{...}"  lines in any .tex
+files.  It looks for the .cls specifically in the LaTeX/ directory and
+gametex.pl specifically in the Extras/ directory, and it looks for
+.tex files recursively through subdirectories.  changeclass.pl does
+not create or change your environment variables.
+
+
+
+gametex.pl: This perl script creates a temporary GameTeX file and
+latexs it to produce output.  It can be a useful shortcut for
+production and mid-game printing.
+
+usage: ./gametex.pl option    command 
+   or: ./gametex.pl pdfsheets command 
+   or: ./gametex.pl option    command gameclass
+   or: ./gametex.pl pdfsheets command gameclass
+
+Specify the gameclass for the file, e.g. "somegame", with the optional
+third argument.  Otherwise it uses a default value ($gameclass) that
+you can change in the script itself.
+
+The first argument is the option for the file, e.g. "listblue".  The
+second argument is a command string (minus the backslash),
+e.g. "bTest" or "production".  The script will produce output for that
+command and option as if you had created a file like:
+
+  \documentclass[option]{gameclass}
+  \begin{document}
+  \command{}
+  \end{document}
+
+If you give "pdfsheets" as the first argument, the script will produce
+a single PDF file containing any character sheets, bluesheets, and
+greensheets for "command."  The bluesheets and greensheets will
+display with colored backgrounds but will print normally.
+
+"./gametex.pl abils cJamesBond" will produce all of James Bond's
+abilities.  "./gametex.pl pdfsheets cWarlock" will produce Warlock's
+sheets as a PDF file, suitable for an email part or similar.
+"./gametex.pl pdfsheets compendium" will produce a compendium of
+sheets as a PDF file.

@@ -1,0 +1,227 @@
+%%%%%
+%%
+%% This file sets up the Char, PC, NPC, and Name datatypes and creates
+%% macros for each.  These are for characters in the game.  Here you
+%% use the fields in Char to assign elements to each character.
+%%
+%%
+%%
+%% \MYname (and the player name) is parsed by \parsename, the command
+%% provided by LaTeX/parsename.sty.  See that file and
+%% Extras/README-namemappings for ways to take advantage of this.
+%%
+%%
+%%
+%% \MYsex is set to either \male, \female, \neuter, or \ambiguous, as
+%% correct for the character.  \mfn{<masculine>}{<feminine>}{<neuter>}
+%% will produce the correct form based on the current value of \MYsex
+%% (\ambiguous will lead to <masculine>/<feminine>).  \mfn should only
+%% be used within the scope of a Char macro.  \mf{<masc>}{<fem>} works
+%% just like \mfn with the <neut> arg left blank.
+%%
+%% \pronoun{<command>}{<masc>}{<fem>}{<neut>} makes <command> a
+%% wrapper around \mfn.  It is used to create a list of
+%% gender-sensitive macros, mostly pronouns.  For example, given
+%% \pronoun{\They}{He}{She}{It}, \cJamesBond{\They} will produce He.
+%%
+%%
+%%
+%% \badgetrue and \badgefalse toggle whether or not a Char macro will
+%% produce a namebadge.
+%%
+%% \statstrue and \statsfalse will toggle the statcard.
+%%
+%% \skillstrue and \skillsfalse will toggle the skill list.  The skill
+%% list prints both skills and stats (even if \statsfalse is set).
+%%
+%% \sheettrue and \sheetfalse will toggle the character sheet.
+%%
+%% \listtrue and \listfalse toggle whether the Char macro can display
+%% in the playerlist.
+%%
+%% \labeltrue and \labelfalse toggle the box label.
+%%
+%%
+%%
+%% Some of the Char datatype's setup is in LaTeX/gametex.sty, to keep
+%% this file short.
+%%
+%%%%%
+
+
+
+%%%%%
+%% If a field is declared by \F, it must be given a value by \s inside
+%% \NEW, even if it's blank.  If you want it to be optional, declare
+%% it with \FD<field> {<default>} here.
+%%
+%% Use \newstat to create stats (below, in \PRESETS{Char}).  The
+%% <default> value is used unless the given Char macro sets the field.
+%% For example:
+%%
+%%   \newstat\MYhp	{Hit Points}{HP}{5}
+%%
+%% would give character a Hit Points stat, abbreviated HP, referenced
+%% as the \MYhp field, that defaults to 5.
+\PRESETS{Char}{
+  \FD\MYdesc	{} %% badge description
+
+  \newstat\MYcr	{Combat Rating}{CR}{2} %% for DarkWater-style combat
+  %\newstat\MYhp	{Hitpoints}{HP}{10} % Hitpoints
+
+  \FD\MYsex	{\male} %% \male, \female, \neuter, \ambiguous
+  \FD\MYrole	{} %% playerlist role
+  \FD\MYgroupstr{} %% playerlist groupstring
+  \FD\MYfile	{} %% character sheet filename (including .tex)
+  \FS\MYtext	{\ifx\MYfile\empty\else%
+		  \getextractenvs{document}{\chars/\MYfile}%
+		\fi}
+  \badgetrue\statstrue\skillstrue\sheettrue\listtrue\labeltrue
+  }
+
+\POSTSETS{Char}{
+  \resolvestats
+  }
+
+
+%%%%%
+%% pronouns and similar gender-based macros
+%%
+%% \male, \female, \neuter, \ambiguous
+%% \mfn{<masculine>}{<feminine>}{<neuter>}
+%% \mf{<masculine>}{<feminine>}
+%% \pronoun{<command>}{<masculine>}{<feminine>}{<neuter>}
+\def\male{0}\def\female{1}\def\neuter{2}\def\ambiguous{3}
+\newcommand{\mfn}[3]{\ifcase\MYsex#1\or#2\or#3\else#1/#2\fi}
+\newcommand{\mf}[2]{\mfn{#1}{#2}{}}
+\newcommand{\pronoun}[4]{\def#1{\mfn{#2}{#3}{#4}}}
+
+\pronoun{\they}		{he}{she}{it}
+\pronoun{\They}		{He}{She}{It}
+\pronoun{\them}		{him}{her}{it}
+\pronoun{\Them}		{Him}{Her}{It}
+\pronoun{\their}	{his}{her}{its}
+\pronoun{\Their}	{His}{Her}{Its}
+\pronoun{\theirs}	{his}{hers}{its}
+\pronoun{\Theirs}	{His}{Hers}{Its}
+\pronoun{\themself}	{himself}{herself}{itself}
+\pronoun{\Themself}	{Himself}{Herself}{Itself}
+\pronoun{\spouse}	{husband}{wife}{spouse}
+\pronoun{\Spouse}	{Husband}{Wife}{Spouse}
+\pronoun{\offspring}	{son}{daughter}{offspring}
+\pronoun{\Offspring}	{Son}{Daughter}{Offspring}
+\pronoun{\kid}		{boy}{girl}{kid}
+\pronoun{\Kid}		{Boy}{Girl}{Kid}
+\pronoun{\waif}		{urchin}{waif}{stray}
+\pronoun{\Waif}		{Urchin}{Waif}{Stray}
+\pronoun{\guy}		{guy}{gal}{person}
+\pronoun{\mer}		{merman}{mermaid}{merchild} %%teenager
+\pronoun{\sibling}	{brother}{sister}{sibling}
+\pronoun{\Sibling}	{Brother}{Sister}{Sibling}
+\pronoun{\parent}	{father}{mother}{parent}
+\pronoun{\Parent}	{Father}{Mother}{Parent}
+\pronoun{\uncle}	{uncle}{aunt}{uncle}
+\pronoun{\Uncle}	{Uncle}{Aunt}{Uncle}
+\pronoun{\nephew}	{nephew}{niece}{nephew}
+\pronoun{\Nephew}	{Nephew}{Niece}{Nephew}
+\def\aunt{\uncle}
+\def\Aunt{\Uncle}
+\def\niece{\nephew}
+\def\Niece{\Nephew}
+\pronoun{\human}	{man}{woman}{human}
+\pronoun{\Human}	{Man}{Woman}{Human}
+\pronoun{\sex}		{male}{female}{neuter}
+\pronoun{\Sex}		{Male}{Female}{Neuter}
+
+
+
+%%%%%
+%% PC is a subtype of Char, for regular PCs.
+\DECLARESUBTYPE{PC}{Char}
+\PRESETS{PC}{\sd\MYgroupstr{pc}}
+
+
+%%%%%
+%% NPC is a subtype of Char.
+\DECLARESUBTYPE{NPC}{Char}
+\PRESETS{NPC}{\sd\MYgroupstr{npc}}
+
+
+%%%%%
+%% Name is a subtype of NPC.
+%% For an in-text name.  By default, produces no packet material.
+\DECLARESUBTYPE{Name}{Char}
+\PRESETS{Name}{
+  \badgefalse\statsfalse\skillsfalse\sheetfalse\listfalse\labelfalse
+  \sd\MYgroupstr{name}
+  }
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% don't use \cTest as a copy-and-paste template to populate your
+%% character list.  Use something simpler, like
+%%
+%%   \NEW{PC}{\cBlah}{
+%%     \s\MYname	{}
+%%     \s\MYfile	{}
+%%     }
+%%
+%\NEW{PC}{\cTest}{
+%  \s\MYname	{Test Character}
+%  \s\MYfile	{README.tex}
+%  \s\MYnumber	{00000}
+%  \s\MYdesc	{a test}
+%  \s\MYplayer	{Test Player}
+%  \s\MYemail	{test@test.test}
+%  \s\MYaddress	{Test, rm 000}
+%  \s\MYphone	{x0-0000}
+%  \s\MYblues	{\bTest{}}
+%  \s\MYgreens	{\gTest{}\nGreenTest{}}
+%  \s\MYabils	{\aTest{}
+%		\aTestCombat{}
+%		}
+%  \s\MYitems	{\iTest{}\nTest{}}
+%  \s\MYwhites	{\wTest{}}
+%  \s\MYcash	{\cash{Dollar}{261}}
+%  }
+
+
+\NEW{PC}{\cTest}{
+  \s\MYname	{Test Character}
+  \s\MYfile	{README.tex}
+  \s\MYnumber	{00000}
+  \s\MYdesc	{a test}
+  \MYsex	{\male}
+  \s\MYplayer	{Test Player}
+  
+  \s\MYblues	{\bTest{}}
+  \s\MYgreens	{\gTest{}\nGreenTest{}}
+  \s\MYabils	{\aTest{}\aTestCombat{}}
+  \s\MYitems	{\iTest{}\nTest{}}
+  \s\MYwhites	{\wTest{}}
+  \s\MYcash	{\cash{Dollar}{261}}
+  
+  \s\MYcr{2}
+}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\NEW{NPC}{\cNPC}{
+  \s\MYname	{Test NPC}
+  \s\MYnumber	{00000}
+  \s\MYdesc	{a test}
+  \s\MYsex	{\male}
+}
+
+\NEW{NPC}{\cSomeGuy}{
+  \s\MYname	{Test NPC2}
+  \s\MYnumber	{00000}
+  \s\MYdesc	{a test}
+  \s\MYsex	{\male}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

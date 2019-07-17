@@ -1,0 +1,43 @@
+%%%%%
+%%
+%% This file creates SubOwner and TransSubOwner macros.  These are for
+%% subowners and suites that are not elements themselves.  To give a
+%% Char (or Place, or other Element) a SubOwner, put it into any of
+%% the element lists.
+%%
+%%%%%
+
+
+%%%%%
+%% TransSubOwner is for transferrable subowners
+\DECLARESUBTYPE{TransSubOwner}{SubOwner}
+\PRESETS{TransSubOwner}{
+  \transowner
+  }
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\NEW{SubOwner}{\oTest}{
+  \s\MYname	{Test SubOwner}
+  \s\MYitems	{\iTest{}}
+  \s\MYabils	{\aTest{}\aTest{}}
+  \s\MYmems	{\mTest{}}
+  }
+
+\NEW{TransSubOwner}{\oThreeThings}{
+  \s\MYname	{The Three Items of Power}
+  \s\MYitems	{\icard{Red}{}{The Red Thing}
+		\icard{Blue}{}{The Blue Thing}
+		\icard{Green}{}{The Green Thing}
+		}
+  \s\MYgreens	{\gTest{}}
+  }
+
+\NEW{SubOwner}{\oTestSuite}{
+  \s\MYname	{Test Suite}
+  \s\MYabils	{\aTest{}}
+  \s\MYblues	{\bTest{}}
+  \s\MYitems	{\iTest{}}
+  \suite
+  }

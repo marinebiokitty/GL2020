@@ -1,0 +1,61 @@
+Handouts/README
+
+This directory is a place for documents you intend to give out to all
+players, like the rules.  Documents here likely do not need to be part
+of the central database in Lists/.
+
+
+
+playerlist.tex: This is the playerlist, which lists contact info for
+all the players.  Exactly what it produces is largely dependant on
+some of the switches and customizations available in the the .cls
+file.
+
+In comments, playerlist.tex also describes how to include a map of
+game area in the document, in case you want it in the playerlist
+instead of the rules/scenario.  Note that this is probably only a good
+idea if your playerlist is only one page.
+
+
+
+rules-scenario.tex: This is a reasonably complete and straightforward
+rules document for a Guild game.  It is a concise write-up that may be
+useful as a starting point; go through it and edit to your tastes.
+Some parts, such as Game Area, have large holes you should fill in.
+There are a few comments that describe a few likely changes.  Other
+comments include entire paragraphs that may be useful.
+
+The entire section on Violence is just one example of the many
+different ways such things have been written; this one includes the
+latest incarnation of the DarkWater combat system, which is nice for
+speedy and lethal combat.
+
+The document is written for GameTeX (in particular, the martial combat
+system references the combat abilities used as examples in abils-LIST,
+and the copyright references GM macros), but it could easily be
+ported.
+
+It includes a blank section for a scenario, since having the rules and
+scenario be in the same document can be very convenient.  In comments,
+is describes some basic uses of GameTeX's map graphical feature, and
+how to incorporate into a section on game areas.
+
+
+
+Public Greensheets: A public greensheet is one that any character can
+optionally have.  To create one, just make a normal greensheet with
+the \publicgreensheet command added right after \begin{document}:
+
+  \documentclass[green]{game}
+  \begin{document}
+  \publicgreensheet
+  \name{Blahing the Blah}
+
+  Blah blah blah.  Blah blah blah.  Blah blah blah.
+
+  \end{document}
+
+Note that, since the greensheet will be freely distributed, it won't
+need to be owned by anyone, so you might not need a green macro (see
+Lists/) for it; you may still want a macro if other game documents
+refer to the public greensheet's name.

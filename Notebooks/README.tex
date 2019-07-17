@@ -1,0 +1,98 @@
+%%%%%
+%%
+%% Notebooks live in this directory.  There are two kinds: in-game
+%% notebooks (like classic research notebooks) and out-of-game
+%% notebooks (also known as green notebooks).  Both kinds are defined
+%% in Lists/notebook-LIST.tex.  In-game notebooks, defined as Notebook
+%% macros, get assigned in \MYitems.  Out-of-game notebooks, defined
+%% as GreenNotebook macros, get assigned in \MYgreens.
+%%
+%% This file doubles as a latex'able example in-game notebook.
+%% README-green.tex, also in this directory, doubles as an example
+%% out-of-game notebook.
+%%
+%% _template.tex serves as a bare-bones template suitable for
+%% copying when starting a new notebook.
+%%
+%% Notebook and GreenNotebook macros each have a file that lives here.
+%% The argument to \startnotebook{...}  probably should be the macro
+%% for the given notebook.  However, you can also just use
+%% \startnotebook{Some Text} if you want.
+%%
+%% Note that every \startnotebook command needs a matching
+%% \endnotebook command.  Also note that no ownership information
+%% appears on the notebook.
+%%
+%%
+%% If you want to use notebooks for memory packets, see related macros
+%% in Lists/mem-LIST.tex (and in Charsheets/README.tex).  If you want
+%% more programmatic control over the structure/linkage of notebooks,
+%% like for a computer security mechanic, see LabelCover and LabelPage
+%% in Lists/sign-LIST.tex.
+%%
+%%%%%
+
+\documentclass[notebook]{guildcamp1} %% [notebook] or [greennotebook]
+\begin{document}
+
+\startnotebook{\nTest{}}
+
+
+
+%% The argument to \begin{page}{...} is a reference string.  You use
+%% \nbref{...} in page text to refer to a given page.  These
+%% references will be typeset as numbers, based on the order of the
+%% pages.
+\begin{page}{first}
+
+Get together 3 people who know how to juggle.  Then get 9 juggling
+balls.  Have each juggler juggle three at once, such that all 9 are
+being juggled at the same time.
+
+If the group can go 1 minute or more without dropping a single ball,
+go to step \nbref{1min}.  If they can go for 5 minutes without dropping
+a single ball, go to step \nbref{good}.
+
+\end{page}
+
+
+
+%% the optional argument [One Minute] means this page will be labeled and
+%% referenced with a string instead of a number.  The numbering of other
+%% pages will ignore this one.
+\begin{page}[One Minute]{1min}
+
+blah you need to juggle better.
+
+\end{page}
+
+
+
+\begin{page}{nothing}
+
+blah
+
+\end{page}
+
+
+
+\begin{page}{good}
+
+blah not bad.  Continue for another 5 minutes, and you can go to step
+\nbref{last}.
+
+\end{page}
+
+
+
+\begin{page}{last}
+
+blah you win!  congratulations!
+
+\end{page}
+
+
+
+\endnotebook
+
+\end{document}

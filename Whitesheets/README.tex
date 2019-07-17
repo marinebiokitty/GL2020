@@ -1,0 +1,40 @@
+%%%%%
+%%
+%% Whitesheets live in this directory.  This file doubles as a
+%% latex'able example whitesheet.
+%%
+%% _template.tex serves as a bare-bones template suitable for
+%% copying when starting a new sheet.
+%%
+%% Whitesheet macros (in ../Lists/white-LIST.tex, presumably) each
+%% have a file that lives here.  The argument to \name{...} probably
+%% should be the macro for the given whitesheet.  However, you can also
+%% just use \name{Some Text} if you want.
+%%
+%% Note that for whitesheets, \name doesn't actualy typeset anything.
+%% If you want the ``title'' of the IG document to appear, typeset it
+%% how you want it.  Similarly, no ownership information appears on
+%% the sheet.
+%%
+%% If the whitesheet has a number (via \MYnumber in
+%% Lists/white-LIST.tex), \name{<white macro>} will cause the number
+%% to printed as an out-of-game note.
+%%
+%%%%%
+
+\documentclass[white]{guildcamp1}
+\begin{document}
+
+\name{\wTest{}} %% used as a label, doesn't typeset anything
+
+This is a test Whitesheet.
+
+\oog{This is an example out-of-game note.}
+
+\oog{This sheet of paper is covered in dried blood spatters.}
+
+This is some text.  This is some text.  This is some text.  This is
+some text.  This is some text.  This is some text.  This is some text.
+This is some text.  This is some text.  This is some text.
+
+\end{document}

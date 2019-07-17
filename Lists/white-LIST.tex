@@ -1,0 +1,27 @@
+%%%%%
+%%
+%% This file sets up the White datatype and creates White macros.
+%% These are for whitesheets.
+%%
+%%%%%
+
+\DECLARESUBTYPE{White}{TransElement}
+\PRESETS{White}{
+  \FD\MYfile	{} %% filename (in \whites dir)
+  \FS\MYtext	{\getextractenvs{document}{\whites/\MYfile}}
+  \sd\MYlistmap	{\item\MYname\ (in-game document)}
+  }
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\NEW{White}{\wTest}{
+  \s\MYname	{Test Whitesheet}
+  \s\MYfile	{README.tex}
+  }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

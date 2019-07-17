@@ -1,0 +1,1475 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%% datatypes.sty %%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Commands Provided:
+%%
+%%   \DECLARETYPE{Foo}
+%%   \DECLARESUBTYPE{Foobar}{Foo}
+%%
+%%   \PRESETS{Foobar}{STUFF}
+%%   \POSTSETS{Foobar}{STUFF}
+%%
+%%   \MAP{Foobar}{OPTION}
+%%   \SURFACEMAP{Foobar}{OPTION}
+%%   \REMAP{Foobar}
+%%   \RESURFACEMAP{Foobar}
+%%   \CHANGEMAP{Foobar}{OPTION}
+%%   \CHANGESURFACEMAP{Foobar}{OPTION}
+%%
+%%   \NEW{Foobar}{\command}{STUFF}
+%%   \INSTANCE{Foobar}{STUFF}{OPTION}
+%%   \EVERY{Foobar}{OPTION}
+%%
+%%     Available in "STUFF" and "OPTION":
+%%
+%%     \MYTYPESTRING
+%%     \MYPARENTSTRING
+%%     \MYCOMMAND
+%%     \ME
+%%     \MYMAP
+%%     \PARENT
+%%     \PARENTMAP
+%%     \PARENTSURFACEMAP
+%%
+%%     \F \field
+%%     \FD \field {defaultval}
+%%     \FS \field {val}
+%%     \s \field {val}
+%%     \rs \field {val}
+%%     \sd \field {defaultval}
+%%     \append \field {val}
+%%     \prepend \field {val}
+%%
+%%     \ADD{STUFF}
+%%     \RESET
+%%
+%%   \toss[num]{stuff}
+%%
+%%   \SORT{Foobar}{sort}{field}{Datatype macros}{OPTION}
+%%   \MAKESORT{Foobar}{sort}{field}{Datatype macros}{NAME}
+%%   \USESORT{Foobar}{NAME}{OPTION}
+%%
+%%     options for "sort":
+%%       num<
+%%       num>
+%%       alpha<
+%%       alpha>
+%%       ascii<
+%%       ascii>
+%%
+%%   \SIFT{Foobar}{sift}{field}{value}{Datatype macros}{OPTION}
+%%   \MAKESIFT{Foobar}{sift}{field}{value}{Datatype macros}{NAME}
+%%   \USESIFT{Foobar}{NAME}{OPTION}
+%%
+%%     options for "sift":
+%%       =
+%%       !=
+%%       num<
+%%       num>
+%%       num<=
+%%       num>=
+%%       alpha<
+%%       alpha>
+%%       alpha<=
+%%       alpha>=
+%%       ascii<
+%%       ascii>
+%%       ascii<=
+%%       ascii>=
+%%
+%%%%%
+
+
+%%%%%
+%% allowing ":" to be used in TeX command names, for this file, so
+%% "internal" commands that use it can't be used directly/messed
+%% with outside of this file.
+\catcode`\:11\relax
+
+
+%%%%%
+%% Datatypes act like "Classes" in object oriented programming.  They
+%% can "inherit" parent types ("superclasses").  Datatype macros are
+%% effectively "objects" or "instances" of the given Datatype.
+%%%%%
+
+
+%%%%%
+%% \:rf return first
+%% \:df delete first
+
+%% lots of things use this
+\def\:singletst{\futurelet\:tmp\::singletst}
+\long\def\::singletst#1#2\:delim{\def\:tmp{#2}}
+
+%% defines \:tmp to be the first value
+\def\:rf#1{%
+  \long\def\:tmp\:i##1##2\:delim{\def\:tmp{##1}}%
+  \ifx#1\empty\else\expandafter\:tmp#1\:delim\fi}
+
+%% removes first value
+\def\:df#1{%
+  \long\def\:tmp\:i##1##2\:delim{\def#1{##2}}%
+  \ifx#1\empty\else\expandafter\:tmp#1\:delim\fi%
+  \def\:tmp{}}
+
+%% generic append
+\long\def\:ap#1#2{%
+  \expandafter\edef\expandafter#1\expandafter{%
+    \expandafter\unexpanded\expandafter{#1#2}}}
+
+%% appends #2 to #1 using command #3 (\global or \relax)
+\long\def\::al#1#2#3{%
+  \def\:tmp{#2}%
+  \unless\ifx\:tmp\empty
+    \:singletst#2\:delim%
+  \else%
+    \let\:tmp\relax%
+  \fi%
+  \ifx\:tmp\empty%
+    #3\:ap#1{\:i#2}%
+  \else%
+    #3\:ap#1{\:i{#2}}%
+  \fi}
+
+%%%%%
+%% \:typetest{string}{definition}
+\long\def\:typetest#1#2{%
+  \edef\:tmp{#1}\ifx\:tmp\empty\er:tblank\let\:tmp\empty\else%
+  \ifcsname#1:t\endcsname%
+    \edef\:ti{\csname#1:t\endcsname}%
+    \edef\:pi{\csname\csname\:ti :p\endcsname :t\endcsname}%
+    #2%
+  \else%
+    \er:tunknown{#1}\let\:tmp\empty%
+  \fi\fi}
+
+
+%%%%%
+%% \toss[num]{stuff}
+%% \stoss{stuff}
+%% \etoss{stuff}
+%% \preprocess{stuff}
+\def\toss{\futurelet\:nxt\:toss}
+\def\:toss{%
+  \ifx\:nxt[\def\:nxt{\::toss}%
+  \else\def\:nxt{\::toss[1]}%
+  \fi\:nxt}
+\long\def\::toss[#1]#2{%
+  \ifnum#1<0\relax%
+  \else\ifnum#1=0\relax%
+    \def\:nxt{#2}%
+  \else\ifnum#1=1\relax%
+    \def\:nxt{\etoss{#2}}%
+  \else%
+    \:count=#1\advance\:count by-1\relax%
+    \expandafter\def\expandafter\:nxt\expandafter{\expandafter\stoss%
+      \expandafter{\expandafter\::toss\expandafter[\the\:count]{#2}}}%
+  \fi\fi\fi\:nxt}
+
+\def\stoss{\:eqaf}
+\long\def\etoss#1{\:toks{}\start:aft#1\end:aft}
+\long\def\preprocess#1{\begingroup\etoss{#1}\endgroup}
+
+\def\?{\let\:sptoken= }\?
+\def\:ob{{\iffalse}\fi}
+\def\:cb{\iffalse{\fi}}
+
+\def\:clear{%
+  \ifx\:nxt?\let\:nxt\:suckQ\else\let\:nxt\relax\fi\:nxt}
+\def\:suckQ#1{\?}
+
+\def\:norm:aft{%
+  \def\?{\futurelet\:nxt\:clear}%
+  \long\def\X##1{##1}%
+  }
+\def\:in:aft{%
+  \def\?{\?}%
+  \long\def\X{\X}%
+  }
+\:norm:aft
+
+\def\end:aft{\end:aft}%
+\def\end::aft{\end::aft}%
+\def\start:aft{\:in:aft\futurelet\:nxt\:aft}
+\def\:aft{\let\:tmp\relax%
+  \ifx\:nxt\:sptoken\def\:tmp{\:dospace}%
+  \else\ifx\:nxt\bgroup\def\:tmp{\:dogrp}%
+  \else\ifx\:nxt\end:aft\def\:tmp{\:doend}%
+  \else\ifx\:nxt\end::aft\def\:tmp{\::doend}%
+  \else\ifx\:nxt\?\def\:tmp{\:doquery}%
+  \else\ifx\:nxt\X\def\:tmp{\:doprotect}%
+  \else\def\:tmp{\:dotok}%
+  \fi\fi\fi\fi\fi\fi\:tmp}
+\def\:dospace#1 {\:toks\expandafter{\the\:toks\space}\start:aft}
+\long\def\:dogrp#1{%
+  \def\:tmp{#1}%
+  \ifx\:tmp\empty\else\:singletst#1\:delim\fi%
+  \ifx\:tmp\empty\let\:tmp#1\else\let\:tmp\empty\fi%
+  \ifx\:tmp\bgroup\:toks\expandafter{\the\:toks\noexpand#1}%
+  \else%
+    \:toks\expandafter{\the\:toks\:ob}%
+    \start:aft#1\end::aft%
+    \:toks\expandafter{\the\:toks\:cb}%
+  \fi\let\:tmp\relax\start:aft}
+\def\:doend#1{%
+  \edef\:tmp{\the\:toks}%
+  \:toks{}%
+  \edef\:tmp{\:tmp}%
+  \expandafter\:eqaf\expandafter{\:tmp}%
+  \def\:tmp{}}
+\def\::doend#1{\:norm:aft}%
+\def\:doquery#1{\futurelet\:nxt\::doquery}
+\def\::doquery{%
+  \ifx\:nxt?\def\:nxt##1{\:toks\expandafter{\the\:toks\noexpand\?}\start:aft}%
+  \else\long\def\:nxt##1{%
+    \expandafter\start:aft\expandafter\X\expandafter{##1}}%
+  \fi\:nxt}
+\long\def\:doprotect#1#2{%
+  \:toks\expandafter{\the\:toks\unexpanded{#2}}\start:aft}
+\long\def\:dotok#1{\:toks\expandafter{\the\:toks\noexpand#1}\start:aft}
+
+%% \:eqaf
+%% \:dqaf
+\gdef\:qnum{-1}
+\gdef\:qlst{}
+
+\long\def\:eqaf#1{%
+  \ifx\:qlst\empty%
+    \:count=\:qnum\relax%
+    \advance\:count1%
+    \xdef\:qnum{\the\:count}%
+    \expandafter\def\expandafter\:nxt\expandafter{\csname :q\:qnum\endcsname}%
+  \else%
+    \:rf\:qlst%
+    \let\:nxt\:tmp%
+    \:df\:qlst%
+    \global\let\:qlst\:qlst%
+  \fi%
+  \expandafter\xdef\:nxt{\unexpanded{#1}}%
+  \aftergroup\:dqaf\expandafter\aftergroup\:nxt}
+
+\def\:dqaf#1{%
+  \def\:tmp##1{%
+    \expandafter\def\expandafter\:tmp\string\:q####1\:delim{\def\:tmp{####1}}%
+    \expandafter\:tmp\string##1\:delim}%
+  \:tmp#1%
+  \:count=\:qnum%
+  \advance\:count-1%
+  \ifnum\:count=\:tmp%
+    \xdef\:qnum{\the\:count}%
+  \else%
+    \::al\:qlst#1\global%
+  \fi%
+  \let\:tmp#1%
+  \global\let#1\relax%
+  \:tmp}
+
+
+%%%%%
+%% \DECLARETYPE{Foo}
+%% Creates a new Datatype, with "Foo" as the typestring.
+\def\DECLARETYPE#1{\DECLARESUBTYPE{#1}{}}
+
+
+%%%%%
+%% \DECLARESUBTYPE{Foobar}{Foo}
+%% Creates a new Datatype "Foobar" with Datatype "Foo" as the "parent"
+%% Datatype.  "Inherits" the contents of Foo's \PRESETS and \POSTSETS,
+%% is included in the list of \EVERY{Foo}, and by default, Foobar macros
+%% are initially mapped to an equivalent of \PARENTMAP.
+\def\:tc{0}
+\def\DECLARESUBTYPE#1#2{%
+  \def\:tmp{#1}\ifx\:tmp\empty\er:tblank%
+  \else\ifcsname#2:t\endcsname%
+    \ifcsname#1:t\endcsname%
+      \:typgenwarn{Datatype "#1" is already defined.\:mb Command ignored.}%
+    \else%
+      \expandafter\edef\csname#1:t\endcsname{\:tc}%
+      \:count\:tc%
+      \advance\:count1%
+      \edef\:tc{\the\:count}%
+      \expandafter\let\expandafter\:ti\csname#1:t\endcsname%
+      \expandafter\let\expandafter\:pi\csname#2:t\endcsname%
+      \expandafter\ifx\csname\:ti :p\endcsname\empty%
+        \expandafter\def\csname\:ti :pdo\endcsname{%
+          \:typwarn{\string\PARENT: "#1" has no parent.}}%
+        \expandafter\def\csname\:ti :phd\endcsname{%
+          \:typwarn{\string\PARENTMAP: "#1" has no parent.}}%
+        \expandafter\def\csname\:ti :phh\endcsname{%
+          \:typwarn{\string\PARENTSURFACEMAP: "#1" has no parent.}}%
+      \else%
+        \csname\:pi :ca\endcsname{#1}%
+        \begingroup%
+          \aftergroup\def\expandafter\aftergroup\csname\:ti :pdo\endcsname%
+          \aftergroup{\aftergroup\let\aftergroup\PARENT%
+            \expandafter\aftergroup\csname\:pi :pdo\endcsname%
+            \expandafter\aftergroup\csname\:pi :rdo\endcsname%
+            \aftergroup\let\aftergroup\PARENT%
+            \expandafter\aftergroup\csname\:ti :pdo\endcsname\aftergroup}%
+        \endgroup%
+        \begingroup%
+          \aftergroup\def\expandafter\aftergroup\csname\:ti :phd\endcsname%
+          \aftergroup{\aftergroup\let\aftergroup\PARENTMAP%
+            \expandafter\aftergroup\csname\:pi :phd\endcsname%
+            \expandafter\aftergroup\csname\:pi :rhd\endcsname%
+            \aftergroup\let\aftergroup\PARENTMAP%
+            \expandafter\aftergroup\csname\:ti :phd\endcsname\aftergroup}%
+        \endgroup%
+        \begingroup%
+          \aftergroup\def\expandafter\aftergroup\csname\:ti :phh\endcsname%
+          \aftergroup{\aftergroup\let\aftergroup\PARENTSURFACEMAP%
+            \expandafter\aftergroup\csname\:pi :phh\endcsname%
+            \expandafter\aftergroup\csname\:pi :rhh\endcsname%
+            \aftergroup\let\aftergroup\PARENTSURFACEMAP%
+            \expandafter\aftergroup\csname\:ti :phh\endcsname\aftergroup}%
+        \endgroup%
+      \fi%
+      \expandafter\def\csname\:ti :p\endcsname{#2}%
+      \expandafter\def\csname\:ti :ct\endcsname{}%
+      \begingroup%
+        \aftergroup\def\expandafter\aftergroup\csname\:ti :ca\endcsname%
+        \aftergroup##\aftergroup1\aftergroup{%
+          \aftergroup\::al\expandafter\aftergroup\csname\:ti :ct\endcsname%
+          \aftergroup{\aftergroup##\aftergroup1\aftergroup}\aftergroup\relax%
+          \expandafter\aftergroup\csname\:pi :ca\endcsname%
+          \aftergroup{\aftergroup##\aftergroup1\aftergroup}\aftergroup}%
+      \endgroup%
+      \expandafter\def\csname\:ti :lst\endcsname{}%
+      \begingroup%
+        \aftergroup\def\expandafter\aftergroup\csname\:ti :add\endcsname%
+        \aftergroup##\aftergroup1\aftergroup{%
+          \aftergroup\::al\expandafter\aftergroup\csname\:ti :lst\endcsname%
+          \aftergroup##\aftergroup1\aftergroup\relax%
+          \expandafter\aftergroup\csname\:pi :add\endcsname%
+          \aftergroup##\aftergroup1\aftergroup}%
+      \endgroup%
+      \expandafter\expandafter\expandafter\def\expandafter\expandafter%
+      \csname\:ti :pre\endcsname\expandafter{\csname\:pi :pre\endcsname}%
+      \expandafter\expandafter\expandafter\def\expandafter\expandafter%
+      \csname\:ti :pst\endcsname\expandafter{\csname\:pi :pst\endcsname}%
+      \MAP{#1}{\PARENT}%
+    \fi%
+  \else%
+    \:typgenerr{Datatype "#2" isn't defined; hence it can't\:mb be
+      used as a parent for datatype "#1."}{Declare "#2" before
+      declaring any children.}%
+  \fi\fi}
+
+
+%%%%%
+%% Datatype macros each contain a set of "STUFF" that effectively gets
+%% executed inside the macro (inside a TeX group) every time it is used.
+%%
+%% The "STUFF" comes in the following order:
+%%
+%%    (parenttype's \PRESETS "STUFF")
+%%    \PRESETS "STUFF"
+%%    "STUFF" from \NEW
+%%    (parenttype's \POSTSETS "STUFF")
+%%    \POSTSETS "STUFF"
+%%
+%%  The "STUFF" from \NEW is unique to each macro, unlike the rest,
+%%  which is the same for all macros of a given Datatype.
+%%
+%%  For all "STUFF" unnested (La)TeX command definitions need not use
+%%  doubled #'s for args (i.e. don't treat commands with "STUFF" as
+%%  TeX macro definitions).
+%%%%%
+
+
+%%%%%
+%% \PRESETS{Foobar}{STUFF}
+%% Sets \PRESETS "STUFF" for Datatype Foobar 
+\long\def\PRESETS#1#2{\:typetest{#1}{%
+  \expandafter\:ap\csname\:ti :pre\endcsname{#2}%
+  }}
+
+
+%%%%%
+%% \POSTSETS{Foobar}{STUFF}
+%% Sets \POSTSETS "STUFF" for Datatype Foobar 
+\long\def\POSTSETS#1#2{\:typetest{#1}{%
+  \expandafter\:ap\csname\:ti :pst\endcsname{#2}%
+  }}
+
+
+%%%%%
+%% Datatype macros take a single argument (_required_braces_), that
+%% is "OPTION."  "OPTION" is expanded inside the macro, effectively
+%% right after all of "STUFF."  So, any defined macros in "STUFF" are
+%% available (i.e. a field declared in \PRESETS with "\F \somefield"
+%% and set in \NEW with "\s \somefield {somevalue}" can be used in
+%% "OPTION").
+%%
+%% If "OPTION" is blank (i.e. "\sometypemacro{}" not "\sometypemacro{ }")
+%% the current "mapping" of the Datatype is expanded instead (changed by
+%% \MAP, etc).
+%%
+%% In "OPTION," the same (non-)rules apply to nesting macro definitions
+%% as for "STUFF."
+%%
+%% In both "STUFF" and "OPTION" the following commands are available:
+%%
+%%   \MYTYPESTRING -> i.e. "Foobar" for Foobar Datatypes
+%%   \MYPARENTSTRING -> i.e. "Foo" for Foobar Datatypes
+%%   \MYCOMMAND -> the command name for the Datatype Macro
+%%   \ME -> same as \MYCOMMAND for normal macros, see "\INSTANCE" below
+%%   \MYMAP -> the mapping of the Datatype (only available in "OPTION")
+%%   \PARENT -> parenttype's mapping
+%%%%%
+
+\long\def\CHILDTYPES#1#2{%
+  \edef\:dotypes{\unexpanded{#2}}%
+  \def\:i##1{\def\TYPE{##1}\:dotypes}%
+  \expandafter\csname\csname#1:t\endcsname :ct\endcsname%
+  \let\TYPE\empty}
+
+\long\def\BRANCHTYPES#1#2{%
+  \edef\:dotypes{\unexpanded{#2}}%
+  \def\:i##1{\def\TYPE{##1}\:dotypes}%
+  \:i{#1}%
+  \expandafter\csname\csname#1:t\endcsname :ct\endcsname%
+  \let\TYPE\empty}
+
+
+%%%%%
+%% \MAP{Foobar}{OPTION}
+%% Sets the mapping of Foobar Datatypes to "OPTION"
+\long\def\MAP#1#2{\:typetest{#1}{%
+  \CHANGEMAP{#1}{#2}%
+  \CHANGESURFACEMAP{#1}{#2}%
+  \REMAP{#1}%
+  }}
+
+
+%%%%%
+%% \SURFACEMAP{Foobar}{OPTION}
+%% "Temporarily" sets the mapping of Foobar Datatypes.
+%% The current mapping is stored, and the mapping is reset to it for
+%% Foobar macros _nested inside_ Foobar macros, i.e. \SURFACEMAP's
+%% mapping only applies to the "first level" (present level) of Foobar
+%% macro nesting.
+%%
+%% Repeated uses of \SURFACEMAP only change the \FISTMAP mapping, not the
+%% stored mapping.  \MAP changes both the current mapping and the stored
+%% mapping and "turns off" the effects of \SURFACEMAP.
+\long\def\SURFACEMAP#1#2{\:typetest{#1}{%
+  \CHANGESURFACEMAP{#1}{#2}%
+  \RESURFACEMAP{#1}%
+  }}
+
+
+%%%%%
+%% \REMAP{Foobar}
+%% "Turns off" the effect of \SURFACEMAP, i.e. restores the current
+%% mapping to the stored mapping.
+\long\def\REMAP#1{\:typetest{#1}{%
+  \expandafter\expandafter\expandafter\def\expandafter\expandafter%
+  \csname\:ti :do\endcsname\expandafter{\csname\:ti :rhd\endcsname}%
+  }}
+
+
+%%%%%
+%% \RESURFACEMAP{Foobar}
+\long\def\RESURFACEMAP#1{\:typetest{#1}{%
+  \expandafter\expandafter\expandafter\def\expandafter\expandafter%
+  \csname\:ti :do\endcsname\expandafter{\csname\:ti :rhh\endcsname}%
+  }}
+
+
+%%%%%
+%% \CHANGEMAP{Foobar}
+\long\def\CHANGEMAP#1#2{\:typetest{#1}{%
+  \expandafter\edef\csname\:ti :hd\endcsname{\unexpanded{#2}}%
+  }}
+
+
+%%%%%
+%% \CHANGESURFACEMAP{Foobar}
+\long\def\CHANGESURFACEMAP#1#2{\:typetest{#1}{%
+  \expandafter\edef\csname\:ti :hh\endcsname{\unexpanded{#2}}%
+  }}
+
+
+%%%%%
+%% Datatype macros, which act like "objects" or "instances" of
+%% Datatypes, can be created by \NEW.  \NEW can include "STUFF" which
+%% is unique to the given macro.
+%%
+%% When a Datatype macro is created as such, it is added to a list of
+%% macros for the given Datatype, which is accessible via \EVERY.  If
+%% a Datatype has a parenttype, macros of that Datatype are also added
+%% to the \EVERY list of the parent Datatype.
+%%
+%% With \INSTANCE, it is possible to create and use, at the same time, a
+%% single, unique, and temporary "instance" of a Datatype.  "STUFF" for
+%% \INSTANCE would substitute for "STUFF" in an equivalent use of \NEW,
+%% while "OPTION" would work the same as for a macro created by \NEW,
+%% so \INSTANCE{Foobar}{STUFF}{OPTION} would have similar effect to
+%% \NEW{Foobar}{\temp}{STUFF} \temp{OPTION}.  However, it does not
+%% create an actual macro.  This "temporary instance" is not added to
+%% any \EVERY list.
+%%%%%
+
+
+%%%%%
+%% \NEW{Foobar}{\command}{STUFF}
+%% Creates \command{} as a Foobar macro, with "STUFF"
+\def\:ic{0}
+\long\def\NEW#1#2#3{\:typetest{#1}{%
+  \ifdefined#2%
+    \:typgenerr{"\string#2" is already defined.}{"\string#2" is
+      already defined (by \string\def, \string\newcommand, etc).\:mb
+      Or it may be a default (La)TeX macro.  Or it may already be a
+      \:mb datatype macro.  A datatype macroname must be unique.}%
+  \else%
+    \csname\:ti :add\endcsname#2%
+    \expandafter\let\csname\string#2:ic\endcsname\:ic%
+    \expandafter\def\csname\:ic :l\endcsname{}%
+    \expandafter\edef\csname\:ic :pr\endcsname{%
+      \noexpand\:prep{\:ic}{#1}\noexpand#2{\unexpanded{#3}}}%
+    \expandafter\edef\csname\:ic :o\endcsname{%
+      \unexpanded{\let\:opt\empty}\csname\:ic :op\endcsname}%
+    \expandafter\edef\csname\:ic :op\endcsname{%
+      \noexpand\futurelet\noexpand\:nxt\csname\:ic :opt\endcsname}%
+    \expandafter\edef\csname\:ic :opt\endcsname{%
+      \unexpanded{\ifx\:nxt[\let#2}\csname\:ic :opti\endcsname%
+      \unexpanded{\else\let#2}\csname\:ic :optio\endcsname%
+      \noexpand\fi\noexpand#2}%
+    \expandafter\edef\csname\:ic :opti\endcsname[##1]{%
+      \noexpand\def\noexpand#2{\expandafter\noexpand\csname\:ic :o\endcsname}%
+      \noexpand\:ap\noexpand\:opt{##1}%
+      \expandafter\noexpand\csname\:ic :op\endcsname}%
+    \expandafter\edef\csname\:ic :optio\endcsname##{%
+      \noexpand\def\noexpand#2{\expandafter\noexpand\csname\:ic :o\endcsname}%
+      \csname\:ic :c\endcsname}%
+    \edef#2{\expandafter\noexpand\csname\:ic :o\endcsname}%
+    \long\expandafter\edef\csname\:ic :c\endcsname##1{%
+      \noexpand\begingroup\expandafter\noexpand\csname\:ic :pr\endcsname%
+      \noexpand\:doarg{#1}{##1}\noexpand\endgroup}%
+    \:count\:ic%
+    \advance\:count1%
+    \edef\:ic{\the\:count}%
+  \fi%
+  }}
+
+
+\long\def\:EXTEND#1{\:typgenerr{Don't use \string\EXTEND on non Datatypes.}%
+  {It has no context.}}
+
+\long\def\::EXTEND#1{%
+  \endgroup\expandafter\:ap\csname\:id :l\endcsname{#1}%
+  \begingroup}
+
+\def\:optionfix{\long\def\OPTIONHOOK##1{##1}}
+\long\def\EXTEND#1#2{#1[\:optionfix]{\:EXTEND{#2}}}
+
+
+\long\def\:prep#1#2#3#4{%
+  \:count\:lvl%
+  \advance\:count1%
+  \edef\:lvl{\the\:count}%
+  \edef\:ti{\csname#2:t\endcsname}%
+  \long\def\OPTIONHOOK##1{##1}%
+  \def\MYTYPESTRING{#2}%
+  \edef\MYPARENTSTRING{\csname\:ti :p\endcsname}%
+  \def\MYCOMMAND{#3}%
+  \let\::opt\:opt%
+  \ifx\::opt\empty%
+    \let\ME\MYCOMMAND%
+  \else%
+    \expandafter\def\expandafter\ME\expandafter{%
+      \expandafter#3\expandafter[\::opt]}%
+  \fi%
+  \def\MYMAP{\:mydo}%
+  \stoss{\def\:id{#1}}%
+  \expandafter\let\expandafter\PARENT\csname\:ti :pdo\endcsname%
+  \expandafter\let\expandafter\PARENTMAP\csname\:ti :phd\endcsname%
+  \expandafter\let\expandafter\PARENTSURFACEMAP\csname\:ti :phh\endcsname%
+  \let\F\:F%
+  \let\FD\:FD%
+  \let\FS\:FS%
+  \let\s\:s%
+  \let\rs\:rs%
+  \let\sd\:sd%
+  \let\append\:append%
+  \let\prepend\:prepend%
+  \edef\:presentfont{\the\font}\nullfont%
+  \let\::par\par\let\par\relax%
+  \csname\:ti :pre\endcsname%
+  #4%
+  \csname#1:l\endcsname%
+  \::opt%
+  \csname\:ti :pst\endcsname%
+  \let\par\::par\:presentfont%
+  \let\ADD\:ADD%
+  %\def\RESET{\:reset}%
+  \let\:EXTEND\::EXTEND%
+  }
+
+\long\def\:remap#1{%
+  \expandafter\expandafter\expandafter\let\expandafter\expandafter%
+  \csname\:ti :rdo\endcsname\csname\:ti :do\endcsname%
+  \expandafter\expandafter\expandafter\let\expandafter\expandafter%
+  \csname\:ti :rhd\endcsname\csname\:ti :hd\endcsname%
+  \expandafter\expandafter\expandafter\let\expandafter\expandafter%
+  \csname\:ti :rhh\endcsname\csname\:ti :hh\endcsname%
+  \expandafter\ifx\csname\:ti :p\endcsname\empty%
+    \BRANCHTYPES{#1}{\REMAP{\TYPE}}%
+  \else%
+    \edef\:tmp{\csname\:ti :p\endcsname}%
+    \edef\:ti{\csname\:tmp :t\endcsname}%
+    \expandafter\:remap\expandafter{\:tmp}%
+  \fi}
+
+\long\def\:doarg#1#2{%
+  \edef\:tmp{\unexpanded{#2}}%
+  \ifx\:tmp\empty%
+    \:remap{#1}%
+    \edef\:ti{\csname#1:t\endcsname}%
+    \expandafter\let\expandafter\:mydo\csname\:ti :rdo\endcsname%
+    \def\:tmp{\MYMAP}%
+  \fi\expandafter\OPTIONHOOK\expandafter{\:tmp}}
+
+
+%%%%%
+%% \INSTANCE{Foobar}{STUFF}{OPTION}
+%% Creates a temporary instance of Foobar, with "STUFF" and "OPTION."
+%% For a use of \INSTANCE{Foobar}, \MYCOMMAND only corresponds to
+%% "\INSTANCE{Foobar}," i.e. not enough information to recreate the
+%% complete uniqueness of the use of \INSTANCE.  \ME, however, is defined
+%% as "\INSTANCE{Foobar}{STUFF}."
+%%
+%% Like macros created by \NEW, braces for "OPTION" are required, even
+%% if "OPTION" is blank (TeX gives an error if there are no braces).
+\long\def\INSTANCE#1#2{\:typetest{#1}{%
+  \expandafter\def\csname :\:lvl\endcsname##1{%
+    \:count\:lvl%
+    \advance\:count1%
+    \edef\:lvl{\the\:count}%
+    \edef\:ti{\csname#1:t\endcsname}%
+    \long\def\OPTIONHOOK####1{####1}%
+    \def\MYTYPESTRING{#1}%
+    \edef\MYPARENTSTRING{\csname\:ti :p\endcsname}%
+    \def\MYCOMMAND{\INSTANCE{#1}}%
+    \let\::opt\:opt
+    \ifx\::opt\empty%
+      \def\ME{\INSTANCE{#1}{#2}}%
+    \else%
+      \edef\ME{\unexpanded{\INSTANCE{#1}{#2}}%
+        [\expandafter\unexpanded\expandafter{\::opt}]}%
+    \fi%
+    \def\MYMAP{\:mydo}%
+    \expandafter\let\expandafter\PARENT\csname\:ti :pdo\endcsname%
+    \expandafter\let\expandafter\PARENTMAP\csname\:ti :phd\endcsname%
+    \expandafter\let\expandafter\PARENTSURFACEMAP\csname\:ti :phh\endcsname%
+    \let\F\:F%
+    \let\FD\:FD%
+    \let\FS\:FS%
+    \let\s\:s%
+    \let\rs\:rs%
+    \let\sd\:sd%
+    \let\append\:append%
+    \let\prepend\:prepend%
+    \edef\:presentfont{\the\font}\nullfont%
+    \let\:par\par\let\par\relax%
+    \csname\:ti :pre\endcsname%
+    #2##1\::opt%
+    \csname\:ti :pst\endcsname%
+    \let\par\:par\:presentfont%
+    %\long\def\ADD####1{\endgroup\begingroup\csname :\:lvl\endcsname{####1}}%
+    \long\def\ADD####1{####1}%
+    %\def\RESET{\endgroup\begingroup\csname :\:lvl\endcsname{}}%
+    \long\def\:EXTEND####1{}%
+    }%
+  \long\def\:tmp##1{%
+    \begingroup\csname :\:lvl\endcsname{}\:doarg{#1}{##1}\endgroup}%
+  }\INSTANCE:}
+\def\INSTANCE:{\let\:opt\empty\INSTANCE::}%
+\def\INSTANCE::{\futurelet\:nxt\INSTANCE:::}
+\def\INSTANCE:::{\ifx\:nxt[\def\:nxt{\INSTANCE::::}%
+  \else\def\:nxt{\INSTANCE:::::}\fi\:nxt}%
+\def\INSTANCE::::[#1]{\:ap\:opt{#1}\INSTANCE::}%
+\def\INSTANCE:::::#{\:tmp}%
+
+
+%%%%%
+%% \EVERY{Foobar}{OPTION}
+%% Effectively executes the entirety of the the "\EVERY list" for the
+%% given Datatype, all with "OPTION" i.e. has same result as using all
+%% the macros, in order created, with "OPTION" explicitly (not faked
+%% with mappings).
+\long\def\EVERY#1{\def\:tmp{#1}\EVERY:}
+\def\EVERY:{\futurelet\:nxt\EVERY::}
+\def\EVERY::{\ifx\:nxt[\def\:nxt{\EVERY:::}
+  \else\def\:nxt{\EVERY:::[]}\fi\:nxt}
+\long\def\EVERY:::[#1]{\def\:opt{#1}\EVERY::::}
+\def\EVERY::::#{\expandafter\EVERY:::::\expandafter{\:opt}}
+\long\def\EVERY:::::#1#2{\:typetest{\:tmp}{%
+  \ifx\:opt\empty%
+    \def\:i##1{\:ap\:tmp{##1{#2}}}%
+  \else%
+    \def\:i##1{\:ap\:tmp{##1[#1]{#2}}}%
+  \fi%
+  \def\:tmp{\let\:tmp\empty}\csname\:ti :lst\endcsname}\:tmp}
+
+
+%%%%%
+%% Within Datatypes, the following commands are used to declare, set,
+%% and manipulate "fields."  Fields are essentially basic TeX macros,
+%% i.e. are expanded the same.  These commands are a good way to set up
+%% error checking to catch typos, declare fields that must be explicitly
+%% set before being used, set things with defaults, catch accidentally
+%% setting them twice, etc.
+%%
+%% \F, \FD, and \FS are for declaring a field.  They set internal flags
+%% (separate from the actual field) that say the field exists as a field
+%% and label which nesting level the field belongs to (so Datatype macros
+%% nested inside one another, with matching field names, can avoid
+%% conflicts).  These flags are also used to determine whether or not
+%% a field is declared with a "default" or has been explicitly set.
+%%
+%% \F declares a field, with no value.
+%%
+%% \FD declares a fields with a "default."
+%%
+%% \FS declares a field and explicitly sets it.
+%%
+%% \s, \rs, \append, and \prepend are for setting and manipulating
+%% a field; they use the internal flags.
+%%
+%% \s explicitly sets the field to a value, and gives a warning (not an
+%% error; it does the set anyway) if the field was already set (if it
+%% was only a "default" no warning is given, if it was already explicitly
+%% set, even to exactly the same as the default, it does warn).
+%%
+%% \rs explicitly sets the field, and doesn't give a warning if it has
+%% already been explicitly set (i.e. a "reset").
+%%
+%% \append and \prepend explicitly set the field by "adding" the given
+%% value to the end or beginning of the field, respectively.  If the
+%% field has _not_ been explicitly set (default or no), they just
+%% explicitly set the field to the value, i.e. they ignore and replace
+%% a "default" value.
+%%
+%% In general, errors happen when a field is declared with a command
+%% name that is already a field or (La)TeX macro, if a field is used
+%% before having any value, or if \s, \rs, etc. are used on something
+%% that has not been declared a field.
+%%%%%
+
+
+%%
+\def\:deferr#1#2{
+  \:typerr%
+    {\string#1 in "\string#2\string#1" in
+    \expandafter\noexpand\MYCOMMAND\:mb is already defined.}%
+    {\string#1 is already defined (by \string\def, \string\newcommand,
+    etc).  \:mb Or it may be a default (La)TeX macro.  Fields must be
+    unique.}}%
+\def\:fielderr#1#2{
+  \:typerr%
+    {\string#1 in "\string#2\string#1" in
+    \expandafter\noexpand\MYCOMMAND is already a field.}%
+    {\string#1 is already declared by \string\F, \string\FD, or
+    \string\FS.  Fields must be unique.}}%
+\def\:noferr#1#2{
+  \:typerr%
+    {\string#1 in \expandafter\noexpand\MYCOMMAND has not been
+    declared a field.}%
+    {"\string#2\string#1" may just be a typo in
+    \expandafter\string\MYCOMMAND. Otherwise, \string#1 needs to be
+    \:mb declared by "\string\F\string#1" (or \string\FD, or
+    \string\FS).}}%
+
+
+%%%%%
+%% \F \field
+%% Declares a field "\field" with no default (must be set before it is
+%% expanded or it gives an error).  Effectively defines the macro as the
+%% error.
+\def\:F#1{%
+  \:gofalse%
+  \ifdefined#1%
+    \ifcsname\string#1.w\endcsname%
+      \ifcsname\:ti\string#1\:lvl\endcsname%
+        \:fielderr{#1}{\F}%
+      \else%
+        \:gotrue%
+      \fi%
+    \else%
+      \:deferr{#1}{\F}%
+    \fi%
+  \else%
+    \:gotrue%
+  \fi%
+  \if:go%
+    \expandafter\def\csname\:ti\string#1\:lvl\endcsname{y}%
+    \expandafter\let\csname\string#1.w\endcsname\empty%
+    \def#1{\er:funset{#1}}%
+  \fi}
+
+
+%%%%%
+%% \FD \field {defaultval}
+%% Declares \field with "defaultval" as the value, and sets the internal
+%% flag to say the value is a "default."
+\long\def\:FD#1#2{%
+  \:gofalse%
+  \ifdefined#1%
+    \ifcsname\string#1.w\endcsname%
+      \ifcsname\:ti\string#1\:lvl\endcsname%
+        \:fielderr{#1}{\FD}%
+      \else%
+        \:gotrue%
+      \fi%
+    \else%
+      \:deferr{#1}{\FD}%
+    \fi%
+  \else%
+    \:gotrue%
+  \fi%
+  \if:go%
+    \expandafter\def\csname\:ti\string#1\:lvl\endcsname{y}%
+    \expandafter\let\csname\string#1.w\endcsname\empty%
+    \def#1{#2}%
+  \fi}
+
+
+%%%%%
+%% \FS \field {val}
+%% Declares \field, and explicitly sets it to "val"
+\long\def\:FS#1#2{%
+  \:gofalse%
+  \ifdefined#1%
+    \ifcsname\string#1.w\endcsname%
+      \ifcsname\:ti\string#1\:lvl\endcsname%
+        \:fielderr{#1}{\FS}%
+      \else%
+        \:gotrue%
+      \fi%
+    \else%
+      \:deferr{#1}{\FS}%
+    \fi%
+  \else%
+    \:gotrue%
+  \fi%
+  \if:go%
+    \expandafter\def\csname\:ti\string#1\:lvl\endcsname{y}%
+    \expandafter\def\csname\string#1.w\endcsname{y}%
+    \def#1{#2}%
+  \fi}
+
+
+%%%%%
+%% \s \field {val}
+%% Explicitly sets \field to "val" and gives a warning (but does it
+%% anyway) if the \field has already been explicitly set.
+\long\def\:s#1#2{%
+  \ifdefined#1%
+    \ifcsname\:ti\string#1\:lvl\endcsname%
+      \expandafter\ifx\csname\string#1.w\endcsname\empty\else%
+        \:typwarn{\string#1 in \expandafter\noexpand\MYCOMMAND is
+          \noexpand\s more than once.}%
+      \fi%
+      \def#1{#2}%
+      \expandafter\def\csname\string#1.w\endcsname{y}%
+    \else%
+      \:deferr{#1}{\s}%
+    \fi%
+  \else%
+    \:noferr{#1}{\s}%
+  \fi}
+
+
+%%%%%
+%% \rs \field {val}
+%% Explicitly sets \field to "val"
+\long\def\:rs#1#2{%
+  \ifdefined#1%
+    \ifcsname\:ti\string#1\:lvl\endcsname%
+      \def#1{#2}%
+      \expandafter\def\csname\string#1.w\endcsname{y}%
+    \else%
+      \:deferr{#1}{\rs}%
+    \fi%
+  \else%
+    \:noferr{#1}{\rs}%
+  \fi}
+
+
+%%%%%
+%% \sd \field {default}
+%% sets \field default to "default"
+\long\def\:sd#1#2{%
+  \ifdefined#1%
+    \ifcsname\:ti\string#1\:lvl\endcsname%
+      \expandafter\ifx\csname\string#1.w\endcsname\empty%
+        \def#1{#2}%
+      \fi%
+    \else%
+      \:deferr{#1}{\sd}%
+    \fi%
+  \else%
+    \:noferr{#1}{\sd}%
+  \fi}
+
+
+%%%%%
+%% \append \field {val}
+%% Explicitly sets \field by appending "val" to the end of the previous
+%% expansion of \field.  If field has not been explicitly set before,
+%% it just explicitly sets it to "val" (possibly replacing a "default").
+\long\def\:append#1#2{%
+  \ifdefined#1%
+    \ifcsname\:ti\string#1\:lvl\endcsname%
+      \expandafter\ifx\csname\string#1.w\endcsname\empty%
+        \edef#1{\unexpanded{#2}}%
+      \else%
+        \:ap#1{#2}%
+      \fi%
+      \expandafter\def\csname\string#1.w\endcsname{y}%
+    \else%
+      \:deferr{#1}{\append}%
+    \fi%
+  \else%
+    \:noferr{#1}{\append}%
+  \fi}
+
+
+%%%%%
+%% \prepend \field {val}
+%% Explicitly sets \field by prepending "val" to the beginning of
+%% the previous expansion of \field.  If field has not been explicitly set
+%% before, it just explicitly sets it to "val" (possibly replacing a
+%% "default").
+\long\def\:prepend#1#2{%
+  \ifdefined#1%
+    \ifcsname\:ti\string#1\:lvl\endcsname%
+      \expandafter\ifx\csname\string#1.w\endcsname\empty%
+        \def#1{#2}%
+      \else%
+        \edef\:tmp{\unexpanded{#2}}%
+        \expandafter\:ap\expandafter\:tmp\expandafter{#1}%
+        \let#1\:tmp%
+      \fi%
+      \expandafter\def\csname\string#1.w\endcsname{y}%
+    \else%
+      \:deferr{#1}{\prepend}%
+    \fi%
+  \else%
+    \:noferr{#1}{\prepend}%
+  \fi}
+
+
+
+%%%%%
+%% For a Datatype macro, commands etc. in "OPTION" are not "remembered"
+%% from use to use of the macro, and the rest of "STUFF" in the macro
+%% are either declared for all macros of that Datatype or declared once
+%% for that macro by \NEW.  Therefore, inside macros, the following
+%% commands are available that allow commands etc. to be "remembered"
+%% from use to use, effectively allowing "mutability."
+%%
+%% \ADD and \GLOBALADD add things to the stored "memory" of "STUFF"
+%% for the Datatype macro they are used in.  \RESET and \GLOBALRESET
+%% cause that "remembered STUFF" to be blanked out.
+%%%%%
+
+
+%%%%%
+%% \ADD{STUFF}
+%% Adds "STUFF" to the "remember STUFF" for the macro it is used in.
+%% "STUFF" also takes effect immediately.
+\long\def\:ADD#1{%
+  #1\expandafter\EXTEND\expandafter{\ME}{#1}%
+  \expandafter\stoss\expandafter{\expandafter\EXTEND\expandafter{\ME}{#1}}}
+%  \endgroup%
+%  \expandafter\:ap\csname\:id :l\endcsname{#1}%
+%  \begingroup%
+%  \csname\:id :pr\endcsname}
+
+
+%%%%%
+%% \RESET
+%% Blanks out the "remembered STUFF" for the macro it is used in.  Also
+%% "restarts" the use of the Datatype macro, such that things declared,
+%% set, or defined etc. so far local to the macro no longer have effect
+%% (i.e. "\FS \field {blah} \RESET \field" will give the error that
+%% "\field" is an undefined control sequence).
+%\def\:reset{%
+%  \endgroup%
+%  \expandafter\def\csname\:id :l\endcsname{}%
+%  \begingroup%
+%  \csname\:id :pr\endcsname}
+
+
+%%%%%
+%% \SORT{Foobar}{sort}{field}{Datatype macros}{OPTION}
+%%
+\long\def\SORT#1#2#3#4#5{\:typetest{#1}{%
+  \:checksortarg{#2}%
+  \let\:tmp\relax%
+  \if:go%
+    \:dosort{#1}{#2}{#3}{#4}%
+    \def\:i##1{\:ap\:tmp{##1{#5}}}%
+    \def\:tmp{\let\:tmp\empty}%
+    \:sorted%
+    \global\let\:sorted\relax%
+  \fi%
+  }\:tmp}
+
+
+%%%%%
+%% \MAKESORT{Foobar}{sort}{field}{Datatype macros}{NAME}
+%%
+\long\def\MAKESORT#1#2#3#4#5{\:typetest{#1}{%
+  \:checksortarg{#2}%
+  \if:go%
+    \ifcsname#5:SORT\endcsname%
+      \:typgenwarn{"#5" reused as sorted list name.}%
+    \fi%
+    \:dosort{#1}{#2}{#3}{#4}%
+    \expandafter\let\csname#5:SORT\endcsname\:sorted%
+    \global\let\:sorted\relax%
+  \fi%
+  }}
+
+
+%%%%%
+%% \USESORT{NAME}{OPTION}
+%%
+\long\def\USESORT#1#2{%
+  \ifcsname#1:SORT\endcsname%
+    \def\:i##1{\:ap\:tmp{##1{#2}}}%
+    \def\:tmp{\let\:tmp\empty}%
+    \csname#1:SORT\endcsname%
+    \global\let\:sorted\relax%
+  \else%
+    \def\:tmp{\:typgenwarn{sorted list "#1" does not exist. (ignored)}}%
+  \fi\:tmp}
+
+\long\def\:dosort#1#2#3#4{%
+  \begingroup%
+    \def\:tmp{#2}%
+    \ifx\:tmp\:numless%
+      \let\:comp\:compnum%
+      \let\:dogreat\:doswitch%
+      \let\:doless\:donone%
+    \else\ifx\:tmp\:numgreat%
+      \let\:comp\:compnum%
+      \let\:dogreat\:donone%
+      \let\:doless\:doswitch%
+    \else\ifx\:tmp\:alphless%
+      \let\:comp\:compalpha%
+      \let\:dogreat\:doswitch%
+      \let\:doless\:donone%
+    \else\ifx\:tmp\:alphgreat%
+      \let\:comp\:compalpha%
+      \let\:dogreat\:donone%
+      \let\:doless\:doswitch%
+    \else\ifx\:tmp\:asciiless%
+      \let\:comp\:compascii%
+      \let\:dogreat\:doswitch%
+      \let\:doless\:donone%
+    \else\ifx\:tmp\:alphless%
+      \let\:comp\:compascii%
+      \let\:dogreat\:donone%
+      \let\:doless\:doswitch%
+    \fi\fi\fi\fi\fi\fi%
+    \BRANCHTYPES{#1}{\MAP{\TYPE}{%
+      \expandafter\gdef\expandafter\::tmp\expandafter{\expandafter{\ME}}%
+      \protected@edef\:tmp{#3}%  %%% LaTeX's \protect mechanism
+      \global\expandafter\:ap\expandafter\::tmp\expandafter{\:tmp}%
+      \aftergroup\:makenode}}%
+    \setbox0=\vbox{%
+      \gdef\:scnt{0}#4%
+      \let\:bcnt\:scnt%
+      \:bubblesort%
+      \gdef\:sorted{}%
+      \def\:bcnt{1}%
+      \:buildsorted}%
+      \gdef\:scnt{0}%
+  \endgroup}
+\def\:makenode{%
+  \:count\:scnt%
+  \advance\:count1%
+  \xdef\:scnt{\the\:count}%
+  \global\expandafter\let\csname\:scnt :ar\endcsname\::tmp%
+  \gdef\::tmp{}}
+
+\def\:doswitch{%
+  \expandafter\let\expandafter\:tmp\csname\:fcnt :ar\endcsname%
+  \global\expandafter\expandafter\expandafter\let\expandafter\expandafter%
+    \csname\:fcnt :ar\endcsname\csname\:lcnt :ar\endcsname%
+  \global\expandafter\let\csname\:lcnt :ar\endcsname\:tmp}
+\let\:donone\relax
+
+\long\def\:checksortarg#1{%
+  \:gotrue%
+  \def\:tmp{#1}%
+  \ifx\:tmp\:numless%
+  \else\ifx\:tmp\:numgreat%
+  \else\ifx\:tmp\:alphless%
+  \else\ifx\:tmp\:alphgreat%
+  \else\ifx\:tmp\:asciiless%
+  \else\ifx\:tmp\:alphless%
+  \else%
+    \:gofalse%
+    \:typgenwarn{"#1" is not a valid sort option (ignored). Use one
+      of: \:mb \:numless, \:numgreat, \:alphless, \:alphgreat,
+      \:asciiless, \:asciigreat}%
+  \fi\fi\fi\fi\fi\fi}
+\def\:numless{num<}
+\def\:numgreat{num>}
+\def\:alphless{alpha<}
+\def\:alphgreat{alpha>}
+\def\:asciiless{ascii<}
+\def\:asciigreat{ascii>}
+
+\def\:compnum{%
+  \ifnum\:first>\:second%
+    \let\:doresult\:dogreat%
+  \else\ifnum\:first<\:second%
+    \let\:doresult\:doless%
+  \else%
+    \let\:doresult\:donone%
+  \fi\fi}
+
+\def\:compalpha{%
+  \def\:comptemp{%
+    \edef\:firstlett{\lccode\:firstlet}%
+    \edef\:secondlett{\lccode\:secondlet}%
+    \ifnum\:firstlett>\:secondlett%
+      \let\:doresult\:dogreat%
+    \else\ifnum\:firstlett<\:secondlett%
+      \let\:doresult\:doless%
+    \else%
+      \ifnum\:firstlet>\:secondlet%
+        \let\:doresult\:dogreat%
+      \else\ifnum\:firstlet<\:secondlet%
+        \let\:doresult\:doless%
+      \else%
+        \let\:doresult\:donone%
+        \let\:tmp\:compstring%
+      \fi\fi%
+    \fi\fi}%
+  \:compstring}
+
+\def\:compascii{%
+  \def\:comptemp{%
+    \ifnum\:firstlet>\:secondlet%
+      \let\:doresult\:dogreat%
+    \else\ifnum\:firstlet<\:secondlet%
+      \let\:doresult\:doless%
+    \else%
+      \let\:doresult\:donone%
+      \let\:tmp\:compstring%
+    \fi\fi}%
+  \:compstring}
+
+\def\:compstring{%
+  \expandafter\:suckfirst\:first\:endsuck%
+  \expandafter\:sucksecond\:second\:endsuck%
+  \let\:tmp\relax%
+  \ifx\:first\empty%
+    \ifx\:second\empty%
+      \let\:doresult\:donone%
+    \else%
+      \let\:doresult\:doless%
+    \fi%
+  \else%
+    \ifx\:second\empty%
+      \let\:doresult\:dogreat%
+    \else%
+      \edef\:firstlet{\expandafter`\:firstlet}%
+      \edef\:secondlet{\expandafter`\:secondlet}%
+      \:comptemp%
+    \fi%
+  \fi\:tmp}
+
+\def\:endsuck{\:endsuck}
+
+\def\:suckfirst{\futurelet\:tmp\::suckfirst}
+\def\::suckfirst{%
+  \ifx\:tmp\:endsuck\let\:tmp\:finishfirst%
+  \else\ifx\:tmp\:sptoken\let\:tmp\:getfirstsp%
+  \else\let\:tmp\:getfirstlet%
+  \fi\fi\:tmp}
+\def\:finishfirst#1\:endsuck{\def\:first{#1}}
+\def\:getfirstsp#1 {\def\:firstlet{ }\:finishfirst}
+\def\:getfirstlet#1{\def\:firstlet{#1}\:finishfirst}
+
+\def\:sucksecond{\futurelet\:tmp\::sucksecond}
+\def\::sucksecond{%
+  \ifx\:tmp\:endsuck\let\:tmp\:finishsecond%
+  \else\ifx\:tmp\:sptoken\let\:tmp\:getsecondsp%
+  \else\let\:tmp\:getsecondlet%
+  \fi\fi\:tmp}
+\def\:finishsecond#1\:endsuck{\def\:second{#1}}
+\def\:getsecondsp#1 {\def\:secondlet{ }\:finishsecond}
+\def\:getsecondlet#1{\def\:secondlet{#1}\:finishsecond}
+
+\def\:bubblesort{%
+  \ifnum\:bcnt>0%
+    \def\:fcnt{1}%
+    \def\:lcnt{2}%
+    \:bubbleloop%
+    \:count\:bcnt%
+    \advance\:count-1%
+    \edef\:bcnt{\the\:count}%
+    \let\:tmp\:bubblesort%
+  \else%
+    \let\:tmp\relax%
+  \fi\:tmp}
+
+\long\def\:getsecond#1#2\:delim{\def\:tmp{#2}}
+
+\def\:bubbleloop{%
+  \ifnum\:fcnt<\:bcnt%
+    \expandafter\let\expandafter\:first\csname\:fcnt :ar\endcsname%
+    \expandafter\let\expandafter\:second\csname\:lcnt :ar\endcsname%
+    \expandafter\:getsecond\:first\:delim%
+    \let\:first\:tmp%
+    \expandafter\:getsecond\:second\:delim%
+    \let\:second\:tmp%
+    \:comp%
+    \:doresult%
+    \let\:fcnt\:lcnt%
+    \:count\:lcnt%
+    \advance\:count1%
+    \edef\:lcnt{\the\:count}%
+    \let\:tmp\:bubbleloop%
+  \else%
+    \let\:tmp\relax%
+  \fi\:tmp}
+
+\def\:buildsorted{%
+  \ifnum\:bcnt>\:scnt%
+    \let\:tmp\relax%
+  \else%
+    \expandafter\:build\csname\:bcnt :ar\endcsname%
+    \:count\:bcnt%
+    \advance\:count1%
+    \edef\:bcnt{\the\:count}%
+    \let\:tmp\:buildsorted%
+  \fi\:tmp}
+\def\:build#1{\expandafter\:buildsuck#1\:endsuck\gdef#1{}}
+\def\:buildsuck#1#2\:endsuck{%
+  \expandafter\gdef\expandafter\:sorted\expandafter{\:sorted\:i{#1}}%
+  }
+
+
+%%%%%
+%% \SIFT{Foobar}{sift}{field}{value}{Datatype macros}{OPTION}
+%%
+\long\def\SIFT#1#2#3#4#5#6{\:typetest{#1}{%
+  \:checksiftarg{#2}%
+  \if:go%
+    \:dosift{#1}{#3}{#4}{#5}%
+    \def\:i##1{\:ap\:tmp{##1{#6}}}%
+    \def\:tmp{\let\:tmp\empty}%
+    \:sifted%
+    \global\let\:sifted\relax%
+  \fi%
+  }\:tmp}
+
+
+%%%%%
+%% \MAKESIFT{Foobar}{sift}{field}{value}{Datatype macros}{NAME}
+%%
+\long\def\MAKESIFT#1#2#3#4#5#6{\:typetest{#1}{%
+  \:checksiftarg{#2}%
+  \if:go%
+    \ifcsname#6:SIFT\endcsname%
+      \:typgenwarn{"#6" reused as sifted list name.}%
+    \fi%
+    \:dosift{#1}{#3}{#4}{#5}%
+    \expandafter\let\csname#6:SIFT\endcsname\:sifted%
+    \global\let\:sifted\relax%
+  \fi%
+  }}
+
+
+%%%%%
+%% \USESIFT{NAME}{OPTION}
+%%
+\long\def\USESIFT#1#2{%
+  \ifcsname#1:SIFT\endcsname%
+    \def\:i##1{\:ap\:tmp{##1{#2}}}%
+    \def\:tmp{\let\:tmp\empty}%
+    \csname#1:SIFT\endcsname%
+    \global\let\:sorted\relax%
+  \else%
+    \def\:tmp{\:typgenwarn{sifted list "#1" does not exist. (ignored)}}%
+  \fi\:tmp}
+
+\long\def\:checksiftarg#1{%
+  \:gotrue%
+  \def\:tmp{#1}%
+  \ifx\:tmp\:equal%
+    \def\:sift{\ifx\:first\:second\:gotrue\fi}%
+  \else\ifx\:tmp\:notequal%
+    \def\:sift{\ifx\:first\:second\else\:gotrue\fi}%
+  \else\ifx\:tmp\:numless%
+    \def\:sift{\let\:doless\:gotrue\:compnum\:doresult}%
+  \else\ifx\:tmp\:notnumless%
+    \def\:sift{\let\:donone\:gotrue\let\:dogreat\:gotrue\:compnum\:doresult}%
+  \else\ifx\:tmp\:numgreat%
+    \def\:sift{\let\:dogreat\:gotrue\:compnum\:doresult}%
+  \else\ifx\:tmp\:notnumgreat%
+    \def\:sift{\let\:donone\:gotrue\let\:doless\:gotrue\:compnum\:doresult}%
+  \else\ifx\:tmp\:alphless%
+    \def\:sift{\let\:doless\:gotrue\:compalpha\:doresult}%
+  \else\ifx\:tmp\:notalphless%
+    \def\:sift{\let\:donone\:gotrue\let\:dogreat\:gotrue\:compalpha\:doresult}%
+  \else\ifx\:tmp\:alphgreat%
+    \def\:sift{\let\:dogreat\:gotrue\:compalpha\:doresult}%
+  \else\ifx\:tmp\:notalphgreat%
+    \def\:sift{\let\:donone\:gotrue\let\:doless\:gotrue\:compalpha\:doresult}%
+  \else\ifx\:tmp\:asciiless%
+    \def\:sift{\let\:doless\:gotrue\:compascii\:doresult}%
+  \else\ifx\:tmp\:notasciiless%
+    \def\:sift{\let\:donone\:gotrue\let\:dogreat\:gotrue\:compascii\:doresult}%
+  \else\ifx\:tmp\:asciigreat%
+    \def\:sift{\let\:dogreat\:gotrue\:compascii\:doresult}%
+  \else\ifx\:tmp\:notasciigreat%
+    \def\:sift{\let\:donone\:gotrue\let\:doless\:gotrue\:compascii\:doresult}%
+  \else%
+    \:gofalse%
+    \:typgenwarn{"#1" is not a valid sift option (ignored). Use one
+      of: \:mb \:equal, \:notequal, \:numless, \:notnumless,
+      \:numgreat, \:notnumgreat, \:alphless, \:notalphless,
+      \:alphgreat, \:notalphgreat, \:mb \:asciiless, \:notasciiless,
+      \:asciigreat, \:notasciigreat}%
+  \fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi}
+\def\:equal{=}
+\def\:notequal{!=}
+\def\:notnumless{num<=}
+\def\:notnumgreat{num>=}
+\def\:notalphless{alpha<=}
+\def\:notalphgreat{alpha>=}
+\def\:notasciiless{ascii<=}
+\def\:notasciigreat{ascii>=}
+
+\long\def\:dosift#1#2#3#4{%
+  \begingroup%
+    \BRANCHTYPES{#1}{\MAP{\TYPE}{%
+      \protected@edef\:first{#2}%  %%% LaTeX's \protect mechanism
+      \protected@edef\:second{#3}%  %%% LaTeX's \protect mechanism
+      \let\:donone\relax%
+      \let\:dogreat\relax%
+      \let\:doless\relax%
+      \:gofalse%
+      \:sift%
+      \if:go%
+        \expandafter\:addsift\ME\:endsuck%
+      \fi}}%
+    \gdef\:sifted{}%
+    \setbox0=\vbox{#4}%
+  \endgroup}
+\long\def\:addsift#1\:endsuck{%
+  \:singletst#1\:delim%
+  \ifx\:tmp\empty%
+    \expandafter\gdef\expandafter\:sifted\expandafter{\:sifted\:i#1}%
+  \else%
+    \expandafter\gdef\expandafter\:sifted\expandafter{\:sifted\:i{#1}}%
+  \fi}
+
+%%%%%
+%% reserving TeX registers
+\newcount\:count
+\newtoks\:toks
+
+%%%%%
+%% formatting of error and warning messages
+\def\:mb{^^J\space\space}  %% linebreak in error/warning text
+\def\:err{\errmessage{datatype error}}
+\def\:typerr#1#2{\immediate\write16{%
+  ^^J! datatype \MYTYPESTRING\space error: #1%
+  ^^J? #2%
+  ^^J!punting LaTeX!}%
+  \batchmode\@@end}
+\def\:typgenerr#1#2{\scrollmode\:err\immediate\write16{%
+  ^^J! datatype error: #1%
+  ^^J? #2%
+  ^^J!punting LaTeX!}%
+  \batchmode\@@end}
+\def\:typwarn#1{\immediate\write16{%
+  ^^J! datatype \MYTYPESTRING\space warning: #1%
+  ^^J}}
+\def\:typgenwarn#1{\immediate\write16{%
+  ^^J! datatype warning: #1%
+  ^^J}}
+
+%%%%%
+%% some "standard" errors
+\def\er:tblank{\:typgenerr{There is no "" (empty string) datatype.}
+  {A string of some sort is expected.  Don't leave the typestring
+  for\:mb a datatype blank.}}
+
+\def\er:tunknown#1{\:typgenerr{Datatype #1 isn't declared.}
+  {There is no datatype #1 declared.  Use \string\DECLARETYPE{#1}
+  \:mb(or \string\DECLARESUBTYPE) to declare it.}}
+
+\def\er:funset#1{\:typerr{\string#1 used but not \noexpand\s in
+  \expandafter\string\MYCOMMAND.}{\string#1 must either be set by
+  \noexpand\s or have a default declared by \:mb "\noexpand\FD
+  {\string#1} { default }" before it is used.}}
+
+%%%%%
+%% handling of null cases, "reserved" commmand names, etc.
+\gdef\:lvl{0}
+\newif\if:go
+\:gofalse
+
+\gdef\:d{}
+\gdef\:t{}
+\gdef\:p{}
+\gdef\:ct{}
+\gdef\:ca#1{}
+\gdef\:pdo{}
+\gdef\:phd{}
+\gdef\:phh{}
+\gdef\:pre{}
+\gdef\:pst{}
+\gdef\:do{}
+\gdef\:hd{}
+\gdef\:hh{}
+\gdef\:rdo{}
+\gdef\:rhd{}
+\gdef\:rhh{}
+\gdef\:lst{}
+\gdef\:add#1{}
+
+\def\:nocontext#1{\def#1{\:typgenerr{Don't use \string#1 outside the
+  scope of a DataType.}{It has no context.}}}
+
+\:nocontext\MYCOMMAND
+\:nocontext\ME
+\:nocontext\MYTYPESTRING
+\:nocontext\MYPARENTSTRING
+\:nocontext\MYMAP
+\:nocontext\PARENT
+\:nocontext\PARENTMAP
+\:nocontext\PARENTSURFACEMAP
+\:nocontext\ADD
+%\:nocontext\RESET
+\:nocontext\F
+\:nocontext\FD
+\:nocontext\FS
+\:nocontext\s
+\:nocontext\rs
+\:nocontext\append
+\:nocontext\prepend
+
+
+%%%%%
+%%  Returning ":" to its default behavior, so it can no longer be
+%% used in TeX command names.
+\catcode`\:12\relax
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

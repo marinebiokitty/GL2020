@@ -1,0 +1,148 @@
+%%%%%
+%%
+%% Character sheets live in this directory.  This file doubles as a
+%% latex'able example charsheet.
+%%
+%% _template.tex serves as a bare-bones template suitable for
+%% copying when starting a new sheet.
+%%
+%% Character macros (in ../Lists/char-LIST.tex, presumably) each
+%% have a file that lives here.  The argument to \name{...} probably
+%% should be the macro for the given character, which will generate
+%% the charsheet's name (and print out lists of the characters stuff
+%% at the end) as specified in char-LIST.tex.  However, you can also
+%% just use \name{Some Text} if you want.
+%%
+%%%%%
+
+\documentclass[char]{guildcamp4}
+\begin{document}
+
+\name{\cTest{}}
+
+%% This sort of use of \updatemacro is covered in
+%% Extras/README-namemappings.
+\updatemacro{\cNPC}{
+  \unknownplayer %% doesn't know what he looks like
+  }
+
+%% quote examples
+\bigquote{``Use this macro for large quotes of prose and such.  It
+justifies everything like a paragraph, except with no
+indentation.''}{-- The Author}
+
+\cenquote{``This macro is good\\ For shorter quotes\\ Or things like
+song lyrics:\\ It centers.''}{-- The Author}
+
+
+%% \TODO outputs to the page and the terminal.  It is used for
+%% reminders of future work, and a convenient way to build a short
+%% outline for a sheet in-progress.
+\TODO{This is a test character sheet.}
+
+%% Using a Char macro with an empty argument, like \cTest{}, will
+%% produce the \usual namemapping (see Extras/README-namemappings).
+%% Introduce a character with \intro, e.g. \cTest{\intro}, to get a
+%% more full name.  \intro can be used whenever it fits into the text
+%% flow.
+Your friend from out of town, \cSomeGuy{\intro}, called you up one
+morning about a week ago.  \cSomeGuy{} told you to meet up with this
+person named \cNPC{}, whom you've never met.  \cNPC{}, whose full name
+is \cNPC{\intro}, is supposed to be really awesome and have a package
+for you.
+
+%% You can skip the advanced namemapping commands, and instead use
+%% \full, \fullplain (full name without prefixes or suffixes),
+%% \formal, and \informal.  You can also nest these inside identities,
+%% such as \nick{} (see Extras/README-identity).
+That bears repeating: \cNPC{\nick{\informal}}, whose full name is
+\cNPC{\full}, is supposed to be really awesome and have a package for
+you.
+
+%% For pronouns and other gender-dependent words, you can use the
+%% pronoun commands defined in Lists/char-LIST.tex to automatically
+%% control them based on the character's gender.  For example,
+%% \cTest{\They} will produce He, She, It, or He/She, based on
+%% \cTest's \MYsex field.  You can define your own pronouns in
+%% Lists/char-LIST.tex, as well.
+\cSomeGuy{} is a pretty good friend.  \cSomeGuy{\They} used to be your
+college roommate.  When \cSomeGuy{\they} called you up, you were
+pleasently surprised to hear from \cSomeGuy{\them}.
+
+%% \me{} produces whatever the argument to \name{...} is.  If, like
+%% usual, the argument was a char Macro, \me{} is an alias for that
+%% macro.
+Lots of people think your name, \me{\intro}, is funny.  You're not
+sure why; you think it's a fine name.
+
+
+
+%%%%%
+%% The itemz environment is a list environment similar to itemize.
+%% The typesetting is very tight, and matches that used by the lists
+%% at the end of character sheets.  It takes an optional argument that
+%% acts as a title for the list.  The enum environment is a similar
+%% variation of the enumerate environment, and the desc environment is
+%% similar to description.
+\begin{itemz}[Goals]
+  \item Things to do
+  \item Governments to topple
+  \item Worlds to dominate
+\end{itemz}
+
+\begin{itemz}[Notes]
+  \item You were born in London.
+  \item You went to MIT, and never left.
+\end{itemz}
+
+
+%%%%%
+%% List contacts, using \contact{<char macro>}
+\begin{contacts}
+  \contact{\cNPC{}} This person you've never met.
+  \contact{\cSomeGuy{}} Your friend from out of town.
+\end{contacts}
+
+
+%%%%%
+%% \starttag{<tag>} <elements> \endtag 
+%% Valid <tag> values are blues, greens, abils, combat, mems, items,
+%% whites, notebooks, cash, signs, ids.  These each correspond to a
+%% type of macro defined in Lists/.
+%%
+%% By using \starttag, you can give this character <elements> of the
+%% type corresponding to <tag>.
+%%
+%% Multiple uses of the same <tag> will simply add together.
+\starttag{mems}
+
+  \mTest{}
+
+  \memfold{``Rosebud''}{Rosebud!  That was the name of\ldots the name
+  of\ldots darn, you forget.}
+
+  \startmembook{Book of Mempackets}
+
+    \mempage{if you see something blue}{Hey, that's blue!  Oh, you
+    remember, blue is your favorite color.  You really like blue
+    things, especially blue tentacles.  You wonder why\ldots}
+
+    \mempage{``Octy''}{Octy!  You remember Octy now!  She was your pet
+    blue octopus when you were a young child living offshore.  Oh, the
+    fun times you had!
+
+    You used to go swimming and diving with Octy all the time.  This
+    was years ago.  What happened?  You still can't remember\ldots but
+    you know you haven't even thought of her since you were small.}
+
+  \endmembook
+
+\endtag
+
+\starttag{abils}
+  \ability{Amazing Powers}{You can do strange and amazing things.}{I
+  do something strange and amazing.}
+\endtag
+
+
+\end{document}

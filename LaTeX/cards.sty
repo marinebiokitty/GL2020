@@ -1,0 +1,691 @@
+%%%%%
+%%
+%% cards.sty builds a cards-layout driver.  Cards are things meant to
+%% be cut out, and can have 1 or 2 sides.  They are printed such that
+%% opposite sides line up correctly.
+%%
+%% Commands provided:
+%%
+%%   \card{<front>}
+%%   \doublecard{<front>}{<back>}
+%%   \mirrorcard{<front/back>}
+%%
+%%   \putcard
+%%   \pageof{<some \(double,mirror)card-based macro>}
+%%
+%%   \flushline
+%%   \flushpage
+%%
+%%   \Atflushpage{<stuff>}
+%%
+%%   \SingleCards
+%%   \DoubleCards
+%%
+%%   \BuildRows
+%%   \BuildColumns
+%%
+%%   \GridCardsXY{<numX>}{<numY>}
+%%   \NoGrid
+%%
+%%   \MarginsXY{<horizontal skip>}{<vertical skip>}
+%%
+%%   \YesFill
+%%   \NoFill
+%%
+%%%%%
+
+
+%%%%%
+%% Allows _ to be used in TeX command names, for this file, so
+%% internal commands that use it can't be used directly/messed with
+%% outside of this file.
+\catcode`\_11\relax
+
+
+%%%%%
+%% creating boxes, dimens, numbers, and booleans that will get
+%% used.
+\newbox\front_card   \newbox\back_card
+\newbox\front_box    \newbox\back_box
+\newbox\front_page   \newbox\back_page
+\newif\ifdouble_cards
+\newif\ifgrid_cards
+\newif\iffirst_card
+\newif\iffirst_line
+\newdimen\scratch_dimen
+\def\_z{0pt}
+
+
+%%%%%
+%% \card{<front>}
+%%
+%% This will print a single-sided card (blank second side).
+%%
+%%
+%% \doublecard{<front>}{<back>}
+%%
+%% This will print a double-sided card.  If the 2 sides are different
+%% sizes, they will be centered relative to each other.
+%%
+%%
+%% If either \doublecard or \mirrorcard are used with \SingleCards,
+%% only the first side will be printed, and a warning will be given.
+%%
+%%
+%% \mirrorcard{<front/back>}
+%%
+%% This will print a double-sided card with the same thing on front
+%% and back.
+%%
+%%
+%% \putcard
+%%
+%% This will repeat the last card.
+\long\def\card#1{%
+  \card_calc{#1}{}%
+  \putcard}
+
+\long\def\doublecard#1#2{%
+  \card_calc{#1}{#2}%
+  \ifdouble_cards\else%
+    \typeout{! \string\SingleCards: back of \noexpand\doublecard ignored}%
+  \fi%
+  \putcard}
+
+\long\def\mirrorcard#1{%
+  \card_calc{#1}{#1}%
+  \ifdouble_cards\else%
+    \typeout{! \string\SingleCards: back of \noexpand\mirrorcard ignored}%
+  \fi%
+  \putcard}
+
+
+%%%%%
+%% \pageof{<some \(double,mirror)card-based macro>}
+%%
+%% This will print a page full of said card, based on how many will
+%% fit with the given settings.  Don't put more than 1 card in the
+%% arg.
+\def\pageof#1{%
+  \flushpage%
+  \begingroup%
+    \let\putcard\relax#1%
+    \scratch_dimen\card_wd%
+    \advance\scratch_dimen\x_marg%
+    \dimen0 \hsize%
+    \advance\dimen0 \x_marg%
+    \count0 \number\dimen0%
+    \divide\count0 \number\scratch_dimen%
+    \scratch_dimen\card_ht%
+    \advance\scratch_dimen\y_marg%
+    \dimen0 \vsize%
+    \advance\dimen0 \y_marg%
+    \count1 \number\dimen0%
+    \divide\count1 \number\scratch_dimen%
+    \multiply\count0 \count1%
+    \xdef\cards_left{\the\count0}
+  \endgroup%
+  \pageof_loop%
+  \flushpage}
+
+\def\pageof_loop{%
+  \begingroup%
+    \count0 \cards_left%
+    \advance\count0 -1%
+    \xdef\cards_left{\the\count0}%
+  \endgroup%
+  \ifnum\cards_left<0%
+    \let\_next\relax%
+  \else%
+    \let\_next\pageof_loop%
+    \putcard%
+  \fi\_next}
+
+
+%%%%%
+%% Cards are printed out a page at a time.  Cards are stored until the
+%% pending page is "full."
+%%
+%%
+%% \flushline
+%%
+%% This forces either a new row or new column of cards, depending on
+%% which of \BuildRows or \BuildColumns is in effect (see below).
+%%
+%%
+%% \flushpage
+%%
+%% This prints out the present page (and line) of cards, and starts a
+%% new page.  If there are no pending cards, \flushpage will do
+%% nothing.
+%%
+%%
+%% \Atflushpage{<stuff>}
+%%
+%% This makes \flushpage do <stuff> before each page is printed.
+%% Repeated use of \Atflushpage resets <stuff>.  If there are no
+%% pending cards, \flushpage will do nothing.
+\def\flushpage{\flushline\flush_page}
+\long\def\Atflushpage#1{\gdef\flush_hook{#1}}
+
+
+%%%%%
+%% \SingleCards
+%%
+%% This makes all cards print out 1-sided.  \doublecard's and
+%% \mirrorcard's will give a warning and only print the front.
+%%
+%%
+%% \DoubleCards
+%%
+%% This makes cards print 2-sided.  \card's with only 1 side will have
+%% a blank back.
+%%
+%%
+%% Both \SingleCards and \DoubleCards call \flushpage.
+\def\DoubleCards{\flushpage\global\double_cardstrue}
+\def\SingleCards{\flushpage\global\double_cardsfalse}
+
+
+%%%%%
+%% \BuildRows
+%%
+%% This makes cards print left-to-right into rows across the page, and
+%% such rows print top-to-bottom down the page (like text in a
+%% paragraph).
+%%
+%%
+%% \BuildColumns
+%%
+%% This makes cards print top-to-bottom into columns down the page,
+%% and such columns print left-to-right across the page.
+%%
+%%
+%% Both \BuildRows and \BuildColumns call \flushpage.
+\def\BuildRows{%
+  \flushpage%
+  \gdef\putcard{\putcard_inrow}%
+  \gdef\flushline{\flush_row}%
+  \gdef\flush_page{\flush_pageofrows}%
+  \gdef\calc_cen{\row_cen}%
+  \gdef\calc_flush{\row_flush}%
+  }
+
+\def\BuildColumns{%
+  \flushpage%
+  \gdef\putcard{\putcard_incol}%
+  \gdef\flushline{\flush_col}%
+  \gdef\flush_page{\flush_pageofcols}%
+  \gdef\calc_cen{\col_cen}%
+  \gdef\calc_flush{\col_flush}%
+  }
+
+
+%%%%%
+%% \GridCardsXY{<numX>}{<numY>}
+%%
+%% This makes card-layout be based on a <numX> x <numY> grid instead
+%% of how many cards can fit.  Cards are centered within each grid
+%% space.
+%%
+%% NOTE: \GridCardsXY calculates the size of the grid spaces based on
+%% the height and width of the page for each card in the grid _when
+%% the card is first made_, so changing such page parameters midpage
+%% will cause odd effects.
+%%
+%%
+%% \NoGrid
+%%
+%% This turns off the grid, and restores settings for margins and
+%% filling.
+%%
+%%
+%% Both \GridCardsXY and \NoGrid call \flushpage.
+\def\GridCardsXY#1#2{%
+  \flushpage%
+  \global\grid_cardstrue%
+  \global\let\x_marg\_z%
+  \global\let\y_marg\_z%
+  \global\let\y_extra\relax%
+  \global\let\x_extra\relax%
+  \gdef\x_num{#1}%
+  \gdef\y_num{#2}}
+
+\def\NoGrid{%
+  \flushpage%
+  \global\grid_cardsfalse%
+  \global\let\x_marg\x_hold%
+  \global\let\y_marg\y_hold%
+  \global\let\y_extra\yex_hold%
+  \global\let\x_extra\xex_hold}
+
+
+%%%%%
+%% \MarginsXY{<horizontal skip>}{<vertical skip>}
+%%
+%% This sets the minimum spacing between cards.  Space equal to
+%% <horizontal skip> gets put between cards horizontally (or between
+%% columns of cards).  Space equal to <vertical skip> gets put between
+%% cards vertically (or between rows of cards).  Leaving either of the
+%% args empty doesn't change the empty arg, so \marginsXY{<horizontal
+%% skip>}{} will change the horizontal spacing but not the vertical,
+%% \marginsXY{}{<vertical skip>} will change the vertical spacing but
+%% not the horizontal, and \marginsXY{}{} will change nothing.
+%%
+%% \MarginsXY calls \flushpage and \NoGrid.
+\def\MarginsXY#1#2{%
+  \flushpage%
+  \NoGrid%
+  \def\_tmp{#1}%
+  \ifx\_tmp\empty%
+    \relax%
+  \else%
+    \scratch_dimen#1%
+    \xdef\x_marg{\the\scratch_dimen}%
+    \global\let\x_hold\x_marg%
+  \fi%
+  \def\_tmp{#2}%
+  \ifx\_tmp\empty%
+    \relax%
+  \else%
+    \scratch_dimen#2%
+    \xdef\y_marg{\the\scratch_dimen}%
+    \global\let\y_hold\y_marg%
+  \fi}
+
+
+%%%%%
+%% \YesFill
+%%
+%% This makes cards and lines have as much spacing between them as
+%% possible, without changing the numbers of cards per line or page.
+%% The spacing set by \MarginsXY gets used as the minimum spacing.
+%% Cards are spread out from the page margins as well as each other;
+%% e.g. a lone card on a line will be horizontally centered and a lone
+%% line on a page will be vertically centered.
+%%
+%%
+%% \NoFill
+%%
+%% This makes cards and lines print on the page with the spacing set
+%% by \MarginsXY as the exact spacing.  A lone card on a line will be
+%% put flush against the left margin (right margin if side 2 of a
+%% 2-sided card).  A lone line on a page will be put flush against the
+%% top margin.
+%%
+%%
+%% Both \YesFill and \NoFill call \flushpage and \NoGrid.
+\def\YesFill{%
+  \flushpage%
+  \NoGrid%
+  \def\extra_calc{\calc_cen}%
+  \global\let\y_extra\vfill%
+  \global\let\x_extra\hfill%
+  \global\let\yex_hold\y_extra%
+  \global\let\xex_hold\x_extra}
+
+\def\NoFill{%
+  \flushpage%
+  \NoGrid%
+  \def\extra_calc{\calc_flush}%
+  \global\let\y_extra\relax%
+  \global\let\x_extra\relax%
+  \global\let\yex_hold\y_extra%
+  \global\let\xex_hold\x_extra}
+
+
+%%%%%
+%% Internal commands that make this work.
+\def\nest_error{%
+  \typeout{! Please don't nest cards commands inside \string\card,
+  \string\doublecard, or \string\mirrorcard.  ^^J\space\space (command
+  ignored)}%
+  }
+
+\def\row_cen{%
+  \scratch_dimen\card_ht\divide\scratch_dimen-2%
+  \global\setbox\front_card\vbox{\smash{\box\front_card}\vskip\scratch_dimen}%
+  \ifdouble_cards%
+    \global\setbox\back_card\vbox{\smash{\box\back_card}\vskip\scratch_dimen}%
+  \fi}
+
+\def\row_flush{}
+
+\def\col_cen{%
+  \scratch_dimen\card_wd\divide\scratch_dimen-2%
+  \global\setbox\front_card\vbox{%
+      \hbox{\hskip\scratch_dimen\box\front_card\hskip\scratch_dimen}}%
+  \ifdouble_cards%
+    \global\setbox\back_card\vbox{%
+        \hbox{\hskip\scratch_dimen\box\back_card\hskip\scratch_dimen}}%
+  \fi}
+
+\def\col_flush{%
+  \ifdouble_cards%
+    \global\setbox\back_card\vbox{%
+        \hbox{\hskip-\card_wd\box\back_card}}%
+  \fi}
+
+\long\def\card_calc#1#2{%
+  \begingroup%
+    \long\def\card##1{\nest_error}%
+    \long\def\doublecard##1##2{\nest_error}%
+    \long\def\mirrorcard##1{\nest_error}%
+    \def\putcard{\nest_error}%
+    \long\def\pageof##1{\nest_error}%
+    \def\flushpage{\nest_error}%
+    \def\SingleCards{\nest_error}%
+    \def\DoubleCards{\nest_error}%
+    \def\BuildRows{\nest_error}%
+    \def\BuildColumns{\nest_error}%
+    \def\GridCardsXY##1##2{\nest_error}%
+    \def\NoGrid{\nest_error}%
+    \def\MarginsXY##1##2{\nest_error}%
+    \def\YesFill{\nest_error}%
+    \def\NoFill{\nest_error}%
+    \global\setbox\front_card\hbox{{#1}}%
+    \global\setbox\front_card\hbox{\raise\dp\front_card\box\front_card}%
+    \scratch_dimen\wd\front_card%
+    \xdef\card_wd{\the\scratch_dimen}%
+    \scratch_dimen\ht\front_card%
+    \xdef\card_ht{\the\scratch_dimen}%
+    \ifdouble_cards%
+      \global\setbox\back_card\hbox{{#2}}%
+      \global\setbox\back_card\hbox{\raise\dp\back_card\box\back_card}%
+      \scratch_dimen\wd\front_card%
+      \ifdim\scratch_dimen<\wd\back_card%
+        \scratch_dimen\wd\back_card%
+      \fi%
+      \xdef\card_wd{\the\scratch_dimen}%
+      \scratch_dimen\ht\front_card%
+      \ifdim\scratch_dimen<\ht\back_card%
+        \scratch_dimen\ht\back_card%
+      \fi%
+      \xdef\card_ht{\the\scratch_dimen}%
+    \fi%
+    \ifdim\card_wd>\hsize%
+      \xdef\card_wd{\the\hsize}%
+      \typeout{! card is too wide for the page}%
+    \fi%
+    \ifdim\card_ht>\vsize%
+      \xdef\card_ht{\the\vsize}%
+      \typeout{! card is too tall for the page}%
+    \fi%
+    \ifgrid_cards%
+      \scratch_dimen\hsize%
+      \divide\scratch_dimen\x_num%
+      \xdef\grid_wd{\the\scratch_dimen}%
+      \scratch_dimen\vsize%
+      \divide\scratch_dimen\y_num%
+      \xdef\grid_ht{\the\scratch_dimen}%
+      \ifdim\card_wd>\grid_wd%
+        \typeout{! card is too wide for the grid}%
+      \fi%
+      \ifdim\card_ht>\grid_ht%
+        \typeout{! card is too tall for the grid}%
+      \fi%
+      \global\let\card_wd\grid_wd%
+      \global\let\card_ht\grid_ht%
+    \fi%
+    \global\setbox\front_card\vbox to\card_ht{%
+        \vskip0pt plus1fil minus1fil%
+        \hbox to\card_wd{%
+          \hskip0pt plus1fil minus1fil%
+          \box\front_card%
+          \hskip0pt plus1fil minus1fil}%
+        \vskip0pt plus1fil minus1fil}%
+    \ifdouble_cards%
+      \global\setbox\back_card\vbox to\card_ht{%
+          \vskip0pt plus1fil minus1fil%
+          \hbox to\card_wd{%
+            \hskip0pt plus1fil minus1fil%
+            \box\back_card%
+            \hskip0pt plus1fil minus1fil}%
+          \vskip0pt plus1fil minus1fil}%
+    \fi%
+    \extra_calc%
+  \endgroup}
+
+\def\putcard_inrow{%
+  \ifvbox\front_card%
+    \scratch_dimen\cur_wd%
+    \advance\scratch_dimen\card_wd%
+    \iffirst_card\relax\else%
+      \advance\scratch_dimen\x_marg%
+    \fi%
+    \xdef\next_wd{\the\scratch_dimen}%
+    \ifdim\next_wd>\hsize%
+      \flush_row%
+      \scratch_dimen\cur_wd%
+      \advance\scratch_dimen\card_wd%
+      \xdef\cur_wd{\the\scratch_dimen}%
+      \global\let\row_ht\card_ht%
+    \else%
+      \ifdim\row_ht<\card_ht%
+        \global\let\row_ht\card_ht%
+      \fi%
+      \global\let\cur_wd\next_wd%
+    \fi%
+    \global\setbox\front_box\hbox{%
+        \iffirst_card\relax\else%
+          \unhbox\front_box%
+          \hskip\x_marg%
+        \fi%
+        \x_extra%
+        \copy\front_card}%
+    \ifdouble_cards%
+      \global\setbox\back_box\hbox{%
+          \copy\back_card%
+          \x_extra%
+          \iffirst_card\relax\else%
+            \hskip\x_marg%
+            \unhbox\back_box%
+          \fi}%
+    \fi%
+    \global\first_cardfalse%
+  \fi}
+
+\def\putcard_incol{%
+  \ifvbox\front_card%
+    \scratch_dimen\cur_ht%
+    \advance\scratch_dimen\card_ht%
+    \iffirst_card\relax\else%
+      \advance\scratch_dimen\y_marg%
+    \fi%
+    \xdef\next_ht{\the\scratch_dimen}%
+    \ifdim\next_ht>\vsize%
+      \flush_col%
+      \scratch_dimen\cur_ht%
+      \advance\scratch_dimen\card_ht%
+      \xdef\cur_ht{\the\scratch_dimen}%
+      \global\let\col_wd\card_wd%
+    \else%
+      \ifdim\col_wd<\card_wd%
+        \global\let\col_wd\card_wd%
+      \fi%
+      \global\let\cur_ht\next_ht%
+    \fi%
+    \global\setbox\front_box\vbox{%
+        \iffirst_card\relax\else%
+          \unvbox\front_box%
+          \vskip\y_marg%
+        \fi%
+        \y_extra%
+        \copy\front_card}%
+    \ifdouble_cards%
+      \global\setbox\back_box\vbox{%
+          \iffirst_card\relax\else%
+            \unvbox\back_box%
+            \vskip\y_marg%
+          \fi%
+          \y_extra%
+          \copy\back_card}%
+    \fi%
+    \global\first_cardfalse%
+  \fi}
+
+\def\flush_row{%
+  \ifhbox\front_box%
+    \scratch_dimen\cur_ht%
+    \advance\scratch_dimen\row_ht%
+    \iffirst_line\relax\else%
+      \advance\scratch_dimen\y_marg%
+    \fi%
+    \xdef\next_ht{\the\scratch_dimen}%
+    \ifdim\next_ht>\vsize%
+      \flush_pageofrows%
+      \scratch_dimen\cur_ht%
+      \advance\scratch_dimen\row_ht%
+      \xdef\cur_ht{\the\scratch_dimen}%
+    \else%
+      \global\let\cur_ht\next_ht%
+    \fi%
+    \global\setbox\front_page\vbox{%
+        \iffirst_line\relax\else%
+          \unvbox\front_page%
+          \vskip\y_marg%
+        \fi%
+        \y_extra%
+        \vbox to\row_ht{%
+          \vskip0pt plus1fil minus1fil%
+          \hbox to\hsize{\unhbox\front_box\x_extra\hfil}%
+          \vskip0pt plus1fil minus1fil}}%
+    \ifdouble_cards%
+      \global\setbox\back_page=\vbox{%
+          \iffirst_line\relax\else%
+            \unvbox\back_page%
+            \vskip\y_marg%
+          \fi%
+          \y_extra%
+          \vbox to\row_ht{%
+            \vskip0pt plus1fil minus1fil%
+            \hbox to\hsize{\hfil\x_extra\unhbox\back_box}%
+            \vskip0pt plus1fil minus1fil}}%
+    \fi%
+    \global\let\cur_wd\_z%
+    \global\let\row_ht\_z%
+    \global\first_linefalse%
+    \global\first_cardtrue%
+  \fi}
+
+\def\flush_col{%
+  \ifvbox\front_box%
+    \scratch_dimen\cur_wd%
+    \advance\scratch_dimen\col_wd%
+    \iffirst_line\relax\else%
+      \advance\scratch_dimen\x_marg%
+    \fi%
+    \xdef\next_wd{\the\scratch_dimen}%
+    \ifdim\next_wd>\hsize%
+      \flush_pageofcols%
+      \scratch_dimen\cur_wd%
+      \advance\scratch_dimen\col_wd%
+      \xdef\cur_wd{\the\scratch_dimen}%
+    \else%
+      \global\let\cur_wd\next_wd%
+    \fi%
+    \global\setbox\front_page\hbox{%
+        \iffirst_line\relax\else%
+          \unhbox\front_page%
+          \hskip\x_marg%
+        \fi%
+        \x_extra%
+        \hbox to\col_wd{%
+          \hskip0pt plus1fil minus1fil%
+          \vbox to\vsize{\unvbox\front_box\y_extra\vfil}%
+          \hskip0pt plus1fil minus1fil}}%
+    \ifdouble_cards%
+      \global\setbox\back_page\hbox{%
+          \hbox to\col_wd{%
+            \hfill%
+            \vbox to\vsize{\unvbox\back_box\y_extra\vfil}%
+            \x_extra}%
+          \x_extra%
+          \iffirst_line\relax\else%
+            \hskip\x_marg%
+            \unhbox\back_page%
+          \fi}%
+    \fi%
+    \global\let\cur_ht\_z%
+    \global\let\col_wd\_z%
+    \global\first_linefalse%
+    \global\first_cardtrue%
+  \fi}
+
+\def\flush_pageofrows{%
+  \ifvbox\front_page%
+    \flush_hook%
+    \vbox to\vsize{\unvbox\front_page\y_extra\vfil}%
+    \vfill\break%
+    \ifdouble_cards%
+      \vbox to\vsize{\unvbox\back_page\y_extra\vfil}%
+      \vfill\break%
+    \fi%
+    \global\let\cur_wd\_z%
+    \global\let\cur_ht\_z%
+  \fi%
+  \global\first_linetrue%
+  \global\first_cardtrue}
+
+\def\flush_pageofcols{%
+  \ifhbox\front_page%
+    \flush_hook%
+    \hbox to\hsize{\unhbox\front_page\x_extra\hfil}%
+    \vfill\break%
+    \ifdouble_cards%
+      \hbox to\hsize{\hfil\x_extra\unhbox\back_page}%
+      \vfill\break%
+    \fi%
+    \global\let\cur_wd\_z%
+    \global\let\cur_ht\_z%
+  \fi%
+  \global\first_linetrue%
+  \global\first_cardtrue}
+
+
+%%%%%
+%% Setting up initialization and defaults.
+%%
+%% Default setting are equivalent to:
+%%  \BuildColumns
+%%  \DoubleCards
+%%  \MarginsXY{15pt}{15pt}
+%%  \NoFill
+\global\let\cur_wd\_z
+\global\let\cur_ht\_z
+\global\let\col_wd\_z
+\global\let\row_ht\_z
+
+\global\let\x_marg\_z
+\global\let\y_marg\_z
+\global\let\x_hold\x_marg
+\global\let\y_hold\y_marg
+\global\let\x_extra\relax
+\global\let\y_extra\relax
+\def\extra_calc{\calc_flush}%
+
+\gdef\putcard{\putcard_incol}
+\gdef\flushline{\flush_col}
+\gdef\flush_page{\flush_pageofcols}
+\gdef\calc_cen{\col_cen}
+\gdef\calc_flush{\col_flush}
+\gdef\flush_hook{}
+
+\global\double_cardstrue
+\global\grid_cardsfalse
+\global\first_cardtrue
+\global\first_linetrue
+
+\BuildColumns
+\DoubleCards
+\MarginsXY{15pt}{15pt}
+\NoFill
+
+
+%%%%%
+%% Returns _ to its default behavior, so it can no longer be used in
+%% TeX command names.
+\catcode`\_8\relax
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

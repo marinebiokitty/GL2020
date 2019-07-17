@@ -1,0 +1,83 @@
+%%%%%
+%%
+%% This file sets up the Mem, MemFold, and MemEnvelope datatypes, and
+%% creates possible macros for each.
+%%
+%% The Mem datatype isn't really used directly; it's there so the
+%% other datatypes can inherit and share its code.
+%%
+%%%%%
+
+\DECLARESUBTYPE{Mem}{Element}
+\PRESETS{Mem}{
+  %% \MYname is the trigger
+  \F\MYtext	%%  text
+  }
+
+
+%%%%%
+%% MemFold and MemEnvelope are both subtypes of Mem.  MemFold is for
+%% fold-n-staple style mempackets, MemEnvelope is for stuff-n-seal
+%% style mempackets.  If you want a mempacket to contain interesting
+%% contents, like sheets, abilities, and other mempackets, use a
+%% MemEnvelope.
+\DECLARESUBTYPE{MemFold}{Mem}
+\DECLARESUBTYPE{MemEnvelope}{Mem}
+
+
+%%%%%
+%% MemCover and MemPage are for the cover and pages of mempacket
+%% booklets, which resemble research notebooks.  These are good
+%% substitutes for large piles of MemFolds, and can be useful for
+%% things like amnesiac characters.
+%%
+%% Like MemFolds, MemPages shouldn't directly own any other elements
+%% as contents.  Use MemEnvelope instead.
+%%
+%% MemPages are usually assigned to a MemCover (via \MYmems), with the
+%% MemCover representing the entire booklet and assigned to a
+%% character.
+%%
+%% A MemCover is not a mempacket in and of itself; its name is not its
+%% trigger and its text is not a memory.
+\DECLARESUBTYPE{MemCover}{Mem}
+\PRESETS{MemCover}{
+  \sd\MYtext	{Each page is a memory/event packet with a separate
+		trigger.}
+  }
+
+\DECLARESUBTYPE{MemPage}{Mem}
+
+
+%%%%%
+%% \memfold{<trigger>}{<text>}
+%% \memenvelope{<trigger>}{<text>}
+%% \memcover{<name>}{<pages>}
+%% \mempage{<trigger>}{<text>}
+%% \startmembook{<name>} <pages> \endmembook
+%%
+%% These are wrappers around \INSTANCE, useful as 1-shots.
+%% \startmembook...\endmembook is a simple wrapper around \memcover
+%% that may have better syntax for use within character sheets (inside
+%% a \starttag{mems}...\endtag block).
+\newinstance{MemFold}{\memfold[2]}{
+  \s\MYname{#1}\s\MYtext{#2}}
+\newinstance{MemEnvelope}{\memenvelope[2]}{
+  \s\MYname{#1}\s\MYtext{#2}}
+\newinstance{MemCover}{\memcover[2]}{
+  \s\MYname{#1}\s\MYmems{#2}}
+\newinstance{MemPage}{\mempage[2]}{
+  \s\MYname{#1}\s\MYtext{#2}}
+
+\long\def\startmembook#1#2\endmembook{\memcover{#1}{#2}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\NEW{MemFold}{\mTest}{
+  \s\MYname	{Test Trigger}
+  \s\MYtext	{This is a Test of a fold-n-staple memory packet}
+  }
+  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

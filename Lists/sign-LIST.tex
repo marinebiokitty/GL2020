@@ -1,0 +1,139 @@
+
+%%%%
+%%
+%% This file sets up the Sign and Label datatypes and creates Sign and
+%% Label macros.
+%%
+%% Signs generally represent interesting parts of game area, usually
+%% as things posted on walls.  Labels represent other things, often on
+%% or inside envelopes, that are part of complex mechanics.
+%%
+%% The default value for \MYloc will inherit location from the Place
+%% or Sign most immediately up the ownership tree.  Override this by
+%% setting \MYloc to anything (even blank).
+%%
+%% Sign is for full-sized signs that would cover most of a large
+%% manila envelope; SignMedium is for signs sized to half-sized manila
+%% envelopes; SignSmall is for signs sized for small manila envelopes
+%% (the same size as item cards).  Label, LabelMedium, and LabelSmall
+%% are analagous, but they don't have a \takedownby note at the
+%% bottom.  You can always use a sign or label without an envelope or
+%% with a differently-sized envelope.  Choose which based on
+%% visibility and content.
+%%
+%% SignTiny is for signs you want to be hard to find; it is small and
+%% does not have a \takedownby note.  SignDot is for a very small
+%% "dot" which only has a title.
+%%
+%% SignStrip produces a strip of paper (without a \takedownby note)
+%% with labels on the outside that show on both sides if you fold it
+%% in half.  These are a convenient alternative to sub-envelopes. They
+%% can also be used for "s-packets" taped to walls (see
+%% Extras/README-s-packets).
+%%
+%% LabelCover produces a label similar to the cover to a research
+%% notebook.  LabelPage, likewise, produces a page.
+%%
+%% EOG is for full-sized end-of-game signs.
+%%
+%%%%%
+
+\DECLARESUBTYPE{Sign}{Element}
+\PRESETS{Sign}{
+  \FD\MYloc	{\mylocation} %% real-space location
+  \FD\MYtext	{} %% text of sign
+  }
+\POSTSETS{Sign}{
+  \edef\mylocation{\MYloc}
+  \protected@edef\@ownerstring{%
+    \MYname%
+    \ifx\mylocation\empty\else\ (\mylocation)\fi%
+    }
+  }
+\def\mylocation{}
+
+\def\loc#1{\rs\MYloc{#1}}
+
+\DECLARESUBTYPE{SignMedium}{Sign}
+\DECLARESUBTYPE{SignSmall}{Sign}
+\DECLARESUBTYPE{SignTiny}{Sign}
+\DECLARESUBTYPE{SignDot}{Sign}
+\PRESETS{SignDot}{\s\MYtext{}}
+
+\DECLARESUBTYPE{Label}{Sign}
+\PRESETS{Label}{\s\MYloc{}}
+\DECLARESUBTYPE{LabelMedium}{Label}
+\DECLARESUBTYPE{LabelSmall}{Label}
+
+\DECLARESUBTYPE{SignStrip}{Sign}
+\DECLARESUBTYPE{LabelCover}{Label}
+\DECLARESUBTYPE{LabelPage}{Label}
+
+\DECLARESUBTYPE{EOG}{Sign}
+\PRESETS{EOG}{%
+  \s\MYname	{End Of Game}
+  \s\MYtext	{{\bf\Huge You may not pass through here.}}
+  }
+
+
+%%%%%
+%% \signbig[<location>]{<name>}{<text>}
+%% \eog[<location>]
+%%
+%% \signmdeium[<location>]{<name>}{<text>}
+%% \signsmall[<location>]{<name>}{<text>}
+%% \signtiny[<location>]{<name>}{<text>}
+%% \signdot[<location>]{<name>}
+%%
+%% \labelbig{<name>}{<text>}
+%% \labelmedium{<name>}{<text>}
+%% \labelsmall{<name>}{<text>}
+%%
+%% \signstrip[<location>]{<name>}{<text>}
+%% \labelcover{<name>}{<text>}
+%% \labelpage{<name>}{<text>}
+\newinstance{Sign}{\signbig[3][\mylocation]}{
+  \s\MYloc{#1}\s\MYname{#2}\s\MYtext{#3}}
+\newinstance{EOG}{\eog[1][\mylocation]}{\s\MYloc{#1}}
+
+\newinstance{SignMedium}{\signmedium[3][\mylocation]}{
+  \s\MYloc{#1}\s\MYname{#2}\s\MYtext{#3}}
+\newinstance{SignSmall}{\signsmall[3][\mylocation]}{
+  \s\MYloc{#1}\s\MYname{#2}\s\MYtext{#3}}
+\newinstance{SignTiny}{\signtiny[3][\mylocation]}{
+  \s\MYloc{#1}\s\MYname{#2}\s\MYtext{#3}}
+\newinstance{SignDot}{\signdot[2][\mylocation]}{
+  \s\MYloc{#1}\s\MYname{#2}}
+
+\newinstance{Label}{\labelbig[2]}{
+  \s\MYname{#1}\s\MYtext{#2}}
+\newinstance{LabelMedium}{\labelmedium[2]}{
+  \s\MYname{#1}\s\MYtext{#2}}
+\newinstance{LabelSmall}{\labelsmall[2]}{
+  \s\MYname{#1}\s\MYtext{#2}}
+
+\newinstance{SignStrip}{\signstrip[3][\mylocation]}{
+  \s\MYloc{#1}\s\MYname{#2}\s\MYtext{#3}}
+\newinstance{LabelCover}{\labelcover[2]}{
+  \s\MYname{#1}\s\MYtext{#2}}
+\newinstance{LabelPage}{\labelpage[2]}{
+  \s\MYname{#1}\s\MYtext{#2}}
+
+
+%%%%%
+%% \sEOG{}
+%% use \sEOg[\loc{<location>}]{} for EOG sign at a specific place
+\NEW{EOG}{\sEOG}{
+  }
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\NEW{Sign}{\sTest}{
+  \s\MYname	{A Room}
+  \s\MYloc	{10-250}
+  \s\MYtext	{A lecture hall with large, sliding blackboards.}
+  }
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

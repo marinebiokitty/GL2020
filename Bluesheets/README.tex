@@ -1,0 +1,52 @@
+%%%%%
+%%
+%% Bluesheets live in this directory.  This file doubles as a
+%% latex'able example bluesheet.
+%%
+%% _template.tex serves as a bare-bones template suitable for
+%% copying when starting a new sheet.
+%%
+%% Bluesheet macros (in ../Lists/blue-LIST.tex, presumably) each
+%% have a file that lives here.  The argument to \name{...} probably
+%% should be the macro for the given bluesheet, which will generate
+%% the bluesheet's name as specified in blue-LIST.tex.  However, you
+%% can also just use \name{Some Text} if you want.
+%%
+%%%%%
+
+\documentclass[blue]{guildcamp4}
+\begin{document}
+
+\name{\bTest{}}
+
+
+\bigquote{``Use this macro for large quotes of prose and such.  It
+justifies everything like a paragraph, except with no
+indentation.''}{-- The Author}
+
+\cenquote{``This macro is good\\ For shorter quotes\\ Or things like
+song lyrics:\\ It centers.''}{-- The Author}
+
+
+\TODO{This is a test bluesheet.}
+
+This is a test Bluesheet.
+
+This is some text.  This is some text.  This is some text.  This is
+some text.  This is some text.  This is some text.  This is some text.
+This is some text.  This is some text.  This is some text.
+
+
+\begin{itemz}[Goals]
+  \item Things to do
+  \item Governments to topple
+  \item Worlds to dominate
+\end{itemz}
+
+
+\begin{members}
+  \member{\cTest{}} a Test member.
+\end{members}
+
+
+\end{document}

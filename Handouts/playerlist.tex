@@ -1,0 +1,153 @@
+%% Use [landscapeplayerlist] for landscape orientation (the page is
+%% wider than it is tall) or [portraitplayerlist] for normal portrait
+%% orientation.  [playerlist] will behave like [landscapeplayerlist].
+\documentclass[playerlist]{guildcamp1} %% make sure name of class is correct
+\begin{document}
+
+
+%%%%%
+%% Use either \production or \compendium, which are based on settings
+%% in the .cls file.  Comment this out entirely if you are using a
+%% more custom playerlist below.
+\production
+
+
+%%%%%
+%% To specify a custom playerlist, uncomment and edit the commands
+%% below, including the \begin{playerlist} (with column declarations),
+%% the font size and style settings, the playerlist contents, and the
+%% \end{playerlist}.
+%%
+%% Add columns with \column{<heading>}{<field>}, where <heading> is
+%% the title of the column (displayed at the top of the playerlist)
+%% and <field> is the character field that stores the value for each
+%% character.  Declare and set <field> in Lists/char-LIST.tex and
+%% Lists/gm-LIST.tex.
+%%
+%% A common column in long games with detailed playerlists is one that
+%% defines the public position or role for each character within their
+%% most public group, e.g. political office, military rank, corporate
+%% position, or a simple title like "famous actress."  The example
+%% below includes a Role column that uses the \MYrole character field.
+%%
+%% You might also want to remove columns; for example, if your game
+%% doesn't involve player rooms, you might leave out Address.
+%%
+%% Each column's default width is approximately the width of the text
+%% area divided by the number of columns.  You can change this for a
+%% column using the optional argument in \column[<factor>]..., where
+%% the column's width will be the default width times <factor>.  For
+%% example, \column[.5] will be half-width, while \column[1.5] will be
+%% 50% wider.  The default width is not dynamically recalculated, so
+%% your column widths may total to a value greater or less than the
+%% actual text area width.
+%\begin{playerlist}{
+%  \column{Character}{\MYname}
+%  \column{Role}{\MYrole}
+%  \column{Player}{\MYplayer}
+%  \column{Email}{\MYemail}
+%  \column{Address}{\MYaddress}
+%  \column{Phone}{\MYphone}
+%  \column{Notes}{\MYnote}
+%  }
+
+%% If the orientation is landscape, probably use \footnotesize.  If it
+%% is portrait, probably use \tiny.
+%  \footnotesize
+
+%% \sffamily sets the font to sans-serif, which is usually both more
+%% compact and easier to read at small sizes.  \slshape is just for
+%% aesthetic reasons.
+%  \sffamily\slshape
+
+%% You could just use \charactergrouping or \playergrouping
+%% (defined in the .cls file).  If not, see below.
+%  \charactergrouping
+
+%% Groupings of entries in the playerlist are each specified by a
+%% \mark followed by one or more of \group, \groupasis, \allchars,
+%% \allplayers, and \allgms.
+%%
+%% \mark{<text>} labels a group.
+%%
+%% \group{<string>} creates an alphabetically sorted group of
+%% characters for which \MYgroupstr is <string> (see
+%% Lists/char-LIST.tex).
+%%
+%% \groupasis{<string>} creates the same, except the group is in the
+%% order the characters were created in Lists/char-LIST.tex.
+%%
+%% \allchars, \allplayers, and \allgms are all the characters,
+%% players, or GMs sorted alphabetically.
+%  \mark{GMs}\allgms
+%  \mark{Air Force}\groupasis{airforce} %% created in rank order
+%  \mark{Navy}\groupasis{navy} %% created in rank order
+%  \mark{Celebrities}\group{celeb}
+%  \mark{Email Parts}\group{email}
+
+%\end{playerlist}
+
+
+
+%%%%%
+%% If the playerlist is only one page, you might want a map on the
+%% reverse side
+%%%%%
+
+
+%%%%%
+%% a more generic header
+%\lhead{\small\centering\gamename\hfil\gamedate\\[\fill]}%
+
+
+%%%%%
+%% \clippedmap may be best if playerlist is in landscape mode
+%\usemap{\clippedmap}{
+%  %% trickery for use inside tabular-like env
+%  \MAP{Place}{\etoss{\?\MYname\\\?\MYwhere}}%
+%  \MAP{Sign}{\etoss{\?\MYname\\\?\MYloc}}%
+%  %\mapgrid %% comment out \mapgrid when you're done placing labels
+%  \bfseries
+%  \rlabel(.85,.535){45}{}{Lookout Point\\ 66-5}
+%  \clabel(.693,.355){-45}{}{The Pit}
+%  \clabel(.305,.11){}{1.5}{Gates of Hell\\ MIT}
+%  \clabel(.81,.377){-90}{}{Launching Bay 9}
+%  \llabel(.3,.52){}{}{\sTest{}}
+%  }
+
+
+%%%%%
+%% \landscapemap will give a landscape map when playerlist is in
+%% portrait mode
+%\usemap{\landscapemap}{
+%  %% trickery for use inside tabular-like env
+%  \MAP{Place}{\etoss{\?\MYname\\\?\MYwhere}}%
+%  \MAP{Sign}{\etoss{\?\MYname\\\?\MYloc}}%
+%  %\mapgrid %% comment out \mapgrid when you're done placing labels
+%  \bfseries
+%  \rlabel(.465,.85){45}{}{Lookout Point\\ 66-5}
+%  \clabel(.645,.693){45}{}{The Pit}
+%  \clabel(.89,.305){90}{1.5}{Gates of Hell\\ MIT}
+%  \clabel(.623,.81){}{}{Launching Bay 9}
+%  \llabel(.48,.3){}{}{\sTest{}}
+%  }
+
+
+%%%%%
+%% \portraitmap will give a portrait map when playerlist is in
+%% portrait mode
+%\usemap{\portraitmap}{
+%  %% trickery for use inside tabular-like env
+%  \MAP{Place}{\etoss{\?\MYname\\\?\MYwhere}}%
+%  \MAP{Sign}{\etoss{\?\MYname\\\?\MYloc}}%
+%  %\mapgrid %% comment out \mapgrid when you're done placing labels
+%  \bfseries
+%  \rlabel(.85,.505){45}{}{Lookout Point\\ 66-5}
+%  \clabel(.693,.405){-45}{}{The Pit}
+%  \clabel(.305,.27){}{1.5}{Gates of Hell\\ MIT}
+%  \clabel(.81,.415){-90}{}{Launching Bay 9}
+%  \llabel(.3,.5){}{}{\sTest{}}
+%  }
+
+
+\end{document}

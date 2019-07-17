@@ -1,0 +1,233 @@
+%%%%%
+%%
+%% This file sets up the Money datatype and it's potential subtypes,
+%% each of which would be a currency.  Money macros are almost never
+%% used directly, and Money subtype macros are rarely used directly.
+%% Instead, you often just use the \cash command; see below.
+%%
+%% You change how money prints by changing the mapping of Money.
+%% Currency subtypes, whose mapping defaults to the equivalent of
+%% \PARENTMAP, will follow Money's mapping automatically.
+%%
+%% Potential mappings of Money:
+%%  \MYshortprint e.g. $5
+%%  \MYmedprint   e.g. 5 Dollars
+%%  \MYlongprint  e.g. Five Dollars
+%%  \MYbillprint  e.g. Five Dollar Bill
+%%
+%%%%%
+
+\DECLARESUBTYPE{Money}{TransElement}
+
+\PRESETS{Money}{
+  \s\MYname		{\MYshortprint}
+  \F\MYcashsymbol
+  \F\MYsinglestring
+  \F\MYpluralstring
+  \F\MYbillstring
+  \FD\MYamountnum	{1}
+  \FD\MYexchangerate	{1}
+  \FD\MYamountstring	{\@commaform{\MYamountnum}}
+  \FD\MYstring		{\MYpluralstring}
+  \FS\MYshortprint	{\MYcashsymbol\@commaform{\MYamountnum}}
+  \FS\MYmedprint	{\@commaform{\MYamountnum}\ \MYstring}
+  \FS\MYlongprint	{\MYamountstring\ \MYstring}
+  \FS\MYbillprint	{\MYamountstring\ \MYbillstring}
+  \sd\MYlistmap		{\item\MYlongprint}
+  }
+
+\POSTSETS{Money}{
+  \ifnum\MYamountnum=1\s\MYstring{\MYsinglestring}\fi
+  }
+
+
+%%%%%
+%% A currency is a subtype of Money.  For a given currency, you should
+%% define the datatype (along with values for how it's printed) and
+%% macros for the given currency that each correspond to a type of
+%% bill.
+%%
+%% It's generally a good idea, though not required, for each currency
+%% to have a bill for 1.  It is a bad idea to have a bill for 0.
+%%
+%% The Dollar datatype is created as an example currency subtype.
+%%
+%% A simple way to create a new currency would be to copy all of the
+%% code for Dollar, changing the values and macro names as
+%% appropriate.
+%%
+%% If you want a currency to print with different formats, i.e. 100$
+%% instead of $100 for \MYshortprint, just change them with \rs,
+%% i.e. \rs\MYshortprint {\MYamountnum\MYcashsymbol}.  If you want all
+%% currencies to behave in the same new manner (perhaps you only have
+%% one currency), you can just change the original declaration in
+%% Money above, i.e. \FS\MYshortprint {\MYamountnum\MYcashsymbol}.
+%%
+%% \newbill is a simple shortcut wrapper around \NEW, for specific
+%% bills.
+\def\newbill#1#2#3#4{\NEW{#1}{#2}{
+  \s\MYamountnum{#3}\s\MYamountstring{#4}}}
+
+
+\DECLARESUBTYPE{Dollar}{Money}
+\PRESETS{Dollar}{
+  \s\MYcashsymbol	{\$}
+  \s\MYsinglestring	{Dollar}
+  \s\MYpluralstring	{Dollars}
+  \s\MYbillstring	{Dollar Bill}
+  \s\MYexchangerate	{1}
+  }
+\newbill{Dollar}{\OneDollar}{1}{One}
+\newbill{Dollar}{\FiveDollar}{5}{Five}
+\newbill{Dollar}{\TenDollar}{10}{Ten}
+\newbill{Dollar}{\TwentyDollar}{20}{Twenty}
+\newbill{Dollar}{\HundredDollar}{100}{One Hundred}
+\newbill{Dollar}{\FiveHundredDollar}{500}{Five Hundred}
+\newbill{Dollar}{\ThousandDollar}{1000}{One Thousand}
+
+
+%%%%%
+%% \cash{<type>}{<num>}
+%% \makenochange
+%% \makechange
+%% \makemorechange
+%%
+%% Most of the time, you use \cash to put money into game,
+%% e.g. \cash{Dollar}{101}.  The meaning of \cash is changed by the
+%% following 3 commands:
+%%
+%% \makenochange sets \cash such that it creates a single bill of the
+%% given ammount, e.g. a 101 Dollar Bill.
+%%
+%% \makechange sets \cash such that it makes change of the money as
+%% efficiently as possible, using the currency bill macros defined
+%% above.  If you have 100 and 50 Dollar bills, \cash{Dollar}{150}
+%% will generate a 100 and a 50.
+%%
+%% \makemorechange sets \cash such that it changes the money like
+%% \makechange, except intentionally less efficiently, in order to get
+%% more small bills.  Given 100, 20, and 1 Dollar bills,
+%% \cash{Dollar}{1000} will generate 9 100s, 4 20s, and 20 1s.
+%%
+%% Change is always generated in the format
+%% \multi{<num>}{\SomeBillMacro{}}
+%%
+%% \makenochange is in effect across GameTeX by default.
+%% \makemorechange (or perhaps \makechange) is in effect for the
+%% actual printing of bills.
+%%
+%% If exact change can't be made, not enough money will be generated
+%% and a warning will be output to the screen, including the ammount
+%% by which you are short.  This is why always having a bill with a
+%% value of 1 can be a good idea.
+%%
+%% The money-changing algorithm does not perform generalized
+%% factoring.  It merely steps from largest to smallest bill size,
+%% determining how many bills it should make.  For example, given bill
+%% sizes of 20, 17, and 1, it will change 34 into a a single 20 and
+%% fourteen 1s, despite the fact that two 17s would also work.
+\let\cash\empty
+\def\makenochange{%
+  \renewcommand*{\cash}[3][]{\INSTANCE{##2}{\s\MYamountnum{##3}}{}}}
+\def\makechange{\def\cash{\moneychange}}
+\def\makemorechange{\def\cash{\moneymorechange}}
+\makenochange  %% default
+
+
+%%%%%
+%% \moneychange{<type>}{<num>} and \moneymorechange{<type>}{<num>} can
+%% both be used directly, if desired.
+\newcommand{\moneychange}[1][]{\@moneychange{}{#1}}
+\newcommand{\moneymorechange}[1][]{\@moneychange{\advance\count0-1}{#1}}
+\def\@moneychange#1#2#3#4{%
+  \begingroup%
+    \def\@billslist{#2}%
+    \ifx\@billslist\empty%
+      \def\@billslist{\EVERY{#3}{}}%
+    \fi%
+    \count0=#4\relax%
+    \INSTANCE{#3}{}{\etoss{\multiply\count0by\?\MYexchangerate}}%
+    \xdef\@mctotal{\the\count0}%
+    \ifnum\@mctotal>0%
+      \BRANCHTYPES{Money}{\MAP{\TYPE}{%
+        \count0=\MYamountnum\relax%
+        \multiply\count0by\MYexchangerate\relax%
+        \edef\@tmp{\the\count0}%
+        \count0=\@mctotal\relax%
+        \divide\count0by\@tmp\relax%
+        #1\relax%
+        \edef\@numbills{\the\count0}%
+        \ifnum\@numbills>0\relax%
+          \multiply\count0by\@tmp\relax%
+          \edef\@tmp{\the\count0}%
+          \count0=\@mctotal\relax%
+          \advance\count0-\@tmp\relax%
+          \xdef\@mctotal{\the\count0}%
+          \etoss{\stoss{\multi{\?\@numbills}{\?\ME{}}}}%
+        \fi%
+        \etoss{\def\@LAST{\?\ME}}}}%
+      \def\@LAST##1{\typeout{^^J! no bills for making change}}%
+      \SORT{Money}{num>}{\MYamountnum}{\@billslist}{}%
+      \@LAST{%
+        \count0=\MYamountnum\relax%
+        \multiply\count0by\MYexchangerate\relax%
+        \edef\@tmp{\the\count0}%
+        \ifnum\@mctotal=\@tmp\relax%
+          \etoss{\stoss{\?\ME{}}}%
+          \gdef\@mctotal{0}%
+        \else%
+          \ifnum\@mctotal>\@tmp\relax%
+            \etoss{\stoss{\?\ME{}}}%
+            \count0=\@mctotal\relax%
+            \advance\count0-\@tmp\relax%
+            \xdef\@mctotal{\the\count0}%
+          \fi%
+          \typeout{^^J! #3 change off by \@mctotal\space reference units%
+            ^^J \space\@mctotal\space is not a multiple of \@tmp^^J}%
+        \fi}%
+    \fi%
+  \endgroup}
+
+
+%%%%%
+%% \moneyexchange{<fromnum>}{<fromtype>}{<totype>}
+%%
+\def\moneyexchange#1#2#3{%
+  \begingroup%
+    \count0=#1%
+    \INSTANCE{#2}{}{\etoss{\multiply\count0by\?\MYexchangerate}}%
+    \INSTANCE{#3}{}{\etoss{\divide\count0by\?\MYexchangerate}}%
+    \edef\@tmp{\the\count0}%
+    \etoss{\cash{#3}{\?\@tmp}}%
+  \endgroup}
+
+
+%%%%%
+%% \moneytotal{<type>}{<bills etc.>}
+%%
+%% This is a possibly useful macro that takes a group of \cash,
+%% \money(more)change, and even other \moneytotal commands, and
+%% adds them up into a single \cash command.
+\long\def\moneytotal#1#2{%
+  \begingroup%
+    \makenochange%
+    \def\moneychange{\cash}%
+    \def\moneymorechange{\cash}%
+    \def\moneyexchange##1##2##3{\cash{##2}{##1}}%
+    \def\moneytotal##1##2{##2}%
+    \gdef\@mttotal{0}%
+    \BRANCHTYPES{Money}{\MAP{\TYPE}{%
+      \count0=\MYamountnum%
+      \multiply\count0by\MYexchangerate%
+      \edef\@tmp{\the\count0}%
+      \count0=\@mttotal%
+      \advance\count0by\@tmp%
+      \xdef\@mttotal{\the\count0}}}%
+    \setbox0=\vbox{#2}%
+    \count0=\@mttotal%
+    \INSTANCE{#1}{}{\etoss{\divide\count0by\?\MYexchangerate}}%
+    \xdef\@mttotal{\the\count0}%
+    \etoss{\cash{#1}{\?\@mttotal}}%
+  \endgroup}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

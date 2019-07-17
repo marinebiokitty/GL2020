@@ -1,0 +1,571 @@
+%%%%%
+%%
+%% \parsename{<full name>}
+%%
+%% Parses out the parts of the given name, including given names,
+%% surnames, prefix titles, and suffix titles.  It puts each of these
+%% into a macro.
+%%
+%%   \full                   full name
+%%   \fullplain              full name without prefix or suffix titles
+%%
+%%   \formal                 formal abbreviated name
+%%                           (usually surname with optional basic title)
+%%   \informal               informal abbreviated name
+%%                           (usually first given name)
+%%   \alphabetical           string suitable for alphabetizing names
+%%
+%%   \parsetotal             number of names
+%%   \parseword{<n>}         nth name
+%%   \parseleftof{<n>}       all names to left of nth name
+%%   \parserightof{<n>}      all names to right of nth name
+%%   \parsebetween{<n>}{<m>} all names between nth and mth
+%%
+%%   \parseprefix            prefix title(s)
+%%   \parsesuffix            suffix title(s)
+%%   \parsecomma             blank unless suffix was parsed by comma
+%%
+%%
+%% \formal, \informal, and \alphabetical parse the name logically,
+%% based on cultural region.  Region is set (before \parsename is
+%% called) by either \western or \eastern.
+%%
+%% \western is traditional western name parsing:
+%%
+%% \western
+%% \parsename{Doctor \pre John Bob Smith \suf III}
+%%   \formal       -> "John"
+%%   \informal     -> "Doctor Smith"
+%%   \alphabetical -> "Smith  John Bob  Doctor  III"
+%%
+%% \eastern is traditional eastern name parsing:
+%%
+%% \eastern
+%% \parsename{Yamada Taro \suf Sensei}
+%%   \formal       -> "Yamada Sensei"
+%%   \informal     -> "Taro"
+%%   \alphabetical -> "Yamada  Taro  Sensei  "
+%%
+%% Spaces between parts in \parsealpha are produced by \divider, and
+%% thus not "ignored" by TeX, i.e.  similar to effect of \obeyspaces.
+%%
+%% \western
+%% \parsename{Doctor \pre Smith}
+%%   \parsealpha   -> "Smith      Doctor  "
+%%
+%% If a name is logically parsed by rules not covered by \western or
+%% \eastern, use \custom and define \formal, \informal, and
+%% \alphabetical by hand.
+%%
+%% \custom
+%% \parsename{Something Strange and Unknown}
+%% \def\informal{???}
+%% \def\formal{Non Sequitur}
+%% \def\alphabetical{Unknown\divider Strange\divider Something}
+%%
+%%
+%% Names can be counted forwards from 1 or backwards from -1:
+%%
+%% \parsename{John Bob Smith}
+%%   \parsetotal                   -> 3
+%%   \parseword{1}, \parseword{-3} -> "John"
+%%   \parseword{2}, \parseword{-2} -> "Bob"
+%%   \parseword{3}, \parseword{-1} -> "Smith"
+%%   \parserightof{1}              -> "Bob Smith"
+%%   \parseleftof{3}               -> "John Bob"
+%%   \parsebetween{1}{-1}          -> "Bob"
+%%
+%%
+%% Since words are parsed by spaces, to make two or more words parse as
+%% one, enclose them in matching braces:
+%%
+%% \parsename{John {Bob Smith}}
+%%   \parseword{1}  -> "John"
+%%   \parseword{2}  -> "Bob Smith"
+%%
+%%
+%% Handles comma separated suffixes on its own:
+%%
+%% \parsename{John Smith, Jr.}
+%%   \parsesuffix -> "Jr."
+%%   \parsecomma  -> ","
+%%
+%%
+%% Uses 2 markers: \pre and \suf, for prefixes and suffixes,
+%% respectively. \pre overrides \suf; \suf overrides ","; and
+%% \parsecomma is blank if \suf is used:
+%%
+%% \parsename{Doctor \pre John Smith \suf III}
+%%   \parseprefix -> "Doctor"
+%%   \parsesuffix -> "III"
+%%   \parsecomma  -> ""
+%%
+%% \parsename{Doctor \pre John Smith, Jr.}
+%%   \parseprefix -> "Doctor"
+%%   \parsesuffix -> "Jr."
+%%   \parsecomma  -> ","
+%%
+%% \parsename{Doctor \pre John Smith \suf III, PhD}
+%%   \parseprefix  -> "Doctor"
+%%   \parsesuffix  -> "III, PhD"
+%%   \parsecomma   -> ""
+%%
+%%
+%% Order it parses: first looks for \pre, and anything before it
+%% becomes \parseprefix.  Second looks in remainder of name for \suf,
+%% anything after it becomes \parsesuffix.  If there was no \suf,
+%% looks for the first comma, anything after it and the comma become
+%% \parsesuffix and \parsecomma becomes "," (if neither \suf nor any
+%% commas are there, \parsesuffix is blank).  Lastly, it parses out
+%% the remaining names.  After parsing is done, \fullplain, \formal,
+%% \informal, and \alphabetical are defined based on the current
+%% region.
+%%
+%%%%%
+
+
+%%%%%
+%% Allows * to be used in TeX command names, for this file, so
+%% internal commands that use it can't be used directly/messed with
+%% outside of this file.
+\catcode`\*=11
+
+
+%%%%%
+%% \western
+%% \eastern
+%% \custom
+%%
+%% \fullplain
+%% \formal
+%% \informal
+%% \alphabetical
+
+\def\western{\let\*regiontype\*western}
+\def\eastern{\let\*regiontype\*eastern}
+\def\custom{\let\*regiontype\*custom}
+
+\def\*western{0}
+\def\*eastern{1}
+\def\*custom{999}
+
+%% use western parsing by default
+\western
+
+\def\*parsebyregion{%
+  \ifcase\*regiontype%
+    \ifnum\parsetotal<1\relax%
+      \def\fullplain{}%
+      \ifx\parseprefix\empty%
+        \def\formal{\parsesuffix}%
+        \def\informal{\parsesuffix}%
+      \else%
+        \def\formal{\parseprefix}%
+        \def\informal{\parseprefix}%
+      \fi%
+    \else%
+      \ifnum\parsetotal=1\relax%
+        \def\fullplain{\parseword{1}}%
+      \else%
+        \def\fullplain{\parseword{1}\ \parserightof{1}}%
+      \fi%
+      \ifx\parseprefix\empty%
+        \def\formal{\parseword{-1}}%
+      \else%
+        \def\formal{\parseprefix\ \parseword{-1}}%
+      \fi%
+      \def\informal{\parseword{1}}%
+    \fi
+    \protected@edef\alphabetical{%
+      \parseword{-1}\divider\parseleftof{-1}\divider%
+      \parseprefix\divider\parsesuffix}%
+  \or%
+    \ifnum\parsetotal<1\relax%
+      \def\fullplain{}%
+      \ifx\parsesuffix\empty%
+        \def\formal{\parseprefix}%
+        \def\informal{\parseprefix}%
+      \else%
+        \def\formal{\parsesuffix}%
+        \def\informal{\parsesuffix}%
+      \fi%
+    \else%
+      \ifnum\parsetotal=1\relax%
+        \def\fullplain{\parseword{1}}%
+      \else%
+        \def\fullplain{\parseword{1}\ \parserightof{1}}%
+      \fi%
+      \ifx\parsesuffix\empty%
+        \def\formal{\parseword{1}}%
+      \else%
+        \def\formal{\parseword{1}\parsecomma\ \parsesuffix}%
+      \fi%
+      \def\informal{\parseword{2}}%
+    \fi
+    \protected@edef\alphabetical{%
+      \parseword{1}\divider\parserightof{1}\divider%
+      \parsesuffix\divider\parseprefix}%
+  \else%
+    %% for \custom, force user to define \fullplain, \formal, and
+    %% \informal to use them
+    \let\fullplain\*undefined%
+    \let\formal\*undefined%
+    \let\informal\*undefined%
+    %% something trivial for \alphabetical
+    \protected@edef\alphabetical{\parseword{1}}%
+  \fi%
+  \*makeallchars\alphabetical%
+  }
+
+
+%%%%%
+%% \parsename{<english name>}
+%% \full
+%% \pre
+%% \suf
+%% \parsetotal
+\def\parsename#1{%
+  \def\parsecomma{}%
+  \def\full{#1}%
+  \let\*pvalsuffix\empty%
+  \let\*pvalprefix\empty%
+  \let\*pvalrest\empty%
+  \def\pre{\noexpand\pre}%
+  \def\suf{\noexpand\suf}%
+  \def\*space{ }%
+  \protected@edef\*pvalrest{#1}%  %%% LaTeX's \protect mechanism
+  \ifx\*pvalrest\empty\relax\else%
+    \ifx\*pvalrest\*pre\def\*pvalrest{}%
+    \else\ifx\*pvalrest\*space\def\*pvalrest{}%
+    \else\expandafter\*parsepre\*pvalrest\*pmmark\pre\*pmark\*endparse%
+    \fi\fi%
+  \fi%
+  \ifx\*pvalrest\empty\relax\else%
+    \ifx\*pvalrest\*suff\def\*pvalrest{}%
+    \else%
+      \expandafter\*parsesuff\expandafter\empty\expandafter\empty%
+        \*pvalrest\*pmark\suf\*pmark\*endparse%
+      \ifx\*pvalsuffix\*pmark%
+        \expandafter\*parsecomma\expandafter\empty\expandafter\empty%
+        \*pvalrest\*pmark,\*pmark\*endparse%
+        \ifx\*pvalsuffix\empty\relax\else%
+          \def\parsecomma{,}%
+        \fi%
+      \fi%
+    \fi%
+  \fi%
+  \ifx\*pvalrest\empty%
+    \def\parsetotal{0}
+  \else%
+    \expandafter\*addlastspace\*pvalrest\*endparse%
+    \expandafter\*parseiteration\*pvalrest\0 %
+  \fi%
+  \let\parsesuffix\*pvalsuffix%
+  \let\parseprefix\*pvalprefix%
+  \*makeallchars\*pvalsuffix%
+  \*makeallchars\*pvalprefix%
+  \let\*pvalsuffix\empty%
+  \let\*pvalprefix\empty%
+  \let\*pvalrest\empty%
+  \def\pre{\unskip\space\ignorespaces}%
+  \def\suf{\unskip\space\ignorespaces}%
+  \*parsebyregion%
+  }
+
+
+%%%%%
+%% what \suf and \pre actually "do" on their own
+\def\pre{\unskip\space\ignorespaces}
+\def\suf{\unskip\space\ignorespaces}
+
+
+%%%%%
+%% Internal parsing macros.
+%% \divider
+\begingroup
+\def\*{\global\let\*sptok= }\*
+
+\catcode` =12%
+\gdef\*sp{ }%
+\gdef\divider{  }%
+\global\let\**sptok= %
+\gdef\**dospc#1 {\edef\*str{\*str\*sp}\*cloop}
+\endgroup
+
+\def\*makeallchars#1{%
+  \let\*str\empty%
+  \expandafter\*cloop#1\*pmark%
+  \let#1\*str\let\*str\empty}
+\def\*cloop{\futurelet\*nxt\**cloop}
+\def\**cloop{%
+  \ifx\*nxt\*sptok\def\*nxt{\*dospc}%
+  \else\ifx\*nxt\**sptok\def\*nxt{\**dospc}%
+  \else\ifx\*nxt\bgroup\def\*nxt{\*dogrp}%
+  \else\ifx\*nxt\*pmark\def\*nxt{\*doend}%
+  \else\def\*nxt{\*dotok}%
+  \fi\fi\fi\fi\*nxt}
+\def\*dospc#1 {\edef\*str{\*str\*sp}\*cloop}
+\def\*dogrp#1{%
+  \def\*tmp{#1}%
+  \ifx\*tmp\empty\else\*dogrptst#1\*pmark\fi%
+  \ifx\*tmp\empty\let\*tmp#1\else\let\*tmp\empty\fi%
+  \ifx\*tmp\bgroup\relax%
+  \else\*cloop#1\*pmark%
+  \fi\let\*tmp\relax\*cloop}
+\def\*dogrptst#1#2\*pmark{\def\*tmp{#2}}
+\def\*doend#1{}
+\def\*dotok#1{%
+  \expandafter\*dogrptst\string#1\*pmark%
+  \ifx\*tmp\empty\edef\*str{\*str\string#1}\fi%
+  \*cloop}
+
+\def\*pre{\pre}
+\def\*suff{\suf}
+\def\*pmark{\*pmark}
+\def\*pmmark{\*pmmark}
+\def\*psuck#1\*endparse{}
+\def\*pcheck#1 #2\*endparse{\def\*tmp{#2}}
+
+\def\*parsepre#1\pre#2{%
+  \def\*tmp{#2}%
+  \ifx\*tmp\*pmark%
+   \let\*tmp\*psuck%
+    \let\*pvalprefix\empty%
+  \else\ifx\*tmp\*pmmark%
+    \def\*pvalprefix{}%
+    \*zotprespace#1 \*pmark\*endparse%
+    \def\*pvalrest{}%
+    \let\*tmp\*psuck%
+  \else%
+    \def\*pvalprefix{}%
+    \*zotprespace#1 \*pmark\*endparse%
+    \*pcheck#2 \*endparse%
+    \ifx\*tmp\empty%
+      \def\*tmp{\*cleanpre#2}%
+    \else%
+      \def\*tmp{\*cleanpre{{#2}}}%
+    \fi%
+  \fi\fi\*tmp}
+\def\*zotprespace#1 #2{%
+  \def\*tmp{#2}%
+  \ifx\*tmp\*pmark%
+    \expandafter\def\expandafter\*pvalprefix\expandafter{\*pvalprefix#1}%
+    \let\*tmp\*psuck%
+  \else%
+    \expandafter\def\expandafter\*pvalprefix\expandafter{\*pvalprefix#1 }%
+    \def\*tmp{\*zotprespace#2}%
+  \fi\*tmp}%
+\def\*cleanpre#1#2\*pmmark#3\*endparse{%
+  \def\*pvalrest{#1#2}}
+
+\def\*parsesuff#1#2\suf#3{%
+  \def\*tmp{#3}%
+  \ifx\*tmp\*pmark%
+    \let\*pvalsuffix\*pmark%
+    \let\*tmp\*psuck%
+  \else%
+    \*pcheck#1 \*endparse%
+    \ifx\*tmp\empty%
+      \def\*pvalrest{ #1#2}%
+    \else%
+      \def\*pvalrest{ {#1}#2}%
+    \fi%
+    \def\*tmp{\*cleansuff#3}%
+  \fi\*tmp}
+\def\*cleansuff#1\*pmark#2\*endparse{%
+  \def\*pvalsuffix{#1}}
+
+\def\*parsecomma#1#2,#3{%
+  \def\*tmp{#3}%
+  \ifx\*tmp\*pmark%
+    \let\*pvalsuffix\empty%
+    \let\*tmp\*psuck%
+  \else%
+    \*pcheck#1 \*endparse%
+    \ifx\*tmp\empty%
+      \def\*pvalrest{#1#2}%
+    \else%
+      \def\*pvalrest{{#1}#2}%
+    \fi%
+    \def\*tmp{\*cleancomma#3}%
+  \fi\*tmp}
+\def\*cleancomma#1\*pmark#2\*endparse{%
+  \def\*pvalsuffix{#1}}
+
+\def\*addlastspace#1#2\*endparse{%
+  \*pcheck#1 \*endparse%
+  \ifx\*tmp\empty%
+    \def\*pvalrest{#1#2 }%
+  \else%
+    \def\*pvalrest{{#1}#2 }%
+  \fi}
+
+\newcount\*count
+\def\*namecnt{0}
+\def\*imark{\0}
+\def\*parseiteration#1 {%
+  \def\*tmp{#1}%
+  \ifx\*tmp\*imark%
+    \let\parsetotal\*namecnt%
+    \def\*namecnt{0}%
+    \let\*tmp\*reverseiteration%
+  \else%
+    \unless\ifx\*tmp\empty%
+      \*count\*namecnt\relax%
+      \advance\*count1\relax%
+      \ifnum\*namecnt=0\relax%
+        \expandafter\def\csname pl*1\endcsname{}%
+      \else\ifnum\*namecnt=1\relax%
+        \expandafter\expandafter\expandafter\let\expandafter\expandafter%
+          \csname pl*\the\*count\endcsname%
+          \csname p*\*namecnt\endcsname%
+      \else%
+        \expandafter\edef\csname pl*\the\*count\endcsname{%
+          \expandafter\unexpanded\expandafter{\csname pl*\*namecnt\endcsname}%
+          \space%
+          \expandafter\unexpanded\expandafter{\csname p*\*namecnt\endcsname}}%
+      \fi\fi%
+      \edef\*namecnt{\the\*count}%
+      \expandafter\def\csname p*\*namecnt\endcsname{#1}%
+      %\typeout{\*namecnt\space\csname p*\*namecnt\endcsname}%
+      %\typeout{\*namecnt\space\csname pl*\*namecnt\endcsname\space L #1}%
+    \fi%
+    \def\*tmp{\*parseiteration}%
+  \fi\*tmp}
+
+\def\*reverseiteration{%
+  \ifnum\*namecnt=-\parsetotal\relax%
+    \def\*namecnt{0}%
+    \let\*tmp\empty%
+  \else%
+    \*count\*namecnt\relax%
+    \advance\*count-1\relax%
+    \edef\*namecnt{\the\*count}%
+    \advance\*count\parsetotal\relax%
+    \advance\*count1\relax%
+    \edef\*reverse{\the\*count}%
+    \expandafter\edef\csname pn*\*namecnt\endcsname{\*reverse}%
+    \advance\*count1\relax%
+    \ifnum\*reverse=\parsetotal\relax%
+      \expandafter\def\csname pr*\*reverse\endcsname{}%
+    \else\ifnum\*count=\parsetotal\relax%
+      \expandafter\expandafter\expandafter\let\expandafter\expandafter%
+        \csname pr*\*reverse\endcsname%
+        \csname p*\the\*count\endcsname%
+    \else%
+      \expandafter\edef\csname pr*\*reverse\endcsname{%
+        \expandafter\unexpanded\expandafter{\csname p*\the\*count\endcsname}%
+        \space%
+        \expandafter\unexpanded\expandafter{\csname pr*\the\*count\endcsname}}%
+    \fi\fi%
+    %\typeout{\*namecnt\space \csname p*\*reverse\endcsname\space R
+    %  \csname pr*\*reverse\endcsname}%
+    \ifnum\*reverse<2\relax%
+      \let\*tmp\*reverseiteration%
+    \else%
+      \*count\*reverse\relax%
+      \advance\*count-1\relax%
+      \expandafter\def\csname pb*\the\*count *\*reverse\endcsname{}%
+      \advance\*count-1\relax%
+      \edef\*innercnt{\the\*count}%
+      \let\*tmp\*innerloop%
+    \fi%
+  \fi\*tmp}
+
+\def\*innerloop{%
+  \ifnum\*innercnt<1\relax%
+    \let\*tmp\*reverseiteration%
+  \else%
+    \*count\*innercnt\relax%
+    \advance\*count2\relax%
+    \edef\*test{\the\*count}%
+    \advance\*count-1\relax%
+    \ifnum\*test=\*reverse\relax%
+      \expandafter\expandafter\expandafter\let\expandafter\expandafter%
+        \csname pb*\*innercnt *\*reverse\endcsname%
+        \csname p*\the\*count\endcsname%
+    \else%
+      \expandafter\edef\csname pb*\*innercnt *\*reverse\endcsname{%
+        \expandafter\unexpanded\expandafter{\csname p*\the\*count\endcsname}%
+        \space%
+        \expandafter\unexpanded\expandafter{%
+          \csname pb*\the\*count *\*reverse\endcsname}}%
+    \fi%
+    %\typeout{b \*innercnt\space\*reverse\space%
+    %  \csname pb*\*innercnt *\*reverse\endcsname}%
+    \*count\*innercnt\relax%
+    \advance\*count-1\relax%
+    \edef\*innercnt{\the\*count}%
+    \let\*tmp\*innerloop%
+  \fi\*tmp}
+
+
+%%%%%
+%% \parseword{<n>}
+%% \parseleftof{<n>}
+%% \parserightof{<n>}
+\def\parseword#1{%
+  \*logic{#1}\parseword{\csname p*#1\endcsname}}
+
+\def\parseleftof#1{%
+  \*logic{#1}\parseleftof{\csname pl*#1\endcsname}}
+
+\def\parserightof#1{%
+  \*logic{#1}\parserightof{\csname pr*#1\endcsname}}
+
+%% shared helper macro
+\def\*logic#1#2#3{%
+  \unless\ifnum\parsetotal<#1
+    \unless\ifnum#1=0
+      \ifnum#1<0
+        \unless\ifnum-\parsetotal>#1
+          \expandafter#2\expandafter{\csname pn*#1\endcsname}%
+        \fi%
+      \else%
+        #3%
+      \fi%
+    \fi%
+  \fi}
+
+
+%%%%%
+%% \parsebetween{<n1>}{<n2>}
+\def\parsebetween#1#2{%
+  \unless\ifnum\parsetotal<#1
+    \unless\ifnum\parsetotal<#2
+      \unless\ifnum#1=0
+        \unless\ifnum#2=0
+          \ifnum#1<0
+            \unless\ifnum-\parsetotal>#1
+              \expandafter\parsebetween\expandafter%
+                {\csname pn*#1\endcsname}{#2}%
+            \fi%
+          \else%
+            \ifnum#2<0
+              \unless\ifnum-\parsetotal>#2
+                \expandafter\*parsebetweenswitch\expandafter%
+                  {\csname pn*#2\endcsname}{#1}%
+              \fi%
+            \else%
+              \ifnum#2>#1
+                \csname pb*#1*#2\endcsname%
+              \else\ifnum#1>#2
+                \csname pb*#2*#1\endcsname%
+              \fi\fi%
+            \fi%
+          \fi%
+        \fi%
+      \fi%
+    \fi%
+  \fi}
+
+%% helper macro
+\def\*parsebetweenswitch#1#2{\parsebetween{#2}{#1}}
+
+
+%%%%%
+%% Returns * to its default behavior, so it can no longer be used in
+%% TeX command names.
+\catcode`\*=12
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
