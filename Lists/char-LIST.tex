@@ -96,22 +96,22 @@
 \newcommand{\mf}[2]{\mfn{#1}{#2}{}}
 \newcommand{\pronoun}[4]{\def#1{\mfn{#2}{#3}{#4}}}
 
-\pronoun{\they}		{he}{she}{it}
-\pronoun{\They}		{He}{She}{It}
-\pronoun{\them}		{him}{her}{it}
-\pronoun{\Them}		{Him}{Her}{It}
-\pronoun{\their}	{his}{her}{its}
-\pronoun{\Their}	{His}{Her}{Its}
-\pronoun{\theirs}	{his}{hers}{its}
-\pronoun{\Theirs}	{His}{Hers}{Its}
-\pronoun{\themself}	{himself}{herself}{itself}
-\pronoun{\Themself}	{Himself}{Herself}{Itself}
+\pronoun{\they}		{he}{she}{they}
+\pronoun{\They}		{He}{She}{They}
+\pronoun{\them}		{him}{her}{them}
+\pronoun{\Them}		{Him}{Her}{Them}
+\pronoun{\their}	{his}{her}{their}
+\pronoun{\Their}	{His}{Her}{Their}
+\pronoun{\theirs}	{his}{hers}{theirs}
+\pronoun{\Theirs}	{His}{Hers}{Theirs}
+\pronoun{\themself}	{himself}{herself}{themself}
+\pronoun{\Themself}	{Himself}{Herself}{Themself}
 \pronoun{\spouse}	{husband}{wife}{spouse}
 \pronoun{\Spouse}	{Husband}{Wife}{Spouse}
 \pronoun{\offspring}	{son}{daughter}{offspring}
 \pronoun{\Offspring}	{Son}{Daughter}{Offspring}
-\pronoun{\kid}		{boy}{girl}{kid}
-\pronoun{\Kid}		{Boy}{Girl}{Kid}
+\pronoun{\kid}		{boy}{girl}{child}
+\pronoun{\Kid}		{Boy}{Girl}{Child}
 \pronoun{\waif}		{urchin}{waif}{stray}
 \pronoun{\Waif}		{Urchin}{Waif}{Stray}
 \pronoun{\guy}		{guy}{gal}{person}
@@ -120,10 +120,10 @@
 \pronoun{\Sibling}	{Brother}{Sister}{Sibling}
 \pronoun{\parent}	{father}{mother}{parent}
 \pronoun{\Parent}	{Father}{Mother}{Parent}
-\pronoun{\uncle}	{uncle}{aunt}{uncle}
-\pronoun{\Uncle}	{Uncle}{Aunt}{Uncle}
-\pronoun{\nephew}	{nephew}{niece}{nephew}
-\pronoun{\Nephew}	{Nephew}{Niece}{Nephew}
+\pronoun{\uncle}	{uncle}{aunt}{insert as needed}
+\pronoun{\Uncle}	{Uncle}{Aunt}{Insert as Needed}
+\pronoun{\nephew}	{nephew}{niece}{nibling}
+\pronoun{\Nephew}	{Nephew}{Niece}{Nibling}
 \def\aunt{\uncle}
 \def\Aunt{\Uncle}
 \def\niece{\nephew}
@@ -225,3 +225,19 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%Agrarian Society Character Listing%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\NEW{NPC}{\cQueen}{
+  \s\MYname	{Queen Ammeline}
+  \s\MYsex	{\female}
+}
+
+\NEW{NPC}{\cConsort}{
+  \s\MYname	{Consort}
+  \s\MYsex	{\neuter}
+}
+
+
