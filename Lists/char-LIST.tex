@@ -115,22 +115,21 @@
 \pronoun{\stray}	{urchin}{waif}{stray}
 \pronoun{\Stray}	{Urchin}{Waif}{Stray}
 \pronoun{\pal}		{guy}{gal}{pal}
+\pronoun{\Pal}		{Guy}{Gal}{Pal}
 \pronoun{\sibling}	{brother}{sister}{sibling}
 \pronoun{\Sibling}	{Brother}{Sister}{Sibling}
 \pronoun{\parent}	{father}{mother}{parent}
 \pronoun{\Parent}	{Father}{Mother}{Parent}
-\pronoun{\uncle}	{uncle}{aunt}{auncle}
-\pronoun{\Uncle}	{Uncle}{Aunt}{Auncle}
-\pronoun{\nephew}	{nephew}{niece}{nibling}
-\pronoun{\Nephew}	{Nephew}{Niece}{Nibling}
-\def\aunt{\uncle}
-\def\Aunt{\Uncle}
-\def\niece{\nephew}
-\def\Niece{\Nephew}
+\pronoun{\auncle}	{uncle}{aunt}{auncle}
+\pronoun{\Auncle}	{Uncle}{Aunt}{Auncle}
+\pronoun{\nibling}	{nephew}{niece}{nibling}
+\pronoun{\Nibling}	{Nephew}{Niece}{Nibling}
+%% \def\aunt{\uncle}
+%% \def\Aunt{\Uncle}
 \pronoun{\person}	{man}{woman}{person}
 \pronoun{\Person}	{Man}{Woman}{Person}
-\pronoun{\sex}		{male}{female}{neuter}
-\pronoun{\Sex}		{Male}{Female}{Neuter}
+\pronoun{\sex}		{male}{female}{nonbinary}
+\pronoun{\Sex}		{Male}{Female}{Nonbinary}
 \pronoun{\God}		{God}{Goddess}{Diety}
 
 
@@ -845,8 +844,8 @@
 
 %%%%%%Tech Society Character Listing%%%%%%%%%%%%%%%%%%%%%%%%%%
 \NEW{NPC}{\cTechGod}{
-  \s\MYname	{<TBDTech>}
-  \s\MYsex	{\neuter}
+  \s\MYname	{Koro}
+  \s\MYsex	{\female}
 }
 
 
@@ -874,4 +873,9 @@
 \NEW{NPC}{\cLoud}{
   \s\MYname	{Zain \suf of the 10th Fleet, Black Crow Ship}
   \s\MYsex	{\male}
+}
+
+\NEW{NPC}{\cAdoptedParent1}{
+  \s\MYname	{Madrone}
+  \s\MYsex	{\neuter}
 }
