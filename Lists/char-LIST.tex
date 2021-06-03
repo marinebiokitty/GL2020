@@ -147,6 +147,7 @@
 \pronoun{\Heir}		{Prince}{Princess}{Heir}
 \pronoun{\Heir}		{Prince}{Princess}{Heir}
 \pronoun{\cleric}		{Priest}{Priestess}{Cleric}
+\pronoun{\clergy}		{Priest}{Priestess}{Cleric}
 \pronoun{\partner}	{Partner}{Partner}{Partner}
 
 
@@ -226,7 +227,7 @@
 %%%%%%%%%%%%% CoS %%%%%%%%%%%%%%%
 \NEW{PC}{\cLibAssist}{
   \s\MYname	{Ysabelon Autumnset}
-  \s\MYfile	{}
+  \s\MYfile	{COS_Student_LibAssist.txt}
   \s\MYnumber	{}
   \s\MYdesc	{}
   \MYsex	{\female}
@@ -242,7 +243,7 @@
 
 \NEW{PC}{\cChupStudent}{
   \s\MYname	{Cedric Snowfall}
-  \s\MYfile	{}
+  \s\MYfile	{COS_Student_ChupStudent.txt}
   \s\MYnumber	{}
   \s\MYdesc	{}
   \MYsex	{\male}
@@ -907,7 +908,12 @@
 }
 
 \NEW{NPC}{\cFaledonParent}{
-  \s\MYname	{Aerio}
+  \s\MYname	{Aerio Faledon}
+  \s\MYsex	{\nonbinary}
+}
+
+\NEW{NPC}{\cCouncilPriest}{
+  \s\MYname	{Artax}
   \s\MYsex	{\nonbinary}
 }
 
@@ -956,6 +962,16 @@
 \NEW{NPC}{\cHeirSibling}{ %%\cHeir{}'s sibling who was killed six years ago
   \s\MYname	{Edon}
   \s\MYsex	{\male}
+}
+
+\NEW{NPC}{\cSaviourFleet}{ %%rescued Amanda
+  \s\MYname	{4th fleet, Pink Coral Ship}
+  \s\MYsex	{\female}
+}
+
+\NEW{NPC}{\cSavFlet}{ %%rescued Amanda, shortened
+  \s\MYname	{Pink Coral}
+  \s\MYsex	{\female}
 }
 
 %%% Chup NPCs%%%
