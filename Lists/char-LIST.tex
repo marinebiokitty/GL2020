@@ -91,7 +91,7 @@
 %% \mfn{<masculine>}{<feminine>}{<neuter>}
 %% \mf{<masculine>}{<feminine>}
 %% \pronoun{<command>}{<masculine>}{<feminine>}{<neuter>}
-\def\male{0}\def\female{1}\def\neuter{2}\def\ambiguous{3}
+\def\male{0}\def\female{1}\def\nonbinary{2}\def\ambiguous{3}
 \newcommand{\mfn}[3]{\ifcase\MYsex#1\or#2\or#3\else#1/#2\fi}
 \newcommand{\mf}[2]{\mfn{#1}{#2}{}}
 \newcommand{\pronoun}[4]{\def#1{\mfn{#2}{#3}{#4}}}
@@ -771,7 +771,7 @@
 }
 
 \NEW{PC}{\cJuniorStatesman}{
-  \s\MYname	{Adrien \suff of 2nd fleet, Rocky Coast Harbor}
+  \s\MYname	{Adrien \suf of 2nd fleet, Rocky Coast Harbor}
   \s\MYfile	{}
   \s\MYnumber	{}
   \s\MYdesc	{}
@@ -867,17 +867,17 @@
 
 \NEW{NPC}{\cConsort}{
   \s\MYname	{Diamond}
-  \s\MYsex	{\neuter}
+  \s\MYsex	{\nonbinary}
 }
 
 \NEW{NPC}{\cFarmGod}{
   \s\MYname	{Luminary}
-  \s\MYsex	{\neuter}
+  \s\MYsex	{\nonbinary}
 }
 
 \NEW{NPC}{\cAdoptedParentOne}{ %Yvonne's parent
   \s\MYname	{Eldrin}
-  \s\MYsex	{\neuter}
+  \s\MYsex	{\male}
 }
 
 \NEW{NPC}{\cPirateChildParent}{ %Pirate Child parent
@@ -908,7 +908,7 @@
 
 \NEW{NPC}{\cFaledonParent}{
   \s\MYname	{Aerio}
-  \s\MYsex	{\ambiguous}
+  \s\MYsex	{\nonbinary}
 }
 
 
@@ -945,7 +945,7 @@
 
 \NEW{NPC}{\cHeadDiplomat}{ %%Ross's Uncle; was supposed to be head diplomat
   \s\MYname	{Madrone \suf of the 1st Fleet, Drova's Landing}
-  \s\MYsex	{\neuter}
+  \s\MYsex	{\male}
 }
 
 \NEW{NPC}{\cJoeKill}{ %%Joe's most recent Kill.

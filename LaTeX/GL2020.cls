@@ -38,8 +38,8 @@
 %%
 %% Basic custom game information; gets used everywhere.  Don't put
 %% linebreaks in these and keep their lengths reasonable.
-\def\gamename{Grand Larp 2020 NEEDS A NAME}
-\def\gamedate{NOV 2020 NEEDS A DATE}
+\def\gamename{Children of the Gods}
+\def\gamedate{NOV 2021 12-14}
 
 
 %%%%%
