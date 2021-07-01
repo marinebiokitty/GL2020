@@ -39,7 +39,7 @@
 %% Basic custom game information; gets used everywhere.  Don't put
 %% linebreaks in these and keep their lengths reasonable.
 \def\gamename{Children of the Gods}
-\def\gamedate{NOV 2021 12-14}
+\def\gamedate{NOV 12 to 14, 2021}
 
 
 %%%%%
@@ -187,34 +187,34 @@
 %% to have an empty ability list on their sheet, remove (or comment
 %% out) the tlist environment that corresponds to abilities.
 \def\charsheetlists{%
-  %% listed mempackets
-  %\begin{tlist}{Memory/Event Packets}
-    %\MYmems
-  %\end{tlist}
-  %%% listed bluesheets
-  %\begin{tlist}{Bluesheets}
-    %\MYblues
-  %\end{tlist}
-  %%% listed greensheets
-  %\begin{tlist}{Greensheets}
-    %\MYgreens
-  %\end{tlist}
-  %%% listed abilities
-  %\begin{tlist}{Abilities}
-    %\MYabils
-    %\MYskills
-  %\end{tlist}
-  %%% listed items, etc
-  %\begin{tlist}{Items}
-    %\MYitems
-    %\MYwhites
-    %\MYcash
-  %\end{tlist}
-  %%% listed stats
-  %\begin{tlist}{Stats}
-    %\MYstats
-  %\end{tlist}
-  %%
+  % listed mempackets
+  \begin{tlist}{Memory/Event Packets}
+    \MYmems
+  \end{tlist}
+  %% listed bluesheets
+  \begin{tlist}{Bluesheets}
+    \MYblues
+  \end{tlist}
+  %% listed greensheets
+  \begin{tlist}{Greensheets}
+    \MYgreens
+  \end{tlist}
+  %% listed abilities
+  \begin{tlist}{Abilities}
+    \MYabils
+    \MYskills
+  \end{tlist}
+  %% listed items, etc
+  \begin{tlist}{Items}
+    \MYitems
+    \MYwhites
+    \MYcash
+  \end{tlist}
+  %% listed stats
+  \begin{tlist}{Stats}
+    \MYstats
+  \end{tlist}
+  %
   }
 
 
