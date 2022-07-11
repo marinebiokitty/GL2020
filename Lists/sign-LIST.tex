@@ -142,19 +142,20 @@
 %%GM HQ
 \NEW{Sign}{\sMurderConsequences}{
   \s\MYname	{If your character succeeds in murdering someone, read this sign}
-  \s\MYloc	{}
+  \s\MYloc	{GM HQ}
   \s\MYtext	{Take a copy of the greensheet in the packet attached to this sign. It has instructions on exactly how losing your memory works, and what you have access.}
+  \s\MYgreens {}
 }
   
 \NEW{Sign}{\sSignCOne}{
   \s\MYname	{Sign C}
-  \s\MYloc	{}
+  \s\MYloc	{GM HQ}
   \s\MYtext	{You may not interact with this sign unless instructed to do so. If you are instructed to do so, you will lift this sign and read the sign under it.}
 }
 
 \NEW{Sign}{\sSignCTwo}{
   \s\MYname	{Sign C -2 Dreaming of the Past}
-  \s\MYloc	{}
+  \s\MYloc	{GM HQ}
   \s\MYtext	{After successfully completing the ritual to use \iMirror{} to look into the past, you went to sleep. Overnight, you had the following dream://
   \emph{You see \iMirror{} in your mind. In it, you see your reflection. The mirror drifts close enough to you for your breath to fog the surface. Instead of fading, the mist begins to swirl slowly across the darkening surface of the mirror. You feel compelled to touch it. And in doing so, you fall forward into the mirror, tumbling into the vortex. Back through the swirling mist of time you are drawn.}
 
@@ -172,8 +173,36 @@ The Dream reverberates with magic, and you know it to be the truth - it may not 
 If one or more \iStoneFlower{\MYname} (\iStoneFlower{\MYnumber}) were substituted in the ritual for other flowers, you also have a pounding headache for the next 30 minutes or so.}
 }
   
-  
-  
-  
-  
-  
+
+%%The Gardens
+\NEW{Sign}{\sGardenGeneral}{
+  \s\MYname	{The College Gardens}
+  \s\MYloc	{Garden}
+  \s\MYtext	{The botanical gardens of the College of the Gods are said to rival the finest estate gardens in The Children of the Sun. Rare flowers, trees, and shrubs from all the known corners of the world, and some few found nowhere else, thrive in the carefully tended gardens. Something always seems to be in bloom, and those versed in the subtle language of flowers can tell the time of year, even the time of day, by what is blooming. A lovely place for a stroll, a secret rendezvous, or simply to meditate in solitude. To explore the gardens and see what is blooming, spend one uninterrupted minute in front of this sign without taking any other actions (conversation is fine), then pull one item from the appropriate envelope below (see the smaller signs: ``\sGardenDay{}'' and ``\sGardenNight{}''.), depending on the time of day. You may then either put the item back for others to enjoy, or pick the flower (against College policy) and keep the item.}
+}
+
+\NEW{SignMed}{\sGardenDay}{
+  \s\MYname	{The College Gardens By Day}
+  \s\MYloc	{Garden}
+  \s\MYtext	{If you choose to explore the gardens during the day (7:00 am to 5:00 pm), you will pull one item from the envelope attached to this sign.}
+  \s\MYitems {multi{2}{\iFlameOrchid{}\iMorningGlory{}}}
+}
+
+\NEW{SignMed}{\sGardenNight}{
+  \s\MYname	{The College Gardens By Night}
+  \s\MYloc	{Garden}
+  \s\MYtext	{If you choose to explore the gardens during the night (5:00 pm to 7:00 am), you will pull one item from the envelope attached to this sign.}
+  \s\MYitems {multi{2}{\iNightshade{}\iMoonflower{}}}
+}
+
+\NEW{Sign}{\sGardenFountain}{
+  \s\MYname	{The Garden Fountain}
+  \s\MYloc	{Garden}
+  \s\MYtext	{A lively fountain of bright green malachite burbles peacefully in this quiet corner of the garden. Carved in the shape of vines and tendrils, the fountain blends seamlessly with the surrounding vegetation, the water flowing like rain over leaves.
+
+\emph{OOC: If you need a source of freshwater for a mechanic, this fountain is an appropriate source.}}  
+}
+
+
+
+
