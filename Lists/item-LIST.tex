@@ -30,11 +30,13 @@
 %% n-hands bulky.  \contain{n} labels the card with n-hands capacity.
 \def\prop{%
   \append\MYmark{ ~PROP~ }}
+\def\tass{%
+  \append\MYmark{ ~TASS~ }}
 \def\unstash{%
   \append\MYmark{ ~UNSTASHABLE~ }}
 \def\bulky#1{%
   \s\MYbulky{#1}%
-  \append\MYmark{\mbox{ ~\MYbulky-Hand~Bulky~ }}}
+  \append\MYmark{\mbox{ ~\MYbulky-Hand(s)~Bulky~ }}}
 \def\contain#1{%
   \s\MYcapacity{#1}%
   \append\MYmark{\mbox{ ~\MYcapacity-Hand~Capacity~ }}}
