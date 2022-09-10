@@ -169,17 +169,18 @@
 
 
 %%COS Character Items
-\NEW{Item}{\iBeansNB}{ %%Prototype beans. \cCurse{} starts with these
+\NEW{ItemEnvelope}{\iBeansNB}{ %%Prototype beans. \cCurse{} starts with these
   \s\MYname	{Beans}
   \s\MYnumber	{0000}
-  \s\MYtext	{A handful of beans. Were they\ldots buzzing for a moment?}
+  \s\MYtext	{A handful of beans. Were they\ldots buzzing for a moment? \emph{OOC: Do not open unless directed to do so.}}
+  \s\MYcontents { \textbf{Tell a GM immediately if you plant them somewhere!}}
+  \s\MYitems {\iBeansMB}
 }
 
-\NEW{ItemEnvelope}{\iBeansMB}{ %%GM starts with these
+\NEW{Item}{\iBeansMB}{
   \s\MYname	{Magic Beans}
   \s\MYnumber	{0000}
-  \s\MYtext	{Magic Beans?}
-  \s\MYcontents	{A handful of beans. They buzz loudly and even rattle a little in your hand. \textbf{Tell a GM immediately if you plant them somewhere!}}
+  \s\MYtext	{A handful of beans. They buzz loudly and even rattle a little in your hand.}
 }
 
 \NEW{ItemEnvelope}{\iSignetRing}{ %%\cHedonist{} starts with this
