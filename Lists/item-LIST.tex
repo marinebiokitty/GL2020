@@ -190,17 +190,28 @@
   \s\MYcontents	{This is a signet ring of the royal family of \pFarm{}. It can be used to endorse documents as official. What is it doing here? Only the \cQueen{\Majesty}, or \cQueen{\their} heir should ever have this.}
 }
 
-%%FPF Character Items
-\NEW{Item}{\iCursedLetter}{ %%Rebecca starts with this
-  \s\MYname	{A handwritten letter}
+
+\NEW{ItemEnvelope}{\iFolderOfNotes}{ %%\cHedonist{} starts with this
+  \s\MYname	{A Folder of Notes}
   \s\MYnumber	{tbd}
-  \s\MYtext	{This letter is written on the highest quality paper,  by someone with exquisite calligraphy skills. It reads \emph{Dearest \cInitiate{}, It has taken us entirely too long to find you after your parents abandoned \pFarm{} for \pShip{}. We very much wish to know our grand\cIntiate{\child}, who we have come to know is greatly skilled in magic. We implore you to visit us, that we might tempt you to stay, and inherit all that is rightfully yours. Signed, Your loving grandparents.}}
+  \s\MYtext	{A very fancy ring. You may only open this item if specifically told to do so by a mechanic.}
+  \s\MYcontents	{This is a signet ring of the royal family of \pFarm{}. It can be used to endorse documents as official. What is it doing here? Only the \cQueen{\Majesty}, or \cQueen{\their} heir should ever have this.}
 }
+
+%%FPF Character Items
+
 
 \NEW{Item}{\iScholarship}{ %%Black starts with this
   \s\MYname	{A Scholarship Document}
   \s\MYnumber	{tbd}
   \s\MYtext	{A scholarship from the Church of \cTechGod{} for \cScholarship{}. It is currently authorized under \cAntiChup{} but could be transferred to another member of the \pTech{} clergy if both the current authorizer and the new authorizer consent. Technically \cScholarship{} can't object to such a transfer, but doing so without notifying \cScholarship{\them} would be unorthodox. \emph{OOC: Update this item as necessary if the authorizer changes.}}
+}
+
+%%WR Character Items
+\NEW{Item}{\iCursedLetter}{ %%Rebecca starts with this
+  \s\MYname	{A handwritten letter}
+  \s\MYnumber	{tbd}
+  \s\MYtext	{This letter is written on the highest quality paper,  by someone with exquisite calligraphy skills. It reads \emph{Dearest \cInitiate{}, It has taken us entirely too long to find you after your parents abandoned \pFarm{} for \pShip{}. We very much wish to know our grand\cIntiate{\child}, who we have come to know is greatly skilled in magic. We implore you to visit us, that we might tempt you to stay, and inherit all that is rightfully yours. Signed, Your loving grandparents.}}
 }
 
 %%The Relics
@@ -245,14 +256,28 @@
 }
 
 \NEW{ItemEnvelope}{\iPitcher}{  
-  \s\MYname	{Golden Pitcher}
+  \s\MYname	{Golden Amphora}
   \s\MYnumber	{tbd}
   \bulky	{1}
   \s\MYtext	{open if you have the ability to check alignment, or if you are directed by a mechanic to change the alignment. Replace contents once complete.}
   \s\MYcontents	{Current Alignment: \pFarm{}}
 }
 
+\NEW{ItemEnvelope}{\iHorseshoe}{  
+  \s\MYname	{Silver Horseshoe} %Starts with ChupLeader
+  \s\MYnumber	{tbd}
+  \bulky	{1}
+  \s\MYtext	{open if you have the ability to check alignment, or if you are directed by a mechanic to change the alignment. Replace contents once complete.}
+  \s\MYcontents	{Current Alignment: \pFarm{}}
+}
 
+\NEW{ItemEnvelope}{\iLocket}{  
+  \s\MYname	{Shadow Locket} %Starts with Disney
+  \s\MYnumber	{tbd}
+  \bulky	{1}
+  \s\MYtext	{open if you have the ability to check alignment, or if you are directed by a mechanic to change the alignment. Replace contents once complete.}
+  \s\MYcontents	{Current Alignment: \pFarm{}}
+}
 
 %%%%%%%%%%%%% GM Items %%%%%%%%%%%%%%
 \NEW{ItemEnvelope}{\iVotingStones}{
