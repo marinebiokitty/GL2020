@@ -66,25 +66,46 @@ def read_names_file(filename: str) -> dict:  # pylint: disable=R0914
     return parsed_characters
 
 
+def build_cmd(charname: str, filename: str) -> list[str]:
+    """Builds the shell command used in the render_pdf() functions"""
+    job_flags = JOBFLAG + charname.replace(" ", "_") + "_Charsheet"
+    command = TEXCMD + job_flags + OUTDIR + RUNFLAGS
+    command = command + INCLUDES + " " + filename
+    arrgh = shlex.split(command, posix=POSIX)  # POSIX is a bool defined in config.py
+    return arrgh
+
+
 def render_pdf(charname: str, texfile: str) -> int:
     """
     This function calls 'pdflatex' to render a PDF file for the character
     named charname
     """
-    print(f"texsource (filename) = {texfile}")
+    # print(f"texsource (filename) = {texfile}")
     absname = os.path.join(GAMEBASE, "Charsheets", texfile)
-    print(f"Fully qualified filename = {absname}")
+    # print(f"Fully qualified filename = {absname}")
     exists = Path.exists(Path(absname))
     if exists:
-        job_flags = JOBFLAG + charname.replace(" ", "_") + "_Charsheet"
-        command = TEXCMD + job_flags + OUTDIR + RUNFLAGS
-        command = command + INCLUDES + " " + absname
-        arrgh = shlex.split(
-            command, posix=POSIX
-        )  # POSIX is a bool defined in config.py
+        arrgh = build_cmd(charname, absname)
         return subprocess.run(arrgh, check=True).returncode  # nosec
 
     raise FileNotFoundError(f"Error! Character sheet file {absname} does not exist!")
+
+
+# pylint: disable-next=unused-argument
+def render_pdf_from_list(charname: str, compendium=False, production=False) -> int:
+    """
+    Same as render_pdf, but instead of looking up a character file name,
+    this one invokes listchar-PRINT.tex.
+
+    "Compendium" and "production" are the flags that file defines.
+    """
+    list_file_path = os.path.join(GAMEBASE, "Production", "listchar-PRINT.tex")
+    exists = Path.exists(Path(list_file_path))
+    if exists:
+        arrgh = build_cmd(charname, list_file_path)
+        return subprocess.run(arrgh, check=True).returncode  # nosec
+
+    raise FileNotFoundError(f"Error! File {list_file_path} not found!")
 
 
 def main() -> int:
@@ -103,7 +124,8 @@ def main() -> int:
     name = arguments.name
     output = read_names_file(arguments.listfile)
     try:
-        return render_pdf(output[name][0], output[name][1])
+        #  return render_pdf(output[name][0], output[name][1])
+        return render_pdf_from_list(output[name][0])
     except KeyError:
         print(f"Fatal error: macroname {name} not found!")
         return 1
