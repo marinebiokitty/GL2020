@@ -79,7 +79,9 @@ def render_pdf(charname: str, texfile: str) -> int:
         job_flags = JOBFLAG + charname.replace(" ", "_") + "_Charsheet"
         command = TEXCMD + job_flags + OUTDIR + RUNFLAGS
         command = command + INCLUDES + " " + absname
-        arrgh = shlex.split(command)
+        arrgh = shlex.split(
+            command, posix=POSIX
+        )  # POSIX is a bool defined in config.py
         return subprocess.run(arrgh, check=True).returncode  # nosec
 
     raise FileNotFoundError(f"Error! Character sheet file {absname} does not exist!")
