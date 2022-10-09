@@ -1,4 +1,4 @@
-#!/bin/env python3
+#!/bin/env python
 
 """
 Copyright (C) 2022 Andy Piltser-Cowan <awc34@cornell.edu>.
