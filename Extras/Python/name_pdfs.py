@@ -72,7 +72,7 @@ def render_pdf(charname: str, texfile: str) -> int:
     named charname
     """
     print(f"texsource (filename) = {texfile}")
-    absname = os.path.join(GAMEBASE, f"Charsheets/{texfile}")
+    absname = os.path.join(GAMEBASE, "Charsheets", texfile)
     print(f"Fully qualified filename = {absname}")
     exists = Path.exists(Path(absname))
     if exists:
