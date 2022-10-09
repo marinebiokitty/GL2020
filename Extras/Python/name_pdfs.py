@@ -18,6 +18,7 @@ from pathlib import Path
 import subprocess  # nosec
 import shlex
 from warnings import warn
+import os
 from config import *  # pylint: disable=wildcard-import, unused-wildcard-import
 
 
@@ -71,7 +72,7 @@ def render_pdf(charname: str, texfile: str) -> int:
     named charname
     """
     print(f"texsource (filename) = {texfile}")
-    absname = GAMEBASE + "/Charsheets/" + texfile
+    absname = os.path.join(GAMEBASE, f"Charsheets/{texfile}")
     print(f"Fully qualified filename = {absname}")
     exists = Path.exists(Path(absname))
     if exists:
