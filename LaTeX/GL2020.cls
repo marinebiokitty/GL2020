@@ -191,10 +191,10 @@
   %\begin{tlist}{Memory/Event Packets}
     %\MYmems
   %\end{tlist}
-  %%% listed bluesheets
-  %\begin{tlist}{Bluesheets}
-    %\MYblues
-  %\end{tlist}
+  %% listed bluesheets
+  \begin{tlist}{Bluesheets}
+    \MYblues
+  \end{tlist}
   %%% listed greensheets
   %\begin{tlist}{Greensheets}
     %\MYgreens
