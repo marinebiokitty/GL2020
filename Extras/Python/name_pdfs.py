@@ -22,13 +22,14 @@ import os
 from config import *  # pylint: disable=wildcard-import, unused-wildcard-import
 
 
-def read_names_file(filename: str) -> dict:  # pylint: disable=R0914
-    """Reads in the list .tex file and returns a dict with macronames as keys
+def read_names_file(filename: str) -> dict:  # pylint: disable=too-many-locals
+    """
+    Reads in the list .tex file and returns a dict with macronames as keys
     and (full_name, file_name, blues, greens) as values.
     Full_name and file_name are strings.
-    Blues and Greens are each an array of strings.
+    Blues and Greens are each Lists of strings.
 
-    TODO: make the values a NamedTuple
+    TODO (Andy): make the values a NamedTuple
     """
     player_characters: list[str]
     parsed_characters: dict[str, tuple]
@@ -42,6 +43,7 @@ def read_names_file(filename: str) -> dict:  # pylint: disable=R0914
     re_for_greens_line = re.compile(r"(?:\\s\\MYgreens\s+{\\g)[ -~\s]*?\n")
     re_blues_from_line = re.compile(r"(?:\\b)([\w]+)")
     re_greens_from_line = re.compile(r"(?:\\g)([\w]+)")
+
     # The comment below disables a pylint warning for not specifying file
     # encoding.  This is safe for a text-mode read in Python 3.10
     # pylint: disable=W1514
@@ -66,16 +68,23 @@ def read_names_file(filename: str) -> dict:  # pylint: disable=R0914
     return parsed_characters
 
 
-def build_cmd(charname: str, filename: str) -> list[str]:
+def build_cmd(charname: str, filename: str, draft=False) -> list[str]:
     """Builds the shell command used in the render_pdf() functions"""
+    if not isinstance(charname, str):
+        raise TypeError("Buildcmd received a 'charname' that was not a string!")
+    if not isinstance(filename, str):
+        raise TypeError("Buildcmd received a filename that was not a string!")
+
     job_flags = JOBFLAG + charname.replace(" ", "_") + "_Charsheet"
     command = TEXCMD + job_flags + OUTDIR + RUNFLAGS
+    if draft:
+        command += "--draft"
     command = command + INCLUDES + " " + filename
     arrgh = shlex.split(command, posix=POSIX)  # POSIX is a bool defined in config.py
     return arrgh
 
 
-def render_pdf(charname: str, texfile: str) -> int:
+def render_pdf(charname: str, texfile: str, draft=False) -> int:
     """
     This function calls 'pdflatex' to render a PDF file for the character
     named charname
@@ -85,7 +94,7 @@ def render_pdf(charname: str, texfile: str) -> int:
     # print(f"Fully qualified filename = {absname}")
     exists = Path.exists(Path(absname))
     if exists:
-        arrgh = build_cmd(charname, absname)
+        arrgh = build_cmd(charname, absname, draft)
         return subprocess.run(arrgh, check=True).returncode  # nosec
 
     raise FileNotFoundError(f"Error! Character sheet file {absname} does not exist!")
