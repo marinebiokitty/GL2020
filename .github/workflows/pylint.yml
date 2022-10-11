@@ -1,6 +1,10 @@
 name: Pylint
 
-on: [push]
+on:
+  push:
+    branches:
+    - master
+    - change-names
 
 jobs:
   build:
@@ -22,7 +26,7 @@ jobs:
       run: |
         pip install flake8
         flake8 .
-        continue-on-error: true
     - name: Analysing the code with pylint
       run: |
         pylint $(git ls-files '*.py')
+    continue-on-error: true
