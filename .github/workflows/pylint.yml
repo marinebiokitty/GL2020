@@ -3,7 +3,6 @@ name: Pylint
 on:
   push:
     branches:
-    - master
     - change-names
 
 jobs:
