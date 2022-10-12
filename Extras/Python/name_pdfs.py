@@ -19,6 +19,7 @@ import subprocess  # nosec
 import shlex
 from warnings import warn
 import os
+import tempfile
 from config import *  # pylint: disable=wildcard-import, unused-wildcard-import
 
 
@@ -100,19 +101,31 @@ def render_pdf(charname: str, texfile: str, draft=False) -> int:
     raise FileNotFoundError(f"Error! Character sheet file {absname} does not exist!")
 
 
-# pylint: disable-next=unused-argument
-def render_pdf_from_list(charname: str, compendium=False, production=False) -> int:
+def render_pdf_from_list(
+    charname: str, macroname: str, compendium=False, production=False
+) -> int:
     """
     Same as render_pdf, but instead of looking up a character file name,
     this one invokes listchar-PRINT.tex.
 
     "Compendium" and "production" are the flags that file defines.
     """
+    # pylint: disable=unused-argument
     list_file_path = os.path.join(GAMEBASE, "Production", "listchar-PRINT.tex")
     exists = Path.exists(Path(list_file_path))
     if exists:
-        arrgh = build_cmd(charname, list_file_path)
-        return subprocess.run(arrgh, check=True).returncode  # nosec
+        with tempfile.NamedTemporaryFile(mode="wt", suffix=".tex") as temp_file:
+            text_to_write = (
+                r"\documentclass[listchar]{GL2020}"
+                r"\begin{document}"
+                f"\\c{macroname}{{}}"
+                r"\end{document}"
+            )
+            temp_file.write(text_to_write)
+            temp_file.flush()
+            arrgh = build_cmd(charname, temp_file.name)
+            retcode = subprocess.run(arrgh, check=True).returncode  # nosec
+        return retcode
 
     raise FileNotFoundError(f"Error! File {list_file_path} not found!")
 
@@ -134,7 +147,7 @@ def main() -> int:
     output = read_names_file(arguments.listfile)
     try:
         #  return render_pdf(output[name][0], output[name][1])
-        return render_pdf_from_list(output[name][0])
+        return render_pdf_from_list(output[name][0], name)
     except KeyError:
         print(f"Fatal error: macroname {name} not found!")
         return 1
