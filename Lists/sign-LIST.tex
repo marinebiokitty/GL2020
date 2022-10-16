@@ -157,7 +157,7 @@
 \NEW{Sign}{\sSignCOne}{
   \s\MYname	{Sign C}
   \s\MYloc	{GM HQ}
-  \s\MYtext	{You may not interact with this sign unless instructed to do so. If you are instructed to do so, you will lift this sign and read the sign under it.}
+  \s\MYtext	{You may not interact with this sign unless instructed to do so by a mechanic.}
 }
 
 \NEW{Sign}{\sSignCTwo}{
@@ -179,7 +179,29 @@ The Dream reverberates with magic, and you know it to be the truth - it may not 
 
 If one or more \iStoneFlower{\MYname} (\iStoneFlower{\MYnumber}) were substituted in the ritual for other flowers, you also have a pounding headache for the next 30 minutes or so.}
 }
-  
+
+\NEW{Sign}{\sSignP}{
+  \s\MYname	{Sign P}
+  \s\MYloc	{GM HQ}
+  \s\MYtext	{You may not interact with this sign unless instructed to do so by a mechanic.}
+	\s\MYitems{\iFastActingPoison{}}
+}
+
+\NEW{Sign}{\sSignV}{
+  \s\MYname	{Sign V}
+  \s\MYloc	{GM HQ}
+  \s\MYtext	{This sign is for use by:\\
+	\begin{itemize}
+		\item \textbf{Advisors} casting their ballots ranking students from their own natio.
+		\item \textbf{Teachers} casting their ballots ranking students from another nation.
+		\item \textbf{Students} submitting their morality scores.
+	\end{itemize}
+	
+	Ballots/morality scores must be placed in this envelope by \textbf{9:00 PM on Saturday night} to be counted. 
+
+If you need to retrieve your ballot/morality score to make a change, you may do so before 9:00 pm on Saturday night, however, you are \textbf{not} permitted to look at other character’s submissions while searching for your own.
+	}
+}
 
 %%%%%%%%% The Gardens %%%%%%%%%%
 
@@ -213,6 +235,41 @@ If you wish to acquire a live fish or a live dragonfly, \textbf{spend 30 seconds
 \emph{OOC: If you need a source of freshwater for a mechanic, this fountain is an appropriate source. If you fill a container or vial with water from here, write on the item card ``filled with water.’’}}  
 }
 
+\NEW{Sign}{\sSignB}{
+  \s\MYname	{Sign B}
+  \s\MYloc	{Garden}
+  \s\MYtext	{You may not interact with this sign unless directed to do so by a mechanic.
+	}  
+}
+
+\NEW{Sign}{\sMagicPortal}{
+  \s\MYname	{A Magic Portal}
+  \s\MYloc	{Garden}
+  \s\MYtext	{Before you is a massive growth of vines that was definitely not here on Friday Morning. The vines make a pattern as if they were shaped intentionally, growing up and around in a big circle, larger than a door, leaving an open space in the middle. But where you might expect to see the rest of the garden through this open space, instead there is an iridescent, shifting mist. This is clearly a magic portal.
+
+Proximity with the portal for even a few moments leaves you with a sense of divinity. Could this be a portal to the Realm of the Gods? How was it created? The Gods themselves severed the connection between the Divine Realm and the mortal plane in time immemorial.
+
+If it really is a portal to the Realm of the Gods, you could theoretically go talk to the patron deities! And who knows what else you might find? But navigating the Divine Realm is likely to be a challenge. It is possible that you will accomplish nothing but wandering lost in the mist for a while.
+
+\textbf{If you wish to go through the portal, either individually, or with a group, see a GM. }(Even if you’ve already been through the portal, it is still important to see a GM.)
+
+When you go through the portal, you will be as a spirit - unable to interact with anything, only able to look at things, and talk. On the other hand, nothing on the other side of the portal will be able to interact with you either, meaning nothing can harm you. There may or may not be a way to change this, but this is the default.
+	}  
+}
+
+\NEW{Sign}{\sPileofGardeningSupplies}{
+  \s\MYname	{A Pile of Misc. Gardening Supplies}
+  \s\MYloc	{Garden}
+  \s\MYtext	{There is a cluttered pile of gardening supplies shoved in this corner. There are many small tools here, collections of seeds, and several types of fertilizer. There is even a small container of limestone bits to help counteract acidity building up in the soil.
+
+
+\textbf{The tools are sharp enough to cut oneself }if one is not careful in handling them.
+
+If you wish to take a ``\iLimestone{}'' from here, you may do so, but you must wait at least 5 minutes before retrieving a second piece.
+	}  
+	\s\MYitems	{\multi{5}{\iLimestone{}}}
+}
+
 
 %%%%%%%%% The Graveyard %%%%%%%%%%
 
@@ -220,6 +277,15 @@ If you wish to acquire a live fish or a live dragonfly, \textbf{spend 30 seconds
   \s\MYname	{The College Graveyard}
   \s\MYloc	{Graveyard}
   \s\MYtext	{The small graveyard of the College of the Gods receives few visitors, and has even fewer graves. Most people who meet their demise on campus are returned to their home nations. Nonetheless, more than a few important figures from the College’s history, and that of the world as a whole, are buried here. The imposing, wrought iron gates are flanked by bronze statues of the avatars of the Gods - a scarab beetle, a sea serpent, and a giant hummingbird. Both statues and gates are badly corroded, perhaps due to the fog which seems to perpetually cover this place. Grand mausoleums and humble tombstones alike lie shrouded ahead, their dim silhouettes like ghosts in the mist. Walk among the graves if you dare, and see what the dead can teach.}  
+}
+
+\NEW{Sign}{\sFlowerBed}{
+  \s\MYname	{An Overgrown Flowerbed}
+  \s\MYloc	{Graveyard}
+  \s\MYtext	{There is an overgrown flowerbed here. Clearly no gardener has cared for it in years. Still, you might find a few particularly hardy flowers managing to grow here anyway.
+		
+	You may take \textbf{1 item at random} from the envelope attached to this sign. You must wait \textbf{5 minutes} before taking another.}  
+  \s\MYitems {\iBlackCrocus{}}
 }
 
 \NEW{Sign}{\sFadedTombstone}{
@@ -238,18 +304,18 @@ If you wish to acquire a live fish or a live dragonfly, \textbf{spend 30 seconds
 \emph{In memory of the 12 students who perished on campus at the end of The Time of Deciding, year 1,816 PF. May they be remembered not simply for their final act, but for the lives they lived, and might have lived, had tragedy not struck them down in their prime. These are the names of the fallen:}
 
 \vspace{12pt}
-\emph{Edon Faleden}
-\emph{Chadwick Rexford}
-\emph{Clarissa Reinhardt}
-\emph{Jonathan Gloaming}
-\emph{Henrietta Noonshadow}
-\emph{Lily Dewsberry}
-\emph{Luca Belleville}
-\emph{River Dawning}
-\emph{Diana of 8th Fleet, Osprey Archipelago}
-\emph{Jethro of 1st Fleet, Guillemot’s Landing Harbor}
-\emph{Luna of 4th Fleet, Sheerwater Ship}
-\emph{Tiburon of 3rd Fleet, Black Albatross Ship}
+\emph{Edon Faleden}\\
+\emph{Chadwick Rexford}\\
+\emph{Clarissa Reinhardt}\\
+\emph{Jonathan Gloaming}\\
+\emph{Henrietta Noonshadow}\\
+\emph{Lily Dewsberry}\\
+\emph{\cKidScientist{\full}}\\
+\emph{River Dawning}\\
+\emph{Diana of 8th Fleet, Osprey Archipelago}\\
+\emph{Jethro of 1st Fleet, Guillemot’s Landing Harbor}\\
+\emph{Luna of 4th Fleet, Sheerwater Ship}\\
+\emph{Tiburon of 3rd Fleet, Black Albatross Ship}\\
 \end{center}
 }
 }
@@ -281,7 +347,7 @@ If you wish to acquire a live fish or a live dragonfly, \textbf{spend 30 seconds
   \s\MYloc	{Training Field}
   \s\MYtext	{The training ground of the College of the Gods stretches before you, littered with the detritus of centuries of magical training, despite the best efforts of the groundskeepers. The wide, open fields are pockmarked with smoldering craters, bizarre plants, shattered fragments of magitech devices, persistent localized weather systems, and other oddities. To search among the detritus, spend one uninterrupted minute in front of this sign without taking any other actions (conversation is fine), then pull one item from the envelope. Tread carefully - this place is decidedly unsafe.
 }
-  \s\MYitems {multi{3}{\iLily{}}}
+  \s\MYitems {multi{10}{\iLily{}\iEagleFeather{}}}
 }
 
 \NEW{Sign}{\sCombatCircle}{
@@ -290,3 +356,1587 @@ If you wish to acquire a live fish or a live dragonfly, \textbf{spend 30 seconds
   \s\MYtext	{At the center of the Training Ground stands the Combat Circle, a squat pillar of red marble looming above the surrounding landscape. Carved into the stone, a spiral staircase winds round its flanks before reaching the summit. It is here that students at the College of the Gods are trained in the art of magical combat and self defense. The Circle has seen everything from friendly sparring to grueling combat drills and winner-take-all duels; the College prides itself on the fact that no one has ever died within its bounds. The Circle’s pockmarked surface is covered with glowing magical sigils, powering the energy fields which prevent anyone swept from the summit from falling to their death.}
 }
 
+%%%%%%%%% The Temple %%%%%%%%%%
+\NEW{Sign}{\sAppeal}{
+  \s\MYname	{An Appeal for Protection}
+  \s\MYloc	{The Temple}
+  \s\MYtext	{There is a prayer carved into one of the stone grottos here. It is an appeal for protection from any and all of the deities of the Pantheon. It reads as follows:
+
+\begin{center}
+\emph{Deities beyond,}
+\emph{Hear our appeal across the void between realms}
+\emph{We walk the land you made (alt: We sail the seas you made)}
+\emph{And face its dangers great and small.}
+
+\emph{We know our power, and we know yours.}
+\emph{We know our limits, and each of your realms}
+\emph{Grant us your boons,}
+\emph{That we might defend ourselves.}
+
+\emph{We must be protected, in order to protect.}
+\emph{In return, we protect others}
+\emph{Until the realms are reunited}
+\emph{And you can protect us yourselves.}
+\end{center}
+	}
+}
+
+\NEW{Sign}{\sDecorativeChestForStaff}{
+  \s\MYname	{A Decorative Chest}
+  \s\MYloc	{The Temple}
+  \s\MYtext	{There is a beautiful decorative chest here. It is clearly made from wood sourced from all 3 nations. No doubt a \pShip{} craftsman created the elegant shape that was then turned over to \pTech{} artisans to carve and paint.
+
+\textbf{This chest is meant to hold the ``\iOakStaff''. This item may be freely taken from this sign, or returned here. No other item(s) may be placed in the envelope for this sign.}
+	}
+	\s\MYitems	{\iOakStaff{}}
+}
+
+%%%%%%%%% The Library %%%%%%%%%%
+
+
+
+
+%%%%%%%%% The Old Wing of the College %%%%%%%%%%
+
+\NEW{Sign}{\sBlackCrocusWishOne}{
+  \s\MYname	{A Wish for the Future}
+  \s\MYloc	{The Old Wing of the College}
+  \s\MYtext	{Unless you know otherwise, you must have a collective CR of 12+ alone or in a group \textbf{or} consume 1 ``\iBlackCrocus{}'' per person (discard to nearest stock) in order to navigate the ruins and access this location.
+	
+	If you meet the requirements, you may lift this sign and read the one underneath.}
+}
+
+\NEW{Sign}{\sBlackCrocusWishTwo}{
+  \s\MYname	{A Wish for the Future}
+  \s\MYloc	{The Old Wing of the College}
+  \s\MYtext	{There is a beautifully calligraphed banner here, large enough to be a tapestry. The entire piece is bordered in delicate black crocuses. The paper must surely have been magically protected, for it shows little sign of age or damage.  It must have once hung on the wall here. If you are careful, you can extract it from the rubble and clear it off to see what it says:
+
+\begin{center}
+\emph{From one international entity to another}
+
+\emph{The \pSchool{} is truly a marvel}
+\emph{Built by \pShip{} crafters to Federation plans, using Sun's materials.}
+
+\emph{It is a triumph of what the nations can do}
+\emph{When they choose to unite instead of fight.}
+\emph{The safest haven imaginable.}
+
+\emph{We earnestly hope to see this camaraderie grow}
+\emph{Far beyond the original intent just to}
+\emph{Allow us shelter from the storm}
+\emph{to finally create one people of \pEarth{}.}
+\end{center}
+\vspace{5mm}
+
+\textbf{If you encounter a mechanic that prompts you to search for ``glowing bricks,'' you may lift this sign and read the one beneath it.}
+	}
+}
+
+\NEW{SignSmall}{\sBlackCrocusWishThree}{
+  \s\MYname	{Glowing Blue Brick}
+  \s\MYloc	{The Old Wing of the College}
+  \s\MYtext	{You find a glowing blue brick in the wall. If you bring \textbf{2} people from the \textbf{lowest} echelons of society (e.g: \pFarm{} commoner, NOT on the \pTech{} Council or with family that is, or from 8th-12th Fleets of the \pShip{}) to this location, you may retrieve whatever is in the envelope. Once you have succeeded in this task, remove this sign and envelope (but not the two signs on top of it) and discard them to the nearest stock.
+	}
+	\s\MYitems {\iEdgePiece{}}
+}
+
+\NEW{Sign}{\sAlchemyLabOne}{
+  \s\MYname	{Alchemy Lab}
+  \s\MYloc	{The Old Wing of the College}
+  \s\MYtext	{Unless you know otherwise, you must have a collective CR of 10+ alone or in a group in order to navigate the ruins and access this location.
+	
+	If you meet the requirements, you may lift this sign and read the one underneath.}
+}
+
+\NEW{Sign}{\sAlchemyLabTwo}{
+  \s\MYname	{Alchemy Lab}
+  \s\MYloc	{The Old Wing of the College}
+  \s\MYtext	{Judging by the amount of broken glass and overturned benches in this space, this must have been an alchemy lab, where cursemakers explored, invented, and honed their craft.
+
+One corner of this space seems to have been cleaned and organized somewhat recently. At least there is less dust and debris over here. It kind of reminds you of the Maker’s Space.
+
+If you wish to search the space for something useful, you may roll a D20. \textbf{Only on a 20} do you manage to find something useful in this mess. If you roll a 20, take an item at random from the attached envelope. \textbf{Regardless of whether you succeed or fail the roll, you must wait at least 10 minutes before trying again.}
+
+Unless you know otherwise, you may not hide things here (you can’t put anything in the envelope). If you just rolled a 20, and wish not to take whatever you found, you may return it to the envelope immediately, but that is the only exception.
+	}
+	\s\MYitems {\iMagitechParts{}\iMagitechParts{}}
+}
+
+\NEW{Sign}{\sLeyLinesNexus}{
+  \s\MYname	{Ley Lines Nexus}
+  \s\MYloc	{The Old Wing of the College}
+  \s\MYtext	{Unless you know otherwise, you must have a collective CR of 7+ alone or in a group in order to navigate the ruins and access this location.
+	
+	If you meet the requirements, you may lift this sign and read the one underneath.}
+}
+
+\NEW{Sign}{\sLeyLinesSad}{
+  \s\MYname	{Ley Lines Nexus: Enervated}
+  \s\MYloc	{The Old Wing of the College}
+  \s\MYtext	{All of \pEarth{}’s ley lines pass through the floating island upon which the school is built, from every corner of the land and sea, twisting through this space, to spread again across the sky, beyond the horizon in every direction.
+
+This nexus is the place where the most ley lines cross, so many in fact that these impossibly gossamer threads are visible to the naked eye, without the need for any magical aid.
+
+Over time, the ley lines become worn, fraying at the edges with the immensity of the magical energy they carry across all of \pEarth{}. These enervated ley lines glow only faintly, pulsing softly like the slow heartbeat of an enormous animal.
+
+Long ago it was realized that the Time of Deciding puts tremendous strain on the ley lines, and so a renewing ritual was devised, that is the purview of the Principal of the \pSchool{} to enact before the end of each Time of Deciding.
+
+\textbf{If you complete the ritual to renew the ley lines, remove this sign, revealing the one below it. Leave the preceding sign here.}
+	}
+}
+
+\NEW{Sign}{\sLeyLinesHappy}{
+  \s\MYname	{Ley Lines Nexus: Renewed}
+  \s\MYloc	{The Old Wing of the College}
+  \s\MYtext	{All of \pEarth{}’s ley lines pass through the floating island upon which the school is built, from every corner of the land and sea, twisting through this space, to spread again across the sky, beyond the horizon in every direction.
+
+This nexus is the place where the most ley lines cross, so many in fact that these impossibly gossamer threads are visible to the naked eye, without the need for any magical aid.
+
+The ley lines have been recently renewed and glow brightly. It is now possible to conduct the Ritual to Reattune relics.
+	}
+}
+
+\NEW{Sign}{\sObservatoryOne}{
+  \s\MYname	{The Old Observatory}
+  \s\MYloc	{The Old Wing of the College}
+  \s\MYtext	{Unless you know otherwise, you must have a collective CR of 7+ alone or in a group in order to navigate the ruins and access this location.
+	
+If you meet the requirements, you may lift this sign and read the one underneath.
+	}
+}
+
+\NEW{Sign}{\sObservatoryTwo}{
+  \s\MYname	{The Old Observatory}
+  \s\MYloc	{The Old Wing of the College}
+  \s\MYtext	{You climb and climb up the winding staircase until you finally emerge on a landing. The wind blows cold in your face. Where is the wall? Or the roof? It seems the old observatory has seen much better days.
+
+On the other hand, with the roof gone, the space is easily accessible to birds, including eagles. You see the nest on the far side of the room. 
+
+If you would like to take ``\iEagleFeather{}'' from here, you may freely take 1. You must wait at least 5 minutes before you can take another.
+	}
+	\s\MYitems	{\multi{10}{\iEagleFeather{}}}
+}
+
+\NEW{Sign}{\sDioramas}{
+  \s\MYname	{Dioramas of Native Flora and Fauna}
+  \s\MYloc	{The Old Wing of the College}
+  \s\MYtext	{You walk down a hallway, glass crunching under your feet. Along both walls are large alcoves like one might find at a museum. Almost everything was smashed to pieces when the roof caved in in this section, but you can still see bits and pieces that tell you that these alcoves must have contained little displays of the local flora and fauna from various regions around \pEarth{}, all done up as little statues, in intricate detail. It looks like most anything that was whole or useful has long since been taken.
+
+If you wish to search the debris and rubble for anything useful, you may check the envelope below and take an item at random if any are present. If it is empty, there is nothing left to find.
+	}
+	\s\MYitems	{\iRabbitStatue{}}
+}
+
+\NEW{Sign}{\sOldPhilosophyOne}{
+  \s\MYname	{The Old Philosophy Room}
+  \s\MYloc	{The Old Wing of the College}
+  \s\MYtext	{Like every other space in the Old Wing of the \pSc{}, the philosophy room was badly damaged. The intricate mosaic on the floor, depicting the creation story was shattered, and its loss is considered one of the major tragedies of that generation. Oddly enough, even though the manuscripts were originally rescued from this space, and taken to the New Philosophy Room in the library, they somehow always find their way back here. Eventually the librarians gave up and let the books and scrolls and essays settle where they wanted.
+
+With the room destroyed however, the documents are scattered around in haphazard piles. After all, there are no shelves left unsmashed to house them. It would take a miracle to find anything useful here. But then those at the \pSchool{} during the Time of Deciding are often touched by the Deities, and far more likely than the average person to experience a miracle.
+
+\textbf{If you encounter a mechanic that prompts you to search for ``glowing bricks,'' you may lift this sign and read the one beneath it.}
+	}
+}
+
+\NEW{SignSmall}{\sOldPhilosophyTwo}{
+  \s\MYname	{The Old Philosophy Room}
+  \s\MYloc	{The Old Wing of the College}
+  \s\MYtext	{You find a glowing blue brick in the wall. Bring 3 teachers to this location. Once everyone is present, you may retrieve whatever is in the envelope. Once you have succeeded in this task, remove this sign and envelope (but not the two signs on top of it) and discard them to the nearest stock.
+	}
+	\s\MYitems {\iEdgePiece{}}
+}
+
+\NEW{Sign}{\sPFlameOne}{
+  \s\MYname	{Prometheus' Flame}
+  \s\MYloc	{The Old Wing of the College}
+  \s\MYtext	{Unless you know otherwise, you must have a collective CR of 11+ alone or in a group \textbf{or} consume 1 ``\iFlameOrchid{}'' per person (discard to nearest stock) in order to navigate the ruins and access this location.
+	
+If you meet the requirements, you may lift this sign and read the one underneath.}
+}
+
+\NEW{Sign}{\sPFlameTwo}{
+  \s\MYname	{Prometheus' Flame}
+  \s\MYloc	{The Old Wing of the College}
+  \s\MYtext	{You pass the doorway into a stone chamber. In the center stands a brazier made of brass. Inside burns the eternal flame known as Prometheus’ Flame. The warm glow is gentle and inviting. It speaks of endless possibilities. People wishing to change the nature of something will often bring things here to heat over the flame. Even things that should burn (like paper) or shatter (like a glass vial) can be heated here to imbue it with the potential to change or invert its nature.
+	
+\textbf{If you encounter a mechanic that prompts you to search for ``glowing bricks,'' you may lift this sign and read the one beneath it.}
+}
+}
+
+\NEW{SignSmall}{\sPFlameThree}{
+  \s\MYname	{Prometheus' Flame}
+  \s\MYloc	{The Old Wing of the College}
+  \s\MYtext	{You find a glowing blue brick in the wall.  If you bring 3 citizens of the \pTech{} to this location, you may retrieve whatever is in the envelope. Once you have succeeded in this task, remove this sign and envelope (but not the two signs on top of it) and discard them to the nearest stock.
+	}
+	\s\MYitems {\iEdgePiece{}}
+}
+
+%%%%%%%%% Makers Space %%%%%%%%%%
+\NEW{Sign}{\sMakerSpaceGeneral}{
+  \s\MYname	{The Maker Space}
+  \s\MYloc	{Maker’s Space}
+  \s\MYtext	{This is the maker’s space at the college. There are work benches scattered around, as well as many tools and supplies for building, crafting, cursemaking, and many forms of art are available here.
+
+\textbf{Be careful not to cut yourself on the sharp tools.}
+	}
+}
+
+
+%%%%%%%%% Great Hall %%%%%%%%%%
+\NEW{Sign}{\sBlankPaper}{
+  \s\MYname	{Blank Paper}
+  \s\MYloc	{The Great Hall}
+  \s\MYtext	{This sign holds blank paper for people who need scratch paper for something. Anyone may freely take paper from this location. 
+
+If the envelope attached to this sign is ever empty, let a GM know and we will add more.
+
+\emph{OOC: This sign literally only exists so that 1) the paper doesn’t blow away, and 2) the GMs remember to set this up.}
+	}
+}
+
+\NEW{Sign}{\sCreationMythOfficial}{
+  \s\MYname	{The Creation Myth}
+  \s\MYloc	{The Great Hall}
+  \s\MYtext	{This is the creation story of \pEarth{}, as agreed upon by the religious authorities from all three nations.
+
+\emph{In the beginning, all of the Deities were equal in the nothingness. \cFarmGod{}, \cTechGod{}, and the twin \cEbb{\God}es \cEbb{} and \cFlow{} got together and decided, in their infinite wisdom, that what was needed was a world. And so they went to the other gods, and through persuasion and logic, trickery, bribery, and unexpected kindnesses, convinced the entire pantheon that they were correct. And so the Deities brought their power together and created \pEarth{}. Upon it they placed the single continent by the same name. This single land mass represents the cooperation of all the Gods, and the wonders that they could create when united.} 
+
+\emph{When the primary work was done, a council was called among all the gods to determine who would create the race of beings most like the Deities themselves. The vote was unanimous, and perhaps not unexpected. Those who had originally brought the idea should create its crowning glory. And so \cFarmGod{}, \cTechGod{}, and the twin \cEbb{\God}es \cEbb{} and \cFlow{} set about creating humanity, each in their own way. The four Deities pooled their power together for a gift to humanity - the gift of Magic.  This gift came with a price, the price of the magical Storms, but the benefits of the Gods gift outweighs the cost.  And so upon \pEarth{} there walk 3 peoples, and their Patron Deities rule the Pantheon.}
+	}	
+}
+
+\NEW{Sign}{\sCreationMythSpeculated}{
+  \s\MYname	{The Creation Myth Rewritten?}
+  \s\MYloc	{The Great Hall}
+  \s\MYtext	{This is an alternate creation story, proposed out of diligent research from a few of those present at the Time of Deciding:
+
+\emph{In the beginning, all of the Deities were equal in the nothingness. A Deity whose name is now lost to time conceived of something new: a world - tangible and real, created by the Deities as a distraction from the endless existence. The other Deities were slow to agree at first, but as the project progressed, more and more saw the potential of this creation and sought to control it. Conflicts became more, and more violent. Eventually the struggle culminated with one Deity striking a mortal wound upon the Deity who had originally conceived the idea of a world. Never before had the Pantheon needed to face the loss of one of their number.} 
+
+\emph{In anger and fear, the other Deities rose up together and destroyed the Deity who had so wounded the creator. The dying Deity, for their part, was pained as much by the fighting among the Deities as by their wound. With their dying breath, they begged the Deities to set aside their quarrels and be content in each other. And for a time, there was peace, but it was not to last.}
+
+\emph{Eventually, \cFarmGod{}, \cTechGod{}, and the twin Goddesses \cEbb{} and \cFlow{} coalesced into a powerful faction, made more powerful by the worship and conquest of their followers, that began overpowering other Deities, one by one.  On \pEarth{}, the humans who served these Deities waged their own wars, and for a moment it looked like they might lose.  In that moment, the four Deities pooled their power together for a gift to humanity that would cement their worshiper's control of the world: Magic - a gift that would come at a cost.}
+
+\emph{Afterwards, victory was achieved both in the place of the Deities , and on \pEarth{}.  The humans who served the Deities spilled the blood of those who worshiped other Deities, or subsumed them. Those who bowed to the new Deities were spared, and brought into the fold. Those who did not were killed, and as much evidence of their existence as possible was purged.  Once their conquest was complete, and all upon \pEarth{} bowed to their power, the Patron Deities handed down their next edict: forbidding murder. Thus they hamstrung any attempt to overthrow them. And so \pEarth{} has been a world of three nations, and their four Patron Deities for as long as history remembers.}
+	}	
+}
+
+
+
+%%%%%%%%% Ritual Space %%%%%%%%%%
+\NEW{Sign}{\sCleaningInstructions}{
+  \s\MYname	{OOC Instructions: Cleaning the Ritual Space}
+  \s\MYloc	{Ritual Space}
+  \s\MYtext	{\emph{(OOC NOTE: These are the instructions for how to clean the ritual space. This mechanic is associated with the Preparations for the Ritual to Control the Storm (greensheet). If you don’t know what that is, don’t worry about this and feel free to ignore it.)}
+
+Around the edges of the space, you will find \textbf{5 receptacles} (additional boxes, with signs listing colors on them.) The ball pit balls currently in this box will need to be moved, one by one, to the receptacle that matches its colors (e.g. red ball goes in the ``red'' receptacle).
+
+There are constraints on how this must be done:
+\begin{enumerate}
+	\item Only 1 ball may be outside of a box at a time. Once one ball is removed from the starting box, it must be placed in its receptacle before another one can be removed from the starting box.
+	\item Balls may only be handed from one character to another. Balls may not be tossed at any time or placed in any intermediate carrying containers.
+	\item Once you have touched a ball that has been removed from the starting box, you may not change your spatial positioning (e.g. cannot walk to a new position) until it has been deposited into its receptacle. This includes touching through cloth (aka wearing gloves does not avoid this part of the mechanic.) 	
+	\begin{itemize}
+		\item If a ball gets dropped accidentally, you can go retrieve it, just come back to the place you were.
+	\end{itemize}
+	\item Once balls reach their target receptacle, they cannot be removed.
+\end{enumerate}
+
+This task does not need to all be completed in one go. You may do part of it, stop, and return later to continue. 
+	}
+}
+
+\NEW{SignMedium}{\sCleaningReceptacleOrange}{
+  \s\MYname	{Cleaning the Ritual Space: Orange Receptacle}
+  \s\MYloc	{Ritual Space}
+  \s\MYtext	{Orange ball pit balls go here. See the ``\sCleaningInstructions{}'' sign nearby for instructions.}
+	}
+
+\NEW{SignMedium}{\sCleaningReceptacleYellow}{
+  \s\MYname	{Cleaning the Ritual Space: Yellow Receptacle}
+  \s\MYloc	{Ritual Space}
+  \s\MYtext	{Yellow ball pit balls go here. See the ``\sCleaningInstructions{}'' sign nearby for instructions.}
+}
+
+\NEW{SignMedium}{\sCleaningReceptacleGreen}{
+  \s\MYname	{Cleaning the Ritual Space: Green Receptacle}
+  \s\MYloc	{Ritual Space}
+  \s\MYtext	{Green ball pit balls go here. See the ``\sCleaningInstructions{}'' sign nearby for instructions.}
+}
+
+\NEW{SignMedium}{\sCleaningReceptacleBlue}{
+  \s\MYname	{Cleaning the Ritual Space: Blue Receptacle}
+  \s\MYloc	{Ritual Space}
+  \s\MYtext	{Blue ball pit balls go here. See the ``\sCleaningInstructions{}'' sign nearby for instructions.}
+}
+
+
+\NEW{SignMedium}{\sCleaningReceptaclePink}{
+  \s\MYname	{Cleaning the Ritual Space: Pink Receptacle}
+  \s\MYloc	{Ritual Space}
+  \s\MYtext	{Pink ball pit balls go here. See the ``\sCleaningInstructions{}'' sign nearby for instructions.}
+}
+
+%%%%%%%%% Student Lounge %%%%%%%%%%
+\NEW{Sign}{\sStudentGeneral}{
+  \s\MYname	{The Student's Lounge / Bunker 1}
+  \s\MYloc	{Student Lounge / Bunker 1}
+  \s\MYtext	{This is the student’s lounge. It is really cozy, but much of the furniture has seen better days. This area can be closed off as one of the 3 bunkers that protect those present at the school during the ``Storm Surges.''
+
+There are several hallways branching off of this lounge that lead to the students’ rooms.}
+}
+
+\NEW{Sign}{\sStudentBookCaseOne}{
+  \s\MYname	{A Bookcase}
+  \s\MYloc	{Student Lounge / Bunker 1}
+  \s\MYtext	{There are many bookcases in this room, filled with copies of the reference books most commonly needed by students working on their homework.
+
+If you have an \textbf{S-score = 1}, you may lift this sign to read the one under it. Anyone who is with you, regardless of their current S-score will have an S-score=1 after reading the next sign.
+	}
+}
+
+\NEW{Sign}{\sStudentBookCaseTwo}{
+  \s\MYname	{A Hidden Compartment}
+  \s\MYloc	{Student Lounge / Bunker 1}
+  \s\MYtext	{\textbf{Set your S-score = 1. If you didn’t have an S-score before, you do now.}
+
+Tucked in a corner of this bookcase is a hidden switch. You press it, causing a concealed door to open. Behind the door is a hidden compartment.
+
+\textbf{Check the SMALL envelope here to see if anything is in the compartment.} You may freely take or remove things from this compartment, as long as all item(s) are not bulky. Unless you know otherwise, no bulky items may be stored here. Items beginning with item number ``51\ldots’’ are the exception. They may be stored here even if they are bulky.
+
+\textbf{If} there is an item in the SMALL envelope beginning with Item Number ``51…’’, you may also pull the greensheet out of the BIG envelope below and read it. 
+
+\textbf{Return the greensheet when you are done looking at it. It may not be taken away from this location.}
+	}
+	\s\MYgreens	{\gSeaSerpent{}}
+	\s\MYitems	{\iBabySeaSerpent}
+}
+
+\NEW{Sign}{\sSRDisney}{
+  \s\MYname	{A Student Room}
+	\s\MYloc	{The Student's Lounge / Bunker 1}
+  \s\MYtext	{This is the door to \textbf{\cDisney{\full}'s} room.
+
+\textbf{If you wish to enter this room you must meet one of the following requirements:}
+\begin{itemize}
+	\item \textbf{\cDisney{}} may enter freely at any time.
+	\item Anyone already in the room may admit additional people. You may \textbf{not} prevent someone from entering who gains access another way.
+	\item Attempt to pick the lock by rolling a D20. On a 14 or higher, you succeed in picking the lock and gaining access to the room. If you fail, you must wait at least 5 minutes before you try again.
+	\item Bash the door down:
+	\begin{itemize}
+		\item Hit the door with a combined CR attack of 7 or higher.
+		\item This action makes a lot of noise, roleplay accordingly, and tell any nearby PCs what they hear.
+		\item If you bash the door down, you must write on this sign that the door has been permanently damaged, and that the room is now freely searchable. (cross out this whole section on gaining entrance).
+	\end{itemize}
+\end{itemize}
+
+Once you have access to this room, you may look through the items in the attached envelope and \textbf{take any 1 item}, or \textbf{leave any 1 item} here as long as the \textbf{total amount of bulkiness does not exceed 2}. You must leave the room and gain access again if you wish to take another item.
+
+\textbf{\cDisney{}} may take or leave as many items as \cDisney{\they} like\cDisney{\plural}, but must still abide by the \textbf{2-hands bulky max}.
+
+You may try to have private conversations inside your room, but the walls are thin and total privacy is not guaranteed. Anyone in the room must put 1 hand on the sign. This indicates to other players passing by that you are inside the room and not visible from the hallway. It is reasonable to assume that characters outside the room can hear that conversation is going on inside, but not who is present, or  exactly what is being said.
+
+When you leave the room, the door magically locks behind you (unless the door has been destroyed.)
+	}
+}
+
+\NEW{Sign}{\sSRChupStudent}{
+  \s\MYname	{A Student Room}
+	\s\MYloc	{The Student's Lounge / Bunker 1}
+  \s\MYtext	{This is the door to \textbf{\cChupStudent{\full}'s} room.
+
+\textbf{If you wish to enter this room you must meet one of the following requirements:}
+\begin{itemize}
+	\item \textbf{\cChupStudent{}} may enter freely at any time.
+	\item Anyone already in the room may admit additional people. You may \textbf{not} prevent someone from entering who gains access another way.
+	\item Attempt to pick the lock by rolling a D20. On a 14 or higher, you succeed in picking the lock and gaining access to the room. If you fail, you must wait at least 5 minutes before you try again.
+	\item Bash the door down:
+	\begin{itemize}
+		\item Hit the door with a combined CR attack of 7 or higher.
+		\item This action makes a lot of noise, roleplay accordingly, and tell any nearby PCs what they hear.
+		\item If you bash the door down, you must write on this sign that the door has been permanently damaged, and that the room is now freely searchable. (cross out this whole section on gaining entrance).
+	\end{itemize}
+\end{itemize}
+
+Once you have access to this room, you may look through the items in the attached envelope and \textbf{take any 1 item}, or \textbf{leave any 1 item} here as long as the \textbf{total amount of bulkiness does not exceed 2}. You must leave the room and gain access again if you wish to take another item.
+
+\textbf{\cChupStudent{}} may take or leave as many items as \cChupStudent{\they} like\cChupStudent{\plural}, but must still abide by the \textbf{2-hands bulky max}.
+
+You may try to have private conversations inside your room, but the walls are thin and total privacy is not guaranteed. Anyone in the room must put 1 hand on the sign. This indicates to other players passing by that you are inside the room and not visible from the hallway. It is reasonable to assume that characters outside the room can hear that conversation is going on inside, but not who is present, or  exactly what is being said.
+
+When you leave the room, the door magically locks behind you (unless the door has been destroyed.)
+	}
+}
+
+\NEW{Sign}{\sSRAdopted}{
+  \s\MYname	{A Student Room}
+	\s\MYloc	{The Student's Lounge / Bunker 1}
+  \s\MYtext	{This is the door to \textbf{\cAdopted{\full}'s} room.
+
+\textbf{If you wish to enter this room you must meet one of the following requirements:}
+\begin{itemize}
+	\item \textbf{\cAdopted{}} may enter freely at any time.
+	\item Anyone already in the room may admit additional people. You may \textbf{not} prevent someone from entering who gains access another way.
+	\item Attempt to pick the lock by rolling a D20. On a 14 or higher, you succeed in picking the lock and gaining access to the room. If you fail, you must wait at least 5 minutes before you try again.
+	\item Bash the door down:
+	\begin{itemize}
+		\item Hit the door with a combined CR attack of 7 or higher.
+		\item This action makes a lot of noise, roleplay accordingly, and tell any nearby PCs what they hear.
+		\item If you bash the door down, you must write on this sign that the door has been permanently damaged, and that the room is now freely searchable. (cross out this whole section on gaining entrance).
+	\end{itemize}
+\end{itemize}
+
+Once you have access to this room, you may look through the items in the attached envelope and \textbf{take any 1 item}, or \textbf{leave any 1 item} here as long as the \textbf{total amount of bulkiness does not exceed 2}. You must leave the room and gain access again if you wish to take another item.
+
+\textbf{\cAdopted{}} may take or leave as many items as \cAdopted{\they} like\cAdopted{\plural}, but must still abide by the \textbf{2-hands bulky max}.
+
+You may try to have private conversations inside your room, but the walls are thin and total privacy is not guaranteed. Anyone in the room must put 1 hand on the sign. This indicates to other players passing by that you are inside the room and not visible from the hallway. It is reasonable to assume that characters outside the room can hear that conversation is going on inside, but not who is present, or  exactly what is being said.
+
+When you leave the room, the door magically locks behind you (unless the door has been destroyed.)
+	}
+}
+
+\NEW{Sign}{\sSRLibAssist}{
+  \s\MYname	{A Student Room}
+	\s\MYloc	{The Student's Lounge / Bunker 1}
+  \s\MYtext	{This is the door to \textbf{\cLibAssist{\full}'s} room.
+
+\textbf{If you wish to enter this room you must meet one of the following requirements:}
+\begin{itemize}
+	\item \textbf{\cLibAssist{}} may enter freely at any time.
+	\item Anyone already in the room may admit additional people. You may \textbf{not} prevent someone from entering who gains access another way.
+	\item Attempt to pick the lock by rolling a D20. On a 14 or higher, you succeed in picking the lock and gaining access to the room. If you fail, you must wait at least 5 minutes before you try again.
+	\item Bash the door down:
+	\begin{itemize}
+		\item Hit the door with a combined CR attack of 7 or higher.
+		\item This action makes a lot of noise, roleplay accordingly, and tell any nearby PCs what they hear.
+		\item If you bash the door down, you must write on this sign that the door has been permanently damaged, and that the room is now freely searchable. (cross out this whole section on gaining entrance).
+	\end{itemize}
+\end{itemize}
+
+Once you have access to this room, you may look through the items in the attached envelope and \textbf{take any 1 item}, or \textbf{leave any 1 item} here as long as the \textbf{total amount of bulkiness does not exceed 2}. You must leave the room and gain access again if you wish to take another item.
+
+\textbf{\cLibAssist{}} may take or leave as many items as \cLibAssist{\they} like\cLibAssist{\plural}, but must still abide by the \textbf{2-hands bulky max}.
+
+You may try to have private conversations inside your room, but the walls are thin and total privacy is not guaranteed. Anyone in the room must put 1 hand on the sign. This indicates to other players passing by that you are inside the room and not visible from the hallway. It is reasonable to assume that characters outside the room can hear that conversation is going on inside, but not who is present, or  exactly what is being said.
+
+When you leave the room, the door magically locks behind you (unless the door has been destroyed.)
+	}
+}
+
+\NEW{Sign}{\sSRScholarship}{
+  \s\MYname	{A Student Room}
+	\s\MYloc	{The Student's Lounge / Bunker 1}
+  \s\MYtext	{This is the door to \textbf{\cScholarship{\full}'s} room.
+
+\textbf{If you wish to enter this room you must meet one of the following requirements:}
+\begin{itemize}
+	\item \textbf{\cScholarship{}} may enter freely at any time.
+	\item Anyone already in the room may admit additional people. You may \textbf{not} prevent someone from entering who gains access another way.
+	\item Attempt to pick the lock by rolling a D20. On a 14 or higher, you succeed in picking the lock and gaining access to the room. If you fail, you must wait at least 5 minutes before you try again.
+	\item Bash the door down:
+	\begin{itemize}
+		\item Hit the door with a combined CR attack of 7 or higher.
+		\item This action makes a lot of noise, roleplay accordingly, and tell any nearby PCs what they hear.
+		\item If you bash the door down, you must write on this sign that the door has been permanently damaged, and that the room is now freely searchable. (cross out this whole section on gaining entrance).
+	\end{itemize}
+\end{itemize}
+
+Once you have access to this room, you may look through the items in the attached envelope and \textbf{take any 1 item}, or \textbf{leave any 1 item} here as long as the \textbf{total amount of bulkiness does not exceed 2}. You must leave the room and gain access again if you wish to take another item.
+
+\textbf{\cScholarship{}} may take or leave as many items as \cScholarship{\they} like\cScholarship{\plural}, but must still abide by the \textbf{2-hands bulky max}.
+
+You may try to have private conversations inside your room, but the walls are thin and total privacy is not guaranteed. Anyone in the room must put 1 hand on the sign. This indicates to other players passing by that you are inside the room and not visible from the hallway. It is reasonable to assume that characters outside the room can hear that conversation is going on inside, but not who is present, or  exactly what is being said.
+
+When you leave the room, the door magically locks behind you (unless the door has been destroyed.)
+	}
+}
+
+\NEW{Sign}{\sSRAmbition}{
+  \s\MYname	{A Student Room}
+	\s\MYloc	{The Student's Lounge / Bunker 1}
+  \s\MYtext	{This is the door to \textbf{\cAmbition{\full}'s} room.
+
+\textbf{If you wish to enter this room you must meet one of the following requirements:}
+\begin{itemize}
+	\item \textbf{\cAmbition{}} may enter freely at any time.
+	\item Anyone already in the room may admit additional people. You may \textbf{not} prevent someone from entering who gains access another way.
+	\item Attempt to pick the lock by rolling a D20. On a 14 or higher, you succeed in picking the lock and gaining access to the room. If you fail, you must wait at least 5 minutes before you try again.
+	\item Bash the door down:
+	\begin{itemize}
+		\item Hit the door with a combined CR attack of 7 or higher.
+		\item This action makes a lot of noise, roleplay accordingly, and tell any nearby PCs what they hear.
+		\item If you bash the door down, you must write on this sign that the door has been permanently damaged, and that the room is now freely searchable. (cross out this whole section on gaining entrance).
+	\end{itemize}
+\end{itemize}
+
+Once you have access to this room, you may look through the items in the attached envelope and \textbf{take any 1 item}, or \textbf{leave any 1 item} here as long as the \textbf{total amount of bulkiness does not exceed 2}. You must leave the room and gain access again if you wish to take another item.
+
+\textbf{\cAmbition{}} may take or leave as many items as \cAmbition{\they} like\cAmbition{\plural}, but must still abide by the \textbf{2-hands bulky max}.
+
+You may try to have private conversations inside your room, but the walls are thin and total privacy is not guaranteed. Anyone in the room must put 1 hand on the sign. This indicates to other players passing by that you are inside the room and not visible from the hallway. It is reasonable to assume that characters outside the room can hear that conversation is going on inside, but not who is present, or  exactly what is being said.
+
+When you leave the room, the door magically locks behind you (unless the door has been destroyed.)
+	}
+}
+
+\NEW{Sign}{\sSRTechStar}{
+  \s\MYname	{A Student Room}
+	\s\MYloc	{The Student's Lounge / Bunker 1}
+  \s\MYtext	{This is the door to \textbf{\cTechStar{\full}'s} room.
+
+\textbf{If you wish to enter this room you must meet one of the following requirements:}
+\begin{itemize}
+	\item \textbf{\cTechStar{}} may enter freely at any time.
+	\item Anyone already in the room may admit additional people. You may \textbf{not} prevent someone from entering who gains access another way.
+	\item Attempt to pick the lock by rolling a D20. On a 14 or higher, you succeed in picking the lock and gaining access to the room. If you fail, you must wait at least 5 minutes before you try again.
+	\item Bash the door down:
+	\begin{itemize}
+		\item Hit the door with a combined CR attack of 7 or higher.
+		\item This action makes a lot of noise, roleplay accordingly, and tell any nearby PCs what they hear.
+		\item If you bash the door down, you must write on this sign that the door has been permanently damaged, and that the room is now freely searchable. (cross out this whole section on gaining entrance).
+	\end{itemize}
+\end{itemize}
+
+Once you have access to this room, you may look through the items in the attached envelope and \textbf{take any 1 item}, or \textbf{leave any 1 item} here as long as the \textbf{total amount of bulkiness does not exceed 2}. You must leave the room and gain access again if you wish to take another item.
+
+\textbf{\cTechStar{}} may take or leave as many items as \cTechStar{\they} like\cTechStar{\plural}, but must still abide by the \textbf{2-hands bulky max}.
+
+You may try to have private conversations inside your room, but the walls are thin and total privacy is not guaranteed. Anyone in the room must put 1 hand on the sign. This indicates to other players passing by that you are inside the room and not visible from the hallway. It is reasonable to assume that characters outside the room can hear that conversation is going on inside, but not who is present, or  exactly what is being said.
+
+When you leave the room, the door magically locks behind you (unless the door has been destroyed.)
+	}
+}
+
+\NEW{Sign}{\sSRHeir}{
+  \s\MYname	{A Student Room}
+	\s\MYloc	{The Student's Lounge / Bunker 1}
+  \s\MYtext	{This is the door to \textbf{\cHeir{\full}'s} room.
+
+\textbf{If you wish to enter this room you must meet one of the following requirements:}
+\begin{itemize}
+	\item \textbf{\cHeir{}} may enter freely at any time.
+	\item Anyone already in the room may admit additional people. You may \textbf{not} prevent someone from entering who gains access another way.
+	\item Attempt to pick the lock by rolling a D20. On a 14 or higher, you succeed in picking the lock and gaining access to the room. If you fail, you must wait at least 5 minutes before you try again.
+	\item Bash the door down:
+	\begin{itemize}
+		\item Hit the door with a combined CR attack of 7 or higher.
+		\item This action makes a lot of noise, roleplay accordingly, and tell any nearby PCs what they hear.
+		\item If you bash the door down, you must write on this sign that the door has been permanently damaged, and that the room is now freely searchable. (cross out this whole section on gaining entrance).
+	\end{itemize}
+\end{itemize}
+
+Once you have access to this room, you may look through the items in the attached envelope and \textbf{take any 1 item}, or \textbf{leave any 1 item} here as long as the \textbf{total amount of bulkiness does not exceed 2}. You must leave the room and gain access again if you wish to take another item.
+
+\textbf{\cHeir{}} may take or leave as many items as \cHeir{\they} like\cHeir{\plural}, but must still abide by the \textbf{2-hands bulky max}.
+
+You may try to have private conversations inside your room, but the walls are thin and total privacy is not guaranteed. Anyone in the room must put 1 hand on the sign. This indicates to other players passing by that you are inside the room and not visible from the hallway. It is reasonable to assume that characters outside the room can hear that conversation is going on inside, but not who is present, or  exactly what is being said.
+
+When you leave the room, the door magically locks behind you (unless the door has been destroyed.)
+	}
+}
+
+\NEW{Sign}{\sSRPresident}{
+  \s\MYname	{A Student Room}
+	\s\MYloc	{The Student's Lounge / Bunker 1}
+  \s\MYtext	{This is the door to \textbf{\cPresident{\full}'s} room.
+
+\textbf{If you wish to enter this room you must meet one of the following requirements:}
+\begin{itemize}
+	\item \textbf{\cPresident{}} may enter freely at any time.
+	\item Anyone already in the room may admit additional people. You may \textbf{not} prevent someone from entering who gains access another way.
+	\item Attempt to pick the lock by rolling a D20. On a 14 or higher, you succeed in picking the lock and gaining access to the room. If you fail, you must wait at least 5 minutes before you try again.
+	\item Bash the door down:
+	\begin{itemize}
+		\item Hit the door with a combined CR attack of 7 or higher.
+		\item This action makes a lot of noise, roleplay accordingly, and tell any nearby PCs what they hear.
+		\item If you bash the door down, you must write on this sign that the door has been permanently damaged, and that the room is now freely searchable. (cross out this whole section on gaining entrance).
+	\end{itemize}
+\end{itemize}
+
+Once you have access to this room, you may look through the items in the attached envelope and \textbf{take any 1 item}, or \textbf{leave any 1 item} here as long as the \textbf{total amount of bulkiness does not exceed 2}. You must leave the room and gain access again if you wish to take another item.
+
+\textbf{\cPresident{}} may take or leave as many items as \cPresident{\they} like\cPresident{\plural}, but must still abide by the \textbf{2-hands bulky max}.
+
+You may try to have private conversations inside your room, but the walls are thin and total privacy is not guaranteed. Anyone in the room must put 1 hand on the sign. This indicates to other players passing by that you are inside the room and not visible from the hallway. It is reasonable to assume that characters outside the room can hear that conversation is going on inside, but not who is present, or  exactly what is being said.
+
+When you leave the room, the door magically locks behind you (unless the door has been destroyed.)
+	}
+}
+
+\NEW{Sign}{\sSRInitiate}{
+  \s\MYname	{A Student Room}
+	\s\MYloc	{The Student's Lounge / Bunker 1}
+  \s\MYtext	{This is the door to \textbf{\cInitiate{\full}'s} room.
+
+\textbf{If you wish to enter this room you must meet one of the following requirements:}
+\begin{itemize}
+	\item \textbf{\cInitiate{}} may enter freely at any time.
+	\item Anyone already in the room may admit additional people. You may \textbf{not} prevent someone from entering who gains access another way.
+	\item Attempt to pick the lock by rolling a D20. On a 14 or higher, you succeed in picking the lock and gaining access to the room. If you fail, you must wait at least 5 minutes before you try again.
+	\item Bash the door down:
+	\begin{itemize}
+		\item Hit the door with a combined CR attack of 7 or higher.
+		\item This action makes a lot of noise, roleplay accordingly, and tell any nearby PCs what they hear.
+		\item If you bash the door down, you must write on this sign that the door has been permanently damaged, and that the room is now freely searchable. (cross out this whole section on gaining entrance).
+	\end{itemize}
+\end{itemize}
+
+Once you have access to this room, you may look through the items in the attached envelope and \textbf{take any 1 item}, or \textbf{leave any 1 item} here as long as the \textbf{total amount of bulkiness does not exceed 2}. You must leave the room and gain access again if you wish to take another item.
+
+\textbf{\cInitiate{}} may take or leave as many items as \cInitiate{\they} like\cInitiate{\plural}, but must still abide by the \textbf{2-hands bulky max}.
+
+You may try to have private conversations inside your room, but the walls are thin and total privacy is not guaranteed. Anyone in the room must put 1 hand on the sign. This indicates to other players passing by that you are inside the room and not visible from the hallway. It is reasonable to assume that characters outside the room can hear that conversation is going on inside, but not who is present, or  exactly what is being said.
+
+When you leave the room, the door magically locks behind you (unless the door has been destroyed.)
+	}
+}
+
+\NEW{Sign}{\sSRWarlordDaughter}{
+  \s\MYname	{A Student Room}
+	\s\MYloc	{The Student's Lounge / Bunker 1}
+  \s\MYtext	{This is the door to \textbf{\cWarlordDaughter{\full}'s} room.
+
+\textbf{If you wish to enter this room you must meet one of the following requirements:}
+\begin{itemize}
+	\item \textbf{\cWarlordDaughter{}} may enter freely at any time.
+	\item Anyone already in the room may admit additional people. You may \textbf{not} prevent someone from entering who gains access another way.
+	\item Attempt to pick the lock by rolling a D20. On a 14 or higher, you succeed in picking the lock and gaining access to the room. If you fail, you must wait at least 5 minutes before you try again.
+	\item Bash the door down:
+	\begin{itemize}
+		\item Hit the door with a combined CR attack of 7 or higher.
+		\item This action makes a lot of noise, roleplay accordingly, and tell any nearby PCs what they hear.
+		\item If you bash the door down, you must write on this sign that the door has been permanently damaged, and that the room is now freely searchable. (cross out this whole section on gaining entrance).
+	\end{itemize}
+\end{itemize}
+
+Once you have access to this room, you may look through the items in the attached envelope and \textbf{take any 1 item}, or \textbf{leave any 1 item} here as long as the \textbf{total amount of bulkiness does not exceed 2}. You must leave the room and gain access again if you wish to take another item.
+
+\textbf{\cWarlordDaughter{}} may take or leave as many items as \cWarlordDaughter{\they} like\cWarlordDaughter{\plural}, but must still abide by the \textbf{2-hands bulky max}.
+
+You may try to have private conversations inside your room, but the walls are thin and total privacy is not guaranteed. Anyone in the room must put 1 hand on the sign. This indicates to other players passing by that you are inside the room and not visible from the hallway. It is reasonable to assume that characters outside the room can hear that conversation is going on inside, but not who is present, or  exactly what is being said.
+
+When you leave the room, the door magically locks behind you (unless the door has been destroyed.)
+	}
+}
+
+\NEW{Sign}{\sSRPirateChild}{
+  \s\MYname	{A Student Room}
+	\s\MYloc	{The Student's Lounge / Bunker 1}
+  \s\MYtext	{This is the door to \textbf{\cPirateChild{\full}'s} room.
+
+\textbf{If you wish to enter this room you must meet one of the following requirements:}
+\begin{itemize}
+	\item \textbf{\cPirateChild{}} may enter freely at any time.
+	\item Anyone already in the room may admit additional people. You may \textbf{not} prevent someone from entering who gains access another way.
+	\item Attempt to pick the lock by rolling a D20. On a 14 or higher, you succeed in picking the lock and gaining access to the room. If you fail, you must wait at least 5 minutes before you try again.
+	\item Bash the door down:
+	\begin{itemize}
+		\item Hit the door with a combined CR attack of 7 or higher.
+		\item This action makes a lot of noise, roleplay accordingly, and tell any nearby PCs what they hear.
+		\item If you bash the door down, you must write on this sign that the door has been permanently damaged, and that the room is now freely searchable. (cross out this whole section on gaining entrance).
+	\end{itemize}
+\end{itemize}
+
+Once you have access to this room, you may look through the items in the attached envelope and \textbf{take any 1 item}, or \textbf{leave any 1 item} here as long as the \textbf{total amount of bulkiness does not exceed 2}. You must leave the room and gain access again if you wish to take another item.
+
+\textbf{\cPirateChild{}} may take or leave as many items as \cPirateChild{\they} like\cPirateChild{\plural}, but must still abide by the \textbf{2-hands bulky max}.
+
+You may try to have private conversations inside your room, but the walls are thin and total privacy is not guaranteed. Anyone in the room must put 1 hand on the sign. This indicates to other players passing by that you are inside the room and not visible from the hallway. It is reasonable to assume that characters outside the room can hear that conversation is going on inside, but not who is present, or  exactly what is being said.
+
+When you leave the room, the door magically locks behind you (unless the door has been destroyed.)
+	}
+}
+
+%%%%%%%%% Teacher Lounge %%%%%%%%%%
+\NEW{Sign}{\sTeacherGeneral}{
+  \s\MYname	{The Teacher's Lounge / Bunker 2}
+  \s\MYloc	{Teacher Lounge / Bunker 2}
+  \s\MYtext	{This is the teacher’s lounge. It is fancier than the student lounge. This area can be closed off as one of the 3 bunkers that protect those present at the school during the ``Storm Surges.''
+
+There are several hallways branching off of this lounge that lead to the teachers’ offices, which are in turn connected to each teacher’s private chambers.
+	}
+}
+
+\NEW{Sign}{\sLinenCloset}{
+  \s\MYname	{A Linen Closet}
+  \s\MYloc	{Teacher Lounge / Bunker 2}
+  \s\MYtext	{There is a linen closet in the corner of the Teacher’s Lounge. Inside are many different cloths of various sizes and quality.
+
+If you wish to take an item from the linen closet,  you may look through the items in the attached envelope and \textbf{take 1 of your choosing}. 
+
+\textbf{You must wait 5 minutes before taking another item}, but each person has their own cool-down, so a second individual may also take an item immediately. 
+	}
+	\s\MYitems	{\multi{3}{\iThread{}\iFancyCloth{}}\iFancyCloth{}}
+}
+
+\NEW{Sign}{\sTRPrincipal}{
+  \s\MYname	{A Teacher's Office and Private Quarters}
+	\s\MYloc	{The Teacher's Lounge / Bunker 2}
+  \s\MYtext	{This is the door to \textbf{\cPrincipal{\full}'s} office space. Inside the office space is a door leading to their private quarters.
+
+\textbf{If you wish to enter this room you must meet one of the following requirements:}
+\begin{itemize}
+	\item \textbf{\cPrincipal{}} may enter freely at any time.
+	\item Anyone already in the room may admit additional people. You may \textbf{not} prevent someone from entering who gains access another way.
+	\item Attempt to pick the lock by rolling a D20. Only on a 20 do you succeed in picking the lock and gaining access to the room. If you fail, you must wait at least 5 minutes before you try again.
+	\item Bash the door down:
+	\begin{itemize}
+		\item Hit the door with a combined CR attack of \textbf{11} or higher.
+		\item This action makes a lot of noise, roleplay accordingly, and tell any nearby PCs what they hear.
+		\item If you bash the door down, you must write on this sign that the door has been permanently damaged, and that the room is now freely searchable. (cross out this whole section on gaining entrance).
+	\end{itemize}
+\end{itemize}
+
+Once you have access to this room, you may look through the items in the attached envelope and \textbf{take any 1 item}, or \textbf{leave any 1 item} here as long as the \textbf{total amount of bulkiness does not exceed 4}. You must leave the room and gain access again if you wish to take another item.
+
+\textbf{\cPrincipal{}} may take or leave as many items as \cPrincipal{\they} like\cPrincipal{\plural}, but must still abide by the \textbf{4-hands bulky max}.
+
+You may try to have private conversations inside your room, but the walls are thin and total privacy is not guaranteed. Anyone in the room must put 1 hand on the sign. This indicates to other players passing by that you are inside the room and not visible from the hallway. It is reasonable to assume that characters outside the room can hear that conversation is going on inside, but not who is present, or  exactly what is being said.
+
+When you leave the room, the door magically locks behind you (unless the door has been destroyed.)
+	}
+}
+
+\NEW{Sign}{\sTRInterpol}{
+  \s\MYname	{A Teacher's Office and Private Quarters}
+	\s\MYloc	{The Teacher's Lounge / Bunker 2}
+  \s\MYtext	{This is the door to \textbf{\cInterpol{\full}'s} office space. Inside the office space is a door leading to their private quarters.
+
+\textbf{If you wish to enter this room you must meet one of the following requirements:}
+\begin{itemize}
+	\item \textbf{\cInterpol{}} may enter freely at any time.
+	\item Anyone already in the room may admit additional people. You may \textbf{not} prevent someone from entering who gains access another way.
+	\item Attempt to pick the lock by rolling a D20. On a 14 or higher, you succeed in picking the lock and gaining access to the room. If you fail, you must wait at least 5 minutes before you try again.
+	\item Bash the door down:
+	\begin{itemize}
+		\item Hit the door with a combined CR attack of 7 or higher.
+		\item This action makes a lot of noise, roleplay accordingly, and tell any nearby PCs what they hear.
+		\item If you bash the door down, you must write on this sign that the door has been permanently damaged, and that the room is now freely searchable. (cross out this whole section on gaining entrance).
+	\end{itemize}
+\end{itemize}
+
+Once you have access to this room, you may look through the items in the attached envelope and \textbf{take any 1 item}, or \textbf{leave any 1 item} here as long as the \textbf{total amount of bulkiness does not exceed 4}. You must leave the room and gain access again if you wish to take another item.
+
+\textbf{\cInterpol{}} may take or leave as many items as \cInterpol{\they} like\cInterpol{\plural}, but must still abide by the \textbf{4-hands bulky max}.
+
+You may try to have private conversations inside your room, but the walls are thin and total privacy is not guaranteed. Anyone in the room must put 1 hand on the sign. This indicates to other players passing by that you are inside the room and not visible from the hallway. It is reasonable to assume that characters outside the room can hear that conversation is going on inside, but not who is present, or  exactly what is being said.
+
+When you leave the room, the door magically locks behind you (unless the door has been destroyed.)
+	}
+}
+
+\NEW{Sign}{\sTRMusic}{
+  \s\MYname	{A Teacher's Office and Private Quarters}
+	\s\MYloc	{The Teacher's Lounge / Bunker 2}
+  \s\MYtext	{This is the door to \textbf{\cMusic{\full}'s} office space. Inside the office space is a door leading to their private quarters.
+
+\textbf{If you wish to enter this room you must meet one of the following requirements:}
+\begin{itemize}
+	\item \textbf{\cMusic{}} may enter freely at any time.
+	\item Anyone already in the room may admit additional people. You may \textbf{not} prevent someone from entering who gains access another way.
+	\item Attempt to pick the lock by rolling a D20. On a 14 or higher, you succeed in picking the lock and gaining access to the room. If you fail, you must wait at least 5 minutes before you try again.
+	\item Bash the door down:
+	\begin{itemize}
+		\item Hit the door with a combined CR attack of 7 or higher.
+		\item This action makes a lot of noise, roleplay accordingly, and tell any nearby PCs what they hear.
+		\item If you bash the door down, you must write on this sign that the door has been permanently damaged, and that the room is now freely searchable. (cross out this whole section on gaining entrance).
+	\end{itemize}
+\end{itemize}
+
+Once you have access to this room, you may look through the items in the attached envelope and \textbf{take any 1 item}, or \textbf{leave any 1 item} here as long as the \textbf{total amount of bulkiness does not exceed 4}. You must leave the room and gain access again if you wish to take another item.
+
+\textbf{\cMusic{}} may take or leave as many items as \cMusic{\they} like\cMusic{\plural}, but must still abide by the \textbf{4-hands bulky max}.
+
+You may try to have private conversations inside your room, but the walls are thin and total privacy is not guaranteed. Anyone in the room must put 1 hand on the sign. This indicates to other players passing by that you are inside the room and not visible from the hallway. It is reasonable to assume that characters outside the room can hear that conversation is going on inside, but not who is present, or  exactly what is being said.
+
+When you leave the room, the door magically locks behind you (unless the door has been destroyed.)
+	}
+}
+
+\NEW{Sign}{\sTRPrince}{
+  \s\MYname	{A Teacher's Office and Private Quarters}
+	\s\MYloc	{The Teacher's Lounge / Bunker 2}
+  \s\MYtext	{This is the door to \textbf{\cPrince{\full}'s} office space. Inside the office space is a door leading to their private quarters.
+
+\textbf{If you wish to enter this room you must meet one of the following requirements:}
+\begin{itemize}
+	\item \textbf{\cPrince{}} may enter freely at any time.
+	\item Anyone already in the room may admit additional people. You may \textbf{not} prevent someone from entering who gains access another way.
+	\item Attempt to pick the lock by rolling a D20. On a 14 or higher, you succeed in picking the lock and gaining access to the room. If you fail, you must wait at least 5 minutes before you try again.
+	\item Bash the door down:
+	\begin{itemize}
+		\item Hit the door with a combined CR attack of 7 or higher.
+		\item This action makes a lot of noise, roleplay accordingly, and tell any nearby PCs what they hear.
+		\item If you bash the door down, you must write on this sign that the door has been permanently damaged, and that the room is now freely searchable. (cross out this whole section on gaining entrance).
+	\end{itemize}
+\end{itemize}
+
+Once you have access to this room, you may look through the items in the attached envelope and \textbf{take any 1 item}, or \textbf{leave any 1 item} here as long as the \textbf{total amount of bulkiness does not exceed 4}. You must leave the room and gain access again if you wish to take another item.
+
+\textbf{\cPrince{}} may take or leave as many items as \cPrince{\they} like\cPrince{\plural}, but must still abide by the \textbf{4-hands bulky max}.
+
+You may try to have private conversations inside your room, but the walls are thin and total privacy is not guaranteed. Anyone in the room must put 1 hand on the sign. This indicates to other players passing by that you are inside the room and not visible from the hallway. It is reasonable to assume that characters outside the room can hear that conversation is going on inside, but not who is present, or  exactly what is being said.
+
+When you leave the room, the door magically locks behind you (unless the door has been destroyed.)
+	}
+}
+
+\NEW{Sign}{\sTRHistory}{
+  \s\MYname	{A Teacher's Office and Private Quarters}
+	\s\MYloc	{The Teacher's Lounge / Bunker 2}
+  \s\MYtext	{This is the door to \textbf{\cHistory{\full}'s} office space. Inside the office space is a door leading to their private quarters.
+
+\textbf{If you wish to enter this room you must meet one of the following requirements:}
+\begin{itemize}
+	\item \textbf{\cHistory{}} may enter freely at any time.
+	\item Anyone already in the room may admit additional people. You may \textbf{not} prevent someone from entering who gains access another way.
+	\item Attempt to pick the lock by rolling a D20. On a 14 or higher, you succeed in picking the lock and gaining access to the room. If you fail, you must wait at least 5 minutes before you try again.
+	\item Bash the door down:
+	\begin{itemize}
+		\item Hit the door with a combined CR attack of 7 or higher.
+		\item This action makes a lot of noise, roleplay accordingly, and tell any nearby PCs what they hear.
+		\item If you bash the door down, you must write on this sign that the door has been permanently damaged, and that the room is now freely searchable. (cross out this whole section on gaining entrance).
+	\end{itemize}
+\end{itemize}
+
+Once you have access to this room, you may look through the items in the attached envelope and \textbf{take any 1 item}, or \textbf{leave any 1 item} here as long as the \textbf{total amount of bulkiness does not exceed 4}. You must leave the room and gain access again if you wish to take another item.
+
+\textbf{\cHistory{}} may take or leave as many items as \cHistory{\they} like\cHistory{\plural}, but must still abide by the \textbf{4-hands bulky max}.
+
+You may try to have private conversations inside your room, but the walls are thin and total privacy is not guaranteed. Anyone in the room must put 1 hand on the sign. This indicates to other players passing by that you are inside the room and not visible from the hallway. It is reasonable to assume that characters outside the room can hear that conversation is going on inside, but not who is present, or  exactly what is being said.
+
+When you leave the room, the door magically locks behind you (unless the door has been destroyed.)
+	}
+}
+
+\NEW{Sign}{\sTRBeetle}{
+  \s\MYname	{A Teacher's Office and Private Quarters}
+	\s\MYloc	{The Teacher's Lounge / Bunker 2}
+  \s\MYtext	{This is the door to \textbf{\cBeetle{\full}'s} office space. Inside the office space is a door leading to their private quarters.
+
+\textbf{If you wish to enter this room you must meet one of the following requirements:}
+\begin{itemize}
+	\item \textbf{\cBeetle{}} may enter freely at any time.
+	\item Anyone already in the room may admit additional people. You may \textbf{not} prevent someone from entering who gains access another way.
+	\item Attempt to pick the lock by rolling a D20. On a 14 or higher, you succeed in picking the lock and gaining access to the room. If you fail, you must wait at least 5 minutes before you try again.
+	\item Bash the door down:
+	\begin{itemize}
+		\item Hit the door with a combined CR attack of 7 or higher.
+		\item This action makes a lot of noise, roleplay accordingly, and tell any nearby PCs what they hear.
+		\item If you bash the door down, you must write on this sign that the door has been permanently damaged, and that the room is now freely searchable. (cross out this whole section on gaining entrance).
+	\end{itemize}
+\end{itemize}
+
+Once you have access to this room, you may look through the items in the attached envelope and \textbf{take any 1 item}, or \textbf{leave any 1 item} here as long as the \textbf{total amount of bulkiness does not exceed 4}. You must leave the room and gain access again if you wish to take another item.
+
+\textbf{\cBeetle{}} may take or leave as many items as \cBeetle{\they} like\cBeetle{\plural}, but must still abide by the \textbf{4-hands bulky max}.
+
+You may try to have private conversations inside your room, but the walls are thin and total privacy is not guaranteed. Anyone in the room must put 1 hand on the sign. This indicates to other players passing by that you are inside the room and not visible from the hallway. It is reasonable to assume that characters outside the room can hear that conversation is going on inside, but not who is present, or  exactly what is being said.
+
+When you leave the room, the door magically locks behind you (unless the door has been destroyed.)
+	}
+}
+
+\NEW{Sign}{\sTREthics}{
+  \s\MYname	{A Teacher's Office and Private Quarters}
+	\s\MYloc	{The Teacher's Lounge / Bunker 2}
+  \s\MYtext	{This is the door to \textbf{\cEthics{\full}'s} office space. Inside the office space is a door leading to their private quarters.
+
+\textbf{If you wish to enter this room you must meet one of the following requirements:}
+\begin{itemize}
+	\item \textbf{\cEthics{}} may enter freely at any time.
+	\item Anyone already in the room may admit additional people. You may \textbf{not} prevent someone from entering who gains access another way.
+	\item Attempt to pick the lock by rolling a D20. On a 14 or higher, you succeed in picking the lock and gaining access to the room. If you fail, you must wait at least 5 minutes before you try again.
+	\item Bash the door down:
+	\begin{itemize}
+		\item Hit the door with a combined CR attack of 7 or higher.
+		\item This action makes a lot of noise, roleplay accordingly, and tell any nearby PCs what they hear.
+		\item If you bash the door down, you must write on this sign that the door has been permanently damaged, and that the room is now freely searchable. (cross out this whole section on gaining entrance).
+	\end{itemize}
+\end{itemize}
+
+Once you have access to this room, you may look through the items in the attached envelope and \textbf{take any 1 item}, or \textbf{leave any 1 item} here as long as the \textbf{total amount of bulkiness does not exceed 4}. You must leave the room and gain access again if you wish to take another item.
+
+\textbf{\cEthics{}} may take or leave as many items as \cEthics{\they} like\cEthics{\plural}, but must still abide by the \textbf{4-hands bulky max}.
+
+You may try to have private conversations inside your room, but the walls are thin and total privacy is not guaranteed. Anyone in the room must put 1 hand on the sign. This indicates to other players passing by that you are inside the room and not visible from the hallway. It is reasonable to assume that characters outside the room can hear that conversation is going on inside, but not who is present, or  exactly what is being said.
+
+When you leave the room, the door magically locks behind you (unless the door has been destroyed.)
+	}
+}
+
+\NEW{Sign}{\sTRChupInventor}{
+  \s\MYname	{A Teacher's Office and Private Quarters}
+	\s\MYloc	{The Teacher's Lounge / Bunker 2}
+  \s\MYtext	{This is the door to \textbf{\cChupInventor{\full}'s} office space. Inside the office space is a door leading to their private quarters.
+
+\textbf{If you wish to enter this room you must meet one of the following requirements:}
+\begin{itemize}
+	\item \textbf{\cChupInventor{}} may enter freely at any time.
+	\item Anyone already in the room may admit additional people. You may \textbf{not} prevent someone from entering who gains access another way.
+	\item Attempt to pick the lock by rolling a D20. Only on a 20 do you succeed in picking the lock and gaining access to the room. If you fail, you must wait at least 5 minutes before you try again.
+	\item Bash the door down:
+	\begin{itemize}
+		\item Hit the door with a combined CR attack of \textbf{11} or higher.
+		\item This action makes a lot of noise, roleplay accordingly, and tell any nearby PCs what they hear.
+		\item If you bash the door down, you must write on this sign that the door has been permanently damaged, and that the room is now freely searchable. (cross out this whole section on gaining entrance).
+	\end{itemize}
+\end{itemize}
+
+Once you have access to this room, you may look through the items in the attached envelope and \textbf{take any 1 item}, or \textbf{leave any 1 item} here as long as the \textbf{total amount of bulkiness does not exceed 4}. You must leave the room and gain access again if you wish to take another item.
+
+\textbf{\cChupInventor{}} may take or leave as many items as \cChupInventor{\they} like\cChupInventor{\plural}, but must still abide by the \textbf{4-hands bulky max}.
+
+You may try to have private conversations inside your room, but the walls are thin and total privacy is not guaranteed. Anyone in the room must put 1 hand on the sign. This indicates to other players passing by that you are inside the room and not visible from the hallway. It is reasonable to assume that characters outside the room can hear that conversation is going on inside, but not who is present, or  exactly what is being said.
+
+When you leave the room, the door magically locks behind you (unless the door has been destroyed.)
+	}
+	\s\MYitems{\iMagitechParts{}}
+}
+
+\NEW{Sign}{\sTRLibrarian}{
+  \s\MYname	{A Teacher's Office and Private Quarters}
+	\s\MYloc	{The Teacher's Lounge / Bunker 2}
+  \s\MYtext	{This is the door to \textbf{\cLibrarian{\full}'s} office space. Inside the office space is a door leading to their private quarters.
+
+\textbf{If you wish to enter this room you must meet one of the following requirements:}
+\begin{itemize}
+	\item \textbf{\cLibrarian{}} may enter freely at any time.
+	\item Anyone already in the room may admit additional people. You may \textbf{not} prevent someone from entering who gains access another way.
+	\item Attempt to pick the lock by rolling a D20. On a 14 or higher, you succeed in picking the lock and gaining access to the room. If you fail, you must wait at least 5 minutes before you try again.
+	\item Bash the door down:
+	\begin{itemize}
+		\item Hit the door with a combined CR attack of 7 or higher.
+		\item This action makes a lot of noise, roleplay accordingly, and tell any nearby PCs what they hear.
+		\item If you bash the door down, you must write on this sign that the door has been permanently damaged, and that the room is now freely searchable. (cross out this whole section on gaining entrance).
+	\end{itemize}
+\end{itemize}
+
+Once you have access to this room, you may look through the items in the attached envelope and \textbf{take any 1 item}, or \textbf{leave any 1 item} here as long as the \textbf{total amount of bulkiness does not exceed 4}. You must leave the room and gain access again if you wish to take another item.
+
+\textbf{\cLibrarian{}} may take or leave as many items as \cLibrarian{\they} like\cLibrarian{\plural}, but must still abide by the \textbf{4-hands bulky max}.
+
+You may try to have private conversations inside your room, but the walls are thin and total privacy is not guaranteed. Anyone in the room must put 1 hand on the sign. This indicates to other players passing by that you are inside the room and not visible from the hallway. It is reasonable to assume that characters outside the room can hear that conversation is going on inside, but not who is present, or  exactly what is being said.
+
+When you leave the room, the door magically locks behind you (unless the door has been destroyed.)
+	}
+}
+
+\NEW{Sign}{\sTRFlowPriest}{
+  \s\MYname	{A Teacher's Office and Private Quarters}
+	\s\MYloc	{The Teacher's Lounge / Bunker 2}
+  \s\MYtext	{This is the door to \textbf{\cFlowPriest{\full}'s} office space. Inside the office space is a door leading to their private quarters.
+
+\textbf{If you wish to enter this room you must meet one of the following requirements:}
+\begin{itemize}
+	\item \textbf{\cFlowPriest{}} may enter freely at any time.
+	\item Anyone already in the room may admit additional people. You may \textbf{not} prevent someone from entering who gains access another way.
+	\item Attempt to pick the lock by rolling a D20. On a 14 or higher, you succeed in picking the lock and gaining access to the room. If you fail, you must wait at least 5 minutes before you try again.
+	\item Bash the door down:
+	\begin{itemize}
+		\item Hit the door with a combined CR attack of 7 or higher.
+		\item This action makes a lot of noise, roleplay accordingly, and tell any nearby PCs what they hear.
+		\item If you bash the door down, you must write on this sign that the door has been permanently damaged, and that the room is now freely searchable. (cross out this whole section on gaining entrance).
+	\end{itemize}
+\end{itemize}
+
+Once you have access to this room, you may look through the items in the attached envelope and \textbf{take any 1 item}, or \textbf{leave any 1 item} here as long as the \textbf{total amount of bulkiness does not exceed 4}. You must leave the room and gain access again if you wish to take another item.
+
+\textbf{\cFlowPriest{}} may take or leave as many items as \cFlowPriest{\they} like\cFlowPriest{\plural}, but must still abide by the \textbf{4-hands bulky max}.
+
+You may try to have private conversations inside your room, but the walls are thin and total privacy is not guaranteed. Anyone in the room must put 1 hand on the sign. This indicates to other players passing by that you are inside the room and not visible from the hallway. It is reasonable to assume that characters outside the room can hear that conversation is going on inside, but not who is present, or  exactly what is being said.
+
+When you leave the room, the door magically locks behind you (unless the door has been destroyed.)
+	}
+}
+
+\NEW{Sign}{\sTRChupSecond}{
+  \s\MYname	{A Teacher's Office and Private Quarters}
+	\s\MYloc	{The Teacher's Lounge / Bunker 2}
+  \s\MYtext	{This is the door to \textbf{\cChupSecond{\full}'s} office space. Inside the office space is a door leading to their private quarters.
+
+\textbf{If you wish to enter this room you must meet one of the following requirements:}
+\begin{itemize}
+	\item \textbf{\cChupSecond{}} may enter freely at any time.
+	\item Anyone already in the room may admit additional people. You may \textbf{not} prevent someone from entering who gains access another way.
+	\item Attempt to pick the lock by rolling a D20. On a 14 or higher, you succeed in picking the lock and gaining access to the room. If you fail, you must wait at least 5 minutes before you try again.
+	\item Bash the door down:
+	\begin{itemize}
+		\item Hit the door with a combined CR attack of 7 or higher.
+		\item This action makes a lot of noise, roleplay accordingly, and tell any nearby PCs what they hear.
+		\item If you bash the door down, you must write on this sign that the door has been permanently damaged, and that the room is now freely searchable. (cross out this whole section on gaining entrance).
+	\end{itemize}
+\end{itemize}
+
+Once you have access to this room, you may look through the items in the attached envelope and \textbf{take any 1 item}, or \textbf{leave any 1 item} here as long as the \textbf{total amount of bulkiness does not exceed 4}. You must leave the room and gain access again if you wish to take another item.
+
+\textbf{\cChupSecond{}} may take or leave as many items as \cChupSecond{\they} like\cChupSecond{\plural}, but must still abide by the \textbf{4-hands bulky max}.
+
+You may try to have private conversations inside your room, but the walls are thin and total privacy is not guaranteed. Anyone in the room must put 1 hand on the sign. This indicates to other players passing by that you are inside the room and not visible from the hallway. It is reasonable to assume that characters outside the room can hear that conversation is going on inside, but not who is present, or  exactly what is being said.
+
+When you leave the room, the door magically locks behind you (unless the door has been destroyed.)
+	}
+}
+
+\NEW{Sign}{\sTRChupAvenger}{
+  \s\MYname	{A Teacher's Office and Private Quarters}
+	\s\MYloc	{The Teacher's Lounge / Bunker 2}
+  \s\MYtext	{This is the door to \textbf{\cChupAvenger{\full}'s} office space. Inside the office space is a door leading to their private quarters.
+
+\textbf{If you wish to enter this room you must meet one of the following requirements:}
+\begin{itemize}
+	\item \textbf{\cChupAvenger{}} may enter freely at any time.
+	\item Anyone already in the room may admit additional people. You may \textbf{not} prevent someone from entering who gains access another way.
+	\item Attempt to pick the lock by rolling a D20. On a 14 or higher, you succeed in picking the lock and gaining access to the room. If you fail, you must wait at least 5 minutes before you try again.
+	\item Bash the door down:
+	\begin{itemize}
+		\item Hit the door with a combined CR attack of 7 or higher.
+		\item This action makes a lot of noise, roleplay accordingly, and tell any nearby PCs what they hear.
+		\item If you bash the door down, you must write on this sign that the door has been permanently damaged, and that the room is now freely searchable. (cross out this whole section on gaining entrance).
+	\end{itemize}
+\end{itemize}
+
+Once you have access to this room, you may look through the items in the attached envelope and \textbf{take any 1 item}, or \textbf{leave any 1 item} here as long as the \textbf{total amount of bulkiness does not exceed 4}. You must leave the room and gain access again if you wish to take another item.
+
+\textbf{\cChupAvenger{}} may take or leave as many items as \cChupAvenger{\they} like\cChupAvenger{\plural}, but must still abide by the \textbf{4-hands bulky max}.
+
+You may try to have private conversations inside your room, but the walls are thin and total privacy is not guaranteed. Anyone in the room must put 1 hand on the sign. This indicates to other players passing by that you are inside the room and not visible from the hallway. It is reasonable to assume that characters outside the room can hear that conversation is going on inside, but not who is present, or  exactly what is being said.
+
+When you leave the room, the door magically locks behind you (unless the door has been destroyed.)
+	}
+}
+
+\NEW{Sign}{\sTRPirate}{
+  \s\MYname	{A Teacher's Office and Private Quarters}
+	\s\MYloc	{The Teacher's Lounge / Bunker 2}
+  \s\MYtext	{This is the door to \textbf{\cPirate{\full}'s} office space. Inside the office space is a door leading to their private quarters.
+
+\textbf{If you wish to enter this room you must meet one of the following requirements:}
+\begin{itemize}
+	\item \textbf{\cPirate{}} may enter freely at any time.
+	\item Anyone already in the room may admit additional people. You may \textbf{not} prevent someone from entering who gains access another way.
+	\item Attempt to pick the lock by rolling a D20. On a 14 or higher, you succeed in picking the lock and gaining access to the room. If you fail, you must wait at least 5 minutes before you try again.
+	\item Bash the door down:
+	\begin{itemize}
+		\item Hit the door with a combined CR attack of 7 or higher.
+		\item This action makes a lot of noise, roleplay accordingly, and tell any nearby PCs what they hear.
+		\item If you bash the door down, you must write on this sign that the door has been permanently damaged, and that the room is now freely searchable. (cross out this whole section on gaining entrance).
+	\end{itemize}
+\end{itemize}
+
+Once you have access to this room, you may look through the items in the attached envelope and \textbf{take any 1 item}, or \textbf{leave any 1 item} here as long as the \textbf{total amount of bulkiness does not exceed 4}. You must leave the room and gain access again if you wish to take another item.
+
+\textbf{\cPirate{}} may take or leave as many items as \cPirate{\they} like\cPirate{\plural}, but must still abide by the \textbf{4-hands bulky max}.
+
+You may try to have private conversations inside your room, but the walls are thin and total privacy is not guaranteed. Anyone in the room must put 1 hand on the sign. This indicates to other players passing by that you are inside the room and not visible from the hallway. It is reasonable to assume that characters outside the room can hear that conversation is going on inside, but not who is present, or  exactly what is being said.
+
+When you leave the room, the door magically locks behind you (unless the door has been destroyed.)
+	}
+}
+
+
+%%%%%%%%% Advisor Lounge %%%%%%%%%%
+\NEW{Sign}{\sAdvisorGeneral}{
+  \s\MYname	{The Advisor's Lounge / Bunker 3}
+  \s\MYloc	{Advisor Lounge / Bunker 3}
+  \s\MYtext	{This is the advisor’s lounge. The room is immaculate; used only rarely outside of the Time of Deciding when important dignitaries visit the \pSc{}. This area can be closed off as one of the 3 bunkers that protect those present at the school during the ``Storm Surges.''
+
+There are several hallways branching off of this lounge that lead to the guest quarters for the advisors.
+	}
+}
+
+\NEW{Sign}{\sAREvil}{
+  \s\MYname	{A Guest Room}
+	\s\MYloc	{Advisor Lounge / Bunker 3}
+  \s\MYtext	{This is the door to \textbf{\cEvil{\full}'s} guest quarters.
+
+\textbf{If you wish to enter this room you must meet one of the following requirements:}
+\begin{itemize}
+	\item \textbf{\cEvil{}} may enter freely at any time.
+	\item Anyone already in the room may admit additional people. You may \textbf{not} prevent someone from entering who gains access another way.
+	\item Attempt to pick the lock by rolling a D20. On a 14 or higher, you succeed in picking the lock and gaining access to the room. If you fail, you must wait at least 5 minutes before you try again.
+	\item Bash the door down:
+	\begin{itemize}
+		\item Hit the door with a combined CR attack of 7 or higher.
+		\item This action makes a lot of noise, roleplay accordingly, and tell any nearby PCs what they hear.
+		\item If you bash the door down, you must write on this sign that the door has been permanently damaged, and that the room is now freely searchable. (cross out this whole section on gaining entrance).
+	\end{itemize}
+\end{itemize}
+
+Once you have access to this room, you may look through the items in the attached envelope and \textbf{take any 1 item}, or \textbf{leave any 1 item} here as long as the \textbf{total amount of bulkiness does not exceed 4}. You must leave the room and gain access again if you wish to take another item.
+
+\textbf{\cEvil{}} may take or leave as many items as \cEvil{\they} like\cEvil{\plural}, but must still abide by the \textbf{4-hands bulky max}.
+
+You may try to have private conversations inside your room, but the walls are thin and total privacy is not guaranteed. Anyone in the room must put 1 hand on the sign. This indicates to other players passing by that you are inside the room and not visible from the hallway. It is reasonable to assume that characters outside the room can hear that conversation is going on inside, but not who is present, or  exactly what is being said.
+
+When you leave the room, the door magically locks behind you (unless the door has been destroyed.)
+}
+}
+
+\NEW{Sign}{\sARWildCard}{
+  \s\MYname	{A Guest Room}
+	\s\MYloc	{Advisor Lounge / Bunker 3}
+  \s\MYtext	{This is the door to \textbf{\cWildCard{\full}'s} guest quarters.
+
+\textbf{If you wish to enter this room you must meet one of the following requirements:}
+\begin{itemize}
+	\item \textbf{\cWildCard{}} may enter freely at any time.
+	\item Anyone already in the room may admit additional people. You may \textbf{not} prevent someone from entering who gains access another way.
+	\item Attempt to pick the lock by rolling a D20. On a 14 or higher, you succeed in picking the lock and gaining access to the room. If you fail, you must wait at least 5 minutes before you try again.
+	\item Bash the door down:
+	\begin{itemize}
+		\item Hit the door with a combined CR attack of 7 or higher.
+		\item This action makes a lot of noise, roleplay accordingly, and tell any nearby PCs what they hear.
+		\item If you bash the door down, you must write on this sign that the door has been permanently damaged, and that the room is now freely searchable. (cross out this whole section on gaining entrance).
+	\end{itemize}
+\end{itemize}
+
+Once you have access to this room, you may look through the items in the attached envelope and \textbf{take any 1 item}, or \textbf{leave any 1 item} here as long as the \textbf{total amount of bulkiness does not exceed 4}. You must leave the room and gain access again if you wish to take another item.
+
+\textbf{\cWildCard{}} may take or leave as many items as \cWildCard{\they} like\cWildCard{\plural}, but must still abide by the \textbf{4-hands bulky max}.
+
+You may try to have private conversations inside your room, but the walls are thin and total privacy is not guaranteed. Anyone in the room must put 1 hand on the sign. This indicates to other players passing by that you are inside the room and not visible from the hallway. It is reasonable to assume that characters outside the room can hear that conversation is going on inside, but not who is present, or  exactly what is being said.
+
+When you leave the room, the door magically locks behind you (unless the door has been destroyed.)
+}
+}
+
+\NEW{Sign}{\sARHedonist}{
+  \s\MYname	{A Guest Room}
+	\s\MYloc	{Advisor Lounge / Bunker 3}
+  \s\MYtext	{This is the door to \textbf{\cHedonist{\full}'s} guest quarters.
+
+\textbf{If you wish to enter this room you must meet one of the following requirements:}
+\begin{itemize}
+	\item \textbf{\cHedonist{}} may enter freely at any time.
+	\item Anyone already in the room may admit additional people. You may \textbf{not} prevent someone from entering who gains access another way.
+	\item Attempt to pick the lock by rolling a D20. On a 14 or higher, you succeed in picking the lock and gaining access to the room. If you fail, you must wait at least 5 minutes before you try again.
+	\item Bash the door down:
+	\begin{itemize}
+		\item Hit the door with a combined CR attack of 7 or higher.
+		\item This action makes a lot of noise, roleplay accordingly, and tell any nearby PCs what they hear.
+		\item If you bash the door down, you must write on this sign that the door has been permanently damaged, and that the room is now freely searchable. (cross out this whole section on gaining entrance).
+	\end{itemize}
+\end{itemize}
+
+Once you have access to this room, you may look through the items in the attached envelope and \textbf{take any 1 item}, or \textbf{leave any 1 item} here as long as the \textbf{total amount of bulkiness does not exceed 4}. You must leave the room and gain access again if you wish to take another item.
+
+\textbf{\cHedonist{}} may take or leave as many items as \cHedonist{\they} like\cHedonist{\plural}, but must still abide by the \textbf{4-hands bulky max}.
+
+You may try to have private conversations inside your room, but the walls are thin and total privacy is not guaranteed. Anyone in the room must put 1 hand on the sign. This indicates to other players passing by that you are inside the room and not visible from the hallway. It is reasonable to assume that characters outside the room can hear that conversation is going on inside, but not who is present, or  exactly what is being said.
+
+When you leave the room, the door magically locks behind you (unless the door has been destroyed.)
+	}
+}
+
+\NEW{Sign}{\sARCurse}{
+  \s\MYname	{A Guest Room}
+	\s\MYloc	{Advisor Lounge / Bunker 3}
+  \s\MYtext	{This is the door to \textbf{\cCurse{\full}'s} guest quarters.
+
+\textbf{If you wish to enter this room you must meet one of the following requirements:}
+\begin{itemize}
+	\item \textbf{\cCurse{}} may enter freely at any time.
+	\item Anyone already in the room may admit additional people. You may \textbf{not} prevent someone from entering who gains access another way.
+	\item Attempt to pick the lock by rolling a D20. On a 14 or higher, you succeed in picking the lock and gaining access to the room. If you fail, you must wait at least 5 minutes before you try again.
+	\item Bash the door down:
+	\begin{itemize}
+		\item Hit the door with a combined CR attack of 7 or higher.
+		\item This action makes a lot of noise, roleplay accordingly, and tell any nearby PCs what they hear.
+		\item If you bash the door down, you must write on this sign that the door has been permanently damaged, and that the room is now freely searchable. (cross out this whole section on gaining entrance).
+	\end{itemize}
+\end{itemize}
+
+Once you have access to this room, you may look through the items in the attached envelope and \textbf{take any 1 item}, or \textbf{leave any 1 item} here as long as the \textbf{total amount of bulkiness does not exceed 4}. You must leave the room and gain access again if you wish to take another item.
+
+\textbf{\cCurse{}} may take or leave as many items as \cCurse{\they} like\cCurse{\plural}, but must still abide by the \textbf{4-hands bulky max}.
+
+You may try to have private conversations inside your room, but the walls are thin and total privacy is not guaranteed. Anyone in the room must put 1 hand on the sign. This indicates to other players passing by that you are inside the room and not visible from the hallway. It is reasonable to assume that characters outside the room can hear that conversation is going on inside, but not who is present, or  exactly what is being said.
+
+When you leave the room, the door magically locks behind you (unless the door has been destroyed.)
+	}
+}
+
+\NEW{Sign}{\sARDiplomat}{
+  \s\MYname	{A Guest Room}
+	\s\MYloc	{Advisor Lounge / Bunker 3}
+  \s\MYtext	{This is the door to \textbf{\cDiplomat{\full}'s} guest quarters.
+
+\textbf{If you wish to enter this room you must meet one of the following requirements:}
+\begin{itemize}
+	\item \textbf{\cDiplomat{}} may enter freely at any time.
+	\item Anyone already in the room may admit additional people. You may \textbf{not} prevent someone from entering who gains access another way.
+	\item Attempt to pick the lock by rolling a D20. On a 14 or higher, you succeed in picking the lock and gaining access to the room. If you fail, you must wait at least 5 minutes before you try again.
+	\item Bash the door down:
+	\begin{itemize}
+		\item Hit the door with a combined CR attack of 7 or higher.
+		\item This action makes a lot of noise, roleplay accordingly, and tell any nearby PCs what they hear.
+		\item If you bash the door down, you must write on this sign that the door has been permanently damaged, and that the room is now freely searchable. (cross out this whole section on gaining entrance).
+	\end{itemize}
+\end{itemize}
+
+Once you have access to this room, you may look through the items in the attached envelope and \textbf{take any 1 item}, or \textbf{leave any 1 item} here as long as the \textbf{total amount of bulkiness does not exceed 4}. You must leave the room and gain access again if you wish to take another item.
+
+\textbf{\cDiplomat{}} may take or leave as many items as \cDiplomat{\they} like\cDiplomat{\plural}, but must still abide by the \textbf{4-hands bulky max}.
+
+You may try to have private conversations inside your room, but the walls are thin and total privacy is not guaranteed. Anyone in the room must put 1 hand on the sign. This indicates to other players passing by that you are inside the room and not visible from the hallway. It is reasonable to assume that characters outside the room can hear that conversation is going on inside, but not who is present, or  exactly what is being said.
+
+When you leave the room, the door magically locks behind you (unless the door has been destroyed.)
+	}
+}
+
+\NEW{Sign}{\sARAntiChup}{
+  \s\MYname	{A Guest Room}
+	\s\MYloc	{Advisor Lounge / Bunker 3}
+  \s\MYtext	{This is the door to \textbf{\cAntiChup{\full}'s} guest quarters.
+
+\textbf{If you wish to enter this room you must meet one of the following requirements:}
+\begin{itemize}
+	\item \textbf{\cAntiChup{}} may enter freely at any time.
+	\item Anyone already in the room may admit additional people. You may \textbf{not} prevent someone from entering who gains access another way.
+	\item Attempt to pick the lock by rolling a D20. On a 14 or higher, you succeed in picking the lock and gaining access to the room. If you fail, you must wait at least 5 minutes before you try again.
+	\item Bash the door down:
+	\begin{itemize}
+		\item Hit the door with a combined CR attack of 7 or higher.
+		\item This action makes a lot of noise, roleplay accordingly, and tell any nearby PCs what they hear.
+		\item If you bash the door down, you must write on this sign that the door has been permanently damaged, and that the room is now freely searchable. (cross out this whole section on gaining entrance).
+	\end{itemize}
+\end{itemize}
+
+Once you have access to this room, you may look through the items in the attached envelope and \textbf{take any 1 item}, or \textbf{leave any 1 item} here as long as the \textbf{total amount of bulkiness does not exceed 4}. You must leave the room and gain access again if you wish to take another item.
+
+\textbf{\cAntiChup{}} may take or leave as many items as \cAntiChup{\they} like\cAntiChup{\plural}, but must still abide by the \textbf{4-hands bulky max}.
+
+You may try to have private conversations inside your room, but the walls are thin and total privacy is not guaranteed. Anyone in the room must put 1 hand on the sign. This indicates to other players passing by that you are inside the room and not visible from the hallway. It is reasonable to assume that characters outside the room can hear that conversation is going on inside, but not who is present, or  exactly what is being said.
+
+When you leave the room, the door magically locks behind you (unless the door has been destroyed.)
+	}
+}
+
+\NEW{Sign}{\sARHeadScientist}{
+  \s\MYname	{A Guest Room}
+	\s\MYloc	{Advisor Lounge / Bunker 3}
+  \s\MYtext	{This is the door to \textbf{\cHeadScientist{\full}'s} guest quarters.
+
+\textbf{If you wish to enter this room you must meet one of the following requirements:}
+\begin{itemize}
+	\item \textbf{\cHeadScientist{}} may enter freely at any time.
+	\item Anyone already in the room may admit additional people. You may \textbf{not} prevent someone from entering who gains access another way.
+	\item Attempt to pick the lock by rolling a D20. On a 14 or higher, you succeed in picking the lock and gaining access to the room. If you fail, you must wait at least 5 minutes before you try again.
+	\item Bash the door down:
+	\begin{itemize}
+		\item Hit the door with a combined CR attack of 7 or higher.
+		\item This action makes a lot of noise, roleplay accordingly, and tell any nearby PCs what they hear.
+		\item If you bash the door down, you must write on this sign that the door has been permanently damaged, and that the room is now freely searchable. (cross out this whole section on gaining entrance).
+	\end{itemize}
+\end{itemize}
+
+Once you have access to this room, you may look through the items in the attached envelope and \textbf{take any 1 item}, or \textbf{leave any 1 item} here as long as the \textbf{total amount of bulkiness does not exceed 4}. You must leave the room and gain access again if you wish to take another item.
+
+\textbf{\cHeadScientist{}} may take or leave as many items as \cHeadScientist{\they} like\cHeadScientist{\plural}, but must still abide by the \textbf{4-hands bulky max}.
+
+You may try to have private conversations inside your room, but the walls are thin and total privacy is not guaranteed. Anyone in the room must put 1 hand on the sign. This indicates to other players passing by that you are inside the room and not visible from the hallway. It is reasonable to assume that characters outside the room can hear that conversation is going on inside, but not who is present, or  exactly what is being said.
+
+When you leave the room, the door magically locks behind you (unless the door has been destroyed.)
+	}
+}
+
+\NEW{Sign}{\sARAssistantScientist}{
+  \s\MYname	{A Guest Room}
+	\s\MYloc	{Advisor Lounge / Bunker 3}
+  \s\MYtext	{This is the door to \textbf{\cAssistantScientist{\full}'s} guest quarters.
+
+\textbf{If you wish to enter this room you must meet one of the following requirements:}
+\begin{itemize}
+	\item \textbf{\cAssistantScientist{}} may enter freely at any time.
+	\item Anyone already in the room may admit additional people. You may \textbf{not} prevent someone from entering who gains access another way.
+	\item Attempt to pick the lock by rolling a D20. On a 14 or higher, you succeed in picking the lock and gaining access to the room. If you fail, you must wait at least 5 minutes before you try again.
+	\item Bash the door down:
+	\begin{itemize}
+		\item Hit the door with a combined CR attack of 7 or higher.
+		\item This action makes a lot of noise, roleplay accordingly, and tell any nearby PCs what they hear.
+		\item If you bash the door down, you must write on this sign that the door has been permanently damaged, and that the room is now freely searchable. (cross out this whole section on gaining entrance).
+	\end{itemize}
+\end{itemize}
+
+Once you have access to this room, you may look through the items in the attached envelope and \textbf{take any 1 item}, or \textbf{leave any 1 item} here as long as the \textbf{total amount of bulkiness does not exceed 4}. You must leave the room and gain access again if you wish to take another item.
+
+\textbf{\cAssistantScientist{}} may take or leave as many items as \cAssistantScientist{\they} like\cAssistantScientist{\plural}, but must still abide by the \textbf{4-hands bulky max}.
+
+You may try to have private conversations inside your room, but the walls are thin and total privacy is not guaranteed. Anyone in the room must put 1 hand on the sign. This indicates to other players passing by that you are inside the room and not visible from the hallway. It is reasonable to assume that characters outside the room can hear that conversation is going on inside, but not who is present, or  exactly what is being said.
+
+When you leave the room, the door magically locks behind you (unless the door has been destroyed.)
+	}
+}
+
+\NEW{Sign}{\sAREbbPriest}{
+  \s\MYname	{A Guest Room}
+	\s\MYloc	{Advisor Lounge / Bunker 3}
+  \s\MYtext	{This is the door to \textbf{\cEbbPriest{\full}'s} guest quarters.
+
+\textbf{If you wish to enter this room you must meet one of the following requirements:}
+\begin{itemize}
+	\item \textbf{\cEbbPriest{}} may enter freely at any time.
+	\item Anyone already in the room may admit additional people. You may \textbf{not} prevent someone from entering who gains access another way.
+	\item Attempt to pick the lock by rolling a D20. On a 14 or higher, you succeed in picking the lock and gaining access to the room. If you fail, you must wait at least 5 minutes before you try again.
+	\item Bash the door down:
+	\begin{itemize}
+		\item Hit the door with a combined CR attack of 7 or higher.
+		\item This action makes a lot of noise, roleplay accordingly, and tell any nearby PCs what they hear.
+		\item If you bash the door down, you must write on this sign that the door has been permanently damaged, and that the room is now freely searchable. (cross out this whole section on gaining entrance).
+	\end{itemize}
+\end{itemize}
+
+Once you have access to this room, you may look through the items in the attached envelope and \textbf{take any 1 item}, or \textbf{leave any 1 item} here as long as the \textbf{total amount of bulkiness does not exceed 4}. You must leave the room and gain access again if you wish to take another item.
+
+\textbf{\cEbbPriest{}} may take or leave as many items as \cEbbPriest{\they} like\cEbbPriest{\plural}, but must still abide by the \textbf{4-hands bulky max}.
+
+You may try to have private conversations inside your room, but the walls are thin and total privacy is not guaranteed. Anyone in the room must put 1 hand on the sign. This indicates to other players passing by that you are inside the room and not visible from the hallway. It is reasonable to assume that characters outside the room can hear that conversation is going on inside, but not who is present, or  exactly what is being said.
+
+When you leave the room, the door magically locks behind you (unless the door has been destroyed.)
+	}
+}
+
+\NEW{Sign}{\sARJuniorStatesman}{
+  \s\MYname	{A Guest Room}
+	\s\MYloc	{Advisor Lounge / Bunker 3}
+  \s\MYtext	{This is the door to \textbf{\cJuniorStatesman{\full}'s} guest quarters.
+
+\textbf{If you wish to enter this room you must meet one of the following requirements:}
+\begin{itemize}
+	\item \textbf{\cJuniorStatesman{}} may enter freely at any time.
+	\item Anyone already in the room may admit additional people. You may \textbf{not} prevent someone from entering who gains access another way.
+	\item Attempt to pick the lock by rolling a D20. On a 14 or higher, you succeed in picking the lock and gaining access to the room. If you fail, you must wait at least 5 minutes before you try again.
+	\item Bash the door down:
+	\begin{itemize}
+		\item Hit the door with a combined CR attack of 7 or higher.
+		\item This action makes a lot of noise, roleplay accordingly, and tell any nearby PCs what they hear.
+		\item If you bash the door down, you must write on this sign that the door has been permanently damaged, and that the room is now freely searchable. (cross out this whole section on gaining entrance).
+	\end{itemize}
+\end{itemize}
+
+Once you have access to this room, you may look through the items in the attached envelope and \textbf{take any 1 item}, or \textbf{leave any 1 item} here as long as the \textbf{total amount of bulkiness does not exceed 4}. You must leave the room and gain access again if you wish to take another item.
+
+\textbf{\cJuniorStatesman{}} may take or leave as many items as \cJuniorStatesman{\they} like\cJuniorStatesman{\plural}, but must still abide by the \textbf{4-hands bulky max}.
+
+You may try to have private conversations inside your room, but the walls are thin and total privacy is not guaranteed. Anyone in the room must put 1 hand on the sign. This indicates to other players passing by that you are inside the room and not visible from the hallway. It is reasonable to assume that characters outside the room can hear that conversation is going on inside, but not who is present, or  exactly what is being said.
+
+When you leave the room, the door magically locks behind you (unless the door has been destroyed.)
+	}
+}
+
+\NEW{Sign}{\sARChupLeader}{
+  \s\MYname	{A Guest Room}
+	\s\MYloc	{Advisor Lounge / Bunker 3}
+  \s\MYtext	{This is the door to \textbf{\cChupLeader{\full}'s} guest quarters.
+
+\textbf{If you wish to enter this room you must meet one of the following requirements:}
+\begin{itemize}
+	\item \textbf{\cChupLeader{}} may enter freely at any time.
+	\item Anyone already in the room may admit additional people. You may \textbf{not} prevent someone from entering who gains access another way.
+	\item Attempt to pick the lock by rolling a D20. On a 14 or higher, you succeed in picking the lock and gaining access to the room. If you fail, you must wait at least 5 minutes before you try again.
+	\item Bash the door down:
+	\begin{itemize}
+		\item Hit the door with a combined CR attack of 7 or higher.
+		\item This action makes a lot of noise, roleplay accordingly, and tell any nearby PCs what they hear.
+		\item If you bash the door down, you must write on this sign that the door has been permanently damaged, and that the room is now freely searchable. (cross out this whole section on gaining entrance).
+	\end{itemize}
+\end{itemize}
+
+Once you have access to this room, you may look through the items in the attached envelope and \textbf{take any 1 item}, or \textbf{leave any 1 item} here as long as the \textbf{total amount of bulkiness does not exceed 4}. You must leave the room and gain access again if you wish to take another item.
+
+\textbf{\cChupLeader{}} may take or leave as many items as \cChupLeader{\they} like\cChupLeader{\plural}, but must still abide by the \textbf{4-hands bulky max}.
+
+You may try to have private conversations inside your room, but the walls are thin and total privacy is not guaranteed. Anyone in the room must put 1 hand on the sign. This indicates to other players passing by that you are inside the room and not visible from the hallway. It is reasonable to assume that characters outside the room can hear that conversation is going on inside, but not who is present, or  exactly what is being said.
+
+When you leave the room, the door magically locks behind you (unless the door has been destroyed.)
+	}
+}
+
+\NEW{Sign}{\sARBunker}{
+  \s\MYname	{A Guest Room}
+	\s\MYloc	{Advisor Lounge / Bunker 3}
+  \s\MYtext	{This is the door to \textbf{\cBunker{\full}'s} guest quarters.
+
+\textbf{If you wish to enter this room you must meet one of the following requirements:}
+\begin{itemize}
+	\item \textbf{\cBunker{}} may enter freely at any time.
+	\item Anyone already in the room may admit additional people. You may \textbf{not} prevent someone from entering who gains access another way.
+	\item Attempt to pick the lock by rolling a D20. On a 14 or higher, you succeed in picking the lock and gaining access to the room. If you fail, you must wait at least 5 minutes before you try again.
+	\item Bash the door down:
+	\begin{itemize}
+		\item Hit the door with a combined CR attack of 7 or higher.
+		\item This action makes a lot of noise, roleplay accordingly, and tell any nearby PCs what they hear.
+		\item If you bash the door down, you must write on this sign that the door has been permanently damaged, and that the room is now freely searchable. (cross out this whole section on gaining entrance).
+	\end{itemize}
+\end{itemize}
+
+Once you have access to this room, you may look through the items in the attached envelope and \textbf{take any 1 item}, or \textbf{leave any 1 item} here as long as the \textbf{total amount of bulkiness does not exceed 4}. You must leave the room and gain access again if you wish to take another item.
+
+\textbf{\cBunker{}} may take or leave as many items as \cBunker{\they} like\cBunker{\plural}, but must still abide by the \textbf{4-hands bulky max}.
+
+You may try to have private conversations inside your room, but the walls are thin and total privacy is not guaranteed. Anyone in the room must put 1 hand on the sign. This indicates to other players passing by that you are inside the room and not visible from the hallway. It is reasonable to assume that characters outside the room can hear that conversation is going on inside, but not who is present, or  exactly what is being said.
+
+When you leave the room, the door magically locks behind you (unless the door has been destroyed.)
+	}
+	\s\MYitems	{\multi{3}{\iMagitechParts{}}}
+}
+
+
+
+%%%%%%%%% The Divine Realm %%%%%%%%%%
+\NEW{Sign}{\sRoostingTree}{
+  \s\MYname	{The Roosting Tree}
+  \s\MYloc	{The Divine Realm}
+  \s\MYtext	{Hummingbirds of all sizes, from the size of pillbox, to the size of horse-drawn wagons perch on this tree, rustling quietly. They glow softly with \cFarmGod{}’s light, and are clearly \cFarmGod{\their} avatars. If you are only visiting the divine realm in spirit-form (this is the default state), any attempt to touch the tree or the birds fails as your form passes through them. If you are corporeal in the divine realm (requires a specific mechanic), you may touch the tree and theoretically the birds if they let you. 
+
+You may converse with the birds, and learn the following things:
+	\begin{itemize}
+		\item \textbf{Why did the Hummingbirds stop visiting the mortal plane?} - \cFarmGod{} only sends the Hummingbirds to those who are worthy. \cFarmGod{} feels that the people are tolerating a broken system - the nobility and the clergy are not taking care of the people they are charged to care for, the country embraces the war, and the murder of 11 children goes unsolved.
+		\item \textbf{What conditions would need to be met for them to return?} - If the war were ended, the masterminds behind the murder of the children were brought justice, and either the nobility and the clergy show real change, committing to the responsibility that comes of power, or a new system is put in place that is more equitable. Then, and only then will the Hummingbirds be sent once again to the \pFarmers{} to guide, comfort, and encourage, as it was in the past.
+	\end{itemize}
+	
+To \textbf{destroy} the hummingbirds, you would need to:
+	\begin{itemize}
+		\item Be corporeal in the divine realm (requires a specific mechanic)
+		\item Have the ``\iScythe{}'' in your possession, confirmed to be attuned to a location. Using the scythe to attack these Avatars will deatune it.
+		\item Hit them with a CR 10+ attack. If you take assistance to meet this CR, your assistants must also be corporeal in the divine realm. 
+	\end{itemize}
+	
+	If you succeed in destroying the hummingbirds, tear down this sign to reveal the one under it.
+	}
+}
+
+\NEW{Sign}{\sEmptyTree}{
+  \s\MYname	{A Giant Tree}
+  \s\MYloc	{The Divine Realm}
+  \s\MYtext	{There is a massive tree here. While inspecting the tree, you see iridescent feathers, of many sizes, scattered among the roots.
+
+These are NOT interchangeable with ``\iEagleFeather{}''. You cannot collect the feathers here for any practical purpose.
+	}
+}
+
+
+%%%%%%%%% The Bunkers %%%%%%%%%%
+\NEW{Sign}{\sBunkerOneCover}{
+  \s\MYname	{Bunker 1}
+  \s\MYloc	{Student Lounge / Bunker 1}
+  \s\MYtext	{This is one of the bunkers built by \cBunker{\full} and \cBunker{\their} team. The bunkers protect the people who stay at the \pSchool{} at the Time of Deciding from the 3 Storm Surges.
+
+This bunker look fine, at least to the untrained eye.
+
+If you have the ability ``Examine The Bunkers Closely.'' You may make a thorough inspection of the bunkers and identify any issues that need to be addressed.}
+}
+
+\NEW{Sign}{\sBunkerOneDamaged}{
+  \s\MYname	{DAMAGED Bunker 1}
+  \s\MYloc	{Student Lounge / Bunker 1}
+  \s\MYtext	{This is one of the bunkers built by \cBunker{\full} and \cBunker{\their} team. The bunkers are supposed to protect the people who stay at the \pSchool{} at the Time of Deciding from the 3 Storm Surges.
+
+\textbf{With some of the siding stripped away to reveal the inner workings, it is plain to see that this bunker is badly damaged.}
+
+In its current state, it can protect many fewer than it should be able to during a Storm Surge. The number of people this bunker can currently protect is: 
+
+\textbf{3}
+
+Everyone else must risk harm during the storm surge. (see the ``\gStormSurgeInside{}'' greensheets posted in each game space for more information.)
+
+\textbf{To repair the bunkers:}\\
+The bunkers consist of a \textbf{physical layer}, a \textbf{magical layer}, and a \textbf{magical keystone}. Progress on any part of the repairs will increase the number of people the bunker can protect.
+
+In the attached envelope you will find 1 Greensheet for each part that needs to be repaired. There are \textbf{3 copies} of each of these greensheets. One copy of these greensheets must stay with this sign. You may borrow the other two copies, but they should always be returned here. You should also feel free to take a picture for reference, or ask the GMs to print you a copy if none are available to borrow. 
+
+\emph{(OOC: Greensheets are OOC information, but these are public sheets that anyone may look at. The sheets may not be stolen, hidden, or destroyed however. This is a kludge for game balance.)}
+	}
+	\s\MYgreens {\multi{3}{\gPhysicalLayer{}\gMagicalLayer{}\gKeystone{}}}
+}
+
+\NEW{Sign}{\sBunkerOneRepaired}{
+  \s\MYname	{Fully Repaired Bunker 3}
+  \s\MYloc	{Student Lounge / Bunker 1}
+  \s\MYtext	{This is one of the bunkers built by \cBunker{\full} and \cBunker{\their} team. The bunkers protect the people who stay at the \pSchool{} at the Time of Deciding from the 3 Storm Surges.
+
+This bunker has been fully repaired, and can protect \textbf{13 people} from a Storm Surge.}
+}
+
+\NEW{Sign}{\sBunkerTwoCover}{
+  \s\MYname	{Bunker 2}
+  \s\MYloc	{Teacher Lounge / Bunker 2}
+  \s\MYtext	{This is one of the bunkers built by \cBunker{\full} and \cBunker{\their} team. The bunkers protect the people who stay at the \pSchool{} at the Time of Deciding from the 3 Storm Surges.
+
+This bunker look fine, at least to the untrained eye.
+
+If you have the ability ``Examine The Bunkers Closely.'' You may make a thorough inspection of the bunkers and identify any issues that need to be addressed.}
+}
+
+\NEW{Sign}{\sBunkerTwoDamaged}{
+  \s\MYname	{DAMAGED Bunker 2}
+  \s\MYloc	{Teacher Lounge / Bunker 2}
+  \s\MYtext	{This is one of the bunkers built by \cBunker{\full} and \cBunker{\their} team. The bunkers are supposed to protect the people who stay at the \pSchool{} at the Time of Deciding from the 3 Storm Surges.
+
+\textbf{With some of the siding stripped away to reveal the inner workings, it is plain to see that this bunker is badly damaged.}
+
+In its current state, it can protect many fewer than it should be able to during a Storm Surge. The number of people this bunker can currently protect is: 
+
+\textbf{3}
+
+Everyone else must risk harm during the storm surge. (see the ``\gStormSurgeInside{}'' greensheets posted in each game space for more information.)
+
+\textbf{To repair the bunkers:}\\
+The bunkers consist of a \textbf{physical layer}, a \textbf{magical layer}, and a \textbf{magical keystone}. Progress on any part of the repairs will increase the number of people the bunker can protect.
+
+In the attached envelope you will find 1 Greensheet for each part that needs to be repaired. There are \textbf{3 copies} of each of these greensheets. One copy of these greensheets must stay with this sign. You may borrow the other two copies, but they should always be returned here. You should also feel free to take a picture for reference, or ask the GMs to print you a copy if none are available to borrow. 
+
+\emph{(OOC: Greensheets are OOC information, but these are public sheets that anyone may look at. The sheets may not be stolen, hidden, or destroyed however. This is a kludge for game balance.)}
+	}
+	\s\MYgreens {\multi{3}{\gPhysicalLayer{}\gMagicalLayer{}\gKeystone{}}}
+}
+
+\NEW{Sign}{\sBunkerTwoRepaired}{
+  \s\MYname	{Fully Repaired Bunker 2}
+  \s\MYloc	{Teacher Lounge / Bunker 2}
+  \s\MYtext	{This is one of the bunkers built by \cBunker{\full} and \cBunker{\their} team. The bunkers protect the people who stay at the \pSchool{} at the Time of Deciding from the 3 Storm Surges.
+
+This bunker has been fully repaired, and can protect \textbf{13 people} from a Storm Surge.}
+}
+
+\NEW{Sign}{\sBunkerThreeCover}{
+  \s\MYname	{Bunker 3}
+  \s\MYloc	{Advisor Lounge / Bunker 3}
+  \s\MYtext	{This is one of the bunkers built by \cBunker{\full} and \cBunker{\their} team. The bunkers protect the people who stay at the \pSchool{} at the Time of Deciding from the 3 Storm Surges.
+
+This bunker look fine, at least to the untrained eye.
+
+If you have the ability ``Examine The Bunkers Closely.'' You may make a thorough inspection of the bunkers and identify any issues that need to be addressed.}
+}
+
+\NEW{Sign}{\sBunkerThreeDamaged}{
+  \s\MYname	{DAMAGED Bunker 3}
+  \s\MYloc	{Advisor Lounge / Bunker 3}
+  \s\MYtext	{This is one of the bunkers built by \cBunker{\full} and \cBunker{\their} team. The bunkers are supposed to protect the people who stay at the \pSchool{} at the Time of Deciding from the 3 Storm Surges.
+
+\textbf{With some of the siding stripped away to reveal the inner workings, it is plain to see that this bunker is badly damaged.}
+
+In its current state, it can protect many fewer than it should be able to during a Storm Surge. The number of people this bunker can currently protect is: 
+
+\textbf{3}
+
+Everyone else must risk harm during the storm surge. (see the ``\gStormSurgeInside{}'' greensheets posted in each game space for more information.)
+
+\textbf{To repair the bunkers:}\\
+The bunkers consist of a \textbf{physical layer}, a \textbf{magical layer}, and a \textbf{magical keystone}. Progress on any part of the repairs will increase the number of people the bunker can protect.
+
+In the attached envelope you will find 1 Greensheet for each part that needs to be repaired. There are \textbf{3 copies} of each of these greensheets. One copy of these greensheets must stay with this sign. You may borrow the other two copies, but they should always be returned here. You should also feel free to take a picture for reference, or ask the GMs to print you a copy if none are available to borrow. 
+
+\emph{(OOC: Greensheets are OOC information, but these are public sheets that anyone may look at. The sheets may not be stolen, hidden, or destroyed however. This is a kludge for game balance.)}
+	}
+	\s\MYgreens {\multi{3}{\gPhysicalLayer{}\gMagicalLayer{}\gKeystone{}}}
+}
+
+\NEW{Sign}{\sBunkerThreeRepaired}{
+  \s\MYname	{Fully Repaired Bunker 3}
+  \s\MYloc	{Advisor Lounge / Bunker 3}
+  \s\MYtext	{This is one of the bunkers built by \cBunker{\full} and \cBunker{\their} team. The bunkers protect the people who stay at the \pSchool{} at the Time of Deciding from the 3 Storm Surges.
+
+This bunker has been fully repaired, and can protect \textbf{13 people} from a Storm Surge.}
+}

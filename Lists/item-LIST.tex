@@ -191,7 +191,7 @@
 }
 
 
-\NEW{ItemEnvelope}{\iFolderOfNotes}{ %%\cHedonist{} starts with this
+\NEW{ItemEnvelope}{\iFolderOfNotes}{ %%\cDisney{} starts with this
   \s\MYname	{A Folder of Notes}
   \s\MYnumber	{tbd}
   \s\MYtext	{A very fancy ring. You may only open this item if specifically told to do so by a mechanic.}
@@ -201,14 +201,14 @@
 %%FPF Character Items
 
 
-\NEW{Item}{\iScholarship}{ %%Black starts with this
+\NEW{Item}{\iScholarship}{ %%Antichup starts with this
   \s\MYname	{A Scholarship Document}
   \s\MYnumber	{tbd}
   \s\MYtext	{A scholarship from the Church of \cTechGod{} for \cScholarship{}. It is currently authorized under \cAntiChup{} but could be transferred to another member of the \pTech{} clergy if both the current authorizer and the new authorizer consent. Technically \cScholarship{} can't object to such a transfer, but doing so without notifying \cScholarship{\them} would be unorthodox. \emph{OOC: Update this item as necessary if the authorizer changes.}}
 }
 
 %%WR Character Items
-\NEW{Item}{\iCursedLetter}{ %%Rebecca starts with this
+\NEW{Item}{\iCursedLetter}{ %%\cInitiate starts with this
   \s\MYname	{A handwritten letter}
   \s\MYnumber	{tbd}
   \s\MYtext	{This letter is written on the highest quality paper,  by someone with exquisite calligraphy skills. It reads \emph{Dearest \cInitiate{}, It has taken us entirely too long to find you after your parents abandoned \pFarm{} for \pShip{}. We very much wish to know our grand\cIntiate{\child}, who we have come to know is greatly skilled in magic. We implore you to visit us, that we might tempt you to stay, and inherit all that is rightfully yours. Signed, Your loving grandparents.}}
@@ -279,13 +279,51 @@
   \s\MYcontents	{Current Alignment: \pFarm{}}
 }
 
+%%%%%%%%%%%%% Bunker Repair Items %%%%%%%%%%%%%%
+\NEW{Item}{\iCornerPiece}{
+  \s\MYname	{Corner Piece}
+  \s\MYnumber	{tbd}
+  \s\MYtext	{A fragment of the magical protections from the bunkers. Will need to be assembled with others to make a complete picture.}
+}
+
+
+\NEW{Item}{\iEdgePiece}{
+  \s\MYname	{Edge Piece}
+  \s\MYnumber	{tbd}
+  \s\MYtext	{A fragment of the magical protections from the bunkers. Will need to be assembled with others to make a complete picture.}
+}
+
+\NEW{Item}{\iCenterPiece}{
+  \s\MYname	{Center Piece}
+  \s\MYnumber	{tbd}
+  \s\MYtext	{A fragment of the magical protections from the bunkers. Will need to be assembled with others to make a complete picture.}
+}
+
+
+
 %%%%%%%%%%%%% GM Items %%%%%%%%%%%%%%
 \NEW{ItemEnvelope}{\iVotingStones}{
   \s\MYname	{Voting Stone}
   \s\MYnumber	{tbd}
   \s\MYtext	{(This item cannot be stolen, traded, or given away unless a mechanic enables it.) Open as directed by the ``\gVotingInstructions{}'' Greensheet. If you do not have the greensheet, someone with the sheet can explain it to you.}
   \s\MYcontents	{I cast this vote to send the storm to: \makebox[1.5in]{\hrulefill}}
-  }
+}
+
+\NEW{Item}{\iFastActingPoison}{ %% No mechanic yet
+  \s\MYname	{Curse: Fast Acting Poison}
+  \s\MYnumber	{tbd}
+  \s\MYtext	{An ominous vial of fast acting poison - odorless, tasteless, and dissolves instantly in liquid. Not something you would want to be caught carrying. Unless you have a mechanic that calls for this specific item for a specific purpose (check the item number), you must notify a GM if you wish to use this curse. (It cannot be used like a normal Curse)}
+}
+
+\NEW{Item}{\iAvatarSeaSerpent}{
+  \s\MYname	{A Baby Sea Serpent that radiates Ebb's Energy}
+  \s\MYnumber	{51XX} %TBD
+  \s\MYtext	{\textbf{See a GM for the phys rep if necessary.} This is a real live, newly hatched, sea serpent. It glows with \cEbb{}’s aura and energy, and can actually be handled and cared for in relative safety by clerics of \cEbb{}. It tries to bite everyone else. It is clearly very newly made as the avatar, and still somewhat vulnerable. If you wish to hurt or kill the baby for some reason, you must first knock it out with a normal CR attack. The serpent’s CR is listed below.
+	
+\vspace{2mm}
+\textbf{Current CR: }
+	}
+}
   
 %%%%%%%%%%%%% Garden Items %%%%%%%%%%%%%%
   
@@ -314,6 +352,12 @@
   \s\MYtext	{A crimson orchid, dancing in the breeze like flame. Whether you were already aware or find out the hard way, every part of the plant except the flower is covered in irritating hairs that feel like being burned.}
 }
 
+\NEW{Item}{\iLimestone}{ %% No mechanic yet
+  \s\MYname	{Piece of Limestone}
+  \s\MYnumber	{tbd}
+  \s\MYtext	{A small piece of limestone. Not particularly remarkable, but often symbolically associated with the \pShip{}.}
+}
+
 %%%%%%%%%%%%% Graveyard Items %%%%%%%%%%%%%%
 
 \NEW{Item}{\iStoneFlower}{ %% Using Casseopia's Mirror to look into the past; also 2 other locations TBD
@@ -321,6 +365,12 @@
   \s\MYnumber	{tbd}
   \bulky	{1}
   \s\MYtext	{The impeccably preserved likeness of a flower, cast in pale, translucent crystal. It seems to catch the light and hold it, glowing ever so softly in all but total darkness. Whatever forces calcified this flower into its present form have been lost to time.}
+}
+
+\NEW{Item}{\iBlackCrocus}{
+  \s\MYname	{Black Crocus}
+  \s\MYnumber	{tbd}
+  \s\MYtext	{A deceptively delicate flower that is common across the \pTech{} and often blooms so early that there is still snow on the ground, causing a striking contrast.}
 }
 
 %%%%%%%%%%%%% Training Field Items %%%%%%%%%%%%%%
@@ -331,5 +381,64 @@
   \s\MYnumber	{tbd}
   \s\MYtext	{A bold yellow lily, almost gold in color, proud and radiant as the noonday sun.}
 }
+
+%%%%%%%%%%%%% Temple Items %%%%%%%%%%%%%%
+\NEW{Item}{\iOakStaff}{
+  \s\MYname	{Carved Oak Staff}
+  \s\MYnumber	{tbd}
+	\bulky{1}
+	\unstash{}
+  \s\MYtext	{An intricately carved staff. This staff is one of the oldest known instances of these staffs. One is kept in each  temple across \pEarth{} and used in the ritual to promote an initiate to a full cleric.}
+}
+
+
+%%%%%%%%%%%%% Old Wing Items %%%%%%%%%%%%%%
+\NEW{Item}{\iMagitechParts}{
+  \s\MYname	{Misc. Magitech parts}
+  \s\MYnumber	{tbd}
+	\bulky{1}
+  \s\MYtext	{A respectable pile of raw materials and common (and uncommon) magitech parts. Useful for constructing technological marvels.}
+}
+
+\NEW{Item}{\iEagleFeather}{
+  \s\MYname	{An Eagle Feather}
+  \s\MYnumber	{tbd}
+  \s\MYtext	{A shed feather of an eagle. A common ingredient in creating curses. They lose their potency if plucked from a live bird; only feathers shed naturally can be used for making curses due to \cFarmGod{}'s edict against harming animals.}
+}
+
+\NEW{Item}{\iRabbitStatue}{
+  \s\MYname	{A Small Statue of a White Rabbit}
+  \s\MYnumber	{tbd}
+  \s\MYtext	{\textbf{See a GM for the phys rep if necessary.} A well made ceramic statue of a white rabbit.
+	}
+}
+
+%%%%%%%%%%%%% Student Lounge %%%%%%%%%%%%%%
+\NEW{Item}{\iBabySeaSerpent}{
+  \s\MYname	{A Baby Sea Serpent}
+  \s\MYnumber	{51XX} %TBD
+  \s\MYtext	{\textbf{See a GM for the phys rep if necessary.} This is a real live, newly hatched, sea serpent. How on \pEarth{} did it get here? It is very bitey. Watch your fingers! If you wish to hurt or kill the baby for some reason, you must first knock it out with a normal CR attack. The serpent’s CR is listed below:
+	
+\vspace{2mm}
+\textbf{Current CR: 3}
+	}
+}
+
+
+%%%%%%%%%%%%% Teacher Lounge %%%%%%%%%%%%%%
+\NEW{Item}{\iThread}{
+  \s\MYname	{Length of Thread}
+  \s\MYnumber	{tbd}
+  \s\MYtext	{A plain length of thread. Good for a small mending project or some such.}
+}
+
+\NEW{Item}{\iFancyCloth}{
+  \s\MYname	{Fancy Cloth}
+  \s\MYnumber	{tbd}
+  \s\MYtext	{A fancy cloth with a beautiful, reflective sheen.}
+}
+
+
+%%%%%%%%%%%%% Advisor Lounge %%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

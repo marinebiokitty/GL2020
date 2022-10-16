@@ -48,15 +48,15 @@
 
 \NEW{Place}{\pGMHQ}{
   \s\MYname	{GM HQ}
-  \s\MYsigns	{\sSignCOne{}\sSignCTwo{}\sMurderConsequences{}}
-  \s\MYitems	{\multi{45}{\iVotingStones{}}}
+  \s\MYsigns	{\sMurderConsequences{}\sMurdered{}\sSignCOne{}\sSignCTwo{}\sSignP{}\sSignV{}}
+  \s\MYitems	{\multi{45}{\iVotingStones{}}\multi{10}{\iMagitecParts{}}\iAvatarSeaSerpent{}}
   \s\MYgreens  {\gTallyingVotes{}}
   \s\MYwhites  {\multi{4}{\wWarlordResignationOfficial{}}\wWarlordResignationToDaughter{}}
 }
 
 \NEW{Place}{\pGarden}{
   \s\MYname	{The College Gardens}
-  \s\MYsigns	{\sGardenGeneral{} \sGardenDay{} \sGardenNight{} \sGardenFountain{}}
+  \s\MYsigns	{\sGardenGeneral{} \sGardenDay{} \sGardenNight{} \sGardenFountain{}\sSignB{}\sMagicPortal{}\sPileofGardeningSupplies{}}
   \s\MYitems	{}
 }
 
@@ -68,13 +68,13 @@
 
 \NEW{Place}{\pGraveyard}{
   \s\MYname	{The College Graveyard}
-  \s\MYsigns	{\sGraveyardGeneral{} \sFadedTombstone{} \sMemorialToFallenStudents{} \sTombOfFirstPrincipal{}}
+  \s\MYsigns	{\sGraveyardGeneral{} \sFlowerBed{} \sFadedTombstone{} \sMemorialToFallenStudents{} \sTombOfFirstPrincipal{}}
   \s\MYitems	{}
 }
 
 \NEW{Place}{\pTemple}{
   \s\MYname	{The Temple}
-  \s\MYsigns	{}
+  \s\MYsigns	{\sAppeal{}\sDecorativeChestForStaff{}}
   \s\MYitems	{}
 }
 
@@ -84,45 +84,70 @@
   \s\MYitems	{}
 }
 
+\NEW{Place}{\pOldWing}{
+  \s\MYname	{The Old Wing of the College}
+  \s\MYsigns	{\sBlackCrocusWishOne{}\sBlackCrocusWishTwo{}\sBlackCrocusWishThree{}
+	\sAlchemyLabOne{}\sAlchemyLabTwo{}
+	\sLeyLinesNexus{}\sLeyLinesSad{}\sLeyLinesHappy{}
+	\sObservatoryOne{}\sObservatoryTwo{}
+	\sDioramas{}
+	\sOldPhilosophyOne{}\sOldPhilosophyTwo{}
+	\sPFlameOne{}\sPFlameTwo{}\sPFlameThree{}}
+  \s\MYitems	{}
+}
+
 \NEW{Place}{\pMakerSpace}{
   \s\MYname	{The Maker's Space}
-  \s\MYsigns	{}
+  \s\MYsigns	{\sMakerSpaceGeneral{}}
   \s\MYitems	{}
 }
 
 \NEW{Place}{\pGreatHall}{
   \s\MYname	{The Great Hall}
-  \s\MYsigns	{}
+  \s\MYsigns	{\sBlankPaper{}\sCreationMythOfficial{}\sCreationMythSpeculated{}}
   \s\MYitems	{}
 }
 
 \NEW{Place}{\pRitualSpace}{
   \s\MYname	{The Main Ritual Space}
-  \s\MYsigns	{}
+  \s\MYsigns	{\sCleaningInstructions{}\sCleaningReceptacleOrange{}\sCleaningReceptacleYellow{}\sCleaningReceptacleGreen{}\sCleaningReceptacleBlue{}\sCleaningReceptaclePink{}}
   \s\MYitems	{}
 }
 
 \NEW{Place}{\pStudentLoungeBunker}{
   \s\MYname	{The Student Lounge / Bunker 1}
-  \s\MYsigns	{}
+  \s\MYsigns	{\sStudentGeneral{}\sStudentBookCaseOne{}\sStudentBookCaseTwo{}\sBunkerOneCover{}\sBunkerOneDamaged{}\sBunkerOneRepaired{}
+								\sSRDisney{}\sSRChupStudent{}\sSRAdopted{}\sSRLibAssist{}
+								\sSRAmbition{}\sSRScholarship{}\sSRTechStar{}\sSRHeir{}
+								\sSRPresident{}\sSRInitiate{}\sSRWarlordDaughter{}\sSRPirateChild{}
+								}
   \s\MYitems	{}
 }
 
 \NEW{Place}{\pTeacherLoungeBunker}{
   \s\MYname	{The Teacher Lounge / Bunker 2}
-  \s\MYsigns	{}
+  \s\MYsigns	{\sTeacherGeneral{}\sLinenCloset{}\sBunkerTwoCover{}\sBunkerTwoDamaged{}\sBunkerTwoRepaired{}
+								\sTRPrincipal{}
+								\sTRInterpol{}\sTRMusic{}\sTRPrince{}\sTRHistory{}
+								\sTRBeetle{}\sTREthics{}\sTRChupInventor{}\sTRLibrarian{}
+								\sTRFlowPriest{}\sTRChupSecond{}\sTRChupAvenger{}\sTRPirate{}
+								}
   \s\MYitems	{}
 }
 
 \NEW{Place}{\pGuestQuartersBunker}{
-  \s\MYname	{The Guest Lounge / Bunker 3}
-  \s\MYsigns	{}
+  \s\MYname	{The Advisor Lounge / Bunker 3}
+  \s\MYsigns	{\sAdvisorGeneral{}\sBunkerThreeCover{}\sBunkerThreeDamaged{}\sBunkerThreeRepaired{} 
+								\sAREvil{}\sARWildCard{}\sARHedonist{}\sARCurse{}
+								\sARDiplomat{}\sARAntiChup{}\sARHeadScientist{}\sARAssistantScientist{}
+								\sAREbbPriest{}\sARJuniorStatesman{}\sARChupLeader{}\sARBunker{}
+								}
   \s\MYitems	{}
 }
 
-\NEW{Place}{\pOldWing}{
-  \s\MYname	{The Old Wing of the College}
-  \s\MYsigns	{}
+\NEW{Place}{\pDivineRealm}{
+  \s\MYname	{Realm of The Gods}
+  \s\MYsigns	{\sRoostingTree{}\sEmptyTree{}}
   \s\MYitems	{}
 }
 
