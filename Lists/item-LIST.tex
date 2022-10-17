@@ -207,6 +207,13 @@
   \s\MYtext	{A scholarship from the Church of \cTechGod{} for \cScholarship{}. It is currently authorized under \cAntiChup{} but could be transferred to another member of the \pTech{} clergy if both the current authorizer and the new authorizer consent. Technically \cScholarship{} can't object to such a transfer, but doing so without notifying \cScholarship{\them} would be unorthodox. \emph{OOC: Update this item as necessary if the authorizer changes.}}
 }
 
+\NEW{Item}{\iVCDBlueprint}{ %%TechStar starts with this
+  \s\MYname	{Blueprint for Vid-Com Devices}
+  \s\MYnumber	{tbd}
+  \s\MYtext	{A detailed blue-print for how to build the new fangled long distance communication devices developed by \cTechStar{} as part of the Tech Star Competition last year.
+	}
+}
+
 %%WR Character Items
 \NEW{Item}{\iCursedLetter}{ %%\cInitiate starts with this
   \s\MYname	{A handwritten letter}
@@ -301,7 +308,7 @@
 
 
 
-%%%%%%%%%%%%% GM Items %%%%%%%%%%%%%%
+%%%%%%%%%%%%% GM Items / GM HQ %%%%%%%%%%%%%%
 \NEW{ItemEnvelope}{\iVotingStones}{
   \s\MYname	{Voting Stone}
   \s\MYnumber	{tbd}
@@ -309,7 +316,7 @@
   \s\MYcontents	{I cast this vote to send the storm to: \makebox[1.5in]{\hrulefill}}
 }
 
-\NEW{Item}{\iFastActingPoison}{ %% No mechanic yet
+\NEW{Item}{\iFastActingPoison}{
   \s\MYname	{Curse: Fast Acting Poison}
   \s\MYnumber	{tbd}
   \s\MYtext	{An ominous vial of fast acting poison - odorless, tasteless, and dissolves instantly in liquid. Not something you would want to be caught carrying. Unless you have a mechanic that calls for this specific item for a specific purpose (check the item number), you must notify a GM if you wish to use this curse. (It cannot be used like a normal Curse)}
@@ -323,6 +330,14 @@
 \vspace{2mm}
 \textbf{Current CR: }
 	}
+}
+
+\NEW{ItemEnvelope}{\iMindWipeCurse}{
+  \s\MYname	{Curse: Mind Wipe?!?}
+  \s\MYnumber	{tbd}
+  \s\MYtext	{A vial of cloudy liquid. The curse stored in this object is sufficiently potent that while you cannot determine the details with a cursory investigation, anyone can tell that the effect will be akin to a significant or complete mind-wipe. This curse may be applied like any other curse with the following \textbf{addition:} After applying the curse, open the item envelope and give the research-notebook inside to whoever you activated the curse on.}
+	\s\MYcontents {N/A}
+	\s\MYmems	{\mReversingMindWipe{}}
 }
   
 %%%%%%%%%%%%% Garden Items %%%%%%%%%%%%%%
@@ -352,10 +367,16 @@
   \s\MYtext	{A crimson orchid, dancing in the breeze like flame. Whether you were already aware or find out the hard way, every part of the plant except the flower is covered in irritating hairs that feel like being burned.}
 }
 
-\NEW{Item}{\iLimestone}{ %% No mechanic yet
+\NEW{Item}{\iLimestone}{ 
   \s\MYname	{Piece of Limestone}
   \s\MYnumber	{tbd}
   \s\MYtext	{A small piece of limestone. Not particularly remarkable, but often symbolically associated with the \pShip{}.}
+}
+
+\NEW{Item}{\iMemoryCure}{
+  \s\MYname	{Vial With Iridescent Liquid}
+  \s\MYnumber	{tbd}
+  \s\MYtext	{It’s a vial with some iridescent liquid inside it. Why is there dirt on the outside of the vial?}
 }
 
 %%%%%%%%%%%%% Graveyard Items %%%%%%%%%%%%%%
@@ -382,6 +403,19 @@
   \s\MYtext	{A bold yellow lily, almost gold in color, proud and radiant as the noonday sun.}
 }
 
+\NEW{Item}{\iWoodenPlank}{
+  \s\MYname	{Wooden Plank}
+  \s\MYnumber	{tbd}
+	\bulky{1}
+  \s\MYtext	{An unfinished wooden plank. Good for quick construction projects.}
+}
+
+\NEW{Item}{\iWoodenBlock}{
+  \s\MYname	{Block of Wood}
+  \s\MYnumber	{tbd}
+  \s\MYtext	{A small block of wood. Good for carving something like a toy, but not much else.}
+}
+
 %%%%%%%%%%%%% Temple Items %%%%%%%%%%%%%%
 \NEW{Item}{\iOakStaff}{
   \s\MYname	{Carved Oak Staff}
@@ -389,6 +423,13 @@
 	\bulky{1}
 	\unstash{}
   \s\MYtext	{An intricately carved staff. This staff is one of the oldest known instances of these staffs. One is kept in each  temple across \pEarth{} and used in the ritual to promote an initiate to a full cleric.}
+}
+
+%%%%%%%%%%%%% Library Items %%%%%%%%%%%%%%
+\NEW{Item}{\iBrassNails}{ %%NEED TO ASSIGN LOCATION
+  \s\MYname	{Handful of Brass Nails}
+  \s\MYnumber	{tbd}
+  \s\MYtext	{A handful of large brass nails. Good for quick construction projects designed for channeling magical energy. Brass is a metal that is known for its ability to conduct and blend magic from multiple sources due to its nature as an alloy of copper and zinc.}
 }
 
 
@@ -411,6 +452,45 @@
   \s\MYnumber	{tbd}
   \s\MYtext	{\textbf{See a GM for the phys rep if necessary.} A well made ceramic statue of a white rabbit.
 	}
+}
+
+%%%%%%%%%%%%% Maker Space %%%%%%%%%%%%%%
+\NEW{ItemEnvelope}{\iProtypeMusicBox}{
+  \s\MYname	{Prototype Music Box}
+  \s\MYnumber	{41XX} %TBD
+  \s\MYtext	{A simple music box. How quaint. It would make a nice gift for a child.}
+  \s\MYcontents	{N/A}
+	\s\MYitems	{\iMagicMusicBox{}}
+}
+
+\NEW{ItemEnvelope}{\iMagicMusicBox}{
+  \s\MYname	{Magical Music Box}
+  \s\MYnumber	{45XX} %TBD
+  \s\MYtext	{\textbf{This item has a phys rep.} A music box vibrating softly with some sort of enchantment. \textbf{ONLY IF} this item has the word ``imbued'' written on it, you may open the envelope to read the ability inside. As long as you possess the music box, you may use the ability.}
+  \s\MYcontents	{N/A}
+	\s\MYabils	{\aHealingMusicBox{}}
+}
+
+\NEW{Item}{\iPedestalForRelic}{
+  \s\MYname	{Pedestal for Relic}
+  \s\MYnumber	{tbd} 
+	\bulky{2}
+	\unstash{}
+  \s\MYtext	{\textbf{This item has a phys rep.} This is a pedestal specially constructed to hold one of the Relics to help channel their energy into the Ritual to Control the Storm.}
+}
+
+\NEW{Item}{\iToyBoat}{
+  \s\MYname	{A Toy Boat}
+  \s\MYnumber	{tbd} 
+	\bulky{2}
+	\unstash{}
+  \s\MYtext	{This cute little toy boat is quite well made for being cobbled together from a roughly carved wooden hull, an eagle feather for a sail, and some bits of thread for rigging.}
+}
+
+\NEW{Item}{\iVidCom}{
+  \s\MYname	{Vid-Com Device}
+  \s\MYnumber	{45XX} %TBD 
+  \s\MYtext	{A new fangled long distance communication device. A \textbf{pair} of imbued Vid-Com devices is required to communicate with someone \emph{(OOC: think of them like long range walkie talkies with video functionality - not as fancy or with as many utilities as a phone).} \textbf{Non-functional unless imbued.} (someone with the appropriate mechanic may choose to imbue the item, and will write ``imbued'' on this item card if they do so).}
 }
 
 %%%%%%%%%%%%% Student Lounge %%%%%%%%%%%%%%

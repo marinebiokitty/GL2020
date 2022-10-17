@@ -110,8 +110,28 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%%% Abilities in GM HQ %%%%%%%%%%%%
+\NEW{Abil}{\aCelestialBody}{
+  \s\MYname	{Celestial Body}
+  \s\MYtext	{\emph{Uses: Unlimited; 10 min cool down after use.} You can turn yourself (and items in your posession) incorporeal on the \textbf{Material Plane} and corporeal on the \textbf{Divine Plane} for 5 min (timer pauses while in the Realm of the Gods). \textbf{Put on a purple headband}. People on the material plane can still see you and hear you faintly. You cannot interact with the material plane, nor can you walk through things, but you also cannot be attacked by someone not also in this state. If one could reach the Divine Plane, one would be able to interact with things there. \\
+\vspace{2mm}
+ You may spend \textbf{5 min} roleplaying to teach someone how to do this. If you do so, direct them to ``Sign A'' in GM HQ to get a copy of this ability and a purple headband.
+}
+  \s\MYeffect	{I make a fist and lightly thump my chest over my heart 3x. My body becomes partially see-through and I become very hard to hear.}
+}
 
-%%% Abilities Related to Voting
+\NEW{Abil}{\aGhostlyMessage}{
+  \s\MYname	{Ghostly message}
+  \s\MYtext	{\emph{3x/day.} You may partially manifest on the material plane. You will appear as a faint outline for up to \textbf{5 minutes} that can move around and is visible to everyone.  You cannot make any sound that the living will hear, but you may attempt whatever charades you want to try to communicate. Switch your name badge back to the character name side, and put on the green headband.
+
+Because you cannot interact with objects on the material plane, you cannot give someone a hug, nor can you take up pen and paper and write down a message. Even if you acquired pen and paper in the Divine Realm, the form that manifests in the mortal realm is too fuzzy to allow any writing to be legible.
+
+}
+  \s\MYeffect	{You see a faint outline waving frantically to try to get your attention.}
+}
+
+
+%%% Abilities Related to Voting %%%%%%%%%%%%%
 \NEW{Abil}{\aPreviewVoteOne}{
   \s\MYname	{Viewing Submitted Votes}
   \s\MYtext	{\emph{Uses: 1.} \textbf{This ability is only useable Sunday from “Game On” to Noon.} You may open one “Voting Stone” item to see how that vote is cast. You may not alter the vote in any way and must replace it exactly as you found it, where you found it. You may search the ballot box for a particular vote, or examine a voting stone someone is still carrying (with their permission). Be careful - a voting stone without a NAME on it may not have a vote inside, but if you use this ability, its use is expended regardless of there being a vote inside.
@@ -126,10 +146,42 @@
   \s\MYeffect	{You see me messing with the ballot box, and/or the voting stones. This is an inherently suspicious activity.}
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%  Other Player Abilities  %%%%%%%%%%%%%%%%%%%%%%%%%
 
 \NEW{Abil}{\aExamineBunkers}{
   \s\MYname	{Examine The Bunkers Closely}
   \s\MYtext	{\emph{Uses: Unlimited.} Since you helped build the Bunkers, you know what you are looking for in the way of wear and tear better than any normal person. You may spend \textbf{2 minutes} within 1 ZoC of one of the 3 bunker signs (one in each of the Student lounge, teacher’s lounge, and advisor’s lounge). You are encouraged to technobabble at anyone nearby during this time. After that time, you may \textbf{remove} the top sign (not just lift it) and read the next sign. Your investigation will allow anyone to see the state of the bunker after you are done.}
   \s\MYeffect	{You see me checking over the Bunkers carefully.}
+}
+
+\NEW{Abil}{\aHealingMusicBox}{
+  \s\MYname	{Magical Healing Through Music}
+  \s\MYtext	{\emph{Uses: Unlimited; 20 min cool down after use.} You may use this music box to cast healing magic normally reserved exclusively for the clerics of \cFarmGod{}. To do so requires:
+\begin{enumerate}
+	\item You must be within ZoC of the person to be healed.
+	\item You must declare your desired effect out loud. Your options are:
+	\begin{enumerate}
+		\item Restore 1 magical unit to an individual who has given away some of the magical essence, rather than waiting for it to regenerate on its own. You cannot increase someone’s CR past their maximum this way.
+		\item Immediately revive an unconscious target.
+	\end{enumerate}
+	\item Play the music box for at least 30 seconds.
+	\item At the end of the 30 seconds, the effect occurs if applicable to the situation.
+\end{enumerate}
+}
+  \s\MYeffect	{You see me holding a music box that is playing music.}
+}
+
+\NEW{Abil}{\aBuildVCD}{
+  \s\MYname	{Build Vid-Com Device}
+  \s\MYtext	{\emph{Uses: Unlimited.} You’ve been supplying the war effort with Vid-Com devices because you must, but that’s not what you wanted your technology used for. You want them for people to communicate with their families far away, and you are increasingly willing to turn to illegal means to make it happen.
+
+\textbf{If you want to build a Vid-Com device in game:}
+\begin{enumerate}
+	\item You must have the ``\iVCDBlueprint{}’’ as well as 1 ``\iMagitechParts{}’’
+	\item Spend 2 minutes in a Maker’s Space roleplaying building the device. Then discard the ``Misc. Magitech Parts’’ to the nearest stock.
+	\item Grab a ``\iVidCom{}'' item card from ``\sSignW{}'' in the Maker’s Space.
+	\item Get the Device activated. The church has thus far refused to do it, except in direct service of the war, so you may need the Black Market to do it.
+\end{enumerate}
+}
+  \s\MYeffect	{You see me fiddling with some sort of magitech.}
 }
