@@ -49,7 +49,16 @@
 \NEW{Place}{\pGMHQ}{
   \s\MYname	{GM HQ}
   \s\MYsigns	{\sMurderConsequences{}\sMurdered{}\sSignA{}\sSignCOne{}\sSignCTwo{}\sSignN{}\sSignP{}\sSignR{}\sSignT{}\sSignV{}}
-  \s\MYitems	{\multi{45}{\iVotingStones{}}\multi{10}{\iMagitechParts{}}\iAvatarSeaSerpent{}}
+
+  \s\MYitems	{
+	%Avatars
+	\iAvatarSeaSerpent{}\iAvatarRabbit{}
+	%Curses
+	\multi{4}{\iBadLuckCurse{}}\multi{10}{\iStrength{}\iSlowActingPoison{}\iInsight{}}
+	%Misc.
+	\multi{45}{\iVotingStones{}}\multi{10}{\iMagitechParts{}}
+	}
+
   \s\MYgreens  {\gTallyingVotes{}}
   \s\MYwhites  {\multi{4}{\wWarlordResignationOfficial{}}\wWarlordResignationToDaughter{}}
 }
@@ -74,7 +83,7 @@
 
 \NEW{Place}{\pTemple}{
   \s\MYname	{The Temple}
-  \s\MYsigns	{\sAppeal{}\sDecorativeChestForStaff{}}
+  \s\MYsigns	{\sAppeal{}\sDecorativeChestForStaff{}\sCandleCabinet{}}
   \s\MYitems	{}
 }
 
@@ -104,13 +113,13 @@
 
 \NEW{Place}{\pGreatHall}{
   \s\MYname	{The Great Hall}
-  \s\MYsigns	{\sBlankPaper{}\sCreationMythOfficial{}\sCreationMythSpeculated{}}
+  \s\MYsigns	{\sBlankPaper{}\sCreationMythOfficial{}\sCreationMythSpeculated{}\sFireplace{}\sTeachersOath{}}
   \s\MYitems	{}
 }
 
 \NEW{Place}{\pRitualSpace}{
   \s\MYname	{The Main Ritual Space}
-  \s\MYsigns	{\sCleaningInstructions{}\sCleaningReceptacleOrange{}\sCleaningReceptacleYellow{}\sCleaningReceptacleGreen{}\sCleaningReceptacleBlue{}\sCleaningReceptaclePink{}}
+  \s\MYsigns	{\sCleaningInstructions{}\sCleaningReceptacleOrange{}\sCleaningReceptacleYellow{}\sCleaningReceptacleGreen{}\sCleaningReceptacleBlue{}\sCleaningReceptaclePink{}\sRitualCircle{}\sStormSeed{}}
   \s\MYitems	{}
 }
 
@@ -147,7 +156,7 @@
 
 \NEW{Place}{\pDivineRealm}{
   \s\MYname	{Realm of The Gods}
-  \s\MYsigns	{\sRoostingTree{}\sEmptyTree{}}
+  \s\MYsigns	{\sRoostingTree{}\sEmptyTree{}\sAmbrosiaGlade{}\sAmbrosiaSpring{}}
   \s\MYitems	{}
 }
 

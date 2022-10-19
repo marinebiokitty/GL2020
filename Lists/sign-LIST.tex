@@ -247,14 +247,14 @@ If you need to retrieve your ballot/morality score to make a change, you may do 
 \NEW{Sign}{\sGardenGeneral}{
   \s\MYname	{The College Gardens}
   \s\MYloc	{Garden}
-  \s\MYtext	{The botanical gardens of the College of the Gods are said to rival the finest estate gardens in The Children of the Sun. Rare flowers, trees, and shrubs from all the known corners of the world, and some few found nowhere else, thrive in the carefully tended gardens. Something always seems to be in bloom, and those versed in the subtle language of flowers can tell the time of year, even the time of day, by what is blooming. A lovely place for a stroll, a secret rendezvous, or simply to meditate in solitude. To explore the gardens and see what is blooming, spend one uninterrupted minute in front of this sign without taking any other actions (conversation is fine), then you may look through all of the items in the appropriate envelope, depending on the time of day. You may then either put the item back for others to enjoy, or pick \textbf{one} flower (against College policy) and keep the item.}
+  \s\MYtext	{The botanical gardens of the College of the Gods are said to rival the finest estate gardens in The Children of the Sun. Rare flowers, trees, and shrubs from all the known corners of the world, and some few found nowhere else, thrive in the carefully tended gardens. Something always seems to be in bloom, and those versed in the subtle language of flowers can tell the time of year, even the time of day, by what is blooming. A lovely place for a stroll, a secret rendezvous, or simply to meditate in solitude. To explore the gardens and see what is blooming, spend one uninterrupted minute in front of this sign without taking any other actions (conversation is fine), then you may look through all of the items in the appropriate envelope, depending on the time of day. You may then either put the item back for others to enjoy, or pick \textbf{one} flower (against College policy) and keep the item. You may not return to pick another flower for \textbf{5 minutes}.}
 }
 
 \NEW{SignMedium}{\sGardenDay}{
   \s\MYname	{The College Gardens By Day}
   \s\MYloc	{Garden}
   \s\MYtext	{If you choose to explore the gardens during the day (7:00 am to 5:00 pm), you will pull one item from the envelope attached to this sign.}
-  \s\MYitems {multi{10}{\iFlameOrchid{}\iMorningGlory{}}}
+  \s\MYitems {multi{10}{\iFlameOrchid{}\iMorningGlory{}\iHollyhock{}}}
 }
 
 \NEW{SignMedium}{\sGardenNight}{
@@ -446,6 +446,18 @@ If you leave the shed it locks behind you.
 \textbf{This chest is meant to hold the ``\iOakStaff{}''. This item may be freely taken from this sign, or returned here. No other item(s) may be placed in the envelope for this sign.}
 	}
 	\s\MYitems	{\iOakStaff{}}
+}
+
+\NEW{Sign}{\sCandleCabinet}{
+  \s\MYname	{Ornately Carved Wooden Cabinet}
+  \s\MYloc	{The Temple}
+  \s\MYtext	{There is a tall wooden cabinet here. The ornate carvings are of the patron deities, surrounded by a circle that represents \pEarth{}. The cabinet smells strongly of beeswax, and it holds the common ritual component of ritual candles. There are hundreds of candles in the cabinet - more than could possibly be used in one Time of Deciding. Still, it would be impolite to take more than you need.
+
+If you would like to take a candle from this cabinet you may do so freely by taking one of the item cards from the envelope below. You must wait at least \textbf{2 minutes} between each candle you take.
+
+The items available at this location are essentially infinite. If at any time there are no candles available, and you want one, tell a GM and we will make more.
+	}
+	\s\MYitems	{\multi{40}{\iRitualCandle{}}}
 }
 
 %%%%%%%%% The Library %%%%%%%%%%
@@ -689,6 +701,17 @@ A total of \textbf{3 pedestals} must be built in preparation for the Ritual to C
 	\s\MYitems	{\multi{6}{\iVidCom{}}}
 }
 
+\NEW{Sign}{\sVialCabinet}{
+  \s\MYname	{Glas Vial Storage}
+  \s\MYloc	{Maker's Space}
+  \s\MYtext	{There are shelves upon shelves of small glass vials, easy for anyone to grab, since they are so useful in so many things.
+	
+If you would like to take a glass vial from the shelves, you may do so freely by taking one of the item cards from the envelope below. You must wait at least \textbf{2 minutes} between each vial you take.
+
+The items available at this location are essentially infinite. If at any time there are no vials available, and you want one, tell a GM and we will make more.}
+	\s\MYitems	{\multi{40}{\iGlassVial{}}}
+}
+
 %%%%%%%%% Great Hall %%%%%%%%%%
 \NEW{Sign}{\sBlankPaper}{
   \s\MYname	{Blank Paper}
@@ -727,6 +750,61 @@ If the envelope attached to this sign is ever empty, let a GM know and we will a
 	}	
 }
 
+\NEW{Sign}{\sFireplace}{
+  \s\MYname	{The Grand Fireplace}
+  \s\MYloc	{The Great Hall}
+  \s\MYtext	{The centerpiece of the Great hall is this massive fireplace that reaches all the way to the rafters. It was constructed of stone brought from the Bones of the World by \pShip{} crafters. It takes almost 12 hours to heat the fireplace completely, but once it is heated up, it will radiate heat for at least 3 days after any fire inside has been extinguished. The fire is traditionally extinguished at the end of the Time of Deciding, and the hearth is allowed to cool for 9 days, the ebbing heat symbolic of the destruction of the Storm.
+
+If you wish to take a piece of charcoal from the hearth, you may do so, but you must \textbf{wait at least 5 minutes} before retrieving a second piece.
+	}
+	\s\MYitems	{\multi{6}{\iCharcoal{}}}
+}
+
+\NEW{Sign}{\sTeachersOath}{
+  \s\MYname	{The Teacher’s Oath}
+  \s\MYloc	{The Great Hall}
+  \s\MYtext	{There is a large wood and metal plaque here, hung on the wall. It displays ``The Teacher’s Oath.’’ The first part of the oath was penned by the school’s first principal 1822 years ago. When the Storms began, the second stanza was added. It has since been recited during every ``Time of Deciding’’ since they began. It is also often employed by the current principal of the school when hiring a new teacher.
+
+The oath reads:
+\begin{center}
+\emph{I set aside my national duties,}
+\emph{And take up the role of teacher.}
+\emph{Here at the \pSchool{},}
+\emph{I teach all who pass the doors.}
+\emph{That \pEarth{} may be a better place,}
+\emph{When my students take the lead.}
+
+\emph{At the center of the brewing storm,}
+\emph{I stand as a beacon and an anchor.}
+\emph{I support and guide my students,}
+\emph{Neutrality, the source of my power.}
+\emph{My duty is to empower those,}
+\emph{Upon whom this burden falls.}
+\end{center}
+
+\emph{(OOC NOTE: Below are the instructions for how to use this Oath can be used as a mechanic to support the Preparations for the Ritual to Control the Storm (greensheet). If you don’t know what that is, don’t worry about this and feel free to ignore it.)}
+
+To complete the portion of the ``Preparations  for the Ritual to Control the Storm’’, do the following:
+\begin{enumerate}
+	\item A group of at least 6 teachers must be gathered together (\cPrincipal{} counts as a teacher) for this recitation.
+	\item One Teacher must be designated the leader.
+	\item The leader will read the first phrase of the oath out loud to the group. (Phrases are seperated by commas or periods.)
+	\item The remaining teachers should recite the line back.
+	\item The group must proceed through the whole oath via this ``call and return.''
+	\item If a GM was not present for this recitation, make sure to tell a GM when this task was completed.
+\end{enumerate}
+ 	}
+}
+
+\NEW{Sign}{\sTreatyTemplates}{
+  \s\MYname	{Treaty Templates}
+  \s\MYloc	{The Great Hall}
+  \s\MYtext	{This sign holds treaty templates for people with the ``Writing and Ratifying Treaties'' greensheet. If you have this greensheet, you may freely grab templates from this sign.
+
+If the envelope attached to this sign is ever empty, let a GM know and we will print you more templates.
+	}
+	\s\MYwhites	{\multi{10}{\wTreatyTemplate{}}}
+}
 
 
 %%%%%%%%% Ritual Space %%%%%%%%%%
@@ -776,11 +854,43 @@ This task does not need to all be completed in one go. You may do part of it, st
   \s\MYtext	{Blue ball pit balls go here. See the ``\sCleaningInstructions{}'' sign nearby for instructions.}
 }
 
-
 \NEW{SignMedium}{\sCleaningReceptaclePink}{
   \s\MYname	{Cleaning the Ritual Space: Pink Receptacle}
   \s\MYloc	{Ritual Space}
   \s\MYtext	{Pink ball pit balls go here. See the ``\sCleaningInstructions{}'' sign nearby for instructions.}
+}
+
+\NEW{Sign}{\sRitualCircle}{
+  \s\MYname	{The Ritual Circle}
+  \s\MYloc	{Ritual Space}
+  \s\MYtext	{\emph{(OOC NOTE: These are the instructions for how to clean the ritual space. This mechanic is associated with the Preparations for the Ritual to Control the Storm (greensheet). If you don’t know what that is, don’t worry about this and feel free to ignore it.)}
+	
+	\emph{(OOC NOTE: These are the instructions for how to set up the ritual circle inside the ritual space. This mechanic is associated with the Preparations for the Ritual to Control the Storm (greensheet). If you don’t know what that is, don’t worry about this and feel free to ignore it.)}
+
+Here in the middle of the Ritual Space is a massive, smooth piece of black stone. The area is large enough for everyone present at the Time of Deciding to gather around it, or stand upon it, without being overly crowded.
+
+At each Time of Deciding, the Ritual Circle must be renewed using all \textbf{6 colors} of ``Ritual Chalk'' (phys rep: 6 colors of masking tape). Any character may provide input and suggestions, but the \textbf{teachers} have the final say over the design that the ritual circle should take this year.
+
+The ritual circle must be laid down in full before \textbf{lunch on Sunday.}  
+
+\textbf{Once any piece of the design has been laid down, it cannot be removed in an act of destruction, until after the Ritual to Control the Storm has been completed. Pieces may be moved for cosmetic adjustment (e.g. you realize these two lines aren’t as parallel as you meant them to be), but the circle cannot be destroyed one its creation has begun. The magical resonance of the circle prevents it.}
+	}
+	\s\MYitems	{\multi{6}{\iChalk{}}}
+}
+
+\NEW{Sign}{\sStormSeed}{
+  \s\MYname	{The Storm Seed}
+  \s\MYloc	{Ritual Space}
+  \s\MYtext	{\emph{(OOC NOTE: These are the instructions for how to fill up the magical Tass Vessel “The Storm Seed”. This mechanic is associated with the Preparations for the Ritual to Control the Storm (greensheet). If you don’t know what that is, don’t worry about this and feel free to ignore it.)}
+
+This VESSEL (phys rep: glass jar) is an exceptionally powerful item of Tass that can hold up to 30 units of magical energy. It must have taken more than a dozen master craftsman decades to create and install it. The vessel is seamlessly and permanently integrated into the stone floor here, making it immovable. \emph{\textbf{(OOC NOTE: This vessel cannot be moved or stolen.)}}
+
+A total of \textbf{30 units of magical energy }must be voluntarily deposited into the vessel, which will serve as the seed for the ritual to control the storm. Any character may contribute, any amount that they have available, and may contribute more later if they have more available at a later time.
+
+If you choose to deposit 1 unit of magical energy into this vessel, take one of your CR stones and put it in the jar. Your CR is now reduced by 1 temporarily. At the next meal, you may take additional stones from the stock to replenish up to your normal CR.
+
+Once a unit of magical energy is put into the jar, it cannot be retrieved unless you must have a mechanic to extract and use Tass. Players may always empty the jar temporarily to count how many units of magical energy are in it.
+	}
 }
 
 %%%%%%%%% Student Lounge %%%%%%%%%%
@@ -1923,6 +2033,35 @@ These are NOT interchangeable with ``\iEagleFeather{}''. You cannot collect the 
 	}
 }
 
+\NEW{Sign}{\sAmbrosiaGlade}{
+  \s\MYname	{The Ambrosia Glade}
+  \s\MYloc	{The Divine Realm}
+  \s\MYtext	{As you wander through the mist, you encounter a glade that, like so many things here, just seems to materialize out of the fog in front of you. The trees are strange, like nothing you’ve seen on \pEarth{}.
+
+The glade imparts a sense of peace, which is quite at odds with the fierce beast that growls at your approach. The creature is fantastical in nature, and while it cannot hurt you unless you are corporeal here in the Divine Realm, the swipes of its massive paws still bats you backwards. You cannot pass the creature.
+
+\textbf{The beast can only be held at bay by one who is somehow corporeal in the Realm of the Gods (a specific mechanic), and wields the \iScythe{}. }
+
+If any one among your party meets the requirements and chooses to face the guardian, you may lift the sign and read the one under it.
+	}
+}
+
+\NEW{Sign}{\sAmbrosiaSpring}{
+  \s\MYname	{The Ambrosia Spring}
+  \s\MYloc	{The Divine Realm}
+  \s\MYtext	{Deeper into the glade, past the fierce guardian, you find a small, bubbling spring. You have found the Spring of Ambrosia, which grants immortality. 
+
+\textbf{If you are corporeal in the Divine realm}, you may freely drink from the pool formed by the spring. Think carefully, there is most definitely no way to reverse this, and immortality has it’s price.
+
+If you do drink from the pool, you become immortal:
+\begin{itemize}
+	\item You no longer age.
+	\item You are now able to resist any \textbf{knockout} attack, no matter the CR (does not affect ``upstage'' or ``restrain'').
+	\item You will endure things that would normally kill someone (like falling from a great height). You are not fully immune to all damage to your physical form however, and it would likely be a very long, and very painful recovery process.
+	\item If you have a curse upon you that would cause you to die in the future (e.g.: a slow acting poison), the Ambrosia does not cure you, but causes you to endure. You will not die, but you will limp along, a hairsbreadth from death, forever. It may not be the preferable alternative.
+\end{itemize}
+	}
+}
 
 %%%%%%%%% The Bunkers %%%%%%%%%%
 \NEW{Sign}{\sBunkerOneCover}{
