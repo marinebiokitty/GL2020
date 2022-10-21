@@ -269,9 +269,12 @@ If you need to retrieve your ballot/morality score to make a change, you may do 
   \s\MYloc	{Garden}
   \s\MYtext	{A lively fountain of bright green malachite burbles peacefully in this quiet corner of the garden. Carved in the shape of vines and tendrils, the fountain blends seamlessly with the surrounding vegetation, the water flowing like rain over leaves. Live dragonflies flit around from shade to sun, and beautiful, silvery fish dart in and out of the protection of the lily pads.
   
-If you wish to acquire a live fish or a live dragonfly, \textbf{spend 30 seconds here, then roll a D20.} These things are hard to catch; if you roll a \textbf{14 or higher} you may take an item of your choice from the envelope below. If you roll lower than a 14, all you get is wet. You must wait at least \textbf{5 minutes} before you can try again.
+%If you wish to acquire a live fish or a live dragonfly, \textbf{spend 30 seconds here, then roll a D20.} These things are hard to catch; if you roll a \textbf{14 or higher} you may take an item of your choice from the envelope below. If you roll lower than a 14, all you get is wet. You must wait at least \textbf{5 minutes} before you can try again.
 
-\emph{OOC: If you need a source of freshwater for a mechanic, this fountain is an appropriate source. If you fill a container or vial with water from here, write on the item card ``filled with water.’’}}  
+If you wish to acquire a live fish, \textbf{spend 30 seconds here, then roll a D20.} These things are hard to catch; if you roll a \textbf{14 or higher} you may take a ``\iFish{}'' from the envelope below. If you roll lower than a 14, all you get is wet. You must wait at least \textbf{5 minutes} before you can try again.
+
+\emph{OOC: If you need a source of freshwater for a mechanic, this fountain is an appropriate source. If you fill a container or vial with water from here, write on the item card ``filled with water.’’}}
+	\s\MYitems	{}
 }
 
 \NEW{Sign}{\sSignB}{
@@ -390,9 +393,9 @@ If you wish to take a ``\iLimestone{}'' from here, you may do so, but you must w
 \NEW{Sign}{\sTrainingFieldGeneral}{
   \s\MYname	{The Training Field}
   \s\MYloc	{Training Field}
-  \s\MYtext	{The training ground of the College of the Gods stretches before you, littered with the detritus of centuries of magical training, despite the best efforts of the groundskeepers. The wide, open fields are pockmarked with smoldering craters, bizarre plants, shattered fragments of magitech devices, persistent localized weather systems, and other oddities. To search among the detritus, spend one uninterrupted minute in front of this sign without taking any other actions (conversation is fine), then pull one item from the envelope. Tread carefully - this place is decidedly unsafe.
+  \s\MYtext	{The training ground of the College of the Gods stretches before you, littered with the detritus of centuries of magical training, despite the best efforts of the groundskeepers. The wide, open fields are pockmarked with smoldering craters, bizarre plants, shattered fragments of magitech devices, persistent localized weather systems, and other oddities. To search among the detritus, spend one uninterrupted minute in front of this sign without taking any other actions (conversation is fine), then pull one item from the envelope at random. Tread carefully - this place is decidedly unsafe.
 }
-  \s\MYitems {multi{10}{\iLily{}\iEagleFeather{}}}
+  \s\MYitems {multi{10}{\iLily{}\iEagleFeather{}\iClay{}}}
 }
 
 \NEW{Sign}{\sCombatCircle}{
@@ -465,13 +468,14 @@ The items available at this location are essentially infinite. If at any time th
   \s\MYname	{Envelope 1: The Obsidian Greenhouse}
   \s\MYloc	{The Library}
   \s\MYtext	{Only remove items from this envelope if instructed to do so.}
+	\s\MYitems	{\multi{10}{\iObsidian{}\iStoneFlower{}}}
 }
 
 \NEW{SignMedium}{\sHallOfDrawersEnvelope}{
   \s\MYname	{Envelope 2: The Hall of Tiny Drawers}
   \s\MYloc	{The Library}
   \s\MYtext	{Only remove items from this envelope if instructed to do so.}
-		\s\MYitems	{\multi{10}{\iBrassNails{}}}
+		\s\MYitems	{\multi{10}{\iBrassNails{}\iLimestone{}\iCharcoal{}\iClay{}\iGlassVial{}\iThread{}}}
 }
 
 \NEW{SignMedium}{\sCursedCodicesEnvelope}{
@@ -497,6 +501,7 @@ The items available at this location are essentially infinite. If at any time th
   \s\MYname	{Envelope 6 - The Jewelry Box}
   \s\MYloc	{The Library}
   \s\MYtext	{Only remove items from this envelope if instructed to do so.}
+	\s\MYitems {\iDiamond{}}
 }
 
 \NEW{SignMedium}{\sReliquaryEnvelope}{
