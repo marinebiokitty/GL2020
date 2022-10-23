@@ -9,6 +9,8 @@
 \renewcommand{\tabularxcolumn}[1]{m{#1}}
 \setlength{\columnsep}{1cm}
 
+\usepackage{enumitem}
+\setlist{nosep}
 \parindent=0pt
 \begin{document}
 \name{\gStormSurgeOutside{}}
@@ -17,7 +19,7 @@ If you are unable to take shelter inside a bunker during one of the 3 storm surg
 
 Because this is an IC outdoor space, you will end up soaking wet and cold. You must also roll a D20 to see if you suffer any additional consequences. If your V-score = 1, roll twice and take the higher.
 
-\begin{tabularx}{\textwidth}{|>{\centering\arraybackslash} | >{\centering\arraybackslash} |}
+\begin{tabularx}{\textwidth}{|>{\centering\arraybackslash}c | >{\centering\arraybackslash}c |}
 \hline
   {\large What you Roll} & {\large Consequence}  \\
 \hline
