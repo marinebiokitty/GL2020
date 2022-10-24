@@ -241,6 +241,13 @@ If you need to retrieve your ballot/morality score to make a change, you may do 
 	}
 }
 
+\NEW{Sign}{\sFlowerPower}{
+  \s\MYname	{Flower Power}
+  \s\MYloc	{GM HQ}
+  \s\MYtext	{Do not interact with this sign unless a mechanic tells you to do so.}
+	\s\MYitems	{\multi{8}{\iBlackCrocus{}\iFlameOrchid{}\iHollyhock{}\iLily{}\iMoonflower{}\iSunflower{}\iNightshade{}\iMorningGlory{}}}
+}
+
 %%%%%%%%% The Gardens %%%%%%%%%%
 
 \NEW{Sign}{\sGardenGeneral}{
@@ -253,14 +260,14 @@ If you need to retrieve your ballot/morality score to make a change, you may do 
   \s\MYname	{The College Gardens By Day}
   \s\MYloc	{Garden}
   \s\MYtext	{If you choose to explore the gardens during the day (7:00 am to 5:00 pm), you will pull one item from the envelope attached to this sign.}
-  \s\MYitems {multi{10}{\iFlameOrchid{}\iMorningGlory{}\iHollyhock{}}}
+  \s\MYitems {multi{10}{\iSunflower{}\iMorningGlory{}\iHollyhock{}\iLily{}}}
 }
 
 \NEW{SignMedium}{\sGardenNight}{
   \s\MYname	{The College Gardens By Night}
   \s\MYloc	{Garden}
   \s\MYtext	{If you choose to explore the gardens during the night (5:00 pm to 7:00 am), you will pull one item from the envelope attached to this sign.}
-  \s\MYitems {multi{10}{\iNightshade{}\iMoonflower{}}}
+  \s\MYitems {multi{20}{\iNightshade{}\iMoonflower{}\iFlameOrchid{}}}
 }
 
 \NEW{Sign}{\sGardenFountain}{
@@ -805,7 +812,7 @@ The pedestals should probably be placed in the Ritual Space after they are built
 }
 
 \NEW{Sign}{\sVialCabinet}{
-  \s\MYname	{Glas Vial Storage}
+  \s\MYname	{Glass Vial Storage}
   \s\MYloc	{Maker's Space}
   \s\MYtext	{There are shelves upon shelves of small glass vials, easy for anyone to grab, since they are so useful in so many things.
 	
@@ -813,6 +820,12 @@ If you would like to take a glass vial from the shelves, you may do so freely by
 
 The items available at this location are essentially infinite. If at any time there are no vials available, and you want one, tell a GM and we will make more.}
 	\s\MYitems	{\multi{40}{\iGlassVial{}}}
+}
+
+\NEW{Sign}{\sStove}{
+  \s\MYname	{Stove and Furnace}
+  \s\MYloc	{Maker's Space}
+  \s\MYtext	{A set of stoves for brewing Curses and a large smith’s furnace for melting down metals so they can be worked.}
 }
 
 %%%%%%%%% Great Hall %%%%%%%%%%
