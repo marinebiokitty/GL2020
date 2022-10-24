@@ -131,7 +131,8 @@ Because you cannot interact with objects on the material plane, you cannot give 
 }
 
 
-%%% Abilities Related to Voting %%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%% Abilities Related to Voting %%%%%%%%%%%%%
+
 \NEW{Abil}{\aPreviewVoteOne}{
   \s\MYname	{Viewing Submitted Votes}
   \s\MYtext	{\emph{Uses: 1.} \textbf{This ability is only useable Sunday from “Game On” to Noon.} You may open one “Voting Stone” item to see how that vote is cast. You may not alter the vote in any way and must replace it exactly as you found it, where you found it. You may search the ballot box for a particular vote, or examine a voting stone someone is still carrying (with their permission). Be careful - a voting stone without a NAME on it may not have a vote inside, but if you use this ability, its use is expended regardless of there being a vote inside.
@@ -279,3 +280,96 @@ In either case, take the CR stone out of the item of Tass and return it to the n
 	}
   \s\MYeffect	{You see me sending a letter off.}
 }
+
+\NEW{Abil}{\aLying}{
+  \s\MYname	{Expert Lying and Expert Lie Detection}
+  \s\MYtext	{\emph{Uses: 1x/day} You are an expert at lying and at detecting lies. \textbf{Once per day,} you may \textbf{either} determine if someone is lying to you, or resist a lie detection ability used on you.
+  
+  To determine if someone is lying to you: you may go OOC and ask someone whether to the best of their knowledge the last statement they just made is truthful. No one else gets to hear the answer, so it would be your word against theirs.
+
+To resist a lie detection ability used on you, simply lie either IC or OOC as the mechanic demands. \textbf{Do not show this ability to anyone if you use it for this purpose;}. This ability only works for 1 statement or in answer to 1 question. \textbf{This ability does not work against Curses which compel honesty or against the Lariat of Truth.}	}
+  \s\MYeffect	{Tell me OOC whether you believe the last statement you just made to be truthful and complete. Aka is your character lying to my character, or concealing information?}
+}
+
+\NEW{Abil}{\aBeetle}{
+  \s\MYname	{Ask the Beetle}
+  \s\MYtext	{\emph{Uses: 3x}  You may use the beetle to ask a question of \cTechGod{}. You must have the \iBeetle{} in your possession, and it must be alive to use this ability. Ask your question to a GM and we will do our best to answer you in a way that gives you strong direction without necessarily revealing things that can be uncovered in game through character interactions or exploration.}
+  \s\MYeffect	{You see me talking to something cupped in my hand.}
+}
+
+\NEW{Abil}{\aHaveYouConsidered}{
+  \s\MYname	{Have you Considered?}
+  \s\MYtext	{\emph{Uses: 3x}  Use this ability to get a group to talk about a specific topic. Everyone in the conversation must share at least one thought about the topic before they may talk about something else. People under the influence of another ability to NOT talk about a particular topic cannot be compelled with this ability. Instead, they must indicate a disinterest in the topic.}
+  \s\MYeffect	{Have you Considered…? \emph{(OOC: Everyone in this conversation must give their opinion on a topic of my choice before the conversation may move on. If you are under the influence of another ability to NOT talk about this topic, you must indicate a disinterest in the topic at hand.)}}
+}
+
+\NEW{Abil}{\aImpassionedSpeech}{
+  \s\MYname	{Give an Impassioned Speech}
+  \s\MYtext	{\emph{Uses: 3x}  You can make an impassioned speech that is imbued with your personal brand of magic. When you wish to use this ability, go OOC and read the ``Ability Effect'' side of this ability out loud to the room.
+  
+ \textbf{You must then speak IC for at least 1 minute about something (presumably the thing you are passionate about).} For the 5 minute duration, everyone who hears you is enraptured by you. If you are trying to persuade people to do something, or not do something, players may choose whether their character is persuaded. Even if the player determines their character is not persuaded, they must roll a D20. On a 16 or higher (25% chance) they are able to tear themselves away from your mesmerizing oration and act against your wishes.  }
+  \s\MYeffect	{I am using an ability. If you can hear me right now, you may not leave the area, interrupt me if I am talking, or take any combat actions unless I direct you to do so. If your character \textbf{strongly} disagrees with something I say or ask you to do, and therefore wishes to resist this effect, roll a D20. On a 16 or higher you are able to tear yourself away from my mesmerizing oration and act on your own. You may not roll ``just because you don’t like being controlled,'' you must have an IC reason to disagree with the specific things I am saying. This effect will last for 5 minutes, starting now.}
+}
+
+\NEW{Abil}{\aOration}{
+  \s\MYname	{Oration}
+  \s\MYtext	{\emph{Uses: 3x}You can make an impassioned speech that is infused with a little bit of magic. When you wish to use this ability, go OOC and read the ``Ability Effect’’ side of this ability card out loud to the room.
+  
+  \textbf{You must then speak IC for up to 5 minutes (presumably about the thing you are passionate about).} For the duration, everyone who hears you is captivated by what I have to say. If a character wishes to leave the area, or take actions other than listening to you, they must roll a D20. On a 14 or higher (35% chance) they are able to tear themselves away from your mesmerizing oration and leave the area.
+}
+  \s\MYeffect	{I am using an ability. As long as I am talking, or for 5 minutes (whichever is shorter), everyone who hears me is captivated by what I have to say. If your character wishes to leave the area, or take actions other than listening to me, you must roll a D20. On a 14 or higher you are able to tear themselves away from your mesmerizing oration and leave the area.}
+ }
+
+\NEW{Abil}{\aJewelry}{
+  \s\MYname	{Jewelry Appraisal}
+  \s\MYtext	{\emph{Uses: Unlimited} If an item of jewelry (necklace, earrings, bracelet, ring, etc) is an item-envelope, you may appraise it (aka learn more about it) by spending 30 seconds examining the object. During this time, you can do nothing else; no talking, no other mechanics, etc. Even noticing a waylay disrupts this and you would have to start over. Once 30 seconds have elapsed, open the envelope and read the note inside. You may show others standing with you at the time what the note inside says. Replace the information in the envelope when you are done. }
+  \s\MYeffect	{You see me examining this piece of jewelry.}
+ }
+ 
+\NEW{Abil}{\aLockPick}{
+  \s\MYname	{Lock Picking}
+  \s\MYtext	{\emph{Uses: Unlimited} You are skilled at lock picking. Every lock in game that can be picked will have a difficulty based on the roll of a D20. You subtract 8 from the difficulty. (e.g. For a lock that can be picked with a roll of 14 or higher, you would succeed on a 6 or higher). }
+  \s\MYeffect	{You see me messing with the lock}
+}
+
+\NEW{Abil}{\aPickPocket}{
+  \s\MYname	{Pickpocket}
+  \s\MYtext	{\emph{Uses: Unlimited; Notify a GM when you want to use this ability. They will help adjudicate to try to avoid arousing suspicion toward you.} You may attempt to pick someone’s pocket by using a waylay. This will \textbf{only} work with non-bulky items. 
+  \begin{itemize}
+  	\item A 5-count waylay will get you a random item from them, or allow you to place an item of your choice on their person
+	\item A 10-count waylay count will get you a specific item.
+	\item Voting Stones may not be stolen via this mechanic.
+  \end{itemize}
+  
+  If someone catches you in the waylay, you must tell them ``you see me reaching for $<$Target’s$>$ pockets or bag.''}
+  \s\MYeffect	{You see me reaching for their pockets or bag.}
+}
+
+\NEW{Abil}{\aFirePhobia}{
+  \s\MYname	{Phobia of Fire}
+  \s\MYtext	{You have a phobia of fires. No one who lives on ships likes fires on account of the risk they pose, but you break out in a cold sweat any time you see so much as a candle. No one knows why you react so strongly, but you do. 
+
+For any mechanic that requires you to interact with an open flame, even a candle, you are highly encouraged to roleplay being as afraid / avoidant as is fun for you as a player. \textbf{Optional:} When you encounter a source of fire, you may choose to roll a D20. On a 1 or a 2, you cannot bring yourself to approach or handle the source of fire at all, and must leave the area as quickly as is possible to do so safely.}
+  \s\MYeffect	{I look distressed.}
+}
+
+\NEW{Abil}{\aPrivate}{
+  \s\MYname	{This Conversation is Private}
+  \s\MYtext	{\emph{Uses: 1x/day} You may have a single \textbf{5 minute} or less conversation with the \textbf{one person} who is your spy network contact. If you are not sure who this is, ask a GM. You may not activate this ability purely in response to someone approaching who is OOC (since your character doesn’t know that anything has changed). Instead you should plan to activate this ability preemptively when you intend to initiate a sensitive conversation.
+
+If anyone approaches you while this ability is active, \textbf{even if they are out of character,} show them the ``Ability Effect’’ side of this card. If they refuse to leave to talk to a GM, you may call a game halt and fetch a GM yourself. Your timer for this ability does not run down during a game halt.}
+  \s\MYeffect	{This conversation is magically private. No one may listen in, even if you are invisible or using magic to eavesdrop. If you have a question about it, see a GM.}
+}
+
+\NEW{Abil}{\aStay}{
+  \s\MYname	{``We’ll Stay''}
+  \s\MYtext	{\emph{Uses: 3x} When one or more teachers and/or advisors try to exclude you or any other student(s) from a conversation or dismiss your views \textbf{because of your youth,} you may use this ability to force them to let you stay for the duration of the conversation and consider your perspectives. They do not have to agree with you, but they must treat you as equals until the conversation ends. When you use the ability, you must call the teachers and/or advisors out on trying to exclude you and argue that you should be allowed to contribute.
+}
+  \s\MYeffect	{If you are trying to exclude me or other student(s) from this conversation or dismiss our views \textbf{because of our youth} (as opposed to other primary reasons), you are impressed by how I stand up for myself and the other students; you must let us stay, hear our arguments out, and treat us as equals for the duration of the conversation.
+}
+}
+
+
+
+
+
