@@ -296,7 +296,7 @@
   \s\MYname	{Magical Tracking Tag}
   \s\MYnumber	{tbd}
   \s\MYtext	{Open when you notice you have this item in your possession. This item may be shown to other characters but may not be given away, taken away or destroyed, unless you find a specific mechanic saying otherwise.}
-  \s\MYcontents	{What in the name of all the Deities is this thing? You definitely didn’t have it at the start of the Time of Deciding. It gives you a very uncomfortable feeling, and it seems to be impossible to remove. The research notebook entitled “\nGetItOff{}” is now yours to work with.}
+  \s\MYcontents	{What in the name of all the Deities is this thing? You definitely didn’t have it at the start of the Time of Deciding. It gives you a very uncomfortable feeling, and it seems to be impossible to remove. The research notebook entitled ``\nGetItOff{}'' is now yours to work with.}
 	\s\MYgreens	{\nGetItOff{}}
 }
 
@@ -495,8 +495,8 @@ If you wish to attack this creature, you must have the ``\iScythe{},''and it mus
 }
 
 %%%%%%%%% Curses ETC %%%%%%%%%%%%%%%%%%%
-\NEW{ItemEnvelope}{\iStrength}{
-  \s\MYname	{Cure: Strength of the Lion}
+\NEW{ItemEnvelope}{\iCourage}{
+  \s\MYname	{Cure: Courage of the Lion}
   \s\MYnumber	{tbd}
   \s\MYtext	{Once activated, whoever this cure is active on should open the envelope and remove it's contents. Write ``expended'' on the paper, and keep it with you as a reminder of the effects until they wear off. Discard this envelope to the nearest stock.}
 	\s\MYcontents {You feel a powerful strength roaring through you. \emph{(OOC: Increase your current and maximum CR by +1 for 10 minutes)}}
@@ -554,6 +554,13 @@ If you wish to attack this creature, you must have the ``\iScythe{},''and it mus
 	\s\MYcontents {Your limbs feel heavy. Trying to move is like pushing your way through molasses that only gets thicker as you fight against it. Before you know it, you can barely move. \emph{(OOC: Applies the restrained status to your character for 5 minutes. You are magically restrained and cannot escape this by any natural means.)} }
 }
 
+\NEW{ItemEnvelope}{\iStrength}{
+  \s\MYname	{Cure: Strength of the Horse}
+  \s\MYnumber	{tbd}
+  \s\MYtext	{Once activated, whoever this cure is active on should open the envelope and remove it's contents. Write ``expended'' on the paper, and keep it with you as a reminder of the effects until they wear off. Discard this envelope to the nearest stock.}
+	\s\MYcontents {Your heart skips a beat, then begins to pump harder and your muscles swell under your skin in a not entirely pleasant manner. \emph{(OOC: \textbf{For the next 10 minutes,} you may carry up to 4 hands bulk freely, or drag up to 6.)} }
+}
+
 \NEW{ItemEnvelope}{\iSkill}{
   \s\MYname	{Cure: Skill of the Swallow}
   \s\MYnumber	{tbd}
@@ -586,7 +593,7 @@ If you wish to attack this creature, you must have the ``\iScythe{},''and it mus
   \s\MYnumber	{tbd}
   \s\MYtext	{A vial of cloudy liquid. The curse stored in this object is sufficiently potent that while you cannot determine the details with a cursory investigation, anyone can tell that the effect will be akin to a significant or complete mind-wipe. This curse may be applied like any other curse with the following \textbf{addition:} After applying the curse and marking it as ``expended'', open the item envelope and give the research-notebook inside to whoever you activated the curse on.}
 	\s\MYcontents {N/A}
-	\s\MYmems	{\mReversingMindWipe{}}
+	\s\MYgreens	{\nReverseMindWipe{}}
 }
 
 \NEW{Item}{\iProtection}{%Adopted
@@ -646,13 +653,19 @@ If you wish to attack this creature, you must have the ``\iScythe{},''and it mus
 }
 
 
-\NEW{Item}{\iMorningGlory}{ %% Using Casseopia's Mirror to look into the past
+\NEW{Item}{\iMorningGlory}{ 
   \s\MYname	{Morning Glory}
   \s\MYnumber	{tbd}
   \s\MYtext	{A bright pink morning glory flower, glistening with dew, unopened buds promising more vibrant blooms yet to come.}
 }
 
-\NEW{Item}{\iFlameOrchid}{ %% No mechanic yet
+\NEW{Item}{\iSunflower}{ 
+  \s\MYname	{Sunflower}
+  \s\MYnumber	{tbd}
+  \s\MYtext	{Bright yellow petals surround a broad, brown center full of immature seeds. It has a rather prickly stem.}
+}
+
+\NEW{Item}{\iFlameOrchid}{ 
   \s\MYname	{Flame Orchid}
   \s\MYnumber	{tbd}
   \s\MYtext	{A crimson orchid, dancing in the breeze like flame. Whether you were already aware or find out the hard way, every part of the plant except the flower is covered in irritating hairs that feel like being burned.}
@@ -773,7 +786,7 @@ If you wish to attack this creature, you must have the ``\iScythe{},''and it mus
 }
 
 \NEW{Item}{\iEagleFeather}{
-  \s\MYname	{An Eagle Feather}
+  \s\MYname	{Eagle Feather}
   \s\MYnumber	{tbd}
   \s\MYtext	{A shed feather of an eagle. A common ingredient in creating curses. They lose their potency if plucked from a live bird; only feathers shed naturally can be used for making curses due to \cFarmGod{}'s edict against harming animals.}
 }
@@ -783,6 +796,12 @@ If you wish to attack this creature, you must have the ``\iScythe{},''and it mus
   \s\MYnumber	{tbd}
   \s\MYtext	{\textbf{See a GM for the phys rep if necessary.} A well made ceramic statue of a white rabbit.
 	}
+}
+
+\NEW{Item}{\iSpiderWeb}{
+  \s\MYname	{Spider Web}
+  \s\MYnumber	{tbd}
+  \s\MYtext	{A dusty old spiderweb. Clearly no longer in use by its maker.}
 }
 
 %%%%%%%%%%%%% Maker Space %%%%%%%%%%%%%%
