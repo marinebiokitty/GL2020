@@ -68,6 +68,11 @@
 
   \newstat\MYcr	{Combat Rating}{CR}{2} %% for DarkWater-style combat
   %\newstat\MYhp	{Hitpoints}{HP}{10} % Hitpoints
+  \newstat\MYmorality	{Morality Score}{MS}{} % Morality Score for students
+  \newstat\MYvScore	{V-Score}{MS}{} % Chups and Avengers
+  \newstat\MYsScore	{S-Score}{MS}{} % knows about the baby sea serpent
+  \newstat\MYlScore	{L-Score}{MS}{} % library navigation bonus
+  \newstat\MYfScore	{F-Score}{MS}{} % is eligible as the faledon heir
 
   \FD\MYsex	{\male} %% \male, \female, \neuter, \ambiguous
   \FD\MYCharpronouns	{} %% \male, \female, \neuter, \ambiguous
@@ -243,7 +248,13 @@
   \s\MYabils	{\aJewelry{}\aPrivate{}}
   \s\MYitems	{}
   \s\MYwhites	{}
-  \s\MYcr{2}
+  
+  \s\MYcr	{5} %Combat Score
+  \s\MYmorality	{0} % Morality Score for students
+  \s\MYvScore	{0} % Chups and Avengers
+  \s\MYsScore	{} % knows about the baby sea serpent
+  \s\MYlScore	{3} % library navigation bonus
+  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cChupStudent}{
@@ -261,7 +272,13 @@
   \s\MYabils	{\aPreviewVoteThree{}\aStealVoteThree{}\aManipulateVoteOne{}\aLuck{}}
   \s\MYitems	{\iSnowfallLetter{}}
   \s\MYwhites	{}
-  \s\MYcr{2}
+
+  \s\MYcr	{6} %Combat Score
+  \s\MYmorality	{1} % Morality Score for students
+  \s\MYvScore	{1} % Chups and Avengers
+  \s\MYsScore	{} % knows about the baby sea serpent
+  \s\MYlScore	{0} % library navigation bonus
+  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cAdopted}{
@@ -280,7 +297,13 @@
   \s\MYitems	{\iWIPProtection{}\iWIPCurse{}}
   \s\MYwhites	{}
   \s\MYmems	{\mPacketThree{}}
-  \s\MYcr{2}
+
+  \s\MYcr	{5} %Combat Score
+  \s\MYmorality	{0} % Morality Score for students
+  \s\MYvScore	{0} % Chups and Avengers
+  \s\MYsScore	{1} % knows about the baby sea serpent
+  \s\MYlScore	{0} % library navigation bonus
+  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cDisney}{
@@ -299,7 +322,13 @@
   \s\MYitems	{\iFolderOfNotes{}}
   \s\MYwhites	{}
 	\s\MYmems		{\mPacketA{}\mCPacket{}\mWThree{}}
-  \s\MYcr{2}
+
+  \s\MYcr	{5} %Combat Score
+  \s\MYmorality	{1} % Morality Score for students
+  \s\MYvScore	{0} % Chups and Avengers
+  \s\MYsScore	{1} % knows about the baby sea serpent
+  \s\MYlScore	{0} % library navigation bonus
+  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cInterpol}{
@@ -317,7 +346,13 @@
   \s\MYabils	{\aManipulateVoteOne{}\aLying{}\aLockPick{}}
   \s\MYitems	{}
   \s\MYwhites	{}
-  \s\MYcr{2}
+
+  \s\MYcr	{5} %Combat Score
+  \s\MYmorality	{} % Morality Score for students
+  \s\MYvScore	{0} % Chups and Avengers
+  \s\MYsScore	{} % knows about the baby sea serpent
+  \s\MYlScore	{0} % library navigation bonus
+  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cHistory}{
@@ -336,7 +371,13 @@
   \s\MYitems	{}
   \s\MYwhites	{}
 	\s\MYmems		{\mWTwo{}}
-  \s\MYcr{2}
+
+  \s\MYcr	{4} %Combat Score
+  \s\MYmorality	{} % Morality Score for students
+  \s\MYvScore	{0} % Chups and Avengers
+  \s\MYsScore	{} % knows about the baby sea serpent
+  \s\MYlScore	{1} % library navigation bonus
+  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cPrince}{
@@ -354,7 +395,13 @@
   \s\MYabils	{\aTransferVoteOne{}\aJewelry{}}
   \s\MYitems	{}
   \s\MYwhites	{}
-  \s\MYcr{2}
+
+  \s\MYcr	{4} %Combat Score
+  \s\MYmorality	{} % Morality Score for students
+  \s\MYvScore	{0} % Chups and Avengers
+  \s\MYsScore	{} % knows about the baby sea serpent
+  \s\MYlScore	{1} % library navigation bonus
+  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cMusic}{
@@ -373,7 +420,13 @@
   \s\MYitems	{}
   \s\MYwhites	{}
 	\s\MYmems		{\mCPacket{}}
-  \s\MYcr{2}
+
+  \s\MYcr	{4} %Combat Score
+  \s\MYmorality	{} % Morality Score for students
+  \s\MYvScore	{0} % Chups and Avengers
+  \s\MYsScore	{} % knows about the baby sea serpent
+  \s\MYlScore	{1} % library navigation bonus
+  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cEvil}{
@@ -391,7 +444,13 @@
   \s\MYabils	{\aPreviewVoteOne{}\aLying{}\aNewTopic{}}
   \s\MYitems	{\iGlassVial{}}
   \s\MYwhites	{}
-  \s\MYcr{2}
+
+  \s\MYcr	{3} %Combat Score
+  \s\MYmorality	{} % Morality Score for students
+  \s\MYvScore	{0} % Chups and Avengers
+  \s\MYsScore	{} % knows about the baby sea serpent
+  \s\MYlScore	{0} % library navigation bonus
+  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cWildCard}{
@@ -409,7 +468,13 @@
   \s\MYabils	{\aUseTass{}}
   \s\MYitems	{\iChargingStone{}\iChargingStone{}}%charged stones
   \s\MYwhites	{}
-  \s\MYcr{2}
+
+  \s\MYcr	{3} %Combat Score
+  \s\MYmorality	{} % Morality Score for students
+  \s\MYvScore	{0} % Chups and Avengers
+  \s\MYsScore	{} % knows about the baby sea serpent
+  \s\MYlScore	{0} % library navigation bonus
+  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cCurse}{
@@ -427,7 +492,13 @@
   \s\MYabils	{}
   \s\MYitems	{\iBeansNB{}}
   \s\MYwhites	{}
-  \s\MYcr{2}
+
+  \s\MYcr	{2} %Combat Score
+  \s\MYmorality	{} % Morality Score for students
+  \s\MYvScore	{0} % Chups and Avengers
+  \s\MYsScore	{} % knows about the baby sea serpent
+  \s\MYlScore	{0} % library navigation bonus
+  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cHedonist}{
@@ -445,7 +516,13 @@
   \s\MYabils	{}
   \s\MYitems	{\iSignetRing{}\iPitcher{}\iTuningFork{}}
   \s\MYwhites	{}
-  \s\MYcr{2}
+
+  \s\MYcr	{3} %Combat Score
+  \s\MYmorality	{} % Morality Score for students
+  \s\MYvScore	{0} % Chups and Avengers
+  \s\MYsScore	{} % knows about the baby sea serpent
+  \s\MYlScore	{0} % library navigation bonus
+  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 %%%%%%%%%%%%%% FPF %%%%%%%%%%%%%%%
@@ -464,7 +541,13 @@
   \s\MYabils	{\aBuildVCD{}\aStealVoteOne{}}
   \s\MYitems	{\iVCDBlueprint{}}
   \s\MYwhites	{}
-  \s\MYcr{2}
+
+  \s\MYcr	{5} %Combat Score
+  \s\MYmorality	{0} % Morality Score for students
+  \s\MYvScore	{0} % Chups and Avengers
+  \s\MYsScore	{} % knows about the baby sea serpent
+  \s\MYlScore	{0} % library navigation bonus
+  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cAmbition}{
@@ -482,7 +565,14 @@
   \s\MYabils	{\aPreviewVoteOne{}\aOration{}}
   \s\MYitems	{}
   \s\MYwhites	{}
-  \s\MYcr{2}
+
+
+  \s\MYcr	{5} %Combat Score
+  \s\MYmorality	{0} % Morality Score for students
+  \s\MYvScore	{0} % Chups and Avengers
+  \s\MYsScore	{} % knows about the baby sea serpent
+  \s\MYlScore	{0} % library navigation bonus
+  \s\MYfScore	{0} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cHeir}{
@@ -500,7 +590,13 @@
   \s\MYabils	{}
   \s\MYitems	{\iFaledonLetter{}}
   \s\MYwhites	{}
-  \s\MYcr{2}
+
+  \s\MYcr	{5} %Combat Score
+  \s\MYmorality	{0} % Morality Score for students
+  \s\MYvScore	{0} % Chups and Avengers
+  \s\MYsScore	{} % knows about the baby sea serpent
+  \s\MYlScore	{0} % library navigation bonus
+  \s\MYfScore	{1} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cScholarship}{
@@ -518,7 +614,13 @@
   \s\MYabils	{\aPickPocket{}}
   \s\MYitems	{\iInvisibilityCloak{}\iMagicTag{}}
   \s\MYwhites	{}
-  \s\MYcr{2}
+
+  \s\MYcr	{6} %Combat Score
+  \s\MYmorality	{2} % Morality Score for students
+  \s\MYvScore	{0} % Chups and Avengers
+  \s\MYsScore	{} % knows about the baby sea serpent
+  \s\MYlScore	{2} % library navigation bonus
+  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cEthics}{
@@ -536,7 +638,13 @@
   \s\MYabils	{\aTransferVoteOne{}\aHaveYouConsidered{}\aPrivate{}}
   \s\MYitems	{}
   \s\MYwhites	{}
-  \s\MYcr{2}
+
+  \s\MYcr	{4} %Combat Score
+  \s\MYmorality	{} % Morality Score for students
+  \s\MYvScore	{0} % Chups and Avengers
+  \s\MYsScore	{} % knows about the baby sea serpent
+  \s\MYlScore	{1} % library navigation bonus
+  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cBeetle}{
@@ -554,7 +662,13 @@
   \s\MYabils	{\aManipulateVoteOne{}\aBeetle{}}
   \s\MYitems	{\iAvatarBeetle{}\iChargingStone{}}%charged stone
   \s\MYwhites	{}
-  \s\MYcr{2}
+
+  \s\MYcr	{4} %Combat Score
+  \s\MYmorality	{} % Morality Score for students
+  \s\MYvScore	{0} % Chups and Avengers
+  \s\MYsScore	{} % knows about the baby sea serpent
+  \s\MYlScore	{1} % library navigation bonus
+  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cLibrarian}{
@@ -572,8 +686,14 @@
   \s\MYabils	{\aTransferVoteOne{}}
   \s\MYitems	{}
   \s\MYwhites	{}
-	\s\MYmems		{\mLibMemories{}}
-  \s\MYcr{2}
+  \s\MYmems	{\mLibMemories{}}
+
+  \s\MYcr	{3} %Combat Score
+  \s\MYmorality	{} % Morality Score for students
+  \s\MYvScore	{0} % Chups and Avengers
+  \s\MYsScore	{} % knows about the baby sea serpent
+  \s\MYlScore	{2} % library navigation bonus
+  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cChupInventor}{
@@ -591,7 +711,13 @@
   \s\MYabils	{\aUseTass{}\aPreviewVoteThree{}\aLuck{}}
   \s\MYitems	{\multi{6}{\iChargingStone{}}}%4 empty, 2 charged.
   \s\MYwhites	{}
-  \s\MYcr{2}
+
+  \s\MYcr	{4} %Combat Score
+  \s\MYmorality	{} % Morality Score for students
+  \s\MYvScore	{1} % Chups and Avengers
+  \s\MYsScore	{} % knows about the baby sea serpent
+  \s\MYlScore	{0} % library navigation bonus
+  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cDiplomat}{
@@ -609,7 +735,13 @@
   \s\MYabils	{\aLying{}\aOration{}\aNewTopic{}}
   \s\MYitems	{\iMirror{}\iGlassVial{}\iFaledonRing{}}
   \s\MYwhites	{}
-  \s\MYcr{2}
+
+  \s\MYcr	{3} %Combat Score
+  \s\MYmorality	{} % Morality Score for students
+  \s\MYvScore	{0} % Chups and Avengers
+  \s\MYsScore	{} % knows about the baby sea serpent
+  \s\MYlScore	{0} % library navigation bonus
+  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cHeadScientist}{
@@ -628,7 +760,14 @@
   \s\MYitems	{\iGlassVial{}\iEngagementRing{}}
   \s\MYmems	{\mIdleThoughts{}}
   \s\MYwhites	{}
-  \s\MYcr{2}
+
+
+  \s\MYcr	{3} %Combat Score
+  \s\MYmorality	{} % Morality Score for students
+  \s\MYvScore	{0} % Chups and Avengers
+  \s\MYsScore	{} % knows about the baby sea serpent
+  \s\MYlScore	{0} % library navigation bonus
+  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cAntiChup}{
@@ -646,7 +785,13 @@
   \s\MYabils	{\aPreviewVoteOne{}\aLying{}}
   \s\MYitems	{\iChargingStone{}\iInvisibilityCloak{}\iScholarship{}\iTuningFork{}}%Charged stone
   \s\MYwhites	{}
-  \s\MYcr{2}
+
+  \s\MYcr	{3} %Combat Score
+  \s\MYmorality	{} % Morality Score for students
+  \s\MYvScore	{0} % Chups and Avengers
+  \s\MYsScore	{} % knows about the baby sea serpent
+  \s\MYlScore	{0} % library navigation bonus
+  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cAssistantScientist}{
@@ -664,7 +809,13 @@
   \s\MYabils	{\aPrivate{}\aNewTopic{}}
   \s\MYitems	{}
   \s\MYwhites	{}
-  \s\MYcr{2}
+
+  \s\MYcr	{5} %Combat Score
+  \s\MYmorality	{} % Morality Score for students
+  \s\MYvScore	{0} % Chups and Avengers
+  \s\MYsScore	{} % knows about the baby sea serpent
+  \s\MYlScore	{0} % library navigation bonus
+  \s\MYfScore	{} % is eligible as the faledon heir
 }
 %%%Amanda's character's original name and identity. Does not need sheets etc.
 \NEW{PC}{\cKidScientist}{
@@ -701,7 +852,13 @@
   \s\MYabils	{\aPreviewVoteOne{}\aStay{}}
   \s\MYitems	{}
   \s\MYwhites	{}
-  \s\MYcr{2}
+
+  \s\MYcr	{5} %Combat Score
+  \s\MYmorality	{0} % Morality Score for students
+  \s\MYvScore	{0} % Chups and Avengers
+  \s\MYsScore	{} % knows about the baby sea serpent
+  \s\MYlScore	{2} % library navigation bonus
+  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cInitiate}{
@@ -719,7 +876,13 @@
   \s\MYabils	{}
   \s\MYitems	{\iCursedLetter{}}
   \s\MYwhites	{}
-  \s\MYcr{2}
+
+  \s\MYcr	{5} %Combat Score
+  \s\MYmorality	{1} % Morality Score for students
+  \s\MYvScore	{0} % Chups and Avengers
+  \s\MYsScore	{} % knows about the baby sea serpent
+  \s\MYlScore	{0} % library navigation bonus
+  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cPirateChild}{
@@ -737,7 +900,13 @@
   \s\MYabils	{\aStealVoteOne{}\aLockPick{}\aFirePhobia{}\aPickPocket{}}
   \s\MYitems	{}
   \s\MYwhites	{}
-  \s\MYcr{2}
+
+  \s\MYcr	{6} %Combat Score
+  \s\MYmorality	{0} % Morality Score for students
+  \s\MYvScore	{0} % Chups and Avengers
+  \s\MYsScore	{1} % knows about the baby sea serpent
+  \s\MYlScore	{0} % library navigation bonus
+  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cWarlordDaughter}{
@@ -755,7 +924,13 @@
   \s\MYabils	{\aLettersHome{}}
   \s\MYitems	{\iWarlordRing{}}
   \s\MYwhites	{}
-  \s\MYcr{2}
+
+  \s\MYcr	{5} %Combat Score
+  \s\MYmorality	{1} % Morality Score for students
+  \s\MYvScore	{0} % Chups and Avengers
+  \s\MYsScore	{} % knows about the baby sea serpent
+  \s\MYlScore	{0} % library navigation bonus
+  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cFlowPriest}{
@@ -773,7 +948,13 @@
   \s\MYabils	{\aTransferVoteOne{}}
   \s\MYitems	{}
   \s\MYwhites	{}
-  \s\MYcr{2}
+
+  \s\MYcr	{4} %Combat Score
+  \s\MYmorality	{} % Morality Score for students
+  \s\MYvScore	{0} % Chups and Avengers
+  \s\MYsScore	{} % knows about the baby sea serpent
+  \s\MYlScore	{1} % library navigation bonus
+  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cChupSecond}{
@@ -791,7 +972,13 @@
   \s\MYabils	{\aTransferVoteThree{}\aLuck{}\aNewTopic{}}
   \s\MYitems	{}
   \s\MYwhites	{}
-  \s\MYcr{2}
+
+  \s\MYcr	{1} %Combat Score
+  \s\MYmorality	{} % Morality Score for students
+  \s\MYvScore	{1} % Chups and Avengers
+  \s\MYsScore	{} % knows about the baby sea serpent
+  \s\MYlScore	{0} % library navigation bonus
+  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cChupAvenger}{
@@ -809,7 +996,13 @@
   \s\MYabils	{\aManipulateVoteOne{}\aLuck{}}
   \s\MYitems	{}
   \s\MYwhites	{}
-  \s\MYcr{2}
+
+  \s\MYcr	{5} %Combat Score
+  \s\MYmorality	{} % Morality Score for students
+  \s\MYvScore	{2} % Chups and Avengers
+  \s\MYsScore	{} % knows about the baby sea serpent
+  \s\MYlScore	{0} % library navigation bonus
+  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cPirate}{
@@ -828,7 +1021,13 @@
   \s\MYitems	{}
   \s\MYwhites	{}
 	\s\MYmems		{\mParent{}}
-  \s\MYcr{2}
+
+  \s\MYcr	{4} %Combat Score
+  \s\MYmorality	{} % Morality Score for students
+  \s\MYvScore	{0} % Chups and Avengers
+  \s\MYsScore	{} % knows about the baby sea serpent
+  \s\MYlScore	{1} % library navigation bonus
+  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cChupLeader}{
@@ -846,7 +1045,13 @@
   \s\MYabils	{\aManipulateVoteThree{}\aImpassionedSpeech{}\aLuck{}}
   \s\MYitems	{\iHorseshoe{}}
   \s\MYwhites	{}
-  \s\MYcr{2}
+
+  \s\MYcr	{5} %Combat Score
+  \s\MYmorality	{} % Morality Score for students
+  \s\MYvScore	{1} % Chups and Avengers
+  \s\MYsScore	{} % knows about the baby sea serpent
+  \s\MYlScore	{0} % library navigation bonus
+  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cJuniorStatesman}{
@@ -865,7 +1070,13 @@
   \s\MYitems	{\iMadroneNotes{}}
   \s\MYwhites	{}
 	\s\MYmems 	{\mHummingbirds{}}
-  \s\MYcr{2}
+
+  \s\MYcr	{3} %Combat Score
+  \s\MYmorality	{} % Morality Score for students
+  \s\MYvScore	{0} % Chups and Avengers
+  \s\MYsScore	{} % knows about the baby sea serpent
+  \s\MYlScore	{0} % library navigation bonus
+  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cBunker}{
@@ -883,7 +1094,13 @@
   \s\MYabils	{\aExamineBunkers{}\aUseTass{}\aLying{}}
   \s\MYitems	{\iChargingStone{}\iChargingStone{}}%2 charged stones
   \s\MYwhites	{}
-  \s\MYcr{2}
+
+  \s\MYcr	{3} %Combat Score
+  \s\MYmorality	{} % Morality Score for students
+  \s\MYvScore	{0} % Chups and Avengers
+  \s\MYsScore	{} % knows about the baby sea serpent
+  \s\MYlScore	{0} % library navigation bonus
+  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cEbbPriest}{
@@ -901,7 +1118,13 @@
   \s\MYabils	{}
   \s\MYitems	{\iTuningFork{}}
   \s\MYwhites	{}
-  \s\MYcr{2}
+
+  \s\MYcr	{3} %Combat Score
+  \s\MYmorality	{} % Morality Score for students
+  \s\MYvScore	{0} % Chups and Avengers
+  \s\MYsScore	{} % knows about the baby sea serpent
+  \s\MYlScore	{0} % library navigation bonus
+  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cPrincipal}{
@@ -920,7 +1143,13 @@
   \s\MYitems	{}
   \s\MYwhites	{}
 	\s\MYmems		{\mWOne{}}
-  \s\MYcr{2}
+
+  \s\MYcr	{4} %Combat Score
+  \s\MYmorality	{} % Morality Score for students
+  \s\MYvScore	{0} % Chups and Avengers
+  \s\MYsScore	{} % knows about the baby sea serpent
+  \s\MYlScore	{2} % library navigation bonus
+  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 
