@@ -1,4 +1,14 @@
 \documentclass[sheet]{GL2020}
+\parindent=0pt
+\usepackage[shortlabels]{enumitem}
+
+\usepackage{fancyhdr}
+\fancypagestyle{plain}{%
+\fancyhf{} % clear all header and footer fields
+\fancyfoot[C]{\sffamily\fontsize{24pt}{24pt}\selectfont\thepage} % except the center
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}}
+\pagestyle{plain}
 
 \begin{document}
 
@@ -19,221 +29,268 @@ Welcome to the Library. Use this choose-your-own-adventure booklet to explore th
   \item At any time, you may choose to \textbf{Flee Blindly} from the Library, which brings you back to page 1 and causes you to lose one CR token until the next meal; you must also return any items you obtained in the Library back to their original envelopes as you drop them in panic.
 \end{itemize}
 
-The Library of the College of the Gods is a wonder to behold, sporting bookshelves that span multiple stories, accessible by small catwalks. A massive spiral staircase winds down into the very heart of the island, offering access to deeper, and more dangerous, levels for those who dare. This building is heavily magically warded and contains many of the most dangerous, forbidden, and ancient knowledge on the continent. It is not always clear whether the wards are meant to protect things in the Library from outsiders, or to protect outsiders from the things in the Library. The dangers of navigating the Library are great enough that specially trained Librarians need to pass down the knowledge of how to survive its maintenance and access its deepest secrets. It is said that the Deities themselves maintain the magical protections in the Library. The Library has 3 tiers. The 1st/Low Tier is relatively safe and open to anyone, housing books on innocuous topics from basic magical theory to geography to engineering. The 2nd/Middle Tier houses more dangerous books and artifacts, and the 3rd/High Tier is home to the most dangerous and forbidden knowledge; it is in the 3rd Tier that the three Relics housed at the college are stored. Rumors abound of a 4th/Extreme Tier, but no one ever goes that deep, if it even exists in the first place.
+The Library of the College of the Gods is a wonder to behold, sporting bookshelves that span multiple stories, accessible by small catwalks. A massive spiral staircase winds down into the very heart of the island, offering access to deeper, and more dangerous, levels for those who dare. This building is heavily magically warded and contains many of the most dangerous, forbidden, and ancient knowledge on the continent. It is not always clear whether the wards are meant to protect things in the Library from outsiders, or to protect outsiders from the things in the Library. The dangers of navigating the Library are great enough that specially trained Librarians need to pass down the knowledge of how to survive its maintenance and access its deepest secrets. It is said that the Deities themselves maintain the magical protections in the Library. The Library has 3 tiers. The 1st/Low Tier is relatively safe and open to anyone, housing books on innocuous topics from basic magical theory to geography to engineering. The 2nd/Middle Tier houses more dangerous books and artifacts, and the 3rd/High Tier is home to the most dangerous and forbidden knowledge; it is in the 3rd Tier that the three Relics housed at the college are stored. Rumors abound of a 4th/Extreme Tier, but no one ever goes that deep, if it even exists in the first place.\\
 
+%\vspace{3cm}
+
+{\large \textbf{To begin exploring the library, turn the page to read page~\pageref{TierOneHub}.}}
+
+\pagenumbering{gobble}
 
 \clearpage
+
+\pagenumbering{arabic}
 \setcounter{page}{1}
 
-\section*{Tier 1 Hub}
+\begin{center}\section*{\underline{Tier 1 Hub}}\end{center}
 \label{TierOneHub}
+
+Welcome to the 1st Tier. Blue will-o’-the-wisps drift lazily through the stacks, providing a source of light. 
+
+\begingroup
+\itshape
+You may:
+\begin{enumerate}[A]
+	\item Browse the stacks. You can find any information available in your bluesheets. You may also ask the GMs a question, and if it is \textbf{common} knowledge, you will receive an answer.
+	\item Leave the Library.
+	\item Explore the Obsidian Corridor (turn to page~\pageref{ObsidianCorridor}).
+	\item Read the Dedication Plaque at the entrance (turn to page~\pageref{LibraryDedication}).
+	\item Descend the spiral staircase down to Tier 2 Hub (requires \textbf{CR 5} to overcome the wards; turn to page~\pageref{TierTwoHub}).
+\end{enumerate}
+\endgroup
 
 \clearpage
 
-\section*{The Obsidian Greenhouse (Tier 1)}
+\begin{center}\section*{\underline{The Obsidian Corridor (Tier 1)}}\end{center}
+\label{ObsidianCorridor}
+
+A winding, dimly lit passage seemingly carved from solid obsidian branches off from the stacks, leading deeper underground. Reflections in the glossy stone make it hard to navigate or spot side passages. 
+
+You may:
+\begin{enumerate}[A]
+	\item Return to Tier 1 Hub (turn to page ~\pageref{TierTwoHub}).
+	\item Gaze at the dim reflections in the walls (turn to page 3).
+	\item Fumble your way further down the passage. If anyone in your group has an L-Score of at least 1, you may freely choose any of the options below without rolling. Otherwise, roll a d20.
+	\begin{enumerate}
+		\item If you roll a 7 or lower, turn to page 4.
+		\item If you roll 8-13, turn to page 5.
+		\item If you roll 14 or higher, turn to page 17.
+	\end{enumerate}
+\end{enumerate}
+
+\clearpage
+
+\begin{center}\section*{\underline{The Abyss Gazes Also (Tier 1)}}\end{center}
+\label{AbyssGazesAlso}
+
+\clearpage
+
+\begin{center}\section*{\underline{The Obsidian Greenhouse (Tier 1)}}\end{center}
 \label{ObsidianGreenhouse}
 
 \clearpage
 
-\section*{The Hall of tiny drawers (Tier 1)}
+\begin{center}\section*{\underline{The Hall of tiny drawers (Tier 1)}}\end{center}
 \label{HallofTinyDrawers}
 
 \clearpage
 
-\section*{Library Dedication (Tier 1)}
+\begin{center}\section*{\underline{Library Dedication (Tier 1)}}\end{center}
 \label{LibraryDedication}
 
 A beautiful plaque hangs on the wall here, bearing the Library dedication, from when it was originally completed:
 
-\begin{centering}
+\begin{center}
 ``Those of us who built this space as a repository for all \pEarth{}n knowledge\\
 Do henceforth dedicate this space to future generations.\\
 
 May our skills, knowledge, and magical abilities\\
 Be pillars of support, to raise them up to even greater heights.''\\
-\end{centering}
+\end{center}
 
-\emph{Turn to \pageref{TierOneHub}}HallofTinyDrawers
+\emph{Turn to page~\pageref{TierOneHub}}
 
 \clearpage
 
 
 
-\section*{Tier 2 Hub}
+\begin{center}\section*{\underline{Tier 2 Hub}}\end{center}
 \label{TierTwoHub}
 
 \clearpage
 
 
-\section*{The Curse Carrel (Tier 2)}
+\begin{center}\section*{\underline{The Curse Carrel (Tier 2)}}\end{center}
 \label{CurseCarrel}
 
 \clearpage
 
-\section*{New Philosophy Room (Tier 2)}
+\begin{center}\section*{\underline{New Philosophy Room (Tier 2)}}\end{center}
 \label{NewPhilosophy}
 
 \clearpage
 
-\section*{Deep in the Stacks (Tier 2)}
+\begin{center}\section*{\underline{Deep in the Stacks (Tier 2)}}\end{center}
 \label{DeepStacks}
 
 \clearpage
 
-\section*{A Floral Portal (Tier 2)}
+\begin{center}\section*{\underline{A Floral Portal (Tier 2)}}\end{center}
 \label{FloralPortal}
 
 \clearpage
 
-\section*{Secret Passage (Tier 1)}
+\begin{center}\section*{\underline{Secret Passage (Tier 1)}}\end{center}
 \label{SecretPassage}
 
 \clearpage
 
-\section*{The Chamber of the Fates (Tier 2)}
+\begin{center}\section*{\underline{The Chamber of the Fates (Tier 2)}}\end{center}
 \label{ChamberoftheFates}
 
 \clearpage
 
-\section*{The Hall of the Misfiled (Tier 2)}
+\begin{center}\section*{\underline{The Hall of the Misfiled (Tier 2)}}\end{center}
 \label{HallMisfiled}
 
 \clearpage
 
-\section*{A Lonesome Volume (Tier 2)}
+\begin{center}\section*{\underline{A Lonesome Volume (Tier 2)}}\end{center}
 \label{LonesomeVolume}
 
 \clearpage
 
 
 
-\section*{Tier 3 Hub}
+\begin{center}\section*{\underline{Tier 3 Hub}}\end{center}
 \label{TierThreeHub}
 
 \clearpage
 
-\section*{The Meadow of Black Crocuses (Tier 1)}
+\begin{center}\section*{\underline{The Meadow of Black Crocuses (Tier 1)}}\end{center}
 \label{MeadowofBlackCrocuses}
 
 \clearpage
 
-\section*{Deeper in the Stacks (Tier 3)}
+\begin{center}\section*{\underline{Deeper in the Stacks (Tier 3)}}\end{center}
 \label{DeeperStacks}
 
 \clearpage
 
-\section*{A Book on Gardening? (Tier 2)}
+\begin{center}\section*{\underline{A Book on Gardening? (Tier 2)}}\end{center}
 \label{BookonGardening}
 
 \clearpage
 
-\section*{The Underground River (Tier 3)}
+\begin{center}\section*{\underline{The Underground River (Tier 3)}}\end{center}
 \label{UndergroundRiver}
 
 You are swept along by an underground river, gasping for air every time you surface, bumping against rocks in the darkness. At last, you are disgorged into a small stream flowing through the Obsidian Greenhouse. You are wet, cold, and a bit bruised, but in one piece.
 
-\emph{Turn to \pageref{ObsidianGreenhouse}}
+\emph{Turn to page \pageref{ObsidianGreenhouse}}
 
 \clearpage
 
-\section*{The Upside Down Grotto (Tier 3)}
+\begin{center}\section*{\underline{The Upside Down Grotto (Tier 3)}}\end{center}
 \label{UpsideDownGrotto}
 
 \clearpage
 
 
-\section*{Swimming in the Upside Down Grotto (Tier 3)}
+\begin{center}\section*{\underline{Swimming in the Upside Down Grotto (Tier 3)}}\end{center}
 \label{SwiminGrotto}
 
 \clearpage
 
-\section*{Into the Darkness (Tier 2)}
-\label{SwiminGrotto}
+\begin{center}\section*{\underline{Into the Darkness (Tier 2)}}\end{center}
+\label{IntotheDarkness}
 
 \clearpage
 
 
-\section*{Weaving Thread in the Chamber of the Fates (Tier 2)}
+\begin{center}\section*{\underline{Weaving Thread in the Chamber of the Fates (Tier 2)}}\end{center}
 \label{WeavingThreadChamberofFates}
 
 \clearpage
 
-\section*{Looting the Chamber of the Fates (Tier 2)}
+\begin{center}\section*{\underline{Looting the Chamber of the Fates (Tier 2)}}\end{center}
 \label{LootingChamberofFates}
 
 \clearpage
 
-\section*{A Slow Boat on a Dark River (Tier 3)}
+\begin{center}\section*{\underline{A Slow Boat on a Dark River (Tier 3)}}\end{center}
 \label{SlowBoatDarkRiver}
 
 \clearpage
 
-\section*{A Towering Tree (Tier 3)}
+\begin{center}\section*{\underline{A Towering Tree (Tier 3)}}\end{center}
 \label{ToweringTree}
 
 \clearpage
 
-\section*{The Chamber of the Relics (Tier 3)}
+\begin{center}\section*{\underline{The Chamber of the Relics (Tier 3)}}\end{center}
 \label{ChamberofRelics}
 
 \clearpage
 
-\section*{The Lighted Pedestal (Tier 3)}
+\begin{center}\section*{\underline{The Lighted Pedestal (Tier 3)}}\end{center}
 \label{LightedPedestal}
 
 \clearpage
 
-\section*{The Wax Museum (Tier 3)}
+\begin{center}\section*{\underline{The Wax Museum (Tier 3)}}\end{center}
 \label{WaxMuseum}
 
 \clearpage
 
-\section*{Lost in the Stacks (Tiers 2 and 3)}
+\begin{center}\section*{\underline{Lost in the Stacks (Tiers 2 and 3)}}\end{center}
 \label{LostintheStacks}
 
 \clearpage
 
-\section*{Restored to its Rightful Place (Tier 2)}
+\begin{center}\section*{\underline{Restored to its Rightful Place (Tier 2)}}\end{center}
 \label{RestoredRightfulPlace}
 
 \clearpage
 
-\section*{A Memory of Light (Tier 3)}
+\begin{center}\section*{\underline{A Memory of Light (Tier 3)}}\end{center}
 \label{MemoryofLight}
 
 \clearpage
 
-\section*{A Wet and Bumpy Ride (Tier 3)}
+\begin{center}\section*{\underline{A Wet and Bumpy Ride (Tier 3)}}\end{center}
 \label{WetandBumpyRide}
 
 \clearpage
 
-\section*{The Hall of Headless Guardians (Tier 3)}
+\begin{center}\section*{\underline{The Hall of Headless Guardians (Tier 3)}}\end{center}
 \label{HallofHeadlessGuardians}
 
 \clearpage
 
-\section*{Battling the Headless Guardians (Tier 3)}
-\label{HallofHeadlessGuardians}
+\begin{center}\section*{\underline{Battling the Headless Guardians (Tier 3)}}\end{center}
+\label{BattleHeadlessGuardians}
 
 \clearpage
 
-\section*{A Strange Epigraph (Tier 3)}
+\begin{center}\section*{\underline{A Strange Epigraph (Tier 3)}}\end{center}
 \label{StrangeEpigraph}
 
 \clearpage
 
-\section*{Tier 4 Hub}
+\begin{center}\section*{\underline{Tier 4 Hub}}\end{center}
 \label{TierFourHub}
 
 \clearpage
 
-\section*{The River or Forgetting (Tier 4)}
+\begin{center}\section*{\underline{The River or Forgetting (Tier 4)}}\end{center}
 \label{RiverofForgetting}
 
 \clearpage
 
-\section*{The Heart of the Library (Tier 4)}
+\begin{center}\section*{\underline{The Heart of the Library (Tier 4)}}\end{center}
 \label{HeartoftheLibrary}
 
 \clearpage
+
+\end{document}
