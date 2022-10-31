@@ -66,13 +66,12 @@
 \PRESETS{Char}{
   \FD\MYdesc	{} %% badge description
 
-  \newstat\MYcr	{Combat Rating}{CR}{2} %% for DarkWater-style combat
-  %\newstat\MYhp	{Hitpoints}{HP}{10} % Hitpoints
-  \newstat\MYmorality	{Morality Score}{MS}{} % Morality Score for students
-  \newstat\MYvScore	{V-Score}{MS}{} % Chups and Avengers
-  \newstat\MYsScore	{S-Score}{MS}{} % knows about the baby sea serpent
-  \newstat\MYlScore	{L-Score}{MS}{} % library navigation bonus
-  \newstat\MYfScore	{F-Score}{MS}{} % is eligible as the faledon heir
+	\newstat\MYcr	{Combat Rating}{CR}{2} %% for DarkWater-style combat
+	\newstat\MYmorality	{Morality Score}{MS}{} % Morality Score for students
+	\newstat\MYvScore	{V-Score}{VS}{} % Chups and Avengers
+  \newstat\MYsScore	{S-Score}{SS}{} % knows about the baby sea serpent
+  \newstat\MYlScore	{L-Score}{LS}{} % library navigation bonus
+  \newstat\MYfScore	{F-Score}{FS}{} % is eligible as the faledon heir
 
   \FD\MYsex	{\male} %% \male, \female, \neuter, \ambiguous
   \FD\MYCharpronouns	{} %% \male, \female, \neuter, \ambiguous
@@ -319,7 +318,7 @@
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bStudentBlue{}\bAgrarians{}\bCoSCleric{}}
   \s\MYgreens	{\gVotingInstructions{}\gCoSStudentMorality{}\gPreparingTheRitual{}\gCoSCleric{}}
   \s\MYabils	{\aStealVoteOne{}\aLockPick{}\aPickPocket{}}
-  \s\MYitems	{\iFolderOfNotes{}}
+  \s\MYitems	{\iFolderOfNotes{}\iLocket{}}
   \s\MYwhites	{}
 	\s\MYmems		{\mPacketA{}\mCPacket{}\mWThree{}}
 
@@ -416,7 +415,7 @@
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTeacherBlue{}\bAgrarians{}}
   \s\MYgreens	{\gPassingOutVotes{}\gCeremonyOfExcellence{}\gPreparingTheRitual{}\gNewPrincipal{}\gCoSTeacherRanking{}\gFlowerPower{}}
-  \s\MYabils	{\aPreviewVoteOne{}}
+  \s\MYabils	{\aPreviewVoteOne{}\aSonata{}}
   \s\MYitems	{}
   \s\MYwhites	{}
   \s\MYmems	{\mCPacket{}\mLuca{}\mGreenHeadband{}}
@@ -538,7 +537,7 @@
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTech{}\bStudentBlue{}}
   \s\MYgreens	{\gVotingInstructions{}\gFPFStudentMorality{}\gBMUse{}\nRestoreMemories{}\gMagitechCrafting{}}
-  \s\MYabils	{\aBuildVCD{}\aStealVoteOne{}}
+  \s\MYabils	{\aBuildVCD{}}
   \s\MYitems	{\iVCDBlueprint{}}
   \s\MYwhites	{}
 
@@ -612,7 +611,7 @@
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTech{}\bStudentBlue{}\bFPFCleric{}}
   \s\MYgreens	{\gVotingInstructions{}\gFPFStudentMorality{}\gUnsuspectingBirdie{}\gTreaty{}\gFPFInitiate{}\nCreationThree{}}
   \s\MYabils	{\aPickPocket{}}
-  \s\MYitems	{\iInvisibilityCloak{}\iMagicTag{}}
+  \s\MYitems	{\iMagicTag{}}
   \s\MYwhites	{}
 
   \s\MYcr	{6} %Combat Score
@@ -734,7 +733,7 @@
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTech{}\bAdvisorBlue{}}
   \s\MYgreens	{\gAssassinateWarlord{}\gSealingFaledonHeir{}\gTreaty{}\gFPFAdvisorRanking{}}
-  \s\MYabils	{\aLying{}\aOration{}\aNewTopic{}}
+  \s\MYabils	{\aLying{}\aOration{}}
   \s\MYitems	{\iMirror{}\iGlassVial{}\iFaledonRing{}}
   \s\MYwhites	{}
   \s\MYmems	{\mLuca{}\mGreenHeadband{}}
@@ -786,7 +785,7 @@
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTech{}\bAdvisorBlue{}\bFPFCleric{}}
   \s\MYgreens	{\gUnsuspectingBirdie{}\gTreaty{}\gFPFCleric{}\gFPFAdvisorRanking{}}
   \s\MYabils	{\aPreviewVoteOne{}\aLying{}}
-  \s\MYitems	{\iChargingStone{}\iInvisibilityCloak{}\iScholarship{}\iTuningFork{}}%Charged stone
+  \s\MYitems	{\iChargingStone{}\iScholarship{}\iTuningFork{}}%Charged stone
   \s\MYwhites	{}
 
   \s\MYcr	{3} %Combat Score
@@ -876,7 +875,7 @@
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bVikings{}\bStudentBlue{}\bLeauCleric{}}
   \s\MYgreens	{\gBadLuckCurse{}\gVotingInstructions{}\gWRStudentMorality{}\gEbbAvatar{}\gWRInitiate{}}
-  \s\MYabils	{}
+  \s\MYabils	{\aUnobtrusive{}}
   \s\MYitems	{\iCursedLetter{}}
   \s\MYwhites	{}
 
@@ -925,16 +924,16 @@
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bVikings{}\bStudentBlue{}\bLeauCleric{}}
   \s\MYgreens	{\gVotingInstructions{}\gWRStudentMorality{}\gEbbAvatar{}\gWRInitiate{}\nWhoCursedWarlord{}}
-  \s\MYabils	{\aLettersHome{}}
+  \s\MYabils	{\aLettersHome{}\aWarlordDaughter{}}
   \s\MYitems	{\iWarlordRing{}}
   \s\MYwhites	{}
 
   \s\MYcr	{5} %Combat Score
   \s\MYmorality	{1} % Morality Score for students
   \s\MYvScore	{0} % Chups and Avengers
-  \s\MYsScore	{} % knows about the baby sea serpent
+  %\s\MYsScore	{} % knows about the baby sea serpent
   \s\MYlScore	{0} % library navigation bonus
-  \s\MYfScore	{} % is eligible as the faledon heir
+  %\s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cFlowPriest}{
@@ -1145,7 +1144,7 @@
   \s\MYplayer	{Chris Chelberg}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bVikings{}\bTeacherBlue{}}
-  \s\MYgreens	{\gVotingInstructions{}\gPassingOutVotes{}\gCeremonyOfExcellence{}\gHireTeacher{}\gLeyLines{} \gNewPrincipal{}}
+  \s\MYgreens	{\gVotingInstructions{}\gPassingOutVotes{}\gCeremonyOfExcellence{}\gHireTeacher{}\gLeyLines{} \gNewPrincipal{}\gPreparingTheRitual{}}
   \s\MYabils	{\aPreviewVoteThree{}\aOration{}}
   \s\MYitems	{}
   \s\MYwhites	{}
