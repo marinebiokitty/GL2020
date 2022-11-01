@@ -68,10 +68,10 @@
 
 	\newstat\MYcr	{Combat Rating}{CR}{2} %% for DarkWater-style combat
 	\newstat\MYmorality	{Morality Score}{MS}{} % Morality Score for students
-	\newstat\MYvScore	{V-Score}{VS}{} % Chups and Avengers
-  \newstat\MYsScore	{S-Score}{SS}{} % knows about the baby sea serpent
-  \newstat\MYlScore	{L-Score}{LS}{} % library navigation bonus
-  \newstat\MYfScore	{F-Score}{FS}{} % is eligible as the faledon heir
+	\newstat\MYvScore	{V-Score}{VS}{N/A} % Chups and Avengers
+  \newstat\MYsScore	{S-Score}{SS}{N/A} % knows about the baby sea serpent
+  \newstat\MYlScore	{L-Score}{LS}{N/A} % library navigation bonus
+  \newstat\MYfScore	{F-Score}{FS}{N/A} % is eligible as the faledon heir
 
   \FD\MYsex	{\male} %% \male, \female, \neuter, \ambiguous
   \FD\MYCharpronouns	{} %% \male, \female, \neuter, \ambiguous
@@ -168,7 +168,7 @@
 %%%%%
 %% NPC is a subtype of Char.
 \DECLARESUBTYPE{NPC}{Char}
-\PRESETS{NPC}{\sd\MYgroupstr{npc}}
+\PRESETS{NPC}{\badgefalse\sd\MYgroupstr{npc}}
 
 
 %%%%%
