@@ -64,7 +64,9 @@
 %% would give character a Hit Points stat, abbreviated HP, referenced
 %% as the \MYhp field, that defaults to 5.
 \PRESETS{Char}{
-  \FD\MYdesc	{} %% badge description
+  \FD\MYfirst{}
+	\FD\MYlast{}
+	\FD\MYdesc	{} %% badge description
 
 	\newstat\MYcr	{Combat Rating}{CR}{2} %% for DarkWater-style combat
 	\newstat\MYmorality	{Morality Score}{MS}{} % Morality Score for students
@@ -234,6 +236,8 @@
 %%%%%%%%%%%%% CoS %%%%%%%%%%%%%%%
 \NEW{PC}{\cLibAssist}{
   \s\MYname	{Yvaine Autumnset} %Ysabelon
+	\s\MYfirst {Yvaine Autumnset}
+	\s\MYlast {}
   \s\MYfile	{COS_Student_LibAssist.tex}
   \s\MYnumber	{229}
   \s\MYdesc	{A student from the Children of the Sun, with clever eyes.}
@@ -243,7 +247,7 @@
   \s\MYplayer	{Sarah Terman}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bStudentBlue{}\bAgrarians{}}
-  \s\MYgreens	{\gVotingInstructions{}\gCoSStudentMorality{}\gBMUse{}\gCursemakingBasic{}}
+  \s\MYgreens	{\gVotingInstructions{}\gCoSStudentMorality{}\gBMUse{}\gCursemakingBasic{}\gWeekendSchedule{}}
   \s\MYabils	{\aJewelry{}\aPrivate{}}
   \s\MYitems	{}
   \s\MYwhites	{}
@@ -258,6 +262,8 @@
 
 \NEW{PC}{\cChupStudent}{
   \s\MYname	{Cedar Snowfall} %Cedric
+	\s\MYfirst {Cedar Snowfall}
+	\s\MYlast {}
   \s\MYfile	{COS_Student_ChupStudent.tex}
   \s\MYnumber	{134}
   \s\MYdesc	{A student from the Children of the Sun; a well known slacker.}
@@ -267,8 +273,8 @@
 	\s\MYplayer	{Kate Hill}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bStudentBlue{}\bAgrarians{}\bCult{}}
-  \s\MYgreens	{\gVotingInstructions{}\gFoGStudentMorality{}}
-  \s\MYabils	{\aPreviewVoteThree{}\aStealVoteThree{}\aManipulateVoteOne{}\aLuck{}}
+  \s\MYgreens	{\gVotingInstructions{}\gFoGStudentMorality{}\gWeekendSchedule{}}
+  \s\MYabils	{\aPreviewVoteOne{}\aStealVoteOne{}\aPreviewVoteOne{}\aStealVoteOne{}\aPreviewVoteOne{}\aStealVoteOne{}\aManipulateVoteOne{}\aManipulateVoteOne{}\aLuck{}\aGenesisGift{}}
   \s\MYitems	{\iSnowfallLetter{}}
   \s\MYwhites	{}
 
@@ -282,6 +288,8 @@
 
 \NEW{PC}{\cAdopted}{
   \s\MYname	{Oriole Amberlight}
+	\s\MYfirst {Oriole Amberlight}
+	\s\MYlast {}
   \s\MYfile	{COS_Student_Adopted.tex}
   \s\MYnumber	{138}
   \s\MYdesc	{A student from the Children of the Sun, with a bit of a rebellious streak.}
@@ -291,7 +299,7 @@
   \s\MYplayer	{Milena Milojicic}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bStudentBlue{}\bAgrarians{}}
-  \s\MYgreens	{\gVotingInstructions{}\gCoSStudentMorality{}\gMusicBox{}\gPunishKidnappers{}\gBMUse{}\gCursemakingBasic{}}
+  \s\MYgreens	{\gVotingInstructions{}\gCoSStudentMorality{}\gMusicBox{}\gPunishKidnappers{}\gBMUse{}\gCursemakingBasic{}\gWeekendSchedule{}}
   \s\MYabils	{\aJewelry{}}
   \s\MYitems	{\iWIPProtection{}\iWIPCurse{}}
   \s\MYwhites	{}
@@ -307,6 +315,8 @@
 
 \NEW{PC}{\cDisney}{
   \s\MYname	{Elm Stardust} %Emmote
+	\s\MYfirst {Elm Stardust}
+	\s\MYlast {}
   \s\MYfile	{COS_Student_Disney.tex}
   \s\MYnumber	{280}
   \s\MYdesc	{A student from the Children of the Sun; surprisingly young to be a Clerc.}
@@ -316,7 +326,7 @@
   \s\MYplayer	{Moss Bosch}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bStudentBlue{}\bAgrarians{}\bCoSCleric{}}
-  \s\MYgreens	{\gVotingInstructions{}\gCoSStudentMorality{}\gPreparingTheRitual{}\gCoSCleric{}}
+  \s\MYgreens	{\gVotingInstructions{}\gCoSStudentMorality{}\gPreparingTheRitual{}\gCoSCleric{}\gWeekendSchedule{}}
   \s\MYabils	{\aStealVoteOne{}\aLockPick{}\aPickPocket{}}
   \s\MYitems	{\iFolderOfNotes{}\iLocket{}}
   \s\MYwhites	{}
@@ -332,6 +342,8 @@
 
 \NEW{PC}{\cInterpol}{
   \s\MYname	{Marcus Du'Pond} %Mariota
+	\s\MYfirst {Marcus Du'Pond}
+	\s\MYlast {}
   \s\MYfile	{COS_Teacher_Interpol.tex}
   \s\MYnumber	{391}
   \s\MYdesc	{The combat teacher from the Children of the Sun; with uncanny reflexes.}
@@ -341,7 +353,7 @@
   \s\MYplayer	{Joseph Oliveira}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTeacherBlue{}\bAgrarians{}}
-  \s\MYgreens	{\gPreparingTheRitual{}\gCoSTeacherRanking{}}
+  \s\MYgreens	{\gPreparingTheRitual{}\gCoSTeacherRanking{}\gWeekendSchedule{}}
   \s\MYabils	{\aManipulateVoteOne{}\aLying{}\aLockPick{}}
   \s\MYitems	{}
   \s\MYwhites	{}
@@ -356,6 +368,8 @@
 
 \NEW{PC}{\cHistory}{
   \s\MYname	{Gawain Thunderstruck}
+	\s\MYfirst {Gawain Thunderstruck}
+	\s\MYlast {}
   \s\MYfile	{COS_Teacher_History.tex}
   \s\MYnumber	{421}
   \s\MYdesc	{The history teacher from the Children of the Sun; with a studious look.}
@@ -365,7 +379,7 @@
   \s\MYplayer	{Zev Trubowitch}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTeacherBlue{}\bAgrarians{}}
-  \s\MYgreens	{\gPreparingTheRitual{}\gTreaty{}\gCoSTeacherRanking{}}
+  \s\MYgreens	{\gPreparingTheRitual{}\gTreaty{}\gCoSTeacherRanking{}\gWeekendSchedule{}}
   \s\MYabils	{\aTransferVoteOne{}\aLying{}\aLockPick{}}
   \s\MYitems	{}
   \s\MYwhites	{}
@@ -381,6 +395,8 @@
 
 \NEW{PC}{\cPrince}{
   \s\MYname	{Prince \pre Sansum Sunstruck}
+	\s\MYfirst {Prince \pre Sansum}
+	\s\MYlast {Sunstruck}
   \s\MYfile	{COS_Teacher_Prince.tex}
   \s\MYnumber	{344}
   \s\MYdesc	{The cursebreaking teacher from the Children of the Sun, who looks much like the Queen.}
@@ -390,7 +406,7 @@
   \s\MYplayer	{David Neubaur}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTeacherBlue{}\bAgrarians{}}
-  \s\MYgreens	{\gUnsuspectingBirdie{}\gCrownPrince{}\gTreaty{}\gCoSTeacherRanking{}\gCursemakingBasic{}\gCursemakingAdvanced{}}
+  \s\MYgreens	{\gUnsuspectingBirdie{}\gCrownPrince{}\gTreaty{}\gCoSTeacherRanking{}\gCursemakingBasic{}\gCursemakingAdvanced{}\gWeekendSchedule{}}
   \s\MYabils	{\aTransferVoteOne{}\aJewelry{}}
   \s\MYitems	{}
   \s\MYwhites	{}
@@ -405,6 +421,8 @@
 
 \NEW{PC}{\cMusic}{
   \s\MYname	{Finch Amberlight}%Flora
+	\s\MYfirst{Finch Amberlight}
+	\s\MYlast{}
   \s\MYfile	{COS_Teacher_Music.tex}
   \s\MYnumber	{579}
   \s\MYdesc	{The music teacher from the Children of the Sun, with impeccable timing.}
@@ -414,7 +432,7 @@
   \s\MYplayer	{Dana Murphy}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTeacherBlue{}\bAgrarians{}}
-  \s\MYgreens	{\gPassingOutVotes{}\gCeremonyOfExcellence{}\gPreparingTheRitual{}\gNewPrincipal{}\gCoSTeacherRanking{}\gFlowerPower{}}
+  \s\MYgreens	{\gPassingOutVotes{}\gCeremonyOfExcellence{}\gPreparingTheRitual{}\gNewPrincipal{}\gCoSTeacherRanking{}\gFlowerPower{}\gWeekendSchedule{}}
   \s\MYabils	{\aPreviewVoteOne{}\aSonata{}}
   \s\MYitems	{}
   \s\MYwhites	{}
@@ -430,6 +448,8 @@
 
 \NEW{PC}{\cEvil}{
   \s\MYname	{Balian Eventide}
+	\s\MYfirst {Balian Eventide}
+	\s\MYlast {}
   \s\MYfile	{COS_Advisor_Evil.tex}
   \s\MYnumber	{594}
   \s\MYdesc	{An advisor from the Children of the Sun, with calculating eyes.}
@@ -439,7 +459,7 @@
   \s\MYplayer	{David Simkins}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bAdvisorBlue{}\bAgrarians{}}
-  \s\MYgreens	{\gAssassinateWarlord{}\gTreaty{}\gCoSAdvisorRanking{}}
+  \s\MYgreens	{\gAssassinateWarlord{}\gTreaty{}\gCoSAdvisorRanking{}\gWeekendSchedule{}}
   \s\MYabils	{\aPreviewVoteOne{}\aLying{}\aNewTopic{}}
   \s\MYitems	{\iGlassVial{}}
   \s\MYwhites	{}
@@ -454,6 +474,8 @@
 
 \NEW{PC}{\cWildCard}{
   \s\MYname	{Reeve Dusklight}
+	\s\MYfirst {Reeve Dusklight}
+	\s\MYlast {}
   \s\MYfile	{COS_Advisor_WildCard.tex}
   \s\MYnumber	{435}
   \s\MYdesc	{An advisor from the Children of the Sun, with a distracted look.}
@@ -463,7 +485,7 @@
   \s\MYplayer	{Sam Tillis}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bAdvisorBlue{}\bAgrarians{}}
-  \s\MYgreens	{\gTreaty{}\gCoSAdvisorRanking{}\nFifthDeity{}\gFlowerPower{}}
+  \s\MYgreens	{\gTreaty{}\gCoSAdvisorRanking{}\nFifthDeity{}\gFlowerPower{}\gWeekendSchedule{}}
   \s\MYabils	{\aUseTass{}}
   \s\MYitems	{\iChargingStone{}\iChargingStone{}}%charged stones
   \s\MYwhites	{}
@@ -478,6 +500,8 @@
 
 \NEW{PC}{\cCurse}{
   \s\MYname	{Sewell Windswept}
+	\s\MYfirst {Sewell Windswept}
+	\s\MYlast {}
   \s\MYfile	{COS_Advisor_Curse.tex}
   \s\MYnumber	{784}
   \s\MYdesc	{An advisor from the Children of the Sun; very old and very eccentric.}
@@ -487,7 +511,7 @@
   \s\MYplayer	{Daniel Whalen}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bAdvisorBlue{}\bAgrarians{}}
-  \s\MYgreens	{\gMagicBeans{}\gTreaty{}\gCoSAdvisorRanking{}\gCursemakingBasic{}\gCursemakingAdvanced{}}
+  \s\MYgreens	{\gMagicBeans{}\gTreaty{}\gCoSAdvisorRanking{}\gCursemakingBasic{}\gCursemakingAdvanced{}\gWeekendSchedule{}}
   \s\MYabils	{}
   \s\MYitems	{\iBeansNB{}}
   \s\MYwhites	{}
@@ -502,6 +526,8 @@
 
 \NEW{PC}{\cHedonist}{
   \s\MYname	{Cardin Dawnglow}
+	\s\MYfirst {Cardin Dawnglow}
+	\s\MYlast {}
   \s\MYfile	{COS_Advisor_Hedonist.tex}
   \s\MYnumber	{571}
   \s\MYdesc	{An advisor from the Children of the Sun, wearing very fancy clothes for a Cleric.}
@@ -511,7 +537,7 @@
   \s\MYplayer	{Peter Lofgren}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bAdvisorBlue{}\bAgrarians{}\bCoSCleric{}}
-  \s\MYgreens	{\gBMUse{}\gTreaty{}\gCoSCleric{}\gCoSAdvisorRanking{}}
+  \s\MYgreens	{\gBMUse{}\gTreaty{}\gCoSCleric{}\gCoSAdvisorRanking{}\gWeekendSchedule{}}
   \s\MYabils	{}
   \s\MYitems	{\iSignetRing{}\iPitcher{}\iTuningFork{}\iCourage{}\iInsight{}\iSlowActingPoison{}}
   \s\MYwhites	{}
@@ -527,6 +553,8 @@
 %%%%%%%%%%%%%% FPF %%%%%%%%%%%%%%%
 \NEW{PC}{\cTechStar}{
   \s\MYname	{Priscilla Ryder} %Percy
+	\s\MYfirst {Priscilla Ryder}
+	\s\MYlast {}
   \s\MYfile	{FPF_Student_TechStar.tex}
   \s\MYnumber	{176}
   \s\MYdesc	{A student from the Free People, well known for inventing the Vid-Com devices}
@@ -536,7 +564,7 @@
   \s\MYplayer	{Rachael Monosson}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTech{}\bStudentBlue{}}
-  \s\MYgreens	{\gVotingInstructions{}\gFPFStudentMorality{}\gBMUse{}\nRestoreMemories{}\gMagitechCrafting{}}
+  \s\MYgreens	{\gVotingInstructions{}\gFPFStudentMorality{}\gBMUse{}\nRestoreMemories{}\gMagitechCrafting{}\gWeekendSchedule{}}
   \s\MYabils	{\aBuildVCD{}}
   \s\MYitems	{\iVCDBlueprint{}}
   \s\MYwhites	{}
@@ -551,6 +579,8 @@
 
 \NEW{PC}{\cAmbition}{
   \s\MYname	{Quinn Keswick}
+	\s\MYfirst {Quinn Keswick}
+	\s\MYlast {}
   \s\MYfile	{FPF_Student_Ambition.tex}
   \s\MYnumber	{262}
   \s\MYdesc	{A student from the Free People, shining with promise}
@@ -560,7 +590,7 @@
   \s\MYplayer	{Phillip Kelly}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTech{}\bStudentBlue{}}
-  \s\MYgreens	{\gVotingInstructions{}\gFPFStudentMorality{}\gFaledonHeir{}\gTreaty{}}
+  \s\MYgreens	{\gVotingInstructions{}\gFPFStudentMorality{}\gFaledonHeir{}\gTreaty{}\gWeekendSchedule{}}
   \s\MYabils	{\aPreviewVoteOne{}\aOration{}}
   \s\MYitems	{}
   \s\MYwhites	{}
@@ -576,6 +606,8 @@
 
 \NEW{PC}{\cHeir}{
   \s\MYname	{Harley Faledon}
+	\s\MYfirst {Harley Faledon}
+	\s\MYlast {}
   \s\MYfile	{FPF_Student_Heir.tex}
   \s\MYnumber	{237}
   \s\MYdesc	{A student from the Free People; Heir to the Faledon fortune}
@@ -585,7 +617,7 @@
   \s\MYplayer	{Jessica Bainbridge-Smith}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTech{}\bStudentBlue{}}
-  \s\MYgreens	{\gWhatHappenedSixYearsAgo{}\gVotingInstructions{}\gFPFStudentMorality{}\gFaledonHeir{}\gCursemakingBasic{}}
+  \s\MYgreens	{\gWhatHappenedSixYearsAgo{}\gVotingInstructions{}\gFPFStudentMorality{}\gFaledonHeir{}\gCursemakingBasic{}\gWeekendSchedule{}}
   \s\MYabils	{}
   \s\MYitems	{\iFaledonLetter{}}
   \s\MYwhites	{}
@@ -600,6 +632,8 @@
 
 \NEW{PC}{\cScholarship}{
   \s\MYname	{Isabelle Fitzgradine}
+	\s\MYfirst {Isabelle Fitzgradine}
+	\s\MYlast {}
   \s\MYfile	{FPF_Student_Scholarship.tex}
   \s\MYnumber	{260}
   \s\MYdesc	{A student from the Free People; as pious as they come}
@@ -609,7 +643,7 @@
   \s\MYplayer	{Adie Rombach}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTech{}\bStudentBlue{}\bFPFCleric{}}
-  \s\MYgreens	{\gVotingInstructions{}\gFPFStudentMorality{}\gUnsuspectingBirdie{}\gTreaty{}\gFPFInitiate{}\nCreationThree{}}
+  \s\MYgreens	{\gVotingInstructions{}\gFPFStudentMorality{}\gUnsuspectingBirdie{}\gTreaty{}\gFPFInitiate{}\nCreationThree{}\gWeekendSchedule{}}
   \s\MYabils	{\aPickPocket{}}
   \s\MYitems	{\iMagicTag{}}
   \s\MYwhites	{}
@@ -624,6 +658,8 @@
 
 \NEW{PC}{\cEthics}{
   \s\MYname	{Elisa Meyers}
+	\s\MYfirst {Elisa Meyers}
+	\s\MYlast {}
   \s\MYfile	{FPF_Teacher_Ethics.tex}
   \s\MYnumber	{423}
   \s\MYdesc	{The ethics teacher from the Free People; gives the best advice}
@@ -633,7 +669,7 @@
   \s\MYplayer	{Marie Chelberg}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTech{}\bTeacherBlue{}}
-  \s\MYgreens	{\gTreaty{}\gBMUse{}\gFPFTeacherRanking{}}
+  \s\MYgreens	{\gTreaty{}\gBMUse{}\gFPFTeacherRanking{}\gWeekendSchedule{}}
   \s\MYabils	{\aTransferVoteOne{}\aHaveYouConsidered{}\aPrivate{}}
   \s\MYitems	{}
   \s\MYwhites	{}
@@ -649,6 +685,8 @@
 
 \NEW{PC}{\cBeetle}{
   \s\MYname	{Tarquin Gainsborough}
+	\s\MYfirst {Tarquin Gainsborough}
+	\s\MYlast {}
   \s\MYfile	{FPF_Teacher_Beetle.tex}
   \s\MYnumber	{472}
   \s\MYdesc	{The religion teacher from the Free People; a careful and patient cleric}
@@ -658,7 +696,7 @@
   \s\MYplayer	{Olivia Montoya}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTech{}\bTeacherBlue{}\bFPFCleric{}}
-  \s\MYgreens	{\gPassingOutVotes{}\gPreparingTheRitual{}\gLeyLines{}\gNewPrincipal{}\gFPFCleric{}\gFPFTeacherRanking{}}
+  \s\MYgreens	{\gPassingOutVotes{}\gPreparingTheRitual{}\gLeyLines{}\gNewPrincipal{}\gFPFCleric{}\gFPFTeacherRanking{}\gWeekendSchedule{}}
   \s\MYabils	{\aManipulateVoteOne{}\aBeetle{}}
   \s\MYitems	{\iAvatarBeetle{}\iChargingStone{}}%charged stone
   \s\MYwhites	{}
@@ -674,6 +712,8 @@
 
 \NEW{PC}{\cLibrarian}{
   \s\MYname	{Batholomew Drake} %Barbarea
+	\s\MYfirst {Batholomew Drake}
+	\s\MYlast {}
   \s\MYfile	{FPF_Teacher_Librarian.tex}
   \s\MYnumber	{481}
   \s\MYdesc	{The librarian from the Free People; looks a little overwhelmed}
@@ -683,7 +723,7 @@
   \s\MYplayer	{Nik Heath}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTech{}\bTeacherBlue{}}
-  \s\MYgreens	{\gFPFTeacherRanking{}}
+  \s\MYgreens	{\gFPFTeacherRanking{}\gWeekendSchedule{}}
   \s\MYabils	{\aTransferVoteOne{}}
   \s\MYitems	{}
   \s\MYwhites	{}
@@ -699,6 +739,8 @@
 
 \NEW{PC}{\cChupInventor}{
   \s\MYname	{Joseph Wellington}
+	\s\MYfirst {Joseph Wellington}
+	\s\MYlast {}
   \s\MYfile	{FPF_Teacher_ChupInventor.tex}
   \s\MYnumber	{527}
   \s\MYdesc	{The Poly Sci teacher from the Free People, with a shrewd look}
@@ -708,7 +750,7 @@
   \s\MYplayer	{Michael Micheletti}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTech{}\bTeacherBlue{}\bCult{}}
-  \s\MYgreens	{\gBMSupply{}\gFoGCleric{}\gFPFTeacherRanking{}}
+  \s\MYgreens	{\gBMSupply{}\gFoGCleric{}\gFPFTeacherRanking{}\gWeekendSchedule{}}
   \s\MYabils	{\aUseTass{}\aPreviewVoteThree{}\aLuck{}}
   \s\MYitems	{\multi{6}{\iChargingStone{}}}%4 empty, 2 charged.
   \s\MYwhites	{}
@@ -723,6 +765,8 @@
 
 \NEW{PC}{\cDiplomat}{
   \s\MYname	{Andrew Durchville}%Andrea
+	\s\MYfirst {Andrew Durchville}
+	\s\MYlast {}
   \s\MYfile	{FPF_Advisor_Diplomat.tex}
   \s\MYnumber	{563}
   \s\MYdesc	{An advisor from the Free People, and a consumate diplomat}
@@ -732,7 +776,7 @@
   \s\MYplayer	{Eric Leitterman}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTech{}\bAdvisorBlue{}}
-  \s\MYgreens	{\gAssassinateWarlord{}\gSealingFaledonHeir{}\gTreaty{}\gFPFAdvisorRanking{}}
+  \s\MYgreens	{\gAssassinateWarlord{}\gSealingFaledonHeir{}\gTreaty{}\gFPFAdvisorRanking{}\gWeekendSchedule{}}
   \s\MYabils	{\aLying{}\aOration{}}
   \s\MYitems	{\iMirror{}\iGlassVial{}\iFaledonRing{}}
   \s\MYwhites	{}
@@ -748,6 +792,8 @@
 
 \NEW{PC}{\cHeadScientist}{
   \s\MYname	{Avery Branigan}
+	\s\MYfirst {Avery Branigan}
+	\s\MYlast {}
   \s\MYfile	{FPF_Advisor_HeadScientist.tex}
   \s\MYnumber	{514}
   \s\MYdesc	{An advisor from the Free People; the head scientist on the Storm project}
@@ -757,7 +803,7 @@
   \s\MYplayer	{Aer van de Water}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTech{}\bAdvisorBlue{}}
-  \s\MYgreens	{\gTreaty{}\gFPFAdvisorRanking{}\nCreationTwo{}\gMagitechCrafting{}}
+  \s\MYgreens	{\gTreaty{}\gFPFAdvisorRanking{}\nCreationTwo{}\gMagitechCrafting{}\gWeekendSchedule{}}
   \s\MYabils	{\aNewTopic{}}
   \s\MYitems	{\iGlassVial{}\iEngagementRing{}}
   \s\MYmems	{\mIdleThoughts{}\mGreenHeadband{}}
@@ -774,6 +820,8 @@
 
 \NEW{PC}{\cAntiChup}{
   \s\MYname	{Zacharias Bexley}
+	\s\MYfirst {Zacharias Bexley}
+	\s\MYlast {}
   \s\MYfile	{FPF_Advisor_AntiChup.tex}
   \s\MYnumber	{645}
   \s\MYdesc	{An advisor from the Free People; the most powerful Cleric in the country}
@@ -783,7 +831,7 @@
   \s\MYplayer	{David Black}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTech{}\bAdvisorBlue{}\bFPFCleric{}}
-  \s\MYgreens	{\gUnsuspectingBirdie{}\gTreaty{}\gFPFCleric{}\gFPFAdvisorRanking{}}
+  \s\MYgreens	{\gUnsuspectingBirdie{}\gTreaty{}\gFPFCleric{}\gFPFAdvisorRanking{}\gWeekendSchedule{}}
   \s\MYabils	{\aPreviewVoteOne{}\aLying{}}
   \s\MYitems	{\iChargingStone{}\iScholarship{}\iTuningFork{}}%Charged stone
   \s\MYwhites	{}
@@ -798,6 +846,8 @@
 
 \NEW{PC}{\cAssistantScientist}{
   \s\MYname	{Alice Slater}
+	\s\MYfirst {Alice Slater}
+	\s\MYlast {}
   \s\MYfile	{FPF_Advisor_AssistantScientist.tex}
   \s\MYnumber	{285}
   \s\MYdesc	{An advisor from the Free People; head assistant on the Storm Project}
@@ -807,7 +857,7 @@
   \s\MYplayer	{Amanda Stowers}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTech{}\bAgrarians{}\bAdvisorBlue{}}
-  \s\MYgreens	{\gMindWipe{}\gPreparingTheRitual{}\gTreaty{}\gFPFAdvisorRanking{}\gMagitechCrafting{}\gBMUse{}}
+  \s\MYgreens	{\gMindWipe{}\gPreparingTheRitual{}\gTreaty{}\gFPFAdvisorRanking{}\gMagitechCrafting{}\gBMUse{}\gWeekendSchedule{}}
   \s\MYabils	{\aPrivate{}\aNewTopic{}\aDisguise{}}
   \s\MYitems	{}
   \s\MYwhites	{}
@@ -822,6 +872,8 @@
 %%%Amanda's character's original name and identity. Does not need sheets etc.
 \NEW{PC}{\cKidScientist}{
   \s\MYname	{Luca Belleville}
+	\s\MYfirst {Luca Belleville}
+	\s\MYlast {}
   \s\MYfile	{}
   \s\MYnumber	{285}
   \s\MYdesc	{Who is that?}
@@ -840,7 +892,9 @@
 
 %%%%%%%%%%%% WR %%%%%%%%%%%
 \NEW{PC}{\cPresident}{
-  \s\MYname	{Vikdren \suf of 1st fleet, Drova's Landing}
+  \s\MYname	{Vikdren \suf of 1st Fleet, Drova's Landing}
+	\s\MYfirst {Vikdren of 1st Fleet,}
+	\s\MYlast {Drova's Landing}
   \s\MYfile	{WR_Student_President.tex}
   \s\MYnumber	{219}
   \s\MYdesc	{A student from the Wave Riders, and student body president}
@@ -850,7 +904,7 @@
   \s\MYplayer	{Ross Cheung}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bVikings{}\bStudentBlue{}}
-  \s\MYgreens	{\gWhatHappenedSixYearsAgo{}\gVotingInstructions{}\gWRStudentMorality{}\nFindAssassin{}}
+  \s\MYgreens	{\gWhatHappenedSixYearsAgo{}\gVotingInstructions{}\gWRStudentMorality{}\nFindAssassin{}\gWeekendSchedule{}}
   \s\MYabils	{\aPreviewVoteOne{}\aStay{}}
   \s\MYitems	{}
   \s\MYwhites	{}
@@ -864,7 +918,9 @@
 }
 
 \NEW{PC}{\cInitiate}{
-  \s\MYname	{Shimmer \suf of 1st fleet, Drova's Landing}
+  \s\MYname	{Shimmer \suf of 1st Fleet, Drova's Landing}
+	\s\MYfirst {Shimmer of 1st Fleet,}
+	\s\MYlast {Drova's Landing}
   \s\MYfile	{WR_Student_Initiate.tex}
   \s\MYnumber	{234}
   \s\MYdesc	{A student from the Wave Riders, and a quiet initiate to the Clergy}
@@ -874,7 +930,7 @@
   \s\MYplayer	{Danielle Goudeau}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bVikings{}\bStudentBlue{}\bLeauCleric{}}
-  \s\MYgreens	{\gBadLuckCurse{}\gVotingInstructions{}\gWRStudentMorality{}\gEbbAvatar{}\gWRInitiate{}}
+  \s\MYgreens	{\gBadLuckCurse{}\gVotingInstructions{}\gWRStudentMorality{}\gEbbAvatar{}\gWRInitiate{}\gWeekendSchedule{}}
   \s\MYabils	{\aUnobtrusive{}}
   \s\MYitems	{\iCursedLetter{}}
   \s\MYwhites	{}
@@ -889,6 +945,8 @@
 
 \NEW{PC}{\cPirateChild}{
   \s\MYname	{Lydiun \suf of 5th Fleet, Yellow Cormorant Ship}
+	\s\MYfirst {Lydiun of 5th Fleet,}
+	\s\MYlast {Yellow Cormorant Ship}
   \s\MYfile	{WR_Student_PirateChild.tex}
   \s\MYnumber	{226}
   \s\MYdesc	{A student from the Wave Riders; known to get up to some mischief}
@@ -898,7 +956,7 @@
   \s\MYplayer	{Mags Simkins}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bVikings{}\bStudentBlue{}}
-  \s\MYgreens	{\gVotingInstructions{}\gWRStudentMorality{}}
+  \s\MYgreens	{\gVotingInstructions{}\gWRStudentMorality{}\gWeekendSchedule{}}
   \s\MYabils	{\aStealVoteOne{}\aLockPick{}\aFirePhobia{}\aPickPocket{}}
   \s\MYitems	{}
   \s\MYwhites	{}
@@ -914,6 +972,8 @@
 
 \NEW{PC}{\cWarlordDaughter}{
   \s\MYname	{Abalone \suf of 10th Fleet, Black Crow Ship}
+	\s\MYfirst {Abalone of 10th Fleet,}
+	\s\MYlast {Black Crow Ship}
   \s\MYfile	{WR_Student_WarlordDaughter.tex}
   \s\MYnumber	{133}
   \s\MYdesc	{A student from the Wave Riders; Daughter to the Warlord}
@@ -923,7 +983,7 @@
   \s\MYplayer	{Autumn Rauscher}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bVikings{}\bStudentBlue{}\bLeauCleric{}}
-  \s\MYgreens	{\gVotingInstructions{}\gWRStudentMorality{}\gEbbAvatar{}\gWRInitiate{}\nWhoCursedWarlord{}}
+  \s\MYgreens	{\gVotingInstructions{}\gWRStudentMorality{}\gEbbAvatar{}\gWRInitiate{}\nWhoCursedWarlord{}\gWeekendSchedule{}}
   \s\MYabils	{\aLettersHome{}\aWarlordDaughter{}}
   \s\MYitems	{\iWarlordRing{}}
   \s\MYwhites	{}
@@ -937,7 +997,9 @@
 }
 
 \NEW{PC}{\cFlowPriest}{
-  \s\MYname	{Isla \suf of 5th fleet, Coral Sands Harbor}
+  \s\MYname	{Isla \suf of 5th Fleet, Coral Sands Harbor}
+	\s\MYfirst {Isla of 5th Fleet,}
+	\s\MYlast {Coral Sands Harbor}
 	  \s\MYfile	{WR_Teacher_FlowPriest.tex}
   \s\MYnumber	{589}
   \s\MYdesc	{The mathematics teacher from the Wave Riders, and an energetic Cleric of Flow}
@@ -947,7 +1009,7 @@
   \s\MYplayer	{Amy Russo}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bVikings{}\bTeacherBlue{}\bLeauCleric{}}
-  \s\MYgreens	{\gMagicBeans{}\gPreparingTheRitual{}\gEbbAvatar{}\gWRCleric{}\gWRTeacherRanking{}}
+  \s\MYgreens	{\gMagicBeans{}\gPreparingTheRitual{}\gEbbAvatar{}\gWRCleric{}\gWRTeacherRanking{}\gWeekendSchedule{}}
   \s\MYabils	{\aTransferVoteOne{}}
   \s\MYitems	{}
   \s\MYwhites	{}
@@ -963,6 +1025,8 @@
 
 \NEW{PC}{\cChupSecond}{
   \s\MYname	{Marixie \suf of 8th Fleet, Osprey Archipelago}
+	\s\MYfirst {Marixie of 8th Fleet,}
+	\s\MYlast {Osprey Archipelago}
   \s\MYfile	{WR_Teacher_ChupSecond.tex}
   \s\MYnumber	{449}
   \s\MYdesc	{The economics teacher from the Wave Riders; a bit of a loner}
@@ -972,7 +1036,7 @@
   \s\MYplayer	{Andy Reyes}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bVikings{}\bTeacherBlue{}\bCult{}}
-  \s\MYgreens	{\gBMRun{}\gGenesisAvatar{}\gFoGCleric{}\gWRTeacherRanking{}}
+  \s\MYgreens	{\gBMRun{}\gGenesisAvatar{}\gFoGCleric{}\gWRTeacherRanking{}\gWeekendSchedule{}}
   \s\MYabils	{\aTransferVoteThree{}\aLuck{}\aNewTopic{}}
   \s\MYitems	{}
   \s\MYwhites	{}
@@ -987,6 +1051,8 @@
 
 \NEW{PC}{\cChupAvenger}{
   \s\MYname	{Barnaby \suf of 6th Fleet, Port of Safe Passage}
+	\s\MYfirst {Barnaby of 6th Fleet,}
+	\s\MYlast {Port of Safe Passage}
   \s\MYfile	{WR_Teacher_ChupAvenger.tex}
   \s\MYnumber	{620}
   \s\MYdesc	{The art teacher from the Wave Riders; a bit of a dreamer}
@@ -996,7 +1062,7 @@
   \s\MYplayer	{Joe Landoph}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bVikings{}\bTeacherBlue{}\bCult{}}
-  \s\MYgreens	{\gEscapingFoG{}\gRestoringLove{}\gWRTeacherRanking{}}
+  \s\MYgreens	{\gEscapingFoG{}\gRestoringLove{}\gWRTeacherRanking{}\gWeekendSchedule{}}
   \s\MYabils	{\aManipulateVoteOne{}\aLuck{}}
   \s\MYitems	{}
   \s\MYwhites	{}
@@ -1011,7 +1077,9 @@
 }
 
 \NEW{PC}{\cPirate}{
-  \s\MYname	{Pamenace \suf of 3rd fleet, Blue Ray Ship}
+  \s\MYname	{Pamenace \suf of 3rd Fleet, Blue Ray Ship}
+	\s\MYfirst {Pamenace of 3rd Fleet,}
+	\s\MYlast {Blue Ray Ship}
   \s\MYfile	{WR_Teacher_Pirate.tex} %
   \s\MYnumber	{412}
   \s\MYdesc	{The shop teacher from the Wave Riders; genial and approachable}
@@ -1021,7 +1089,7 @@
   \s\MYplayer	{Morgan Rivers}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bVikings{}\bTeacherBlue{}}
-  \s\MYgreens	{\gWRInitiate{}\gWRTeacherRanking{}}
+  \s\MYgreens	{\gWRInitiate{}\gWRTeacherRanking{}\gWeekendSchedule{}}
   \s\MYabils	{\aPreviewVoteOne{}\aPickPocket{}}
   \s\MYitems	{}
   \s\MYwhites	{}
@@ -1036,7 +1104,9 @@
 }
 
 \NEW{PC}{\cChupLeader}{
-  \s\MYname	{Cassius \suf of 9th fleet, Salmon Run Ship}
+  \s\MYname	{Cassius \suf of 9th Fleet, Salmon Run Ship}
+	\s\MYfirst {Cassius of 9th Fleet,}
+	\s\MYlast {Salmon Run Ship}
   \s\MYfile	{WR_Advisor_ChupLeader.tex}
   \s\MYnumber	{256}
   \s\MYdesc	{An Advisor from the Wave Riders; Madrone's well organized secretary}
@@ -1046,7 +1116,7 @@
   \s\MYplayer	{Ben Shaya}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bVikings{}\bAdvisorBlue{}\bCult{}}
-  \s\MYgreens	{\gPreparingTheRitual{}\gGenesisAvatar{}\gTreaty{}\gFoGCleric{}\gWRAdvisorRanking{}}
+  \s\MYgreens	{\gPreparingTheRitual{}\gGenesisAvatar{}\gTreaty{}\gFoGCleric{}\gWRAdvisorRanking{}\gWeekendSchedule{}}
   \s\MYabils	{\aManipulateVoteThree{}\aImpassionedSpeech{}\aLuck{}}
   \s\MYitems	{\iHorseshoe{}}
   \s\MYwhites	{}
@@ -1060,7 +1130,9 @@
 }
 
 \NEW{PC}{\cJuniorStatesman}{
-  \s\MYname	{Adrien \suf of 2nd fleet, Rocky Coast Harbor}
+  \s\MYname	{Adrien \suf of 2nd Fleet, Rocky Coast Harbor}
+	\s\MYfirst {Adrien of 2nd Fleet,}
+	\s\MYlast {Rocky Coast Harbor}
   \s\MYfile	{WR_Advisor_JuniorStatesman.tex}
   \s\MYnumber	{313}
   \s\MYdesc	{An Advisor from the Wave Riders; a skilled diplomat stepping out of Madrone's shadow}
@@ -1070,7 +1142,7 @@
   \s\MYplayer	{Buck Greenwald}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bVikings{}\bAdvisorBlue{}}
-  \s\MYgreens	{\gTreaty{}\gWRAdvisorRanking{}\nFindAssassin{}}
+  \s\MYgreens	{\gTreaty{}\gWRAdvisorRanking{}\nFindAssassin{}\gWeekendSchedule{}}
   \s\MYabils	{\aPreviewVoteOne{}\aManipulateVoteOne{}\aOration{}}
   \s\MYitems	{\iMadroneNotes{}}
   \s\MYwhites	{}
@@ -1085,7 +1157,9 @@
 }
 
 \NEW{PC}{\cBunker}{
-  \s\MYname	{Warren \suf of 3rd fleet, Red Shark Ship}
+  \s\MYname	{Warren \suf of 3rd Fleet, Red Shark Ship}
+	\s\MYfirst {Warren of 3rd Fleet,}
+	\s\MYlast {Red Shark Ship}
   \s\MYfile	{WR_Advisor_Bunker.tex}
   \s\MYnumber	{683}
   \s\MYdesc	{An Advisor from the Wave Riders; the foremost L'eau engineer}
@@ -1095,7 +1169,7 @@
   \s\MYplayer	{Ronan Beltracchi}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bVikings{}\bAdvisorBlue{}}
-  \s\MYgreens	{\gTreaty{}\gWRAdvisorRanking{}\gMagitechCrafting{}}
+  \s\MYgreens	{\gTreaty{}\gWRAdvisorRanking{}\gMagitechCrafting{}\gWeekendSchedule{}}
   \s\MYabils	{\aExamineBunkers{}\aUseTass{}\aLying{}}
   \s\MYitems	{\iChargingStone{}\iChargingStone{}}%2 charged stones
   \s\MYwhites	{}
@@ -1110,7 +1184,9 @@
 }
 
 \NEW{PC}{\cEbbPriest}{
-  \s\MYname	{Sable \suf of 7th fleet, Southern Atoll Monastery}
+  \s\MYname	{Sable \suf of 7th Fleet, Southern Atoll Monastery}
+	\s\MYfirst {Sable of 7th Fleet,}
+	\s\MYlast {Southern Atoll Monastery}
   \s\MYfile	{WR_Advisor_EbbPriest.tex}
   \s\MYnumber	{664}
   \s\MYdesc	{An Advisor from the Wave Riders; a no-nonsense Cleric of Ebb}
@@ -1120,7 +1196,7 @@
   \s\MYplayer	{Louis Wasserman}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bVikings{}\bAdvisorBlue{}\bLeauCleric{}}
-  \s\MYgreens	{\gEbbAvatar{}\gTreaty{}\gWRCleric{}\gWRAdvisorRanking{}\nCreationOne{}}
+  \s\MYgreens	{\gEbbAvatar{}\gTreaty{}\gWRCleric{}\gWRAdvisorRanking{}\nCreationOne{}\gWeekendSchedule{}}
   \s\MYabils	{}
   \s\MYitems	{\iTuningFork{}}
   \s\MYwhites	{}
@@ -1134,7 +1210,9 @@
 }
 
 \NEW{PC}{\cPrincipal}{
-  \s\MYname	{Strev \suf formerly of 3rd fleet, Green Reef Ship}
+  \s\MYname	{Strev \suf formerly of 3rd Fleet, Green Reef Ship}
+	\s\MYfirst{Strev fmr. of 3rd Fleet, }
+	\s\MYlast{Green Reef Ship}
   \s\MYfile	{WR_Principle.tex}
   \s\MYnumber	{667}
   \s\MYdesc	{The Principal of the College; the oldest and most knowledgeable person here}
@@ -1144,7 +1222,7 @@
   \s\MYplayer	{Chris Chelberg}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bVikings{}\bTeacherBlue{}}
-  \s\MYgreens	{\gVotingInstructions{}\gPassingOutVotes{}\gCeremonyOfExcellence{}\gHireTeacher{}\gLeyLines{} \gNewPrincipal{}\gPreparingTheRitual{}}
+  \s\MYgreens	{\gVotingInstructions{}\gPassingOutVotes{}\gCeremonyOfExcellence{}\gHireTeacher{}\gLeyLines{} \gNewPrincipal{}\gPreparingTheRitual{}\gWeekendSchedule{}}
   \s\MYabils	{\aPreviewVoteThree{}\aOration{}}
   \s\MYitems	{}
   \s\MYwhites	{}
@@ -1307,7 +1385,7 @@
 }
 
 \NEW{NPC}{\cSaviourFleet}{ %%rescued Amanda
-  \s\MYname	{4th fleet, Pink Coral Ship}
+  \s\MYname	{4th Fleet, Pink Coral Ship}
   \s\MYsex	{\female}
 }
 

@@ -4897,8 +4897,8 @@
 %% parts of namebadges
 \def\lefttop{Name-Badge}
 \def\righttop{Not Transferable}
-\def\leftbottom{\mbox{\gamenameabbrev}}
-\def\rightbottom{\mbox{\gamedateabbrev}}
+%\def\leftbottom{\mbox{\gamenameabbrev}}
+%\def\rightbottom{\mbox{\gamedateabbrev}}
 \def\backtext{I'M NOT HERE}
 \definecolor{badgeback}{gray}{.25}
 
@@ -4907,14 +4907,28 @@
 %% \NameBadge{field1}{field2}{field3}{field4}
 %% \GMbadge{name}
 %% \Observer
-\newcommand{\NameBadge}[4]{%
+%\newcommand{\NameBadge}[7]{%
+  %\begingroup%
+    %\doublecard%
+      %{\light@badge{%
+        %{\huge         \textbf{#1}}\\ %\vfil%
+				%{\Large        #7} {\Large (#5)}\vfil%
+        %%{\bfseries\LARGE #2}\vfil%
+        %{\Large \textbf{\emph{#4}}}\vfil
+				%{\large \emph{#3 (#6)}} \hfill {\Large \textbf{\##2}}%\vfil%
+				%}
+			%}%
+      %{\badge@note}%
+  %\endgroup}
+
+\newcommand{\NameBadge}[7]{%
   \begingroup%
     \doublecard%
       {\light@badge{%
-        {\LARGE         #1}\vfil%
-        {\bfseries\Huge #2}\vfil%
-        {\LARGE         #3}\vfil%
-        {\bfseries\Huge #4}\vfil}}%
+        {\Huge        \textbf{#3}}\vfil%
+				{\Large        (#6)}\vfil%
+				}
+			}%
       {\badge@note}%
   \endgroup}
 
@@ -4956,7 +4970,7 @@
     \fboxsep=5pt%
     \fbox{\fbox{\parbox{.6\badgewidth}{%
       \centering%
-      \Large\bfseries\leftbottom\par\rightbottom\par
+      %\Large\bfseries\leftbottom\par\rightbottom\par
       Name Badge\par\vskip5pt
       \normalsize(turn to other side)
       }}}%
@@ -4982,8 +4996,9 @@
         \vskip\whitespace
         \lefttop \hfill \righttop \vfil
         {#1}
-        \leftbottom \hfill \rightbottom
-        \vskip\whitespace}%
+        %\leftbottom \hfill \rightbottom
+        %\vskip\whitespace
+				}%
     \@badgedimen\ht\@badgebox%
     \advance\@badgedimen\dp\@badgebox%
     \ifdim\@badgedimen>\badgeheight%
@@ -5009,7 +5024,7 @@
         \vskip\whitespace
         \lefttop \hfill \righttop \vfil
         {#1}
-        \leftbottom \hfill \rightbottom
+        %\leftbottom \hfill \rightbottom
         \vskip\whitespace}%
     \@badgedimen\ht\@badgebox%
     \advance\@badgedimen\dp\@badgebox%
