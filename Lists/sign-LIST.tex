@@ -95,7 +95,7 @@
   \s\MYloc{#1}\s\MYname{#2}\s\MYtext{#3}}
 \newinstance{EOG}{\eog[1][\mylocation]}{\s\MYloc{#1}}
 
-\newinstance{SignMedium}{\signmedium[3][\mylocation]}{
+\newinstance{SignMedium}{\SignMedium[3][\mylocation]}{
   \s\MYloc{#1}\s\MYname{#2}\s\MYtext{#3}}
 \newinstance{SignSmall}{\signsmall[3][\mylocation]}{
   \s\MYloc{#1}\s\MYname{#2}\s\MYtext{#3}}
@@ -155,7 +155,7 @@ If the envelope you need to draw from is empty; tell a GM and we'll print more c
   \s\MYloc	{GM HQ}
   \s\MYtext	{If your character is killed during the game, it is not the end of your ability to participate in this game, and may not even be the end of your character’s story.
 
-Take a copy of \textbf{the greensheet} from the envelope on the left, \textbf{the ability} from the envelope in the middle, and a \textbf{green headband} from the envelope on the right.
+Take a copy of \textbf{the Greensheet}, \textbf{the ability}, and a \textbf{Yellow headband}.
 }
   \s\MYabils {\multi{5}{\aGhostlyMessage{}}}
 	\s\MYgreens {\multi{5}{\gLifeAfterDeath{}}}
@@ -255,6 +255,17 @@ If you need to retrieve your ballot/morality score to make a change, you may do 
 	\s\MYitems	{}
 }
 
+\NEW{Sign}{\sStormSurgeConsequences}{
+  \s\MYname	{Storm Surge Consequences}
+  \s\MYloc	{GM HQ}
+  \s\MYtext	{If you rolled particularly poorly for a storm surge consequence, you were sent to this sign. The big envelope has the ``\gBadLuckCurse{}'' greensheet; the little envelope has the ``\iSlowActingPoison{}'' effects. Take a copy of the appropriate document based on what you rolled.
+	
+	\textbf{If your storm consequence is ``\gBadLuckCurse{}'', the release criteria is: Repair any and all damage to the bunkers.}}
+	\s\MYitems	{\multi{6}{\iSlowActingPoison{}}}
+	\s\MYgreens {\multi{6}{\gBadLuckCurse{}}}
+}
+
+
 %%%%%%%%% The Gardens %%%%%%%%%%
 
 \NEW{Sign}{\sGardenGeneral}{
@@ -267,14 +278,14 @@ If you need to retrieve your ballot/morality score to make a change, you may do 
   \s\MYname	{The College Gardens By Day}
   \s\MYloc	{Garden}
   \s\MYtext	{If you choose to explore the gardens during the day (7:00 am to 5:00 pm), you will pull one item from the envelope attached to this sign.}
-  \s\MYitems {multi{10}{\iSunflower{}\iMorningGlory{}\iHollyhock{}\iLily{}}}
+  \s\MYitems {\multi{11}{\iSunflower{}\iMorningGlory{}\iHollyhock{}\iLily{}}}
 }
 
 \NEW{SignMedium}{\sGardenNight}{
   \s\MYname	{The College Gardens By Night}
   \s\MYloc	{Garden}
   \s\MYtext	{If you choose to explore the gardens during the night (5:00 pm to 7:00 am), you will pull one item from the envelope attached to this sign.}
-  \s\MYitems {multi{20}{\iNightshade{}\iMoonflower{}\iFlameOrchid{}}}
+  \s\MYitems {\multi{11}{\iNightshade{}\iMoonflower{}\iFlameOrchid{}}}
 }
 
 \NEW{Sign}{\sGardenFountain}{
@@ -287,7 +298,7 @@ If you need to retrieve your ballot/morality score to make a change, you may do 
 If you wish to acquire a live fish, \textbf{spend 30 seconds here, then roll a D20.} These things are hard to catch; if you roll a \textbf{14 or higher} you may take a ``\iFish{}'' from the envelope below. If you roll lower than a 14, all you get is wet. You must wait at least \textbf{5 minutes} before you can try again.
 
 \emph{OOC: If you need a source of freshwater for a mechanic, this fountain is an appropriate source. If you fill a container or vial with water from here, write on the item card ``filled with water.’’}}
-	\s\MYitems	{}
+	\s\MYitems	{\multi{12}{\iFish{}}}
 }
 
 \NEW{Sign}{\sSignB}{
@@ -331,6 +342,22 @@ If you wish to take a ``\iLimestone{}'' from here, you may do so, but you must w
   \s\MYtext	{You may not interact with this sign unless directed to do so by a player or a mechanic.}  
 	\s\MYitems	{\iMemoryCure{}}
 }
+
+\NEW{SignMedium}{\sGardenBrickOne}{
+  \s\MYname	{Glowing Blue Brick}
+  \s\MYloc	{Garden}
+  \s\MYtext	{\textbf{If you encounter a mechanic that prompts you to search for ``glowing bricks,'' you may lift this sign and read the one beneath it.}}
+}
+
+\NEW{SignSmall}{\sGardenBrickTwo}{
+  \s\MYname	{Glowing Blue Brick}
+  \s\MYloc	{Garden}
+  \s\MYtext	{You find a glowing blue brick in the retaining wall. If you bring \textbf{3} advisors to this location, you may retrieve whatever is in the envelope. Once you have succeeded in this task, remove this sign and envelope (but not the two signs on top of it) and discard them to the nearest stock.
+	}
+	\s\MYitems {\iEdgePiece{}}
+}
+
+
 
 %%%%%%%%% The Graveyard %%%%%%%%%%
 
@@ -397,8 +424,21 @@ If you wish to take a ``\iLimestone{}'' from here, you may do so, but you must w
 
 \emph{She will be missed.}
 \end{center}
+	}  
+}
 
-}  
+\NEW{SignMedium}{\sGraveyardBrickOne}{
+  \s\MYname	{Glowing Blue Brick}
+  \s\MYloc	{Graveyard}
+  \s\MYtext	{\textbf{If you encounter a mechanic that prompts you to search for ``glowing bricks,'' you may lift this sign and read the one beneath it.}}
+}
+
+\NEW{SignSmall}{\sGraveyardBrickTwo}{
+  \s\MYname	{Glowing Blue Brick}
+  \s\MYloc	{Graveyard}
+  \s\MYtext	{You find a glowing blue brick in the side of the fireplace. If you bring \textbf{5} people, each from a different nation/cohort combination (e.g you can’t have 2 students from the \pFarm{}), you may retrieve whatever is in the envelope. Once you have succeeded in this task, remove this sign and envelope (but not the two signs on top of it) and discard them to the nearest stock.
+	}
+	\s\MYitems {\iEdgePiece{}}
 }
 
 %%%%%%%%% The Training Field %%%%%%%%%%
@@ -429,6 +469,20 @@ If you wish to take a ``\iLimestone{}'' from here, you may do so, but you must w
 If you leave the shed it locks behind you.
 	}
 	\s\MYitems{\multi{10}{\iWoodenPlank{}}\multi{5}{\iWoodenBlock{}}}
+}
+
+\NEW{SignMedium}{\sTrainingBrickOne}{
+  \s\MYname	{Glowing Blue Brick}
+  \s\MYloc	{Training Field}
+  \s\MYtext	{\textbf{If you encounter a mechanic that prompts you to search for ``glowing bricks,'' you may lift this sign and read the one beneath it.}}
+}
+
+\NEW{SignSmall}{\sTrainingBrickTwo}{
+  \s\MYname	{Glowing Blue Brick}
+  \s\MYloc	{Training Field}
+  \s\MYtext	{You find a glowing blue brick in the pillar holding up the combat circle. If you bring \textbf{3} citizens of the \pShip{} to this location, you may retrieve whatever is in the envelope. Once you have succeeded in this task, remove this sign and envelope (but not the two signs on top of it) and discard them to the nearest stock.
+	}
+	\s\MYitems {\iEdgePiece{}}
 }
 
 %%%%%%%%% The Temple %%%%%%%%%%
@@ -546,6 +600,9 @@ The Goddesses must leave it up to you to determine who had the motivation. If yo
   \s\MYname	{Envelope 3: Cursed Codices}
   \s\MYloc	{The Library}
   \s\MYtext	{Only remove items from this envelope if instructed to do so.}
+	\s\MYitems {\multi{16}{\iHonesty{}\iBlindness{}\iWeakness{}}
+\multi{8}{\iInsight{}}
+\multi{4}{\iCourage{}\iBabble{}\iStrength{}}}
 }
 
 \NEW{SignMedium}{\sDustyCaseEnvelope}{
@@ -559,6 +616,7 @@ The Goddesses must leave it up to you to determine who had the motivation. If yo
   \s\MYname	{Envelope 5: The Meadow of Black Crocuses}
   \s\MYloc	{The Library}
   \s\MYtext	{Only remove items from this envelope if instructed to do so.}
+	\s\MYitems {\multi{20}{\iBlackCrocus{}}}
 }
 
 \NEW{SignMedium}{\sJewelryBoxEnvelope}{
@@ -572,6 +630,7 @@ The Goddesses must leave it up to you to determine who had the motivation. If yo
   \s\MYname	{Envelope 7: The Reliquary}
   \s\MYloc	{The Library}
   \s\MYtext	{Only remove items from this envelope if instructed to do so.}
+	\s\MYitems	{\iNet{}\iLariat{}\iScythe{}}
 }
 
 \NEW{SignMedium}{\sBlueBrickEightEnvelope}{
@@ -1006,6 +1065,20 @@ Use each clue to help unscramble the letters to form a word. You may collaborate
 	\s\MYitems	{\iCornerPiece{}}
 }
 
+\NEW{SignMedium}{\sGHBrickOne}{
+  \s\MYname	{Glowing Blue Brick}
+  \s\MYloc	{Great Hall}
+  \s\MYtext	{\textbf{If you encounter a mechanic that prompts you to search for ``glowing bricks,'' you may lift this sign and read the one beneath it.}}
+}
+
+\NEW{SignSmall}{\sGHBrickTwo}{
+  \s\MYname	{Glowing Blue Brick}
+  \s\MYloc	{Great Hall}
+  \s\MYtext	{You find a glowing blue brick in the side of the fireplace. If you bring enough people to have a total L-Score = \textbf{4}, you may retrieve whatever is in the envelope. Once you have succeeded in this task, remove this sign and envelope (but not the two signs on top of it) and discard them to the nearest stock.
+	}
+	\s\MYitems {\iEdgePiece{}}
+}
+
 
 %%%%%%%%% Ritual Space %%%%%%%%%%
 \NEW{Sign}{\sCleaningInstructions}{
@@ -1051,7 +1124,7 @@ This task does not need to all be completed in one go. You may do part of it, st
 \NEW{SignMedium}{\sCleaningReceptacleBlue}{
   \s\MYname	{Cleaning the Ritual Space: Blue Receptacle}
   \s\MYloc	{Ritual Space}
-  \s\MYtext	{Blue ball pit balls go here. See the ``\sCleaningInstructions{}'' sign nearby for instructions.}
+  \s\MYtext	{k ball pit balls go here. See the ``\sCleaningInstructions{}'' sign nearby for instructions.}
 }
 
 \NEW{SignMedium}{\sCleaningReceptaclePink}{
@@ -1144,7 +1217,7 @@ Tucked in a corner of this bookcase is a hidden switch. You press it, causing a 
 }
 
 
-\NEW{SignMedium}{\sRedBrick}{
+\NEW{Sign}{\sRedBrick}{
   \s\MYname	{A RED Glowing Brick}
   \s\MYloc	{}
   \s\MYtext	{\textbf{If you encounter a mechanic that prompts you to search for ``glowing bricks,'' you may lift this sign and read the one beneath it.}}
