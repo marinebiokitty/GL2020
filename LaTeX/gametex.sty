@@ -4907,30 +4907,30 @@
 %% \NameBadge{field1}{field2}{field3}{field4}
 %% \GMbadge{name}
 %%% \Observer
-%\newcommand{\NameBadge}[7]{%
-  %\begingroup%
-    %\doublecard%
-      %{\light@badge{%
-        %{\huge         \textbf{#1}}\\ %\vfil%
-				%{\Large        #7} {\Large (#5)}\vfil%
-        %%{\bfseries\LARGE #2}\vfil%
-        %{\Large \textbf{\emph{#4}}}\vfil
-				%{\large \emph{#3 (#6)}} \hfill {\Large \textbf{\##2}}%\vfil%
-				%}
-			%}%
-      %{\badge@note}%
-  %\endgroup}
-
 \newcommand{\NameBadge}[7]{%
   \begingroup%
     \doublecard%
       {\light@badge{%
-        {\Huge        \textbf{#3}}\vfil%
-				{\Large        (#6)}\vfil%
+        {\huge         \textbf{#1}}\\ %\vfil%
+				{\Large        #7} {\Large (#5)}\vfil%
+        %{\bfseries\LARGE #2}\vfil%
+        {\Large \textbf{\emph{#4}}}\vfil
+				{\large \emph{#3 (#6)}} \hfill {\Large \textbf{\##2}}%\vfil%
 				}
 			}%
       {\badge@note}%
   \endgroup}
+
+%\newcommand{\NameBadge}[7]{%
+  %\begingroup%
+    %\doublecard%
+      %{\light@badge{%
+        %{\Huge        \textbf{#3}}\vfil%
+				%{\Large        (#6)}\vfil%
+				%}
+			%}%
+      %{\badge@note}%
+  %\endgroup}
 
 \newcommand{\GMbadge}[2]{%
   \begingroup%
