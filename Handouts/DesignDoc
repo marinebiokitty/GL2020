@@ -1,1 +1,23 @@
+\documentclass[sheet]{GL2020}
 
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{multicol}
+\usepackage{ltablex}
+\usepackage{tabularx}
+\usepackage{indentfirst}
+\renewcommand{\tabularxcolumn}[1]{m{#1}}
+\setlength{\columnsep}{1cm}
+
+%% document-wide tweaks
+\interlinepenalty10000
+\setstretch{1}
+\def\mytype{Rules and Scenario}
+\lfoot{}\rfoot{}
+
+\begin{document}
+
+
+\end{document}
