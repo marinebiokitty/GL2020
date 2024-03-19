@@ -1,0 +1,270 @@
+%%%%%
+%% Gender
+%%
+%% The term 'gender' specifically in GameTeX is used to refer to the
+%% pronoun and gendered language used to actually refer to a character.
+%% To add new sets of pronouns, add new gendered nouns (e.g. actor/actress),
+%% or do more specific customizations, edit this file.
+
+\usepackage{titlecaps}
+
+%%%%%% Definitions of gender configuration commands.
+
+\newcommand{\genderpronouns}[3]{
+	\newcommand{#1}[1][]{
+		\genderednoundefaults
+		% If this command is passed any arguments, it overwrites the previous version.
+		\ifx#1\empty
+			\s\MYcharpronouns{#2}
+		\else
+			\rs\MYcharpronouns{#2} 
+		\fi
+		#3
+	}
+}
+
+%% \genderpronounsmod{\newgendercommand}{new pronouns description}{\oldgendercommand \def\thingToOverride{...}}
+%% example:
+%% \genderpronounsmod{\hethey}{he/they}{\hehim}
+\newcommand{\genderpronounsmod}[3]{
+	\genderpronouns{#1}{#2}{
+		#3
+		\rs\MYcharpronouns{#2}
+	}
+}
+
+% general English conjugation
+
+\newcommand{\pluralconjugation}{
+	\def\verbs{}
+	\def\verby{y}
+	\def\verbes{}
+	\def\are{are}
+	\def\re{'re}
+	\def\were{were}
+	\def\have{have}
+}
+
+\newcommand{\singularconjugation}{
+	\def\verbs{s}
+	\def\verby{ies}
+	\def\verbes{es}
+	\def\are{is}
+	\def\re{'s}
+	\def\were{was}
+	\def\have{has}
+}
+
+% helpers for pronoun set creation
+\newcommand{\pluralgenderpronouns}[3]{
+	\genderpronouns{#1}{#2}{\pluralconjugation{}#3}
+}
+
+\newcommand{\singulargenderpronouns}[3]{
+	\genderpronouns{#1}{#2}{\singularconjugation{}#3}
+}
+
+%%%%%% Defaults for potentially gendered nouns.
+
+\newcommand{\genderednoundefaults}{
+	
+	% familial relationships
+	\def\spouse{spouse}
+	\def\offspring{child}
+	\def\sibling{sibling}
+	\def\parent{parent}
+	\def\grandparent{grand\parent}
+	\def\auncle{auncle}
+	\def\nibling{nibling}
+	\def\grandchild{grand\offspring}
+	\def\partner{partner}
+	\def\betrothed{betrothed}
+	
+	% generic references
+	\def\child{child}
+	\def\kid{kid}
+	\def\stray{stray}
+	\def\pal{pal}
+	\def\person{person}
+	
+	% titles of various kinds
+	\def\heir{heir}
+	\def\monarch{monarch}
+	\def\emperor{emperor}
+	\def\duke{duke}
+	\def\baron{baron}
+	\def\cleric{cleric}
+	\def\deity{deity}
+	\def\Count{Count} % lowercase-c count unfortunately conflicts with important LaTeX commands and can't be redefined
+}
+
+%%%%% Capitalized pronouns and commands.
+% Other gendered pronouns and nouns could go here, but they only need to be here if they're used both uncapitalized and capitalized,
+% usually at the beginnings of sentences.  As a result, this leaves out some nouns: I don't know why you would ever start a
+% sentence with, ``Person...''
+
+% Pronouns
+\newcommand{\They}{\titlecap{\they}}
+\newcommand{\Them}{\titlecap{\them}}
+\newcommand{\Their}{\titlecap{\their}}
+\newcommand{\Themself}{\titlecap{\themself}}
+
+% Familial connections
+\newcommand{\Spouse}{\titlecap{\spouse}}
+\newcommand{\Offspring}{\titlecap{\offspring}}
+\newcommand{\Child}{\titlecap{\child}}
+\newcommand{\Parent}{\titlecap{\parent}}
+\newcommand{\Grandparent}{\titlecap{\grandparent}}
+\newcommand{\Auncle}{\titlecap{\auncle}}
+\newcommand{\Nibling}{\titlecap{\nibling}}
+\newcommand{\Grandchild}{\titlecap{\grandchild}}
+
+% Titles
+\newcommand{\Heir}{\titlecap{\heir}}
+\newcommand{\Monarch}{\titlecap{\monarch}}
+\newcommand{\Emperor}{\titlecap{\emperor}}
+\newcommand{\Deity}{\titlecap{\deity}}
+\newcommand{\Duke}{\titlecap{\duke}}
+\newcommand{\Baron}{\titlecap{\baron}}
+
+%%%%% Built-in gender/pronoun sets.
+
+\singulargenderpronouns{\hehim}{he/him}{
+	\def\they{he}
+	\def\them{him}
+	\def\their{his}
+	\def\theirs{his}
+	\def\themself{himself}
+		
+	% familial relationships
+	\def\spouse{husband}
+	\def\offspring{son}
+	\def\sibling{brother}
+	\def\parent{father}
+	\def\auncle{uncle}
+	\def\nibling{nephew}
+	\def\partner{boyfriend}
+	\def\betrothed{fianc\'e}
+	
+	% generic references
+	\def\child{boy}
+	\def\kid{boy}
+	\def\stray{urchin}
+	\def\pal{guy}
+	\def\person{man}
+	
+	% titles of various kinds
+	\def\heir{prince}
+	\def\monarch{king}
+	\def\deity{god}
+	\def\cleric{priest}
+}
+
+\singulargenderpronouns{\sheher}{she/her}{
+	\def\they{she}
+	\def\them{her}
+	\def\their{her}
+	\def\theirs{hers}
+	\def\themself{herself}
+		
+	% familial relationships
+	\def\spouse{wife}
+	\def\offspring{daughter}
+	\def\sibling{sister}
+	\def\parent{mother}
+	\def\auncle{aunt}
+	\def\nibling{niece}
+	\def\partner{girlfriend}
+	\def\betrothed{fianc\'ee}
+	
+	% generic references
+	\def\child{girl}
+	\def\kid{girl}
+	\def\stray{waif}
+	\def\pal{gal}
+	\def\person{woman}
+	
+	% titles of various kinds
+	\def\heir{princess}
+	\def\monarch{queen}
+	\def\emperor{empress}
+	\def\duke{duchess}
+	\def\baron{baroness}
+	\def\cleric{priestess}
+	\def\deity{goddess}
+	\def\Count{Countess}
+}
+
+\pluralgenderpronouns{\theythem}{they/them}{
+	\def\they{they}
+	\def\them{them}
+	\def\their{their}
+	\def\theirs{theirs}
+	\def\themself{themself}
+}
+
+\singulargenderpronouns{\zezir}{ze/zir}{
+	\def\they{ze}
+	\def\them{zir}
+	\def\their{zir}
+	\def\theirs{zirs}
+	\def\themself{zirself}
+}
+
+\singulargenderpronouns{\itits}{it/its}{
+	\def\they{it}
+	\def\them{it}
+	\def\their{its}
+	\def\theirs{its}
+	\def\themself{itself}
+}
+
+\pluralgenderpronouns{\eyem}{ey/em}{
+	\def\they{ey}
+	\def\them{em}
+	\def\their{eir}
+	\def\theirs{eirs}
+	\def\themself{emself}
+}
+
+\singulargenderpronouns{\avoidpronouns}{avoid pronouns}{
+	\def\they{\usual}
+	\def\They{\usual}
+	\def\them{\usual}
+	\def\Them{\usual}
+	\def\their{\usual's}
+	\def\Their{\usual's}
+	\def\theirs{\usual's}
+	
+	% I don't have a better alternative here, unfortunately!
+	% 'Sam walked through the portal and found themself in the forest' does
+	% not seem to have a great pronoun-avoidant version that doesn't
+	% require rewriting the sentence.
+	\def\themself{themself}
+}
+
+\pluralgenderpronouns{\faefaer}{fae/faer}{
+	\def\they{fae}
+	\def\them{fae}
+	\def\their{faer}
+	\def\theirs{faers}
+	\def\themself{faeself}
+}
+
+%% Mixed pronoun sets.
+%% We don't try to cover all or even most of the combinations;
+%% it's very easy to add the ones you need.
+
+\genderpronounsmod{\hethey}{he/they}{\hehim}
+\genderpronounsmod{\shethey}{she/they}{\sheher}
+\genderpronounsmod{\theyhe}{they/he}{\theythem}
+\genderpronounsmod{\theyshe}{they/she}{\theythem}
+\genderpronounsmod{\genderfluid}{genderfluid}{\theythem}
+\genderpronounsmod{\anypronouns}{any pronouns}{\theythem}
+
+% Example of a tricksy variant:
+%
+% \genderpronounsmod{\hebutnotaman}{he/him}{
+%   \hehim
+%   \def\person{person}
+% }

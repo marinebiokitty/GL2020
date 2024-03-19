@@ -98,6 +98,7 @@
 %%   \updatemacro{<datatype macro>}{<new updates>}
 %%   \updateplayer{<Char macro>}{<new player>}
 %%   \updateplayeremail{<Char macro>}{<new player>}{<new email>}
+%%   \updatePEG{<Char macro>}{<new player>}{<new email>}{<new gender>}
 %%
 %%   \charsbycharacter
 %%   \charsbyplayer
@@ -243,8 +244,10 @@
 
 
 \ifx\eTeXversion\@undefined
-  \typeout{^^J! You are not using e-TeX. Expect errors.  Try elatex
-    instead of latex.^^J}
+  \typeout{%
+    ^^J! You are not using e-TeX. Expect errors.  Try elatex
+    instead of latex.^^J%
+  }
 \fi
 
 
@@ -253,28 +256,30 @@
 %% default values overridden by the .cls file
 \def\@makedefault#1#2{\unless\ifdefined#1\def#1{#2}\fi}
 \@makedefault\gamerun{1}
+\@makedefault\larporg{}
 \@makedefault\gamename{Test Game}
 \@makedefault\gamedate{Test Date}
 \@makedefault\gamedraft{\Final}
 \@makedefault\gamenameabbrev{\gamename}
 \@makedefault\gamedateabbrev{\gamedate}
 \@makedefault\signdate{\gamedateabbrev}
-\@makedefault\takedownby{Testember Nth, 2001}
+\@makedefault\takedownby{}
 \@makedefault\defaultnamemappings{
   \titlemap{\full}
   \mapnickinformal
-  }
-\@makedefault\badgemap{{\MYname}{\MYnumber}{\MYplayer}{\MYdesc}}
+}
+\@makedefault\badgemap{{\MYname}{\MYcharpronouns}{\MYnumber}{\MYplayer}{\MYplayerpronouns}{\MYdesc}}
+\@makedefault\badgedagger{\nobadgedagger}
 \@makedefault\playerlistproduction{\longgameplayers}
 \@makedefault\playerlistcompendium{\longgamechars}
 \@makedefault\playergrouping{
   \mark{GMs}\allgms
   \mark{Players}\allplayers
-  }
+}
 \@makedefault\charactergrouping{
   \mark{GMs}\allgms
   \mark{Characters}\allchars
-  }
+}
 \@makedefault\theboxpref{\boxbyplayer}
 \@makedefault\charsproduction{\charsbycharacter}
 \@makedefault\usetags{\tagstrue}
@@ -306,10 +311,9 @@
   \begin{tlist}{Stats}
     \MYstats
   \end{tlist}
-  %%
-  }
-
-
+}
+\@makedefault\sheetfont{}
+\@makedefault\sheettitlefont{\sheetfont}
 
 
 %%%%%
@@ -341,7 +345,13 @@
 %% in \gamedate.  You may also want to define \takedownby using
 %% \run\choice.
 \long\def\run\choice#1\endchoice{%
-  \ifcase\gamerun\@gamerun@error\or#1\else\@gamerun@error\fi}
+  \ifcase\gamerun%
+    \@gamerun@error%
+  \or#1%
+  \else%
+    \@gamerun@error%
+  \fi%
+}
 \let\choice\ifcase
 \let\endchoice\fi
 \def\@gamerun@error{\typeout{! no entry for run \gamerun}}
@@ -395,11 +405,14 @@
 %% \TODO{<string>}
 \long\def\TODO#1{\typeout{\space\space TODO: \unexpanded{#1}}}
 
-\AtBeginDocument{\ifdraft%
-  \long\def\TODO#1{%
-    \typeout{\space\space TODO: \unexpanded{#1}}%
-    TODO: \unexpanded{#1} :TODO}%
-  \fi}
+\AtBeginDocument{%
+  \ifdraft%
+    \long\def\TODO#1{%
+      \typeout{\space\space TODO: \unexpanded{#1}}%
+      \textbf{TODO: \unexpanded{#1} :TODO}%
+    }%
+  \fi%
+}
 
 
 %%%%%
@@ -421,14 +434,19 @@
 %% these are useful in many places
 \long\def\@append#1#2{%
   \expandafter\edef\expandafter#1\expandafter{%
-    \expandafter\unexpanded\expandafter{#1#2}}}
+    \expandafter\unexpanded\expandafter{#1#2}%
+  }%
+}
 \long\def\@global@append#1#2{%
   \expandafter\xdef\expandafter#1\expandafter{%
-    \expandafter\unexpanded\expandafter{#1#2}}}
+    \expandafter\unexpanded\expandafter{#1#2}%
+  }%
+}
 \long\def\@prepend#1#2{%
   \edef\@@prep{\unexpanded{#2}}%
   \expandafter\@append\expandafter\@@prep\expandafter{#1}%
-  \let#1\@@prep\let\@@prep\empty}
+  \let#1\@@prep\let\@@prep\empty%
+}
 \long\def\@global@prepend#1#2{\@prepend#1{#2}\global\let#1#1}
 
 \newcount\@multicount
@@ -436,7 +454,9 @@
   \ifnum#1>0%
     \let\@tmp\empty%
     \@@multilong{#1}{#2}%
-  \fi\@tmp}
+  \fi%
+  \@tmp%
+}
 \long\def\@@multilong#1#2{%
   \let\@nxt\relax%
   \ifnum#1>0%
@@ -444,16 +464,22 @@
     \@multicount=#1\relax%
     \advance\@multicount by-1\relax%
     \expandafter\def\expandafter\@nxt\expandafter{\expandafter%
-      \@@multilong\expandafter{\the\@multicount}{#2}}%
-  \fi\@nxt}
+      \@@multilong\expandafter{\the\@multicount}{#2}%
+    }%
+  \fi%
+  \@nxt%
+}
 
 \long\def\@multishort#1#2{%
   \let\@tmp\empty%
-  \ifnum#1>0\def\@tmp{\unexpanded{#2}}\fi%
+  \ifnum#1>0%
+    \def\@tmp{\unexpanded{#2}}%
+  \fi%
   \ifnum#1>1%
     \edef\@tmp{\@tmp\unexpanded{\ensuremath{\mathbf{(\times#1)}}}}%
   \fi%
-  \@tmp}
+  \@tmp%
+}
 
 \def\makemultilong{\def\multi{\@multilong}}
 \def\makemultishort{\def\multi{\@multishort}}
@@ -484,7 +510,10 @@
     \def\@tmp{\real@item}%
   \else%
     \def\@tmp{\real@item[#1]}%
-  \fi\@tmp\mbox{}}
+  \fi%
+  \@tmp%
+  \mbox{}%
+}
 
 \def\@tlistmods{%
   \topsep0pt%
@@ -500,10 +529,15 @@
   \def\item{\tlist@item}%
   \rightmargin0pt%
   \itemindent0pt%
-  \parindent0pt}
+  \parindent0pt%
+}
 
-\long\def\@tlisttitle#1{\def\@tmp{#1}\ifx\@tmp\empty\else%
-  \par\noindent{\bfseries#1}\nopagebreak\@beginparpenalty\@M\fi}
+\long\def\@tlisttitle#1{%
+  \def\@tmp{#1}%
+  \unless\ifx\@tmp\empty%
+    \par\noindent{\bfseries#1}\nopagebreak\@beginparpenalty\@M%
+  \fi%
+}
 
 \newcommand{\itemz}[1][]{%
   \ifnum\@itemdepth>3%
@@ -513,8 +547,10 @@
     \@tlisttitle{#1}%
     \list{-}{%
       \@tlistmods%
-      \def\makelabel##1{\hss\llap{##1}}}%
-  \fi}
+      \def\makelabel##1{\hss\llap{##1}}%
+    }%
+  \fi%
+}
 \def\enditemz{\@topsepadd0pt\endlist}
 
 \newcommand{\enum}[1][]{%
@@ -527,8 +563,10 @@
     \expandafter\list\csname label\@enumctr\endcsname{%
       \@tlistmods%
       \usecounter\@enumctr%
-      \def\makelabel##1{\hss\llap{##1}}}%
-  \fi}
+      \def\makelabel##1{\hss\llap{##1}}%
+    }%
+  \fi%
+}
 \def\endenum{\@topsepadd0pt\endlist}
 
 \newcommand{\desc}[1][]{%
@@ -537,7 +575,9 @@
     \@tlistmods%
     \itemindent-\leftmargin%
     \labelwidth0pt%
-    \let\makelabel\descriptionlabel}}
+    \let\makelabel\descriptionlabel%
+  }%
+}
 \def\enddesc{\@topsepadd0pt\endlist}
 
 
@@ -562,7 +602,7 @@
   \let\it\itshape%
   \let\mediumseries\mdseries%
   \let\normalshape\upshape%
-  }
+}
 
 
 %%%%%
@@ -572,10 +612,23 @@
 %% \gametex is this package's logo.  \laTeX produces a (La)TeX logo,
 %% based very much on the \LaTeX macro.
 \def\gametex{\mbox{Game\kern-.15em\TeX}}
+\def\lrstex{\mbox{LRS\kern-.15em\TeX}}
 
-\def\laTeX{(\kern-.1em L\kern-.36em{\sbox\z@ T\vbox to\ht0{\hbox{%
-  $\m@th$\csname S@\f@size\endcsname\fontsize\sf@size\z@%
-  \math@fontsfalse\selectfont A}\vss}}\kern-.2em)\kern-.15em\TeX}
+\def\laTeX{%
+  (\kern-.1em L\kern-.36em%
+  \begingroup%
+    \sbox\z@ T%
+    \vbox to\ht0{%
+      \hbox{%
+        $\m@th$\csname S@\f@size\endcsname\fontsize\sf@size\z@%
+        \math@fontsfalse\selectfont A%
+      }%
+      \vss%
+    }%
+  \endgroup%
+  \kern-.2em)\kern-.15em%
+  \TeX%
+}
 
 
 
@@ -646,37 +699,54 @@
     \setbox\@mapbox\hbox{\@map}%
     \setbox\@mapbox\hbox{\raise\dp\@mapbox\box\@mapbox}%
     \psset{xunit=\wd\@mapbox,yunit=\ht\@mapbox}%
-    \def\@mapcommands{#2}\@ifnextchar({\@usemap}{\@usemap(0,0)}}
+    \def\@mapcommands{#2}%
+    \@ifnextchar({\@usemap}{\@usemap(0,0)}%
+}
 \def\@usemap(#1,#2){%
     \def\@xtrans{#1}\def\@ytrans{#2}%
-    \@ifnextchar[{\@@usemap}{\@@usemap[1]}}
+    \@ifnextchar[{\@@usemap}{\@@usemap[1]}%
+}
 \def\@@usemap[#1]{%
     \noindent%
     \pspicture*(1,1)%
       \psscalebox{#1}{%
         \rput[bl](-\@xtrans,-\@ytrans){%
-          \rput[bl](0,0){\copy\@mapbox}\@mapcommands}}%
+          \rput[bl](0,0){\copy\@mapbox}%
+          \@mapcommands%
+        }%
+      }%
     \endpspicture%
-  \endgroup}
+  \endgroup%
+}
 
 \def\defaultimage{\clippedmap}
 
 \def\portraitmap{%
-  \includegraphics%
-    [bb=0 0 8in 10.5in,clip,
-    totalheight=.999\textheight,width=.999\textwidth,keepaspectratio]%
-    {\postscript/map.ps}}
+  \includegraphics[%
+    bb=0 0 8in 10.5in,%
+    clip,
+    totalheight=.999\textheight,%
+    width=.999\textwidth,%
+    keepaspectratio%
+  ]{\postscript/map.ps}%
+}
 
 \def\clippedmap{%
-  \includegraphics%
-    [totalheight=.999\textheight,width=\textwidth,keepaspectratio]%
-    {\postscript/map.ps}}
+  \includegraphics[%
+    totalheight=.999\textheight,%
+    width=\textwidth,%
+    keepaspectratio%
+  ]{\postscript/map.ps}%
+}
 
 \def\landscapemap{%
-  \includegraphics%
-    [clip,angle=90,
-    totalheight=.999\textheight,width=.999\textwidth,keepaspectratio]%
-    {\postscript/map.ps}}
+  \includegraphics[%
+    clip,angle=90,
+    totalheight=.999\textheight,%
+    width=.999\textwidth,%
+    keepaspectratio%
+  ]{\postscript/map.ps}%
+}
 
 
 %%%%%
@@ -710,34 +780,44 @@
 \def\mapgrid{%
   \psgrid[xunit=.1\wd\@mapbox,yunit=.1\ht\@mapbox,gridwidth=.5pt](15,15)%
   \multido{\n@=0+.1}{15}{\rput[bl](\@xtrans,\n@){\n@}}%
-  \multido{\n@=0+.1}{15}{\rput[br]{-90}(\n@,\@ytrans){\n@}}}%
+  \multido{\n@=0+.1}{15}{\rput[br]{-90}(\n@,\@ytrans){\n@}}%
+}%
 
 \def\clabel(#1)#2#3#4{%
-  \@maplabel{c}(#1){#2}{#3}{\@labelstack{c}{#4}}}
+  \@maplabel{c}(#1){#2}{#3}{\@labelstack{c}{#4}}%
+}
 
 \def\llabel(#1)#2#3#4{%
   \@maplabel{r}(#1){#2}{#3}{%
     \makebox(0,0)[rc]{\@labelstack{r}{#4}}%
-    \rule{1em}{.25ex}}}
+    \rule{1em}{.25ex}%
+  }%
+}
 
 \def\rlabel(#1)#2#3#4{%
   \@maplabel{l}(#1){#2}{#3}{%
     \rule{1em}{.25ex}%
-    \makebox(0,0)[lc]{\@labelstack{l}{#4}}}}
+    \makebox(0,0)[lc]{\@labelstack{l}{#4}}%
+  }%
+}
 \newbox\@mapbox
 
-\long\def\@maplabel#1(#2)#3#4#5{{%
-  \def\@labelrot{#3}%
-  \ifx\@labelrot\empty\def\@labelrot{0}\fi%
-  \def\@labelscal{#4}%
-  \ifx\@labelscal\empty\def\@labelscal{1}\fi%
-  \rput[#1]{\@labelrot}(#2){\psscalebox{\@labelscal}{#5}}%
-  }}
-\def\@labelstack#1#2{{%
-  \tabcolsep0pt%
-  \def\arraystretch{.5}%
-  \tabular{#1}#2 \\ \endtabular%
-  }}
+\long\def\@maplabel#1(#2)#3#4#5{%
+  \begingroup%
+    \def\@labelrot{#3}%
+    \ifx\@labelrot\empty\def\@labelrot{0}\fi%
+    \def\@labelscal{#4}%
+    \ifx\@labelscal\empty\def\@labelscal{1}\fi%
+    \rput[#1]{\@labelrot}(#2){\psscalebox{\@labelscal}{#5}}%
+  \endgroup%
+}
+\def\@labelstack#1#2{%
+  \begingroup%
+    \tabcolsep0pt%
+    \def\arraystretch{.5}%
+    \tabular{#1}#2 \\ \endtabular%
+  \endgroup%
+}
 
 
 
@@ -787,7 +867,9 @@
 \newcommand{\wrap}[2][]{%
   \begingroup%
     \def\@tmp{#1}%
-    \ifx\@tmp\empty\def\@tmp{1}\fi%
+    \ifx\@tmp\empty%
+      \def\@tmp{1}%
+    \fi%
     \expandafter\ifnum\@tmp<0%
       \count0=\@tmp%
       \multiply\count0by-1%
@@ -796,7 +878,8 @@
     \else%
       \etoss{\multi{\?\@tmp}{\X{#2}}}%
     \fi%
-  \endgroup}
+  \endgroup%
+}
 
 
 %%%%%
@@ -860,14 +943,17 @@
 %% \beginpunt <puntable stuff> \endpunt
 %% \puntme
 %% \unpuntme
-\def\punt#1#2{\begingroup%
-  \BRANCHTYPES{#1}{\MAP{\TYPE}{\etoss{\stoss{\?\ME{\puntme}}}}}#2%
+\def\punt#1#2{%
+  \begingroup%
+    \BRANCHTYPES{#1}{\MAP{\TYPE}{\etoss{\stoss{\?\ME{\puntme}}}}}#2%
   \endgroup%
-  }
-\def\unpunt#1#2{\begingroup%
-  \EVERY{#1}{\ifx\@unpunted\empty\etoss{\stoss{\?\ME{\puntme}}}\fi}%
-  \BRANCHTYPES{#1}{\MAP{\TYPE}{\etoss{\stoss{\?\ME{\unpuntme}}}}}#2%
-  \endgroup}
+}
+\def\unpunt#1#2{%
+  \begingroup%
+    \EVERY{#1}{\ifx\@unpunted\empty\etoss{\stoss{\?\ME{\puntme}}}\fi}%
+    \BRANCHTYPES{#1}{\MAP{\TYPE}{\etoss{\stoss{\?\ME{\unpuntme}}}}}#2%
+  \endgroup%
+}
 
 \def\puntme{\ADD{\@puntme}}
 \def\unpuntme{\ADD{\@unpuntme}}
@@ -879,7 +965,8 @@
 
 \long\def\beginpunt#1\endpunt{\ifx\@punted\empty#1\fi}
 \def\endpunt{%
-  \typeout{! \noexpand\endpunt without a matching \string\beginpunt.}}
+  \typeout{! \noexpand\endpunt without a matching \string\beginpunt.}%
+}
 
 
 %%%%%
@@ -920,22 +1007,32 @@
 %% \gettags
 %% \tagged<field>{<tagstring>}
 \iftags
-  \def\gettags{\ifx\MYfile\empty\else%
-    \unless\ifx\@myfile\MYfile%
-      \procextracts{\starttag}{\endtag}{\chars/\MYfile}%
-        {\csname @tagadd\endcsname}{\endtagadd}%
-        {\csname @dotag\endcsname}{\endtag}%
-    \fi\fi}
+  \def\gettags{%
+    \unless\ifx\MYfile\empty%
+      \unless\ifx\@myfile\MYfile%
+        \procextracts{\starttag}{\endtag}{\chars/\MYfile}{%
+          \csname @tagadd\endcsname}{\endtagadd%
+        }{%
+          \csname @dotag\endcsname}{\endtag%
+        }%
+      \fi%
+    \fi%
+  }
 \else
   \let\gettags\relax
 \fi
 
 \long\def\@tagadd#1\endtagadd{\ADD{\let\@myfile\MYfile\let\@tmp\empty#1\@tmp}}
 \long\def\@dotag#1#2\endtag{%
-  \ifcsname tag@#1\endcsname\csname tag@#1\endcsname{#2}\fi}
+  \ifcsname tag@#1\endcsname%
+    \csname tag@#1\endcsname{#2}%
+  \fi%
+}
 \def\tagged#1#2{%
   \expandafter\long\expandafter\def\csname tag@#2\endcsname##1{%
-    \@prepend\@tmp{\prepend#1{##1}}}}
+    \@prepend\@tmp{\prepend#1{##1}}%
+  }%
+}
 
 
 %%%%%
@@ -947,9 +1044,23 @@
 %% \updatemacro{<datatype macro>}{<new updates>}
 %% \updateplayer{<Char macro>}{<new player>}
 %% \updateplayeremail{<Char macro>}{<new player>}{<new email>}
+%% \updatePNG{<Char macro>}{<new player>}{<new character name, if changed>}{<new gender, e.g. \theythem>}
 \def\updatemacro{\EXTEND}
 \def\updateplayer#1#2{\updatemacro{#1}{\rs\MYplayer{#2}}}
-\def\updateplayeremail#1#2#3{\updatemacro{#1}{\rs\MYplayer{#2}\rs\MYemail{#3}}}
+\def\updateplayeremail#1#2#3{%
+  \updatemacro{#1}{\rs\MYplayer{#2}\rs\MYemail{#3}}%
+}
+\def\updatePNG#1#2#3#4#5{%
+  \updatemacro{#1}{%
+    \rs\MYplayer{#2}%
+		\rs\MYplayerpronouns{#3}
+		\def\@newname{#4}%
+		\unless\ifx\@newname\empty%
+			\rs\MYname{#4}$
+		\fi
+		#5{reset} % any nonempty argument should reset
+  }
+}
 
 
 %%%%%
@@ -1093,20 +1204,27 @@
 
 \newcommand\DeclareGameSubOption[4][]{%
   \expandafter\edef\csname o,#2\endcsname{%
-    \noexpand\gdef\expandafter\noexpand\csname o,#2\endcsname%
-    \unexpanded{{\typeout{! \gameclassname\space option "#2" reload ignored}}%
+    \expandafter\unexpanded\expandafter{%
+      \expandafter\gdef\csname o,#2\endcsname{%
+        \typeout{! \gameclassname\space option "#2" reload ignored}%
+      }%
       \message{--> #2}%
       \Exec@pt{#3}%
       \do@pt%
-      #4}}%
+      #4%
+    }%
+  }%
   \expandafter\edef\csname p,#2\endcsname{%
     \noexpand\let\expandafter\noexpand\csname p,#2\endcsname\relax%
-    \expandafter\noexpand\csname p,#3\endcsname\unexpanded{#1}}%
+    \expandafter\noexpand\csname p,#3\endcsname\unexpanded{#1}%
+  }%
   \expandafter\edef\expandafter\do@pt\expandafter{%
     \expandafter\unexpanded\expandafter{\do@pt}%
     \noexpand\let\expandafter\noexpand\csname p,#2\endcsname\relax%
-    \noexpand\let\expandafter\noexpand\csname o,#2\endcsname\relax}%
-  \DeclareOption{#2}{\once@exec@pt{#2}}}
+    \noexpand\let\expandafter\noexpand\csname o,#2\endcsname\relax%
+  }%
+  \DeclareOption{#2}{\once@exec@pt{#2}}%
+}
 
 \expandafter\let\csname p,\endcsname\relax
 
@@ -1115,8 +1233,11 @@
 \def\once@exec@pt#1{%
   \def\once@exec@pt##1{%
     \AtEndOfClass{%
-      \typeout{! extra \gameclassname\space option "##1" ignored}}}%
-  \def\game@pt{#1}}
+      \typeout{! extra \gameclassname\space option "##1" ignored}%
+    }%
+  }%
+  \def\game@pt{#1}%
+}
 
 \def\ProcessGameOptions{%
   %% input inputs only after blanking out option code, to greatly reduce
@@ -1129,18 +1250,21 @@
       \csname p,\game@pt\endcsname%
     \fi%
     \AtEndOfClass{\message{^^J\space\space Options:}\Exec@pt{\game@pt}}%
-  \fi}
+  \fi%
+}
 
 \def\Exec@pt#1{%
   \def\@tmp{#1}%
-  \ifx\@tmp\empty\else%
+  \unless\ifx\@tmp\empty%
     \expandafter\ifx\csname o,#1\endcsname\relax%
       \typeout{! option "#1" not defined for class "\gameclassname"}%
     \else%
       \expandafter\def\expandafter\@tmp\expandafter{\expandafter%
         \let\expandafter\@tmp\expandafter\empty\csname o,#1\endcsname}%
     \fi%
-  \fi\@tmp}
+  \fi%
+  \@tmp%
+}
 
 \@onlypreamble\DeclareGameOption
 \@onlypreamble\DeclareGameSubOption
@@ -1177,7 +1301,8 @@
     \special{header=\postscript/simplex}%
   \else%
     \special{header=\postscript/duplex}%
-  \fi}
+  \fi%
+}
 
 \DoubleSiding %% default is \DoubleSiding
 
@@ -1189,9 +1314,13 @@
   \dimen0=\textwidth\relax%
   \textwidth=\textheight\relax%
   \textheight=\dimen0\relax%
-  \special{papersize=11in,8.5in}%
-  \special{! /landplus90 true store}%
-  }
+  \AtBeginDvi{\special{papersize=11in,8.5in}}%
+  \AtBeginDvi{\special{! /landplus90 true store}}%
+  \pdfpageheight=8.5in
+  \pdfpagewidth=11in
+  \paperheight=\pdfpageheight
+  \paperwidth=\pdfpagewidth
+}
 \@onlypreamble\@LandscapeMode
 
 
@@ -1207,7 +1336,7 @@
 \def\cleardocument{%
   \unless\ifnum\lastpenalty=19
     \clearpage%
-    \ifx\game@doublesiding\empty\else%
+    \unless\ifx\game@doublesiding\empty%
       \ifodd\c@page%
         \relax%
       \else%
@@ -1229,60 +1358,72 @@
     \setcounter{footnote}{0}%
     \penalty19%
   \fi%
-  }
+}
 
 \global\let\realjobname\jobname
 \newcount\@jobcnt
 \global\@jobcnt=0
 
 \def\cycle@job{%
-  \if@filesw\begingroup%
-    %% mimic \end{document}'s treatment of .aux
+  \if@filesw%
     \begingroup%
-      \immediate\closeout\@mainaux%
-      \let\@setckpt\@gobbletwo%
-      \let\@@newl@bel\@testdef%
-      \@tempswafalse%
-      \makeatletter\input\jobname.aux\relax%
-    \endgroup%
-    %% test to see if old .aux was used
-    \openin0=\jobname.aux\relax%
-    \read0to\@tmp\read0to\@tmp\let\@tmp\empty%
-    \ifeof0\relax\else\let\@tmp\relax\fi%
-    \closein0%
-    \ifx\@tmp\relax%
-      %% advance counter
-      \global\advance\@jobcnt by1%
-      \xdef\jobname{\realjobname\the\@jobcnt}%
-      %% read old .aux
+      %% mimic \end{document}'s treatment of .aux
       \begingroup%
-        \makeatletter\let\@writefile\@gobbletwo%
-        \global\let\@multiplelabels\relax%
-        \@input{\jobname.aux}\relax%
+        \immediate\closeout\@mainaux%
+        \let\@setckpt\@gobbletwo%
+        \let\@@newl@bel\@testdef%
+        \@tempswafalse%
+        \makeatletter\input\jobname.aux\relax%
       \endgroup%
-    \fi%
-    %% mimic \begin{document}'s treatment of .aux
-    \immediate\openout\@mainaux\jobname.aux%
-    \immediate\write\@mainaux{\relax}%
-  \endgroup\fi}
+      %% test to see if old .aux was used
+      \openin0=\jobname.aux\relax%
+      \read0to\@tmp\read0to\@tmp\let\@tmp\empty%
+      \ifeof0\relax\else\let\@tmp\relax\fi%
+      \closein0%
+      \ifx\@tmp\relax%
+        %% advance counter
+        \global\advance\@jobcnt by1%
+        \xdef\jobname{\realjobname\the\@jobcnt}%
+        %% read old .aux
+        \begingroup%
+          \makeatletter\let\@writefile\@gobbletwo%
+          \global\let\@multiplelabels\relax%
+          \@input{\jobname.aux}\relax%
+        \endgroup%
+      \fi%
+      %% mimic \begin{document}'s treatment of .aux
+      \immediate\openout\@mainaux\jobname.aux%
+      \immediate\write\@mainaux{\relax}%
+    \endgroup%
+  \fi%
+}
 
 %% (slightly) new implementation of \label, \ref, and \pageref
 \def\label#1{\@bsphack%
   \protected@write\@auxout{}{%
     \string\@newlabel{#1}{{\@currentlabel}{\thepage}}}%
-  \@esphack}
+  \@esphack%
+}
 \def\@newlabel{\@@newl@bel{r\the\@jobcnt}}
 \def\@@newl@bel#1#2#3{%
-  \@ifundefined{#1@#2}%
+  \@ifundefined{#1@#2}{%
     \relax
-    {\gdef\@multiplelabels{%
-       \@latex@warning@no@line{There were multiply-defined labels}}%
-     \@latex@warning@no@line{Label `#2' multiply defined}}%
-  \global\@namedef{#1@#2}{#3}}
-\def\ref#1{\expandafter\@setref\csname r\the\@jobcnt @#1\endcsname%
-  \@firstoftwo{#1}}
-\def\pageref#1{\expandafter\@setref\csname r\the\@jobcnt @#1\endcsname%
-  \@secondoftwo{#1}}
+  }{%
+    \gdef\@multiplelabels{%
+      \@latex@warning@no@line{There were multiply-defined labels}%
+    }%
+    \@latex@warning@no@line{Label `#2' multiply defined}%
+  }%
+  \global\@namedef{#1@#2}{#3}%
+}
+\def\ref#1{%
+  \expandafter\@setref\csname r\the\@jobcnt @#1\endcsname%
+  \@firstoftwo{#1}%
+}
+\def\pageref#1{%
+  \expandafter\@setref\csname r\the\@jobcnt @#1\endcsname%
+  \@secondoftwo{#1}%
+}
 
 
 %%%%%
@@ -1290,7 +1431,8 @@
 \@onlypreamble\PDFPart
 \def\PDFPart{%
   \long\def\@setsubowner##1##2{}%
-  \long\def\@transownersetsubowner##1##2{}}
+  \long\def\@transownersetsubowner##1##2{}%
+}
 
 
 
@@ -1310,11 +1452,17 @@
 \global\let\mysubowner\empty
 
 \long\def\@setsubowner#1#2{%
-  \def\@tmp{#2}\ifx\@tmp\empty\else%
-    \let\@prevowner\myowner\let\@prevsubowner\mysubowner%
+  \def\@tmp{#2}%
+  \unless\ifx\@tmp\empty%
+    \let\@prevowner\myowner%
+    \let\@prevsubowner\mysubowner%
     \begingroup%
-      #1{\etoss{\@setowner{\?\myowner\ - \?\@ownerstring}%
-                \global\let\mysubowner\@ownerstring}}%
+      #1{%
+        \etoss{%
+          \@setowner{\?\myowner\ - \?\@ownerstring}%
+          \gdef\mysubowner{\?\MYname}%
+        }%
+      }%
       \unless\ifx\@prevsubowner\empty%
         \expandafter\@global@prepend\expandafter%
         \mysubowner\expandafter{\@prevsubowner\ - }%
@@ -1323,20 +1471,28 @@
     \endgroup%
     \expandafter\@setowner\expandafter{\@prevowner}%
     \global\let\mysubowner\@prevsubowner%
-  \fi}
+  \fi%
+}
 
 \long\def\@transownersetsubowner#1#2{%
-  \def\@tmp{#2}\ifx\@tmp\empty\else%
-    \let\@prevowner\myowner\let\@prevsubowner\mysubowner%
+  \def\@tmp{#2}%
+  \unless\ifx\@tmp\empty%
+    \let\@prevowner\myowner%
+    \let\@prevsubowner\mysubowner%
     \begingroup%
-      #1{\etoss{\@setowner{\?\myowner\ - \?\@ownerstring}%
-                \global\let\mysubowner\MYname}}%
+      #1{%
+        \etoss{%
+          \@setowner{\?\myowner\ - \?\@ownerstring}%
+          \gdef\mysubowner{\?\MYname}%
+        }%
+      }%
       \let\@transowner\relax%
       #1{\BRANCHTYPES{Owner}{\RESURFACEMAP{\TYPE}}#2}%
     \endgroup%
     \expandafter\@setowner\expandafter{\@prevowner}%
     \global\let\mysubowner\@prevsubowner%
-  \fi}
+  \fi%
+}
 
 
 %%%%%
@@ -1346,18 +1502,23 @@
     \def\@i##1##2{%
       \unless\ifx##1\empty%
         \owner\def\@i####1####2{}%
-      \fi}%
+      \fi%
+    }%
     \def\@ii##1##2{}%
     \@ownedfields%
     \def\@i##1##2{}%
     \def\@ii##1##2{%
       \unless\ifx##1\empty%
-        \ifx\@owner\empty\suite\fi%
+        \ifx\@owner\empty%
+          \suite%
+        \fi%
         \owner\def\@ii####1####2{}%
-      \fi}%
+      \fi%
+    }%
     \@ownedfields%
     \def\@ii{\@i}%
-  \fi}
+  \fi%
+}
 
 
 %%%%%
@@ -1365,11 +1526,13 @@
 \def\@inunlist{%
   \let\@inside@unlist\relax%
   \long\def\unlist##1{##1}%
-  \def\@aplist{\@global@append\@uflist}}
+  \def\@aplist{\@global@append\@uflist}%
+}
 \def\@outunlist{%
   \let\@inside@unlist\empty%
   \long\def\unlist##1{\@inunlist##1\@outunlist}%
-  \def\@aplist{\@global@append\@flist}}
+  \def\@aplist{\@global@append\@flist}%
+}
 \long\def\@@aplist#1{\@aplist{\unexpanded{#1}}}
 \def\@ob{{\iffalse}\fi}
 \def\@cb{\iffalse{\fi}}
@@ -1381,20 +1544,22 @@
   \def\@elementfmap{%
     \uniquemark%
     \expandafter\def\expandafter\@doelement\expandafter{%
-      \expandafter\@@aplist\expandafter{\ME{}}}%
+      \expandafter\@@aplist\expandafter{\ME{}}%
+    }%
     \@sofmap%
     \ifx\@owner\empty%
       \@doelement%
-    \fi}%
+    \fi%
+  }%
   \long\def\raw##1{\@@aplist{\raw{##1}}}%
   \long\def\pageof##1{\@@aplist{\pageof{##1}}}%
-  }
+}
 \def\@outfield{%
   \let\@@infield\empty%
   \def\@elementfmap{\@subownerfmap}%
   \long\def\raw##1{}%
   \def\pageof{\raw}%
-  }
+}
 \def\@sofmap{%
   \ifx\@owner\empty%
     \@testfields%
@@ -1403,76 +1568,113 @@
     \ifx\@suite\empty% %% not a suite
       \ifx\@thistransowner\empty%
         \expandafter\def\expandafter\@fsso\expandafter{%
-          \expandafter\@@aplist\expandafter{\expandafter%
-            \@setsubowner\expandafter{\ME}}\@apob}%
+          \expandafter\@@aplist\expandafter{%
+            \expandafter\@setsubowner\expandafter{\ME}%
+          }%
+          \@apob%
+        }%
       \else%
         \expandafter\def\expandafter\@fsso\expandafter{%
-          \expandafter\@@aplist\expandafter{\expandafter%
-            \@transownersetsubowner\expandafter{\ME}}\@apob}%
+          \expandafter\@@aplist\expandafter{%
+            \expandafter\@transownersetsubowner\expandafter{\ME}%
+          }%
+          \@apob%
+        }%
       \fi%
       \ifx\@inside@unlist\relax%
-        \etoss{\stoss{\@inunlist\?\@fsso\?\@doelement\?\ME{}%
-          \@apcb\@outunlist}}%
+        \etoss{%
+          \stoss{%
+            \@inunlist%
+            \?\@fsso%
+            \?\@doelement\?\ME{}%
+            \@apcb\@outunlist%
+          }%
+        }%
       \else%
-        \etoss{\stoss{\?\@fsso\?\@doelement\?\ME{}%
-          \@apcb}}%
+        \etoss{%
+          \stoss{%
+            \?\@fsso%
+            \?\@doelement%
+            \?\ME{}%
+            \@apcb%
+          }%
+        }%
       \fi%
     \else% %% is suite
       \@doelement%
-      \ifx\@@infield\empty\aftergroup\@infield\fi%
+      \ifx\@@infield\empty%
+        \aftergroup\@infield%
+      \fi%
       \expandafter\expandafter\expandafter\stoss%
       \expandafter\expandafter\expandafter{\@thisfield}%
       \aftergroup\@outfield%
-      \def\@i##1##2{\ifx##1\empty\else\expandafter\stoss\expandafter{##1}\fi}%
+      \def\@i##1##2{%
+        \unless\ifx##1\empty%
+          \expandafter\stoss\expandafter{##1}%
+        \fi%
+      }%
       \@otherfields%
-      \ifx\@@infield\relax\aftergroup\@infield\fi%
+      \ifx\@@infield\relax%
+        \aftergroup\@infield%
+      \fi%
     \fi%
-  \fi}
+  \fi%
+}
 
 \def\@flatten@field#1#2{%
   \setbox0=\hbox{%
-      \long\def\doid##1{##1}%
-      \let\@otherfields\empty%
-      \def\@i##1##2{\def\@chosen{##1}\unless\ifx\@thisfield\@chosen%
-        \@append\@otherfields{\@i{##1}{}}\fi}%
-      \def\@thisfield{#2}\@ownedfields%
-      \global\def\@flist{\unexpanded{\global\let\@flist\empty}}%
-      \global\def\@uflist{\unexpanded{\global\let\@uflist\empty}}%
-      \def\@aplist{\@global@append\@flist}%
-      \def\@doelement{}%
-      \BRANCHTYPES{Owner}{\MAP{\TYPE}{\@ownerfmap}}%
-      \BRANCHTYPES{SubOwner}{\MAP{\TYPE}{\@subownerfmap}}%
-      \BRANCHTYPES{#1}{\MAP{\TYPE}{\@elementfmap}}%
-      \def\@subownerfmap{\@ownerfmap}%
-      \def\@elementfmap{\@subownerfmap}%
-      \def\@ownerfmap{%
-        \ifx\@flat@mark\ME%
-          \typeout{! \expandafter\unexpanded\expandafter{\ME{}} %
-            repeated within itself (ignored)}%
-        \else%
-          \expandafter\stoss\expandafter{%
-            \expandafter\EXTEND\expandafter{\ME}{\let\@flat@mark\ME}}%
-          %% if a subowner, add \@setsubowner
-          %% go through all fields (#2 first). if member is an element in #2
-          %% or a suite anywhere, add it.  if suite, recurse.  if subowner,
-          %% throw it.
-          \ifx\@notowner\empty%
-            \def\@ownerfmap{}%
-            \def\@subownerfmap{\uniquemark\@sofmap}%
-            \@infield#2%
-            \def\@i####1####2{####1}%
-            \@outfield\@otherfields%
-          \fi%
-          \expandafter\stoss\expandafter{%
-            \expandafter\EXTEND\expandafter{\ME}{\let\@flat@mark\relax}}%
-        \fi}%
-      \ME{}%
-      }%
+    \long\def\doid##1{##1}%
+    \let\@otherfields\empty%
+    \def\@i##1##2{%
+      \def\@chosen{##1}%
+      \unless\ifx\@thisfield\@chosen%
+        \@append\@otherfields{\@i{##1}{}}%
+      \fi%
+    }%
+    \def\@thisfield{#2}\@ownedfields%
+    \global\def\@flist{\unexpanded{\global\let\@flist\empty}}%
+    \global\def\@uflist{\unexpanded{\global\let\@uflist\empty}}%
+    \def\@aplist{\@global@append\@flist}%
+    \def\@doelement{}%
+    \BRANCHTYPES{Owner}{\MAP{\TYPE}{\@ownerfmap}}%
+    \BRANCHTYPES{SubOwner}{\MAP{\TYPE}{\@subownerfmap}}%
+    \BRANCHTYPES{#1}{\MAP{\TYPE}{\@elementfmap}}%
+    \def\@subownerfmap{\@ownerfmap}%
+    \def\@elementfmap{\@subownerfmap}%
+    \def\@ownerfmap{%
+      \ifx\@flat@mark\ME%
+        \typeout{%
+          ! \expandafter\unexpanded\expandafter{\ME{}} %
+          repeated within itself (ignored)%
+        }%
+      \else%
+        \expandafter\stoss\expandafter{%
+          \expandafter\EXTEND\expandafter{\ME}{\let\@flat@mark\ME}%
+        }%
+        %% if a subowner, add \@setsubowner
+        %% go through all fields (#2 first). if member is an element in #2
+        %% or a suite anywhere, add it.  if suite, recurse.  if subowner,
+        %% throw it.
+        \ifx\@notowner\empty%
+          \def\@ownerfmap{}%
+          \def\@subownerfmap{\uniquemark\@sofmap}%
+          \@outunlist%
+          \@infield#2%
+          \def\@i####1####2{####1}%
+          \@outfield\@otherfields%
+        \fi%
+        \expandafter\stoss\expandafter{%
+          \expandafter\EXTEND\expandafter{\ME}{\let\@flat@mark\relax}%
+        }%
+      \fi%
+    }%
+    \ME{}%
+  }%
   \let\@flattened\relax%
   \xdef\@flist{\@flist}%
   \xdef\@uflist{\@uflist}%
   \@flist\unlist{\@uflist}%
-  }
+}
 
 
 %%%%%
@@ -1480,13 +1682,16 @@
 \def\@flatten@lists{%
   \def\@i##1##2{\let##1\empty}\@ownedfields%
   \setbox0=\hbox{%
-      \long\def\raw##1{}%
-      \def\pageof{\raw}%
-      \long\def\doid##1{##1}%
-      \BRANCHTYPES{Owner}{\MAP{\TYPE}{%
+    \long\def\raw##1{}%
+    \def\pageof{\raw}%
+    \long\def\doid##1{##1}%
+    \BRANCHTYPES{Owner}{%
+      \MAP{\TYPE}{%
         \ifx\@flat@mark\ME%
-          \typeout{! \expandafter\unexpanded\expandafter{\ME{}} %
-            repeated within itself (ignored)}%
+          \typeout{%
+            ! \expandafter\unexpanded\expandafter{\ME{}} %
+            repeated within itself (ignored)%
+          }%
         \else%
           \uniquemark%
           \ifx\@owner\empty%
@@ -1494,20 +1699,24 @@
           \fi%
           \ifx\@owner\relax%
             \expandafter\stoss\expandafter{%
-              \expandafter\EXTEND\expandafter{\ME}{\let\@flat@mark\ME}}%
+              \expandafter\EXTEND\expandafter{\ME}{\let\@flat@mark\ME}%
+            }%
             \ifx\@suite\relax%
               \let\@i\relax\@ownedfields%
               \def\@i##1##2{\etoss{\@append##1{\?##1}}}\@ownedfields%
             \fi%
             \expandafter\stoss\expandafter{%
-              \expandafter\EXTEND\expandafter{\ME}{\let\@flat@mark\relax}}%
+              \expandafter\EXTEND\expandafter{\ME}{\let\@flat@mark\relax}%
+            }%
           \fi%
         \fi%
-        }}%
-      \ME{}%
-      \def\@i##1##2{\etoss{\def##1{\?##1}}}\@ownedfields%
       }%
-  }
+    }%
+    \ME{}%
+    \def\@i##1##2{\etoss{\def##1{\?##1}}}%
+    \@ownedfields%
+  }%
+}
 
 \let\@flattened\empty
 \let\@do@element\empty
@@ -1516,24 +1725,34 @@
 %%%%%
 %% \@ownermappings{<type>}{<field>}
 \def\@ownermappings#1#2{%
-  \BRANCHTYPES{Char}{\SURFACEMAP{\TYPE}{%
-    \beginpunt%
-      \gettags%
-      \long\def\unlist##1{%
-        \expandafter\@setowner\expandafter{\myowner\ UNLISTED}##1}%
-      \expandafter\@setowner\expandafter{\@ownerstring}%
-      \BRANCHTYPES{Element}{\RESURFACEMAP{\TYPE}}%
-      \let\@myidchar\relax%
-      \@flatten@field{#1}#2%
-      \@setowner{}%
-    \endpunt}}%
-  \BRANCHTYPES{Place}{\SURFACEMAP{\TYPE}{%
-    \beginpunt%
-      \expandafter\@setowner\expandafter{\@ownerstring}%
-      \BRANCHTYPES{Element}{\RESURFACEMAP{\TYPE}}%
-      \@flatten@field{#1}#2%
-      \@setowner{}%
-    \endpunt}}%
+  \BRANCHTYPES{Char}{%
+    \SURFACEMAP{\TYPE}{%
+      \beginpunt%
+        \gettags%
+        \long\def\unlist##1{%
+          \let\@listedowner\myowner
+          \expandafter\@setowner\expandafter{\myowner\ UNLISTED}%
+          ##1%
+          \expandafter\@setowner\expandafter{\@listedowner}%
+        }%
+        \expandafter\@setowner\expandafter{\@ownerstring}%
+        \BRANCHTYPES{Element}{\RESURFACEMAP{\TYPE}}%
+        \let\@myidchar\relax%
+        \@flatten@field{#1}#2%
+        \@setowner{}%
+      \endpunt%
+    }%
+  }%
+  \BRANCHTYPES{Place}{%
+    \SURFACEMAP{\TYPE}{%
+      \beginpunt%
+        \expandafter\@setowner\expandafter{\@ownerstring}%
+        \BRANCHTYPES{Element}{\RESURFACEMAP{\TYPE}}%
+        \@flatten@field{#1}#2%
+        \@setowner{}%
+      \endpunt%
+    }%
+  }%
   \def\@subownermap##1{%
     \beginpunt%
       \expandafter\@setowner\expandafter{\@ownerstring}%
@@ -1541,27 +1760,33 @@
       \BRANCHTYPES{Element}{\RESURFACEMAP{\TYPE}}%
       \@flatten@field{#1}#2%
       \@setowner{}%
-    \endpunt}%
+    \endpunt%
+  }%
   \BRANCHTYPES{SubOwner}{\SURFACEMAP{\TYPE}{\@subownermap{}}}%
-  }
+}
 
 %%%%%
 %% \@elementmapping{<type>}{<mapping>}
 \def\@elementmapping#1#2{%
-  \BRANCHTYPES{#1}{\SURFACEMAP{\TYPE}{%
-    \ifx\@flattened\relax%
-      \ownerdefault%
-    \else%
-      \ifx\@owner\empty%
-        \@testfields%
+  \BRANCHTYPES{#1}{%
+    \SURFACEMAP{\TYPE}{%
+      \ifx\@flattened\relax%
+        \ownerdefault%
+      \else%
+        \ifx\@owner\empty%
+          \@testfields%
+        \fi%
       \fi%
-    \fi%
-    \ifx\@owner\empty%
-      \beginpunt#2\endpunt%
-    \else%
-      \@subownermap{#2}%
-    \fi}}%
-  }
+      \ifx\@owner\empty%
+        \beginpunt%
+          #2%
+        \endpunt%
+      \else%
+        \@subownermap{#2}%
+      \fi%
+    }%
+  }%
+}
 
 %%%%%
 %% \@bycharmappings{<mapping>}
@@ -1596,12 +1821,13 @@
     \endpunt}%
   \BRANCHTYPES{SubOwner}{\SURFACEMAP{\TYPE}{\@subownermap}}%
   \BRANCHTYPES{Identity}{\SURFACEMAP{\TYPE}{\@charmap}}%
-  }
+}
 
 
 %%%%%
 %%
-\def\@preprocids#1{\begingroup%
+\def\@preprocids#1{%
+  \begingroup%
     \global\let\@charids\empty%
     \global\let\@degenerateids\empty%
     \@bycharmappings{%
@@ -1610,9 +1836,11 @@
       \else%
         \expandafter\@global@append\expandafter\@degenerateids%
         \expandafter{\ME{}}%
-      \fi}%
+      \fi%
+    }%
     #1%
-  \endgroup}
+  \endgroup%
+}
 
 
 %%%%%
@@ -1630,10 +1858,14 @@
   \else%
     \@append\@tmp{\labelfalse}%
   \fi%
-  \def\@i##1{\expandafter\@append\expandafter\@tmp\expandafter{%
-    \expandafter\s\expandafter##1\expandafter{##1}}}%
+  \def\@i##1{%
+    \expandafter\@append\expandafter\@tmp\expandafter{%
+      \expandafter\s\expandafter##1\expandafter{##1}%
+    }%
+  }%
   \@playerfields%
-  \etoss{\INSTANCE{Char}{\let\@fakedplayer\empty\s\MYname{}\?\@tmp}{}}}
+  \etoss{\INSTANCE{Char}{\let\@fakedplayer\empty\s\MYname{}\?\@tmp}{}}%
+}
 
 
 
@@ -1653,7 +1885,8 @@
 
 
 \long\def\STARTINPUTS#1\FINISHINPUTS{%
-  \edef\@inputinputs{\let\noexpand\@inputinputs\relax\unexpanded{#1}}}
+  \edef\@inputinputs{\let\noexpand\@inputinputs\relax\unexpanded{#1}}%
+}
 
 \STARTINPUTS
 
@@ -1664,10 +1897,10 @@
 \message{\space\space Graphics Packages: pstricks graphicx lscape}
 \message{\space\space Symbol Packages: latexsym amssymb textcomp}
 \batchmode
-\usepackage{pslatex,verbatim,multicol,comma,multido,alltt}
-\usepackage[normalem]{ulem}
-\usepackage{pstricks,graphicx,lscape}
-\usepackage{latexsym,amssymb,textcomp}
+  \usepackage{pslatex,verbatim,multicol,comma,multido,alltt}
+  \usepackage[normalem]{ulem}
+  \usepackage{pstricks,graphicx,lscape}
+  \usepackage{latexsym,amssymb,textcomp}
 \errorstopmode
 
 
@@ -1700,31 +1933,32 @@
   \F\MYname
   \FD\MYnumber	{}
   \FD\MYlistmap	{\item\MYname}
+  \FD\MYjson	{}
   \@@declaredfields
   %% \relax -> true, \empty -> false
   \owner
   \suite
   \nottransowner
-  }
+}
 \POSTSETS{Owner}{
   \protected@edef\@ownerstring{\MYname}
-  }
+}
 
 \DECLARESUBTYPE{SubOwner}{Owner}
 \PRESETS{SubOwner}{
   \notsuite
   \@@@unique=0\relax
-  }
+}
 
 \DECLARESUBTYPE{Element}{SubOwner}
 \PRESETS{Element}{
   \ownerdefault
-  }
+}
 
 \DECLARESUBTYPE{TransElement}{Element}
 \PRESETS{TransElement}{
   \transowner
-  }
+}
 
 \MAP{Owner}{\MYname}
 
@@ -1743,12 +1977,59 @@
   \@i\MYids	{ids}%% identities
   \@ii\MYskills	{skills}%% abil macros
   \@ii\MYstats	{stats}%% stat macros
-  }
+}
 \def\@ii{\@i}
 
 \let\@@declaredfields\empty
 \def\@i#1#2{\@append\@@declaredfields{\FD#1{}}}
 \@ownedfields
+
+
+%%%%%
+%%
+\long\def\jsonkeyval#1#2{%
+  \protected@edef\@valcontents{#2}
+  \begingroup%
+    \gdef\@sanitizedjson{}%
+    \catcode`\\12%
+    \catcode`\{12%
+    \catcode`\}12%
+    \catcode`\ 12%
+    \everyeof{\@endsanitize}%
+    \expandafter\expandafter\expandafter\@iteratesanitize\expandafter%
+    \scantokens\expandafter{\@valcontents}%
+  \endgroup%
+  \append\MYjson{"#1":"}%
+  \expandafter\append\expandafter\MYjson\expandafter{\@sanitizedjson}%
+  \append\MYjson{",}%
+}
+
+\def\@iteratesanitize{\@sanitizeforjson}
+\def\@endsanitize{\@@endsanitize}
+\def\@@endsanitize{\relax}
+\def\@appendbackslash{\expandafter\@global@append\expandafter\@sanitizedjson%
+  \expandafter{\string\\}%
+}
+\def\@appenddoublequote{\expandafter\@global@append\expandafter\@sanitizedjson%
+  \expandafter{\string\"}%
+}
+\long\def\@sanitizeforjson#1{%
+  \def\@@next{\@sanitizeforjson}%
+  \ifx#1"%
+    \@appenddoublequote%
+  \else%
+    \expandafter\ifx\expandafter#1\@backslashchar%
+      \@appendbackslash%
+    \else%
+      \ifx#1\@endsanitize%
+        \def\@@next{}%
+      \else%
+        \@global@append\@sanitizedjson{#1}%
+      \fi%
+    \fi%
+  \fi%
+  \@@next%
+}
 
 
 %%%%%
@@ -1769,11 +2050,14 @@
   \@i\MYphone		%% player phone number
   \@i\MYnote		%% playerlist note
   \@i\MYplayerparse	%% playername's parse type
-  }
+}
 
 \let\@@declaredplayer\empty
 \def\@i#1{\@append\@@declaredplayer{\FD#1{}}}
 \@playerfields
+
+\newcommand{\optionalsep}[4]{#1\ifx#2\empty\else#3#2#4\fi}
+\newcommand{\optionalparen}[2]{\optionalsep{#1}{#2}{ (}{)}}
 
 \PRESETS{Char}{
   \@@declaredplayer
@@ -1784,31 +2068,36 @@
   \newid\nick{}
   \newid\maiden{}
   \let\@myfile\empty
-  \def\@contact{\contactmapping\ifx\MYplayer\empty\else\ (\MYplayer)\fi}
+  \def\@contact{\contactmapping\ifx\MYplayer\empty\else, played by \optionalparen{\MYplayer}{\MYplayerpronouns}\fi}
   \FS\MYcontact{\@contact}
   \idnormal
   \allmap{\full}
   \titlemap{\full}
   \defaultnamemappings
   \def\@i{\tagged}\@ownedfields
-  }
+}
 
-\def\@procplayer{\setbox0=\hbox{%
-  \MAP{Player}{%
-    \def\@tmp{\let\@noplayer\empty}%
-    \def\@i##1{\@append\@tmp{\rs##1{\?##1}}}%
-    \@playerfields%
-    \expandafter\etoss\expandafter{\expandafter\stoss\expandafter{\@tmp}}}%
-  \MAP{GM}{%
-    \def\@tmp{\let\@noplayer\empty}%
-    \def\@i##1{\@append\@tmp{\rs##1{\?##1}}}%
-    \@playerfields%
-    \expandafter\etoss\expandafter{\expandafter\stoss\expandafter{\@tmp}}}%
-  \tiny %% shut up the log complaint about \nullfont
-  \MYplayer}}
+\def\@procplayer{%
+  \setbox0=\hbox{%
+    \MAP{Player}{%
+      \def\@tmp{\let\@noplayer\empty}%
+      \def\@i##1{\@append\@tmp{\rs##1{\?##1}}}%
+      \@playerfields%
+      \expandafter\etoss\expandafter{\expandafter\stoss\expandafter{\@tmp}}%
+    }%
+    \MAP{GM}{%
+      \def\@tmp{\let\@noplayer\empty}%
+      \def\@i##1{\@append\@tmp{\rs##1{\?##1}}}%
+      \@playerfields%
+      \expandafter\etoss\expandafter{\expandafter\stoss\expandafter{\@tmp}}%
+    }%
+    \tiny %% shut up the log complaint about \nullfont
+    \MYplayer%
+  }%
+}
 
 \POSTSETS{Char}{
-  \parsename{\MYname}	%% parse the character name
+  \parsename{\MYname} %% parse the character name
   \let\@noplayer\relax\@procplayer
   \begingroup
     \western
@@ -1816,8 +2105,18 @@
     \parsename{\MYplayer} %% parse the player name
     \etoss{\def\playeralphabetical{\?\alphabetical}}
   \endgroup
-  \protected@edef\@ownerstring{\MYname\ifx\MYplayer\empty\else\ (\MYplayer)\fi}
+  \protected@edef\@ownerstring{%
+    \MYname%
+    \unless\ifx\MYplayer\empty%
+      \ (\MYplayer)%
+    \fi%
   }
+  \jsonkeyval{player}{\MYplayer}
+  \jsonkeyval{email}{\MYemail}
+  \jsonkeyval{address}{\MYaddress}
+  \jsonkeyval{phone}{\MYphone}
+  \jsonkeyval{note}{\MYnote}
+}
 
 
 %%%%%
@@ -1827,7 +2126,7 @@
   \@@declaredplayer
   \listtrue
   \labeltrue
-  }
+}
 \MAP{Player}{\MYplayer}
 
 
@@ -1838,7 +2137,7 @@
   \FD\MYabbrev	{\MYname}
   \FD\MYvalue	{}
   \rs\MYlistmap{\item\makebox[2in]{\MYname: \hfill}\MYvalue}
-  }
+}
 
 
 %%%%%
@@ -1847,7 +2146,10 @@
 %% \stat is a wrapper around \INSTANCE.  \stat commands are generated
 %% \newstat.
 \newinstance{Stat}{\stat[3]}{
-  \s\MYname{#1}\s\MYabbrev{#2}\s\MYvalue{#3}}
+  \s\MYname{#1}%
+  \s\MYabbrev{#2}%
+  \s\MYvalue{#3}%
+}
 
 
 %%%%%
@@ -1859,7 +2161,7 @@
 \newcommand{\newstat}[4]{%
   \FD#1{#4}%
   \append\MYstats{\stat{#2}{#3}{#1}}%
-  }
+}
 
 
 %%%%%
@@ -1874,13 +2176,18 @@
 %% in \PRESETS.
 \newcommand{\resolvestats}{%
   \begingroup%
-    \BRANCHTYPES{Stat}{\MAP{\TYPE}{%
-      \edef\@tmpvalue{\MYvalue}%
-      \etoss{\stoss{\append\MYstats{\?\ME[\rs\MYvalue{\?\@tmpvalue}]{}}}}%
-      }}
+    \BRANCHTYPES{Stat}{%
+      \MAP{\TYPE}{%
+        \edef\@tmpname{\MYname}%
+        \edef\@tmpvalue{\MYvalue}%
+        \etoss{\stoss{\append\MYstats{\?\ME[\rs\MYvalue{\?\@tmpvalue}]{}}}}%
+        \etoss{\stoss{\jsonkeyval{\?\@tmpname}{\?\@tmpvalue}}}%
+      }%
+    }
     \stoss{\rs\MYstats{}}%
     \MYstats%
-  \endgroup}
+  \endgroup%
+}
 
 
 %%%%%
@@ -1894,35 +2201,63 @@
   \FD\MYmods	{} %% modifications to surrounding Char
   \def\OPTIONHOOK{\doid}
   \let\@listcharstuff\empty%
-  }
+}
 
 \def\listcharstuff{\let\@listcharstuff\relax}
 
-\long\def\newid#1#2{\let#1\empty\renewcommand#1[1][]{%
-  \INSTANCE{Identity}{\s\MYname{\string#1}\s\MYmods{#2##1}}}}
+\long\def\newid#1#2{%
+  \let#1\empty%
+  \renewcommand#1[1][]{%
+    \INSTANCE{Identity}{%
+      \s\MYname{\string#1}%
+      \s\MYmods{#2##1}%
+    }%
+  }%
+}
 \newinstance{Identity}{\identity[1]}{\s\MYname{identity}\s\MYmods{#1}}
 
 \MAP{Identity}{}
 \let\@myidchar\relax
 \def\@@idmap{\MYMAP}
-\long\def\doid#1{\begingroup\let\@tmp\empty%
-  \def\@idarg{#1}%
-  \ifx\@transowner\relax\let\@tmp\relax\fi%
-  \ifx\@myidchar\relax\let\@tmp\relax\fi%
-  \ifx\@listcharstuff\empty%
-    \def\@i##1##2{\expandafter\@prepend\expandafter\MYmods\expandafter{%
-      \expandafter\rs\expandafter##1\expandafter{##1}}}%
-    \@ownedfields%
-  \fi%
-  \@prepend\MYmods{%
-    \badgefalse\statsfalse\skillsfalse\sheetfalse\listfalse\labelfalse}%
-  \ifx\@tmp\relax%
-    \preprocess{\@prepend\MYmods{%
-      \rs\MYname{\?\MYname}\rs\MYnumber{\?\MYnumber}}}%
-    \etoss{\INSTANCE{Char}{\s\MYname{}\?\MYmods}{\?\@idarg}}%
-  \else%
-    \etoss{\@myidchar[\?\MYmods]{\?\@idarg}}%
-  \fi\endgroup}
+\long\def\doid#1{%
+  \begingroup%
+    \let\@tmp\empty%
+    \def\@idarg{#1}%
+    \ifx\@transowner\relax%
+      \let\@tmp\relax%
+    \fi%
+    \ifx\@myidchar\relax%
+      \let\@tmp\relax%
+    \fi%
+    \ifx\@listcharstuff\empty%
+      \def\@i##1##2{%
+        \expandafter\@prepend\expandafter\MYmods\expandafter{%
+          \expandafter\rs\expandafter##1\expandafter{##1}%
+        }%
+      }%
+      \@ownedfields%
+    \fi%
+    \@prepend\MYmods{%
+      \badgefalse%
+      \statsfalse%
+      \skillsfalse%
+      \sheetfalse%
+      \listfalse%
+      \labelfalse%
+    }%
+    \ifx\@tmp\relax%
+      \preprocess{%
+        \@prepend\MYmods{%
+          \rs\MYname{\?\MYname}%
+          \rs\MYnumber{\?\MYnumber}%
+        }%
+      }%
+      \etoss{\INSTANCE{Char}{\s\MYname{}\?\MYmods}{\?\@idarg}}%
+    \else%
+      \etoss{\@myidchar[\?\MYmods]{\?\@idarg}}%
+    \fi%
+  \endgroup%
+}
 
 
 %%%%%
@@ -1950,13 +2285,13 @@
   \def\usual{\@uid{\@umap}}%
   \def\contactmapping{\@cid{\@cmap}}%
   \def\titlemapping{\@tmap}%
-  }
+}
 
 \PRESETS{Identity}{%
   \def\intro{\@imap}%
   \def\usual{\@umap}%
   \def\contactmapping{\@cmap}%
-  }
+}
 
 \MAP{Char}{\usual}
 
@@ -1971,20 +2306,23 @@
 \newinstance{Identity}{\extrabadge[3]}{%
   \s\MYname	{extra badge}
   \s\MYmods	{\badgetrue}
-  \def\@tmp{#2}\unless\ifx\@tmp\@same%
+  \def\@tmp{#2}%
+  \unless\ifx\@tmp\@same%
     \s\MYnumber	{#2}%
     \rs\MYname	{#2}%
     \append\MYmods{\rs\MYnumber{#2}}%
   \fi%
-  \def\@tmp{#3}\unless\ifx\@tmp\@same%
+  \def\@tmp{#3}%
+  \unless\ifx\@tmp\@same%
     \rs\MYname	{#3}%
     \append\MYmods{\rs\MYdesc{#3}}%
   \fi%
-  \def\@tmp{#1}\unless\ifx\@tmp\@same%
+  \def\@tmp{#1}%
+  \unless\ifx\@tmp\@same%
     \rs\MYname	{#1}%
     \append\MYmods{\rs\MYname{#1}}%
   \fi%
-  }
+}
 
 \newinstance{Identity}{\boxlabel[1]}{%
   \s\MYname	{#1}
@@ -1993,7 +2331,7 @@
 		\rs\MYname	{#1}%
 		\rs\MYplayer	{#1}%
 		}
-  }
+}
 
 
 %%%%%
@@ -2010,7 +2348,7 @@
 \PRESETS{Align}{
   \F\MYoffense
   \F\MYdefense
-  }
+}
 
 \input \lists/combat-LIST.tex
 
@@ -2038,7 +2376,7 @@
   \@@declaredplayer
   \credittrue
   \listtrue
-  }
+}
 
 \POSTSETS{GM}{
   \parsename{\MYname}
@@ -2048,7 +2386,7 @@
     \parsename{\MYplayer}
     \etoss{\def\playeralphabetical{\?\alphabetical}}
   \endgroup
-  }
+}
 
 \input \lists/gm-LIST.tex
 \MAP{GM}{\MYname}
@@ -2081,22 +2419,28 @@
 %% \basequote is the basis for the other quote macros below.  It
 %% typesets <text> and then, if <author> isn't empty, typesets
 %% <author>.
-\long\def\basequote#1#2{{%
-  \vbox{%
-    \vskip\parskip%
-    \baselineskip0pt%
-    \def\baselinestretch{1}%
-    \hbox to\textwidth{%
-      \hsize\textwidth%
-      \advance\hsize-1in%
-      \hfill%
-      \parbox[b]{\hsize}{#1}
-      \hfill}%
-    \setbox0=\hbox{\parbox[b]{2.5in}{#2}}\par%
-    \ifdim\wd0>0sp%
-      \vskip-.5\baselineskip%
-      \noindent\makebox[\textwidth][r]{\box0}%
-    \fi}}}
+\long\def\basequote#1#2{%
+  \begingroup%
+    \vbox{%
+      \vskip\parskip%
+      \baselineskip0pt%
+      \def\baselinestretch{1}%
+      \hbox to\textwidth{%
+        \hsize\textwidth%
+        \advance\hsize-1in%
+        \hfill%
+        \parbox[b]{\hsize}{#1}
+        \hfill%
+      }%
+      \setbox0=\hbox{\parbox[b]{2.5in}{#2}}%
+      \par%
+      \ifdim\wd0>0sp%
+        \vskip-.5\baselineskip%
+        \noindent\makebox[\textwidth][r]{\box0}%
+      \fi%
+    }%
+  \endgroup%
+}
 
 
 %%%%%
@@ -2106,7 +2450,7 @@
 %% for larger quotes.
 \long\def\bigquote#1#2{%
   \basequote{\em #1}{\raggedright\scriptsize\em #2}%
-  }
+}
 
 
 %%%%%
@@ -2116,7 +2460,7 @@
 %% smaller quotes, song lyrics, and the like.
 \long\def\cenquote#1#2{%
   \basequote{\centering\em #1}{\raggedright\scriptsize\em #2}%
-  }
+}
 
 
 %%%%%
@@ -2187,6 +2531,8 @@
 %% setspace package, for line spacing.
 \usepackage{fancyhdr,setspace}
 
+\usepackage{\sheetfont}
+
 
 %%%%%
 %% margins, spacing, paragraph settings, etc.
@@ -2219,12 +2565,24 @@
 
 \lhead{\em\scriptsize\gamename\ / \gamedate}
 
-\rhead{\begingroup%
-  \em\scriptsize%
-  \setbox0\hbox{%
-      \bfseries\footnotesize\ifx\@transowner\relax\mysubowner\else\myowner\fi}%
-  \ifdim\wd0>0sp\mbox{\box0} / \fi\mytype%
-  \endgroup}
+\rhead{%
+  \begingroup%
+    \em\scriptsize%
+    \setbox0\hbox{%
+      \bfseries%
+      \footnotesize%
+      \ifx\@transowner\relax%
+        \mysubowner%
+      \else%
+        \myowner%
+      \fi%
+    }%
+    \ifdim\wd0>0sp%
+      \mbox{\box0} / %
+    \fi%
+    \mytype%
+  \endgroup%
+}
 
 \lfoot{\parbox{2.5in}{\em\scriptsize\mytitle}}
 \cfoot{\em\scriptsize\thepage}
@@ -2241,79 +2599,101 @@
   \cleardocument%
   \gdef\myowner{#1}%
   \gdef\mysubowner{}%
-  }
-
+}
 
 %%%%%
 %% \title@display{<text>}
 %%
 %% To change how the titles of sheets are typeset, change this macro.
-\long\def\title@display#1{{%
-  \baselineskip0pt%
-  \lineskip3pt%
-  \parskip3pt%
-  \def\baselinestretch{0}%
-  \let\\\par%
-  \parindent0pt%
-  \centering%
-  \hbox to\textwidth{%
-    \hfill%
-    \vbox{%
-      \hsize\textwidth%
-      \advance\hsize-1in%
-      \hrulefill%
-      \vskip\lineskip%
-      {\bfseries#1\par}%
-      \vskip\lineskip%
-      \hrulefill}%
-    \hfill}%
-  \vskip5pt%
-  \vskip\parskip%
-  }}
+\long\def\title@display#1{%
+  \begingroup%
+    \baselineskip0pt%
+    \lineskip3pt%
+    \parskip3pt%
+    \def\baselinestretch{0}%
+    \let\\\par%
+    \parindent0pt%
+    \centering%
+    \hbox to\textwidth{%
+      \hfill%
+      \vbox{%
+        \hsize\textwidth%
+        \advance\hsize-1in%
+        \hrulefill%
+        \vskip\lineskip%
+        \begingroup%
+          \bfseries#1%
+          \par%
+        \endgroup%
+        \vskip\lineskip%
+        \hrulefill}%
+      \hfill%
+    }%
+    \vskip5pt%
+    \vskip\parskip%
+  \endgroup%
+}
 
 
 %%%%%
 %% \template@title@display
 %% \useicon[<width>]{<icon file>}
 %%
-%% \template@title@display produces a title bar similar to the kind
-%% used in Template (~jemorris/Template/) sheets.
+%% \template@title@display produces a title bar with an icon
+%% from an image beside it.
 %%
 %% \useicon specifies the icon graphic that will be used, and
 %% optionally specifies the width at which the graphic will be
 %% displayed.  The file, which you will need to supply, should be a
 %% suitable icon graphic for sheets.
 %%
-%% To use, simply add "\def\title@display{\template@title@display}"
-%% here.
+%% To use, simply uncomment the following line.
+%% Individual documents can override \useicon for their own sheets.
+
+% \def\title@display{\template@title@display}
 
 \newcommand\useicon[2][7em]{%
-  \def\icon@width{#1}\ifdim\icon@width>0pt%
+  \def\icon@width{#1}%
+  \ifdim\icon@width>0pt%
     \def\icon@file{#2}%
   \else%
     \def\icon@file{}%
-  \fi}
+  \fi%
+}
 
-\useicon{\postscript/icon.eps}
+\useicon{\postscript/icon}
 
 \def\line@across{\mbox{}\leaders\hrule height.6ex depth-.55ex\hfill\null}
-\long\def\template@title@display#1{{%
-  \noindent%
-  \valign{\centering \vfil##\vfil\cr%
-    \ifx\icon@file\empty\else%
-      \hsize=\icon@width\includegraphics[width=\hsize]{\icon@file}\cr%
-      \advance\hsize-\icon@width%
-    \fi%
-    \parindent5pt%
-    {\line@across}%
-    \break\vfil%
-    {\Large#1}%
-    \break\vfil%
-    {\line@across}%
-    \cr}%
-  \vskip5pt%
-  \vskip\parskip%
-  }}
+\long\def\template@title@display#1{
+  \begingroup%
+    \noindent%
+    \valign{%
+      \centering \vfil##\vfil%
+      \cr%
+      \unless\ifx\icon@file\empty%
+        \hsize=\icon@width%
+        \includegraphics[width=\hsize]{\icon@file}%
+        \cr%
+        \advance\hsize-\icon@width%
+      \fi%
+      \parindent5pt%
+      \begingroup%
+        \line@across%
+      \endgroup%
+      \break\vfil%
+      \begingroup%
+        \Large\bfseries#1%
+      \endgroup%
+      \break\vfil%
+      \begingroup%
+        \line@across
+      \endgroup%
+      \cr%
+    }%
+    \vskip5pt%
+    \vskip\parskip%
+  \endgroup%
+}
 
 
 %%%%%
@@ -2328,7 +2708,7 @@
   \begingroup%
     \title@display{#1}%
   \endgroup%
-  }
+}
 
 
 %%%%%
@@ -2336,9 +2716,17 @@
 %%
 %% In generic sheets, \name is an alias for \sheettitle, that also
 %% adds the number if it isn't empty.
-\long\def\name#1{{%
-  \MAP{Owner}{\MYname\ifx\MYnumber\empty\else\\\MYnumber\fi}%
-  \sheettitle{#1}}}
+\long\def\name#1{%
+  \begingroup%
+    \MAP{Owner}{%
+      \MYname%
+      \unless\ifx\MYnumber\empty%
+        \\\MYnumber%
+      \fi%
+    }%
+    \sheettitle{#1}%
+  \endgroup%
+}
 
 
 %%%%%
@@ -2374,20 +2762,28 @@
 \global\let\@feetstore\empty
 
 \newcommand{\tlist}[2][2]{% %% defaults to 2 columns
-  \null\par\vbox\bgroup%
+  \null\par%
+  \vbox\bgroup%
     \itemz[#2]%
       %% don't nest tlist
       \def\tlist##1{%
-        \ClassError{\gameclassname}%
-          {Nested tlist environment. \space Attempting to ignore}%
-          {You shouldn't nest the tlist environment.\MessageBreak%
-           Nesting the itemz environment might do what you want.}%
+        \ClassError{\gameclassname}{%
+          Nested tlist environment. \space Attempting to ignore%
+        }{%
+           You shouldn't nest the tlist environment.\MessageBreak%
+           Nesting the itemz environment might do what you want.%
+        }%
         \expandafter\def\expandafter\endtlist\expandafter{%
-          \expandafter\def\expandafter\endtlist\expandafter{\endtlist}}}%
+          \expandafter\def\expandafter\endtlist\expandafter{\endtlist}%
+        }%
+      }%
       %% if no \items, produce \item none
       \global\let\@itemzhere\empty%
       \let\@normitem\item%
-      \def\item{\global\let\@itemzhere\relax\@normitem\relax}%
+      \def\item{%
+        \global\let\@itemzhere\relax%
+        \@normitem\relax%
+      }%
       %% hack to fix \footnotes inside tlist
       \gdef\@feetstore{\global\let\@feetstore\empty}%
       \renewcommand{\footnote}[2][\@feet]{%
@@ -2400,7 +2796,8 @@
           \else%
             \@global@append\@feetstore{\footnotetext[##1]{##2}}
           \fi%
-        \endgroup}%
+        \endgroup%
+      }%
       %% list functionality
       \makemultishort%
       \long\def\unlist##1{}%
@@ -2417,17 +2814,22 @@
         \begin{multicols}{#1}%
           \raggedcolumns%
           \raggedright%
-      \fi}
+      \fi%
+}
 
 \def\endtlist{%
       \let\item\@normitem%
-      \ifx\@itemzhere\empty\item none\fi%
+      \ifx\@itemzhere\empty%
+        \item none%
+      \fi%
       \unless\ifnum\@colz=1\relax%
         \end{multicols}%
       \fi%
-    \enditemz\egroup%
-  \@feetstore\par}
-
+    \enditemz%
+  \egroup%
+  \@feetstore%
+  \par%
+}
 
 %%%%%
 %% \PDFPart
@@ -2450,19 +2852,26 @@
   \global\textheight20\textheight%
   \parskip5pt%
   \parindent0pt%
-  \def\title@display##1{{%
-    \parskip0pt%
-    \par-{}-{}-{}-{}-{}-{}-{}-{}-%
+  \def\title@display##1{%
+    \begingroup%
+      \parskip0pt%
+      \par-{}-{}-{}-{}-{}-{}-{}-{}-%
+      \par##1%
+      \par-{}-{}-{}-{}-{}-{}-{}-{}-%
+      \par%
+    \endgroup%
+  }%
+  \def\basequote##1##2{%
     \par##1%
-    \par-{}-{}-{}-{}-{}-{}-{}-{}-%
-    \par}}%
-  \def\basequote##1##2{\par##1\par\hskip.25in\relax##2}%
+    \par\hskip.25in\relax%
+    ##2%
+  }%
   \let\bigquote\basequote%
   \let\cenquote\basequote%
-  \let\cleardocument\relax}
+  \let\cleardocument\relax%
+}
 
 \@onlypreamble\EmailPart
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 }
@@ -2476,7 +2885,6 @@
 %%%%%
 \gdef\mytype{Character Sheet}
 
-
 %%%%%
 %% setting up \@namehook, that prints out the present character's
 %% lists at the end of each charsheet.
@@ -2486,43 +2894,49 @@
 
 %%%%%
 %% \name{}
-\long\def\name#1{{%
-  \@namehook%
+\long\def\name#1{%
   \begingroup%
-    \gdef\@tmp{}%
-    \MAP{Char}{%
-      \global\let\@tmp\relax%
-      \stoss{\MAP{Char}{\gdef\@tmp{}}}%
+    \@namehook%
+    \begingroup%
+      \gdef\@tmp{}%
+      \MAP{Char}{%
+        \global\let\@tmp\relax%
+        \stoss{\MAP{Char}{\gdef\@tmp{}}}%
       }%
-    \setbox0=\hbox{#1}%
-    \ifdim\wd0>0sp\gdef\@tmp{}\fi%
-  \endgroup%
-  \ifx\@tmp\empty%
-    \sheettitle{#1}%
-  \else%
-    \MAP{Char}{%
-      \expandafter\sheettitle\expandafter{\ME{\titlemapping}}%
-      \expandafter\gdef\expandafter\me\expandafter{\ME}%
-      \expandafter\gdef\expandafter\@namehook\expandafter{\expandafter{%
-        \me{%
-          \gettags%
-          \@flatten@lists%
-          \BRANCHTYPES{Owner}{%
-            \SURFACEMAP{\TYPE}{\MYlistmap\uniquemark}}%
-          \charsheetlists%
+      \setbox0=\hbox{#1}%
+      \ifdim\wd0>0sp%
+        \gdef\@tmp{}%
+      \fi%
+    \endgroup%
+    \ifx\@tmp\empty%
+      \sheettitle{#1}%
+    \else%
+      \MAP{Char}{%
+        \expandafter\sheettitle\expandafter{\ME{\titlemapping}}%
+        \expandafter\gdef\expandafter\me\expandafter{\ME}%
+        \expandafter\gdef\expandafter\@namehook\expandafter{\expandafter{%
+          \me{%
+            \gettags%
+            \@flatten@lists%
+            \BRANCHTYPES{Owner}{%
+              \SURFACEMAP{\TYPE}{\MYlistmap\uniquemark}}%
+            \charsheetlists%
           }%
-        \gdef\@namehook{}}}%
+          \gdef\@namehook{}}%
+        }%
       }%
-    #1%
-  \fi}}
+      #1%
+    \fi%
+  \endgroup%
+}
 
 \iftags
   \long\def\starttag#1#2\endtag{}
 \else
   \long\def\starttag#1#2\endtag{%
-    \typeout{\unexpanded{! don't use \starttag ... \endtag with \tagsfalse}}}
+    \typeout{\unexpanded{! don't use \starttag ... \endtag with \tagsfalse}}%
+  }
 \fi
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 }
@@ -2545,9 +2959,11 @@
 \@append\PDFPart{%
   \usepackage{color}%
   \pagecolor[rgb]{0.5, 0.8, 1.0}%
-  \special{ps:[/DataSource (gsave 1 setgray clippath fill grestore)%
-    /Level1 (gsave 1 setgray clippath fill grestore) /PS pdfmark }%
-  }
+  \special{%
+    ps:[/DataSource (gsave 1 setgray clippath fill grestore)%
+    /Level1 (gsave 1 setgray clippath fill grestore) /PS pdfmark %
+  }%
+}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2576,9 +2992,11 @@
 \@append\PDFPart{%
   \usepackage{color}%
   \pagecolor[rgb]{0.5, 1.0, 0.8}%
-  \special{ps:[/DataSource (gsave 1 setgray clippath fill grestore)%
-    /Level1 (gsave 1 setgray clippath fill grestore) /PS pdfmark }%
-  }
+  \special{%
+    ps:[/DataSource (gsave 1 setgray clippath fill grestore)%
+    /Level1 (gsave 1 setgray clippath fill grestore) /PS pdfmark %
+  }%
+}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -2673,7 +3091,10 @@
 \long\def\name#1{%
   \ifx\@zeroth\relax%
     \thispagestyle{empty}%
-    \noindent{\bf\myowner\ / Whitesheets}%
+    \noindent
+    \begingroup%
+      \bf\myowner\ / Whitesheets%
+    \endgroup%
     \cleardocument%
   \fi%
   \rhead{\em\scriptsize Game Item/Freely Transferable}%
@@ -2686,16 +3107,22 @@
     \MAP{White}{%
       \global\let\@tmp\relax%
       \stoss{\MAP{White}{\gdef\@tmp{}}}%
-      }%
+    }%
     \setbox0=\hbox{#1}%
-    \ifdim\wd0>0sp\gdef\@tmp{}\fi%
+    \ifdim\wd0>0sp%
+      \gdef\@tmp{}%
+    \fi%
   \endgroup%
-  \ifx\@tmp\empty\else%
+  \unless\ifx\@tmp\empty%
     %% typeset number
-    \MAP{White}{\ifx\MYnumber\empty\else\emph{[item number \MYnumber]}\fi}%
+    \MAP{White}{%
+      \unless\ifx\MYnumber\empty%
+        \emph{[item number \MYnumber]}%
+      \fi%
+    }%
     #1%
   \fi
-  }
+}
 
 
 %%%%%
@@ -2707,7 +3134,7 @@
   \fi%
   \gdef\mysubowner{}%
   \global\let\@zeroth\relax%
-  }
+}
 
 
 %%%%%
@@ -2776,14 +3203,27 @@
   \ifx\@landscapeplayerlist\relax%
     \raisebox{\baselineskip}{%
       \raisebox{-\totalheight}[0pt][0pt]{%
-        \includegraphics[trim= .4in 0 0 0, angle=-90, origin=c]%
-          {\postscript/bigdagger.epsi}}}%
+        \includegraphics[%
+          trim= .4in 0 0 0,
+          angle=-90,
+          origin=c%
+        ]{%
+          \postscript/bigdagger%
+        }%
+      }%
+    }%
   \else%
     \raisebox{-\totalheight}[0pt][0pt]{%
-      \includegraphics[trim=1.5in 3in 0 3in, angle=-77, origin=c]%
-        {\postscript/bigdagger.epsi}}%
+      \includegraphics[%
+        trim=1.5in 3in 0 3in,
+        angle=-77,
+        origin=c%
+      ]{%
+        \postscript/bigdagger%
+      }%
+    }%
   \fi%
-  }
+}
 
 \ifx\@landscapeplayerlist\relax
   \@LandscapeMode%
@@ -2822,9 +3262,15 @@
 \newcommand{\@column}[2][]{%
   \raisebox{-.5\height}{%
     \parbox[b]{#1\@columnwidth}{%
-      \leftskip5pt\rightskip0pt plus1fill%
-      \hskip-5pt\relax#2}}%
-  \hfill\ignorespaces}
+      \leftskip5pt%
+      \rightskip0pt plus1fill%
+      \hskip-5pt\relax%
+      #2%
+    }%
+  }%
+  \hfill%
+  \ignorespaces%
+}
 
 \let\column\empty
 \def\@colheader{\renewcommand{\column}[3][]{\@column[##1]{##2}}}
@@ -2842,38 +3288,74 @@
   \def\@tmp{#1}%
   \ifx\@tmp\empty%
     \setbox0=\hbox{%
-        \@colnum=0\relax\@colcount\ignorespaces#2%
-        \@columnwidth=\textwidth%
-        \divide\@columnwidth by\@colnum\relax%
-        \global\@columnwidth\@columnwidth}
+      \@colnum=0\relax%
+      \@colcount%
+      \ignorespaces%
+      #2%
+      \@columnwidth=\textwidth%
+      \divide\@columnwidth by\@colnum\relax%
+      \global\@columnwidth\@columnwidth%
+    }
   \else%
     \global\@columnwidth=#1%
   \fi%
-  \def\@entry{\vspace{.2\baselineskip}%
-    \hbox to\textwidth{\leftskip0pt\rightskip0pt%
-      \ignorespaces#2\hskip0pt minus1fill\relax}%
-    \par}%
-  \setbox0=\hbox{\leftskip0pt\rightskip0pt\@colheader\ignorespaces#2}%
+  \def\@entry{%
+    \vspace{.2\baselineskip}%
+    \hbox to\textwidth{%
+      \leftskip0pt%
+      \rightskip0pt%
+      \ignorespaces%
+      #2%
+      \hskip0pt minus1fill\relax%
+    }%
+    \par%
+  }%
+  \setbox0=\hbox{%
+    \leftskip0pt%
+    \rightskip0pt%
+    \@colheader%
+    \ignorespaces%
+    #2%
+  }%
   \dimen0=\wd0\relax%
   \ifdim\dimen0>\textwidth%
     \advance\dimen0-\textwidth%
     \typeout{^^J! Entries are wider than the page (by \the\dimen0).^^J}%
   \fi%
   \rhead{%
-    \sffamily\small\makebox[\textwidth]{\hfill\gamename\hfill\gamedate\hfill}\\
-    {\sffamily\bfseries\upshape\@colheader\@entry}}
-  \chead{\dagger@image}
+    \sffamily%
+    \small%
+    \makebox[\textwidth]{\hfill\gamename\hfill\gamedate\hfill}\\
+    \begingroup%
+      \sffamily%
+      \bfseries%
+      \upshape%
+      \@colheader%
+      \@entry%
+    \endgroup%
+  }%
+  \chead{\dagger@image}%
   \let\blank\@blank%
   \let\mark\@mark%
-  \def\@playerlistmap{\iflist\@colchar\@entry\fi}%
+  \def\@playerlistmap{%
+    \iflist%
+      \@colchar%
+      \@entry%
+    \fi}%
   \@bycharmappings{\@playerlistmap}%
-  \SURFACEMAP{GM}{\iflist\@colchar\@entry\fi}}
+  \SURFACEMAP{GM}{%
+    \iflist%
+      \@colchar%
+      \@entry%
+    \fi%
+  }%
+}
 
 \def\endplayerlist{\clearpage%
   \global\@columnwidth=0pt\relax%
   \global\let\entry\@undefined%
   \fancyhf{}%
-  }
+}
 
 
 %%%%%
@@ -2888,9 +3370,17 @@
   \blank%
   \begingroup%
     \@columnwidth\textwidth%
-    \@column{\sffamily\upshape\bfseries\relax#1}%
+    \@column{%
+      \sffamily%
+      \upshape%
+      \bfseries%
+      \relax%
+      #1%
+    }%
   \endgroup%
-  \par\nopagebreak}
+  \par%
+  \nopagebreak%
+}
 
 
 %%%%%
@@ -2898,15 +3388,22 @@
 %% \allplayers
 %% \allgms
 \def\allchars{%
-  \SORT{Char}{alpha<}{\alphabetical\divider\playeralphabetical}{%
-    \@charids}{\ifx\@fakedplayer\relax\@playerlistmap\fi}%
-  \@degenerateids}
+  \SORT{Char}{alpha<}{\alphabetical\divider\playeralphabetical}{\@charids}{%
+    \ifx\@fakedplayer\relax%
+      \@playerlistmap%
+    \fi%
+  }%
+  \@degenerateids%
+}
 \def\allplayers{%
   \SORT{Char}{alpha<}{\playeralphabetical}{\@charids}{%
-    \@givennoplayer{\@playerlistmap}}%
-  \@degenerateids}
+    \@givennoplayer{\@playerlistmap}%
+  }%
+  \@degenerateids%
+}
 \def\allgms{%
-  \SORT{GM}{alpha<}{\playeralphabetical}{\EVERY{GM}{}}{}}
+  \SORT{GM}{alpha<}{\playeralphabetical}{\EVERY{GM}{}}{}%
+}
 
 %%%%%
 %% \group{groupstring} -> alphabetize lists of Char macros in given
@@ -2915,77 +3412,84 @@
 \newcommand{\group}[1]{%
   \SORT{Char}{alpha<}{\alphabetical\divider\playeralphabetical}{%
     \SIFT{Char}{=}{\MYgroupstr}{#1}{\@charids}{}%
-    }{\@playerlistmap}}
+  }{\@playerlistmap}%
+}
 
 \newcommand{\groupasis}[1]{%
   \SIFT{Char}{=}{\MYgroupstr}{#1}{\@charids}{\@playerlistmap}%
-  }
+}
 
 
 %%%%%
 %%
 \def\longgameplayers{%
-  \begin{playerlist}
-    {\column{Player}{\MYplayer}
-     \column{Email}{\MYemail}
-     \column{Address}{\MYaddress}
-     \column{Phone}{\MYphone}
-     \column{Notes}{\MYnote}
-     }
-  \ifx\@landscapeplayerlist\relax
-    \footnotesize
-  \else
-    \tiny
-  \fi
-  \sffamily\slshape
-  \playergrouping
-  \end{playerlist}
-  }
+  \begin{playerlist}{%
+    \column{Player}{\MYplayer}%
+    \column{Email}{\MYemail}%
+    \column{Address}{\MYaddress}%
+    \column{Phone}{\MYphone}%
+    \column{Notes}{\MYnote}%
+  }%
+    \ifx\@landscapeplayerlist\relax%
+      \footnotesize%
+    \else%
+      \tiny%
+    \fi%
+    \sffamily%
+    \slshape%
+    \playergrouping%
+  \end{playerlist}%
+}
 
 
 \def\longgamechars{%
-  \begin{playerlist}
-    {\column{Character}{\MYname}
-     \column{Player}{\MYplayer}
-     \column{Email}{\MYemail}
-     \column{Address}{\MYaddress}
-     \column{Phone}{\MYphone}
-     \column{Notes}{\MYnote}
-     }
-  \ifx\@landscapeplayerlist\relax
-    \footnotesize
-  \else
-    \tiny
-  \fi
-  \sffamily\slshape
-  \charactergrouping
-  \end{playerlist}
-  }
+  \begin{playerlist}{%
+    \column{Character}{\MYname}%
+    \column{Player}{\MYplayer}%
+    \column{Email}{\MYemail}%
+    \column{Address}{\MYaddress}%
+    \column{Phone}{\MYphone}%
+    \column{Notes}{\MYnote}%
+  }%
+    \ifx\@landscapeplayerlist\relax%
+      \footnotesize%
+    \else%
+      \tiny%
+    \fi%
+    \sffamily%
+    \slshape%
+    \charactergrouping%
+  \end{playerlist}%
+}
 
 
 \def\shortgameplayers{%
-  \begin{playerlist}
-    {\column{Player}{\MYplayer}
-     \column{Email}{\MYemail}
-     \column{Notes}{\MYnote}
-     }
-  \small\sffamily\slshape
-  \playergrouping
-  \end{playerlist}
-  }
+  \begin{playerlist}{%
+    \column{Player}{\MYplayer}%
+    \column{Email}{\MYemail}%
+    \column{Notes}{\MYnote}%
+  }%
+    \small%
+    \sffamily%
+    \slshape%
+    \playergrouping%
+  \end{playerlist}%
+}
 
 
 \def\shortgamechars{%
-  \begin{playerlist}
-    {\column{Character}{\MYname}
-     \column{Player}{\MYplayer}
-     \column{Email}{\MYemail}
-     \column{Notes}{\MYnote}
-     }
-  \small\sffamily\slshape
-  \charactergrouping
-  \end{playerlist}
-  }
+  \begin{playerlist}{%
+    \column{Character}{\MYname}%
+    \column{Player}{\MYplayer}%
+    \column{Email}{\MYemail}%
+    \column{Notes}{\MYnote}%
+  }%
+    \small%
+    \sffamily%
+    \slshape%
+    \charactergrouping%
+  \end{playerlist}%
+}
 
 
 \def\@production{\playerlistproduction}
@@ -3075,13 +3579,19 @@
   \flushpage%
   \gdef\myowner{#1}%
   \gdef\mysubowner{}%
-  }
+}
 
 
 %%%%%
 %%
-\def\compactcards{\flushpage\lhead{}%
-  \long\def\@setowner##1{\gdef\myowner{##1}\gdef\mysubowner{}}}
+\def\compactcards{%
+  \flushpage%
+  \lhead{}%
+  \long\def\@setowner##1{%
+    \gdef\myowner{##1}%
+    \gdef\mysubowner{}%
+  }%
+}
 
 
 %%%%%
@@ -3091,7 +3601,9 @@
     \def\@tmp{#1}%
   \else%
     \def\@tmp{#1[\MYnumber]}%
-  \fi\@tmp}
+  \fi%
+  \@tmp%
+}
 
 
 %%%%%
@@ -3103,7 +3615,6 @@
 %% calls \makemultilong, so that "\multi{num}{foobar}" will produce
 %% "foobar" "num" times.
 \makemultilong
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 }
@@ -3191,39 +3702,69 @@
     \advance\abtxt@wd by-2\abiltxtmarg%
     \advance\abtxt@wd by-2\whitespace%
     \setbox\abil@front=\vbox{%
-        \leftskip=\whitespace plus1fil%
-        \rightskip=\whitespace plus1fil%
-        \hsize=\abilwidth%
-        \vskip\whitespace
-        {\small\abil@type\hfill\abil@owner}\break
-        \vskip\whitespace\vfil
-        {\bfseries\Large{#2}}\break
-        \vskip\whitespace\vfil
-        {\parbox{\abtxt@wd}{\raggedright{#3}}}\break
-        \vskip\whitespace\vfil
-        {\small\gamenameabbrev/\gamedateabbrev\hfill\abil@trans}%
-        \vskip\whitespace}%
+      \leftskip=\whitespace plus1fil%
+      \rightskip=\whitespace plus1fil%
+      \hsize=\abilwidth%
+      \vskip\whitespace
+      \begingroup%
+        \small%
+        \abil@type%
+        \hfill%
+        \abil@owner%
+      \endgroup%
+      \break
+      \vskip\whitespace\vfil
+      \begingroup%
+        \bfseries%
+        \Large%
+        #2%
+      \endgroup%
+      \break
+      \vskip\whitespace\vfil
+      \parbox{\abtxt@wd}{\raggedright{#3}}%
+      \break
+      \vskip\whitespace\vfil
+      \begingroup%
+        \small%
+        \gamenameabbrev/\gamedateabbrev\hfill\abil@trans%
+      \endgroup%
+      \vskip\whitespace%
+    }%
     \temp@dimen\ht\abil@front%
     \advance\temp@dimen\dp\abil@front%
     \ifdim\temp@dimen>\abilheight%
       \abilheight\temp@dimen%
     \fi%
     \setbox\abil@back=\vbox{%
-        \leftskip=\whitespace plus1fil%
-        \rightskip=\whitespace plus1fil%
-        \hsize=\abilwidth%
-        \vskip\whitespace
-        {\small\abil@type\hfill\abil@trans}\break
-        \vskip\whitespace\vfil
-        {\bfseries\Large\effecthead}\break
-        \vskip\whitespace\vfil
-        {\fboxsep=\effectframe%
-          \fbox{\parbox{\abtxt@wd}{\centering{%
-            \def\@tmp{#1}\ifx\@tmp\empty\else#1\\\fi%
-            #4}}}}\break
-        \vskip\whitespace\vfil
-        {\small\gamenameabbrev\hfill\gamedateabbrev}
-        \vskip\whitespace}%
+      \leftskip=\whitespace plus1fil%
+      \rightskip=\whitespace plus1fil%
+      \hsize=\abilwidth%
+      \vskip\whitespace
+      {\small\abil@type\hfill\abil@trans}\break
+      \vskip\whitespace\vfil
+      {\bfseries\Large\effecthead}\break
+      \vskip\whitespace\vfil
+      \begingroup%
+        \fboxsep=\effectframe%
+        \fbox{%
+          \parbox{\abtxt@wd}{%
+            \centering%
+            \def\@tmp{#1}%
+            \unless\ifx\@tmp\empty%
+              #1\\%
+            \fi%
+            #4%
+          }%
+        }%
+      \endgroup%
+      \break
+      \vskip\whitespace\vfil
+      \begingroup%
+        \small%
+        \gamenameabbrev\hfill\gamedateabbrev%
+      \endgroup%
+      \vskip\whitespace%
+    }%
     \temp@dimen\ht\abil@back%
     \advance\temp@dimen\dp\abil@back%
     \ifdim\temp@dimen>\abilheight%
@@ -3232,10 +3773,13 @@
     \ifdim\abilheight>\orig@height%
       \typeout{! ability card oversized}%
     \fi%
-    \doublecard%
-      {\fbox{\vbox to\abilheight{\unvbox\abil@front}}}%
-      {\mbox{\vbox to\abilheight{\unvbox\abil@back}}}%
-  \endgroup}
+    \doublecard{%
+      \fbox{\vbox to\abilheight{\unvbox\abil@front}}%
+    }{%
+      \mbox{\vbox to\abilheight{\unvbox\abil@back}}%
+    }%
+  \endgroup%
+}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3306,22 +3850,30 @@
 \newdimen\element@height
 \newcount\element@count
 \def\vgrayline{\textcolor{separator}{\rule{\separatorwidth}{\vsize}}}
-\def\topgrayline{\textcolor{separator}{\raisebox{-\totalheight}{%
-  \rule{\hsize}{.5\separatorwidth}}}}
+\def\topgrayline{%
+  \textcolor{separator}{%
+    \raisebox{-\totalheight}{%
+      \rule{\hsize}{.5\separatorwidth}%
+    }%
+  }%
+}
 \def\bottomgrayline{\textcolor{separator}{\rule{\hsize}{.5\separatorwidth}}}
 
 \def\@slottest#1#2{%
-  \ifx#2\empty\else%
+  \unless\ifx#2\empty%
     \begingroup%
       \advance\element@count-#2\relax%
       \ifnum\element@count>0%
         \typeout{! \the\element@count\space too many #1 slots}%
-      \else\ifnum\element@count<0%
-        \element@count-\element@count%
-        \typeout{! \the\element@count\space too few #1 slots}%
-      \fi\fi%
+      \else%
+        \ifnum\element@count<0%
+          \element@count-\element@count%
+          \typeout{! \the\element@count\space too few #1 slots}%
+        \fi%
+      \fi%
     \endgroup%
-  \fi}
+  \fi%
+}
 
 \newcommand\AlignmentCard[6][]{
   \begingroup%
@@ -3335,174 +3887,258 @@
     \rest@width=.75\alignwidth%
     \global\element@count=0%
     \setbox\align@front=\hbox{%
-        \def\element##1{\global\advance\element@count1\relax}%
-        #6}%
+      \def\element##1{\global\advance\element@count1\relax}%
+      #6%
+    }%
     \@slottest{defense}{\@defense}%
     \global\element@height\alignheight%
     \global\advance\element@height-\separatorwidth%
     \global\setbox\vector@front=\vbox{}%
-    \ifnum\element@count=0\else%
+    \unless\ifnum\element@count=0%
       \global\divide\element@height by\element@count%
-      \global\setbox\vector@front=\vbox{\hsize=\vector@width%
-          \smash{\bottomgrayline}}%
+      \global\setbox\vector@front=\vbox{%
+        \hsize=\vector@width%
+        \smash{\bottomgrayline}%
+      }%
       \setbox\align@front=\hbox{%
-          \def\element##1{%
-            \global\setbox\vector@front=\vbox{%
-                \hsize=\vector@width%
-                \box\vector@front%
-                \vbox to\element@height{%
-                  \vsize=\element@height%
-                  \ifx\lefty@cards\empty%
-                    \leftskip=.5\whitespace minus.5\whitespace%
-                    \rightskip=0pt plus1fil%
-                  \else%
-                    \leftskip=0pt plus1fil%
-                    \rightskip=.5\whitespace minus.5\whitespace%
-                  \fi%
-                  \smash{\topgrayline}%
-                  \vskip0pt plus1fill minus1fill%
-                  \mbox{\footnotesize\sffamily\bfseries{##1}}\break%
-                  \vskip0pt plus1fill minus1fill%
-                  \smash{\bottomgrayline}}}}%
-          #6}%
+        \def\element##1{%
+          \global\setbox\vector@front=\vbox{%
+            \hsize=\vector@width%
+            \box\vector@front%
+            \vbox to\element@height{%
+              \vsize=\element@height%
+              \ifx\lefty@cards\empty%
+                \leftskip=.5\whitespace minus.5\whitespace%
+                \rightskip=0pt plus1fil%
+              \else%
+                \leftskip=0pt plus1fil%
+                \rightskip=.5\whitespace minus.5\whitespace%
+              \fi%
+              \smash{\topgrayline}%
+              \vskip0pt plus1fill minus1fill%
+              \mbox{\footnotesize\sffamily\bfseries{##1}}\break%
+              \vskip0pt plus1fill minus1fill%
+              \smash{\bottomgrayline}%
+            }%
+          }%
+        }%
+        #6%
+      }%
       \global\setbox\vector@front=\vbox{%
         \box\vector@front%
         \hsize=\vector@width%
-        \smash{\topgrayline}}%
+        \smash{\topgrayline}%
+      }%
     \fi%
     \global\element@count=0%
     \setbox\align@front=\hbox{%
-        \def\element##1{\global\advance\element@count1\relax}%
-        #5}%
+      \def\element##1{\global\advance\element@count1\relax}%
+      #5%
+    }%
     \@slottest{offense}{\@offense}%
     \global\element@height\alignheight%
     \global\advance\element@height-\separatorwidth%
     \global\setbox\vector@back=\vbox{}%
-    \ifnum\element@count=0\else%
-        \global\divide\element@height by\element@count%
-      \global\setbox\vector@back=\vbox{\hsize=\vector@width%
-          \smash{\bottomgrayline}}%
+    \unless\ifnum\element@count=0%
+      \global\divide\element@height by\element@count%
+      \global\setbox\vector@back=\vbox{%
+        \hsize=\vector@width%
+        \smash{\bottomgrayline}%
+      }%
       \setbox\align@front=\hbox{%
-          \def\element##1{%
-            \global\setbox\vector@back=\vbox{%
-                \hsize=\vector@width%
-                \box\vector@back%
-                \vbox to\element@height{%
-                  \vsize=\element@height%
-                  \ifx\lefty@cards\empty%
-                    \leftskip=0pt plus1fil%
-                    \rightskip=.5\whitespace minus.5\whitespace%
-                  \else%
-                    \leftskip=.5\whitespace minus.5\whitespace%
-                    \rightskip=0pt plus1fil%
-                  \fi%
-                  \smash{\topgrayline}%
-                  \vskip0pt plus1fill minus1fill%
-                  \mbox{\footnotesize\sffamily\bfseries{##1}}\break%
-                  \vskip0pt plus1fill minus1fill%
-                  \smash{\bottomgrayline}}}}%
-          #5}%
+        \def\element##1{%
+          \global\setbox\vector@back=\vbox{%
+            \hsize=\vector@width%
+            \box\vector@back%
+            \vbox to\element@height{%
+              \vsize=\element@height%
+              \ifx\lefty@cards\empty%
+                \leftskip=0pt plus1fil%
+                \rightskip=.5\whitespace minus.5\whitespace%
+              \else%
+                \leftskip=.5\whitespace minus.5\whitespace%
+                \rightskip=0pt plus1fil%
+              \fi%
+              \smash{\topgrayline}%
+              \vskip0pt plus1fill minus1fill%
+              \mbox{\footnotesize\sffamily\bfseries{##1}}\break%
+              \vskip0pt plus1fill minus1fill%
+              \smash{\bottomgrayline}%
+            }%
+          }%
+        }%
+        #5%
+      }%
       \global\setbox\vector@back=\vbox{%
         \box\vector@back%
         \hsize=\vector@width%
-        \smash{\topgrayline}}%
+        \smash{\topgrayline}%
+      }%
     \fi%
     \setbox\align@front=\vbox{%
+      \ifx\lefty@cards\empty%
+        \leftskip=1.5\whitespace plus1fil%
+        \rightskip=\whitespace%
+      \else%
+        \leftskip=\whitespace%
+        \rightskip=1.5\whitespace plus1fil%
+      \fi%
+      \hsize=\rest@width%
+      \vskip\whitespace%
+      \begingroup%
+        \scriptsize%
+        \lefttop/\righttop%
+      \endgroup%
+      \break%
+      \vskip\whitespace\vfil%
+      \temp@dimen\hsize%
+      \advance\temp@dimen-\leftskip%
+      \advance\temp@dimen-\rightskip%
+      \parbox{\temp@dimen}{%
         \ifx\lefty@cards\empty%
-          \leftskip=1.5\whitespace plus1fil%
-          \rightskip=\whitespace%
-       \else%
-          \leftskip=\whitespace%
-          \rightskip=1.5\whitespace plus1fil%
+          \raggedright%
+        \else%
+          \raggedleft%
         \fi%
-        \hsize=\rest@width%
-        \vskip\whitespace%
-        {\scriptsize\lefttop/\righttop}\break%
-        \vskip\whitespace\vfil%
-        \temp@dimen\hsize%
-        \advance\temp@dimen-\leftskip%
-        \advance\temp@dimen-\rightskip%
-        \parbox{\temp@dimen}{%
-          \ifx\lefty@cards\empty\raggedright\else\raggedleft\fi%
-          {\bfseries\small{#2}}}\break%
-        \vskip\whitespace\vfil%
-        \parbox{\temp@dimen}{%
-          \ifx\lefty@cards\empty\raggedright\else\raggedleft\fi%
-          {\small{#3}}}\break%
-        \vskip\whitespace\vfil%
-        {\scriptsize\leftbottom/\rightbottom}\break%
-        \vskip\whitespace}%
+        \bfseries%
+        \small%
+        #2%
+      }%
+      \break%
+      \vskip\whitespace\vfil%
+      \parbox{\temp@dimen}{%
+        \ifx\lefty@cards\empty%
+          \raggedright%
+        \else%
+          \raggedleft%
+        \fi%
+        \small
+        #3%
+      }%
+      \break%
+      \vskip\whitespace\vfil%
+      \begingroup%
+        \scriptsize%
+        \leftbottom/\rightbottom%
+      \endgroup%
+      \break%
+      \vskip\whitespace%
+    }%
     \temp@dimen\ht\align@front%
     \advance\temp@dimen\dp\align@front%
     \ifdim\temp@dimen>\alignheight%
       \alignheight\temp@dimen%
     \fi%
     \setbox\align@back=\vbox{%
+      \ifx\lefty@cards\empty%
+        \leftskip=\whitespace%
+        \rightskip=1.5\whitespace plus1fil%
+      \else%
+        \leftskip=1.5\whitespace plus1fil%
+        \rightskip=\whitespace%
+      \fi%
+      \hsize=\rest@width%
+      \vskip\whitespace%
+      \begingroup%
+        \scriptsize%
+        \lefttop/\righttop%
+      \endgroup%
+      \break%
+      \vskip\whitespace\vfil%
+      \temp@dimen\hsize%
+      \advance\temp@dimen-\leftskip%
+      \advance\temp@dimen-\rightskip%
+      \parbox{\temp@dimen}{%
         \ifx\lefty@cards\empty%
-          \leftskip=\whitespace%
-          \rightskip=1.5\whitespace plus1fil%
+          \raggedleft%
         \else%
-          \leftskip=1.5\whitespace plus1fil%
-          \rightskip=\whitespace%
+          \raggedright%
         \fi%
-        \hsize=\rest@width%
-        \vskip\whitespace%
-        {\scriptsize\lefttop/\righttop}\break%
-        \vskip\whitespace\vfil%
-        \temp@dimen\hsize%
-        \advance\temp@dimen-\leftskip%
-        \advance\temp@dimen-\rightskip%
-        \parbox{\temp@dimen}{%
-          \ifx\lefty@cards\empty\raggedleft\else\raggedright\fi\relax%
-          {\bfseries\small{Effect}}}\break%
-        \vskip\whitespace\vfil%
-        \parbox{\temp@dimen}{%
-          \ifx\lefty@cards\empty\raggedleft\else\raggedright\fi\relax%
-          {\small{\def\@tmp{#1}\ifx\@tmp\empty\else#1\\\fi#4}}}\break%
-        \vskip\whitespace\vfil%
-        {\scriptsize\leftbottom/\rightbottom}\break%
-        \vskip\whitespace}%
+        \bfseries%
+        \small
+        Effect%
+      }%
+      \break%
+      \vskip\whitespace\vfil%
+      \parbox{\temp@dimen}{%
+        \ifx\lefty@cards\empty%
+          \raggedleft%
+        \else%
+          \raggedright%
+        \fi%
+        \relax%
+        \small%
+        \def\@tmp{#1}%
+        \unless\ifx\@tmp\empty%
+          #1\\%
+        \fi%
+        #4%
+      }%
+      \break%
+      \vskip\whitespace\vfil%
+      \begingroup%
+        \scriptsize%
+        \leftbottom/\rightbottom%
+      \endgroup%
+      \break%
+      \vskip\whitespace%
+    }%
     \temp@dimen\ht\align@back%
     \advance\temp@dimen\dp\align@back%
     \ifdim\temp@dimen>\alignheight%
       \alignheight\temp@dimen%
     \fi%
-    \doublecard%
-      {\fbox{\hbox to\alignwidth{%
-        \vsize=\alignheight%
-        \ifx\lefty@cards\empty%
-          \vbox to\alignheight{\vfill\box\vector@front\vfill}%
-          \hbox to 0pt{%
-            \vgrayline%
-            \raisebox{.5\alignheight}{%
-              \rotatebox[origin=c]{90}{\tiny\sffamily THIS SIDE TOWARDS YOU}}%
-            \hskip0pt minus1fill}%
-          \vbox to\alignheight{\unvbox\align@front}%        
-          \hfill%
-        \else%
-          \hfill%
-          \vbox to\alignheight{\unvbox\align@front}%
-          \hbox to 0pt{%
-            \hskip0pt minus1fill%
-            \raisebox{.5\alignheight}{%
-              \rotatebox[origin=c]{270}{\tiny\sffamily THIS SIDE TOWARDS YOU}}%
-            \vgrayline}%
-          \vbox to\alignheight{\vfill\box\vector@front\vfill}%
-        \fi}}}%
-      {\mbox{\hbox to\alignwidth{%
-        \vsize=\alignheight%
-        \ifx\lefty@cards\empty%
-          \hfill%
-          \vbox to\alignheight{\unvbox\align@back}%
-          \hbox to 0pt{\vgrayline\hskip0pt minus1fill}%
-          \vbox to\alignheight{\vfill\box\vector@back\vfill}%
-        \else%
-          \vbox to\alignheight{\vfill\box\vector@back\vfill}%
-          \hbox to 0pt{\hskip0pt minus1fill\vgrayline}%
-          \vbox to\alignheight{\unvbox\align@back}%
-          \hfill%
-        \fi}}}%
-  \endgroup}
+    \doublecard{%
+      \fbox{%
+        \hbox to\alignwidth{%
+          \vsize=\alignheight%
+          \ifx\lefty@cards\empty%
+            \vbox to\alignheight{\vfill\box\vector@front\vfill}%
+            \hbox to 0pt{%
+              \vgrayline%
+              \raisebox{.5\alignheight}{%
+                \rotatebox[origin=c]{90}{\tiny\sffamily THIS SIDE TOWARDS YOU}}%
+              \hskip0pt minus1fill%
+            }%
+            \vbox to\alignheight{\unvbox\align@front}%        
+            \hfill%
+          \else%
+            \hfill%
+            \vbox to\alignheight{\unvbox\align@front}%
+            \hbox to 0pt{%
+              \hskip0pt minus1fill%
+              \raisebox{.5\alignheight}{%
+                \rotatebox[origin=c]{270}{%
+                  \tiny%
+                  \sffamily%
+                  THIS SIDE TOWARDS YOU%
+                }%
+              }%
+              \vgrayline}%
+            \vbox to\alignheight{\vfill\box\vector@front\vfill}%
+          \fi%
+        }%
+      }%
+    }{%
+      \mbox{%
+        \hbox to\alignwidth{%
+          \vsize=\alignheight%
+          \ifx\lefty@cards\empty%
+            \hfill%
+            \vbox to\alignheight{\unvbox\align@back}%
+            \hbox to 0pt{\vgrayline\hskip0pt minus1fill}%
+            \vbox to\alignheight{\vfill\box\vector@back\vfill}%
+          \else%
+            \vbox to\alignheight{\vfill\box\vector@back\vfill}%
+            \hbox to 0pt{\hskip0pt minus1fill\vgrayline}%
+            \vbox to\alignheight{\unvbox\align@back}%
+            \hfill%
+          \fi%
+        }%
+      }%
+    }%
+  \endgroup%
+}
 
 
 %%%%%
@@ -3539,7 +4175,7 @@
 
 \@elementmapping{Combat}{%
   \@numopt\AlignmentCard{\MYname}{\MYtext}{\MYeffect}{\MYoffense}{\MYdefense}%
-  }
+}
 
 
 \def\@compendium{\EVERY{Combat}{}}
@@ -3574,22 +4210,35 @@
 \newdimen\trig@ht
 \newdimen\tot@ht
 \newdimen\par@wd
-\def\vdotfill{\vbox to\vsize{\leaders\vbox to2pt{\tiny\smash.\vfil}\vfil}}
-\def\hdotfill{\hbox to\hsize{\leaders\hbox to2pt{\tiny\smash.\hfil}\hfil}}
+\def\vdotfill{%
+  \vbox to\vsize{%
+    \hsize0pt%
+    \leaders\vbox to2pt{\vfil\tiny\makebox[0pt]{.}\vfil}\vfil%
+  }%
+}
+\def\hdotfill{%
+  \hbox to\hsize{%
+    \leaders\hbox to2pt{\tiny\smash.\hfil}\hfil%
+  }%
+}
 
 \def\fold@one{%
-  \makebox[0pt][r]{\hbox{%
-    \leftskip=0pt plus1fil%
-    \rightskip=0pt%
-    \lineskip=1pt%
-    \def\baselinstretch{0}%
-    \vsize=\tot@ht%
-    \vbox to\tot@ht{%
-      \vfill%
-      \tiny\textbf{1.}\break fold\break back\break here\break%
-      \vfill}%
-    \vdotfill}}%
-  }
+  \makebox[0pt][r]{%
+    \hbox{%
+      \leftskip=0pt plus1fil%
+      \rightskip=0pt%
+      \def\baselinstretch{0}%
+      \vsize=\tot@ht%
+      \vbox to\tot@ht{%
+        \lineskip=1pt%
+        \vfill%
+        \tiny\textbf{1.}\break fold\break back\break here\break%
+        \vfill%
+      }%
+      \vdotfill%
+    }%
+  }%
+}
 
 \def\fold@two{%
   \vbox to0pt{%
@@ -3598,13 +4247,15 @@
     \lineskip=1pt%
     \def\baselinstretch{0}%
     \hsize=.5\packetwidth%
-    \tiny\hdotfill\break\textbf{2.} fold back here\break%
-    \vskip0pt minus1fil}%
-  }
+    \tiny\hdotfill\break%
+    \textbf{2.} fold back here\break%
+    \vskip0pt minus1fil%
+  }%
+}
 
 \def\@staple{%
-  \smash{\hbox to\hsize{\hfil\tiny\textbf{3.} staple here\hfil}}%
-  }
+  \smash{\hbox to\par@wd{\hfil\tiny\textbf{3.} staple here\hfil}}%
+}
 
 
 %%%%%
@@ -3617,46 +4268,53 @@
     \parindent=0pt%
     \def\baselinstretch{0}%
     \setbox\trig@box=\vbox{%
-        \leftskip=\packetspace%
-        \rightskip=\packetspace%
-        \hsize=.5\packetwidth%
-        \par@wd=\hsize%
-        \advance\par@wd-2\packetspace%
-        \vskip\packetspace
-        \@staple
-        \vskip\packetspace
-        \parbox{\par@wd}{#1\hfil}
-        \vskip\packetspace \vfill
-        \parbox{\par@wd}{#2\hfil}
-        \vskip\packetspace \vfill}%
+      \leftskip=\packetspace%
+      \rightskip=\packetspace%
+      \hsize=.5\packetwidth%
+      \par@wd=\hsize%
+      \advance\par@wd-2\packetspace%
+      \vskip\packetspace%
+      \@staple%
+      \vskip\packetspace%
+      \parbox{\par@wd}{#1\hfil}%
+      \vskip\packetspace \vfill%
+      \parbox{\par@wd}{#2\hfil}%
+      \vskip\packetspace \vfill%
+    }%
     \setbox\text@box=\vbox{%
-        \leftskip=\packetspace%
-        \rightskip=\packetspace%
-        \hsize=\packetwidth%
-        \par@wd=\hsize%
-        \advance\par@wd-2\packetspace%
-        \vskip2\packetspace%
-        \parbox{\par@wd}{#3\hfill}
-        \vskip\packetspace \vfill
-        \parbox{\par@wd}{#4\hfil}
-        \vskip\packetspace \vfill
-        \parbox{\par@wd}{#5\hfil}
-        \vskip2\packetspace\vfill}%
+      \leftskip=\packetspace%
+      \rightskip=\packetspace%
+      \hsize=\packetwidth%
+      \par@wd=\hsize%
+      \advance\par@wd-2\packetspace%
+      \vskip2\packetspace%
+      \parbox{\par@wd}{#3\hfill}%
+      \vskip\packetspace \vfill%
+      \parbox{\par@wd}{#4\hfil}%
+      \vskip\packetspace \vfill%
+      \parbox{\par@wd}{#5\hfil}%
+      \vskip2\packetspace\vfill%
+    }%
     \text@ht=\ht\text@box%
     \advance\text@ht by\dp\text@box%
     \trig@ht=\ht\trig@box%
     \advance\trig@ht by\dp\trig@box%
     \tot@ht=\text@ht%
-    \ifdim\tot@ht<2\trig@ht%
+    \ifdim\tot@ht<2\trig@ht\relax%
       \tot@ht=2\trig@ht%
     \fi%
-    \doublecard%
-      {\framebox[\packetwidth]{%
+    \doublecard{%
+      \framebox[\packetwidth]{%
         \hfill\fold@one%
-        \vbox to\tot@ht{\unvbox\trig@box\fold@two\vskip.5\tot@ht}}}%
-      {\makebox[\packetwidth]{%
-        \vbox to\tot@ht{\unvbox\text@box}}}%
-  \endgroup}
+        \vbox to\tot@ht{\unvbox\trig@box\fold@two\vskip.5\tot@ht}%
+      }%
+    }{%
+      \makebox[\packetwidth]{%
+        \vbox to\tot@ht{\unvbox\text@box}%
+      }%
+    }%
+  \endgroup%
+}
 
 
 %%%%%
@@ -3669,158 +4327,200 @@
     \lineskip=0pt%
     \parindent=0pt%
     \def\baselinstretch{0}%
-    \card{\vbox{\hsize=\packetwidth%
-      \centering
-      \fbox{\vbox{\advance\hsize-.5in%
-        \leftskip=\packetspace%
-        \rightskip=\packetspace%
-        \par@wd=\hsize%
-        \advance\par@wd-2\packetspace%
-        \vskip\packetspace%
-        \parbox{\par@wd}{#1\hfill}
-        \vskip\packetspace%
-        \parbox{\par@wd}{#2\hfil}
-        \vskip\packetspace}}%
-      \vskip.5\packetspace
-      \hdotfill
-      \vskip.5\packetspace
-      \fbox{\vbox{%
-        \leftskip=\packetspace%
-        \rightskip=\packetspace%
-        \par@wd=\hsize%
-        \advance\par@wd-2\packetspace%
-        \vskip\packetspace%
-        \parbox{\par@wd}{#3\hfill}
-        \vskip\packetspace%
-        \parbox{\par@wd}{#4\hfil}
-        \vskip\packetspace%
-        \parbox{\par@wd}{#5\hfil}
-        \vskip\packetspace}}%
-      }}%
-  \endgroup}
+    \card{%
+      \vbox{%
+        \hsize=\packetwidth%
+        \centering%
+        \fbox{%
+          \vbox{%
+            \advance\hsize-.5in%
+            \leftskip=\packetspace%
+            \rightskip=\packetspace%
+            \par@wd=\hsize%
+            \advance\par@wd-2\packetspace%
+            \vskip\packetspace%
+            \parbox{\par@wd}{#1\hfill}%
+            \vskip\packetspace%
+            \parbox{\par@wd}{#2\hfil}%
+            \vskip\packetspace%
+          }%
+        }%
+        \vskip.5\packetspace
+        \hdotfill
+        \vskip.5\packetspace
+        \fbox{%
+          \vbox{%
+            \leftskip=\packetspace%
+            \rightskip=\packetspace%
+            \par@wd=\hsize%
+            \advance\par@wd-2\packetspace%
+            \vskip\packetspace%
+            \parbox{\par@wd}{#3\hfill}%
+            \vskip\packetspace%
+            \parbox{\par@wd}{#4\hfil}%
+            \vskip\packetspace%
+            \parbox{\par@wd}{#5\hfil}%
+            \vskip\packetspace%
+          }%
+        }%
+      }%
+    }%
+  \endgroup%
+}
 
 
 %%%%%
 %% internal typesetting
 \newdimen\bookwidth      \bookwidth  = \textwidth
 \newdimen\bookheight     \bookheight = 3in
+\newdimen\bookspace      \bookspace = 15pt
 \newdimen\temp@dimen
 \newbox\temp@box
 
 \def\fold@back{%
-  \makebox[0pt][r]{\hbox{%
-    \leftskip=0pt plus1fil%
-    \rightskip=0pt%
-    \lineskip=1pt%
-    \def\baselinstretch{0}%
-    \vbox to\vsize{%
-      \vfill%
-      \tiny\break fold\break back\break here\break%
-      \vfill}%
-    \vdotfill}}}
+  \makebox[0pt][r]{%
+    \hbox{%
+      \leftskip=0pt plus1fil%
+      \rightskip=0pt%
+      \lineskip=1pt%
+      \def\baselinstretch{0}%
+      \vbox to\vsize{%
+        \vfill%
+        \tiny\break fold\break back\break here\break%
+        \vfill%
+      }%
+      \vdotfill%
+    }%
+  }%
+}
 
 
 %%%%%
 %% \Cover{<name>}{<text>}
 \newcommand{\Cover}[2]{%
   \begingroup%
-    \packetspace=15pt%
     \fboxsep=-\fboxrule%
     \baselineskip=0pt%
     \parindent=0pt%
     \def\baselinstretch{0}%
-    \advance\bookwidth-2\packetspace%
+    \advance\bookwidth-2\bookspace%
     \divide\bookwidth2%
     \setbox\temp@box=\vbox{%
-        \hsize\bookwidth%
-        \leftskip\packetspace plus1fil%
-        \rightskip\packetspace plus1fil%
-        \vskip\packetspace%
-        {\mbox{\gamenameabbrev}\hfill\mbox{\signdate}}\break\vfill
-        {\advance\bookwidth-6\packetspace%
-         \fboxsep\packetspace\fbox{\parbox{\bookwidth}{%
-          \centering\bfseries\baselineskip=0pt\relax#1}}}\break\vfill
-        \advance\bookwidth-2\packetspace%
-        \begin{minipage}{\bookwidth}%
-          \parindent0pt%
-          \parskip.5\baselineskip%
-          \small#2%
-        \end{minipage}%
-        \vskip\packetspace\vfill\vfill}%
+      \hsize\bookwidth%
+      \leftskip\bookspace plus1fil%
+      \rightskip\bookspace plus1fil%
+      \vskip\bookspace%
+      \mbox{\gamenameabbrev}\hfill\mbox{\signdate}\break\vfill
+      \begingroup%
+        \advance\bookwidth-6\bookspace%
+        \fboxsep\bookspace%
+        \fbox{%
+          \parbox{\bookwidth}{%
+            \centering\bfseries\baselineskip=0pt\relax#1%
+          }%
+        }%
+      \endgroup%
+      \break\vfill
+      \advance\bookwidth-2\bookspace%
+      \begin{minipage}{\bookwidth}%
+        \parindent0pt%
+        \parskip.5\baselineskip%
+        \small#2%
+      \end{minipage}%
+      \vskip\bookspace\vfill\vfill%
+    }%
     \temp@dimen\ht\temp@box%
     \ifdim\bookheight<\ht\temp@box%
       \bookheight\ht\temp@box%
     \fi%
-    \advance\bookwidth2\packetspace%
-    \card%
-      {\fbox{\hbox to\bookwidth{\vsize\bookheight\relax%
-        \hfill
-        \raisebox{.5\vsize}{%
-          \rotatebox[origin=c]{90}{\tiny staple binding along here}}%
-        \hfill
-        \vbox to\vsize{\unvbox\temp@box}%
-        }}}%
+    \advance\bookwidth2\bookspace%
+    \card{%
+      \fbox{%
+        \hbox to\bookwidth{%
+          \vsize\bookheight\relax%
+          \hfill
+          \raisebox{.5\vsize}{%
+            \rotatebox[origin=c]{90}{\tiny staple binding along here}%
+          }%
+          \hfill
+          \vbox to\vsize{\unvbox\temp@box}%
+        }%
+      }%
+    }%
   \endgroup%
-  }
+}
 
 
 %%%%%
 %% \Page{<label>}{<text>}
 \newcommand{\Page}[2]{%
   \begingroup%
-    \packetspace=15pt%
     \fboxsep=-\fboxrule%
     \baselineskip=0pt%
     \parindent=0pt%
     \def\baselinstretch{0}%
     \setbox\temp@box=\vbox{%
-        \hsize\bookwidth%
-        \advance\hsize-2\packetspace%
-        \leftskip\packetspace plus1fil%
-        \rightskip\packetspace plus1fil%
-        \vskip.5\packetspace%
-        {\mbox{\gamenameabbrev}/\mbox{\signdate}\hfill\mbox{#1}}\break
-        \vskip.5\packetspace\vfill%
-        \begin{minipage}{.7\bookwidth}%
-          \parindent0pt%
-          \parskip.5\baselineskip%
-          \relax\small%
-          #2%
-          \relax%
-        \end{minipage}%
-        \vskip\packetspace\vfill}
+      \hsize\bookwidth%
+      \advance\hsize-2\bookspace%
+      \leftskip\bookspace plus1fil%
+      \rightskip\bookspace plus1fil%
+      \vskip.5\bookspace%
+      \mbox{\gamenameabbrev}/\mbox{\signdate}\hfill\mbox{#1}\break%
+      \vskip.5\bookspace\vfill%
+      \begin{minipage}{.7\bookwidth}%
+        \parindent0pt%
+        \parskip.5\baselineskip%
+        \relax\small%
+        #2%
+        \relax%
+      \end{minipage}%
+      \vskip\bookspace\vfill%
+    }%
     \ifdim\bookheight<\ht\temp@box%
       \bookheight\ht\temp@box%
     \fi%
-    \doublecard%
-      {\fbox{\hbox to\bookwidth{\vsize\bookheight\relax%
-        \hfill
-        \raisebox{.5\vsize}{%
-          \rotatebox[origin=c]{90}{\tiny staple binding along here}}%
-        \hfill
-        \vbox to\vsize{\unvbox\temp@box}%
-        }}}%
-      {\mbox{\hbox to\bookwidth{\vsize\bookheight\relax%
-        \vbox to\vsize{
-          \hsize\bookwidth%
-          \advance\hsize-2\packetspace%
-          \divide\hsize2%
-          \leftskip\packetspace plus1fil%
-          \rightskip\packetspace plus1fil%
-          \vskip\packetspace
-          {\tiny staple along here}\break
-          \vfill
-          \parbox{.3\hsize}{\centering%
-            {\bfseries#1}%\\[.5\packetspace]%
-            %\tiny Do not open this page until you are directed to do so.%
-            }\break
-          \vfill
+    \doublecard{%
+      \fbox{%
+        \hbox to\bookwidth{%
+          \vsize\bookheight\relax%
+          \hfill
+          \raisebox{.5\vsize}{%
+            \rotatebox[origin=c]{90}{\tiny staple binding along here}}%
+          \hfill
+          \vbox to\vsize{\unvbox\temp@box}%
+        }%
+      }%
+    }{%
+      \mbox{%
+        \hbox to\bookwidth{%
+          \vsize\bookheight\relax%
+          \vbox to\vsize{
+            \hsize\bookwidth%
+            \advance\hsize-2\bookspace%
+            \divide\hsize2%
+            \leftskip\bookspace plus1fil%
+            \rightskip\bookspace plus1fil%
+            \vskip\bookspace
+            \begingroup%
+              \tiny staple along here%
+            \endgroup%
+            \break
+            \vfill
+            \parbox{.3\hsize}{%
+              \centering%
+              \textbf{#1}%\\[.5\bookspace]%
+              %\tiny Do not open this page until you are directed to do so.%
+            }%
+            \break
+            \vfill
           }%
-        \fold@back
-        \hfill
-        }}}%
+          \fold@back
+          \hfill
+        }%
+      }%
+    }%
   \endgroup%
-  }
+}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3851,16 +4551,19 @@
 
 %%%%%
 %% Mem macros mapped to produce the mempacket.
-\@elementmapping{Mem}{\@numopt\FoldingMempacket{\mem@owner}{\MYname}{\MYtext}}
+\@elementmapping{Mem}{\@numopt\FoldingMempacket{\mem@owner}{\MYtrigger}{\MYtext}{\MYname}}
 
 \@elementmapping{MemEnvelope}{%
-  \@numopt\EnvelopeMempacket{\mem@owner}{\MYname}{\MYtext}}
+  \@numopt\EnvelopeMempacket{\mem@owner}{\MYtrigger}{\MYtext}{\MYname}%
+}
 
 \@elementmapping{MemCover}{%
-  \@numopt\CoverMempacket{\mem@owner}{\MYtext}}
+  \@numopt\CoverMempacket{\mem@owner}{\MYtext}%
+}
 
 \@elementmapping{MemPage}{%
-  \@numopt\PageMempacket{\MYname}{\MYtext}}
+  \@numopt\PageMempacket{\MYtrigger}{\MYtext}%
+}
 
 \def\@compendium{\EVERY{Mem}{}}
 
@@ -3873,52 +4576,107 @@
 
 
 %%%%%
-%% \FoldingMempacket{owner}{trigger}{text}
-\newcommand{\FoldingMempacket}[4][]{%
+%% \FoldingMempacket{owner}{trigger}{text}{name}
+\newcommand{\FoldingMempacket}[5][]{%
   \begingroup%
     \packetspace\whitespace%
     \packetwidth\memwidth%
-    \FoldingPacket%
-      {\centering\scriptsize\mbox{\gamenameabbrev} / \mbox{\gamedateabbrev}\\%
-       \bfseries{\mbox{}#2}}%
-      {\raggedright\small Trigger: \em{#3}}%
-      {\em\tiny\mbox{\gamenameabbrev} / \mbox{\gamedateabbrev}%
-                     \hfill\bfseries{#2}}%
-      {\scriptsize\bfseries\em{#3}:}%
-      {\small\parindent=10pt\relax{%
-        \def\@tmp{#1}\ifx\@tmp\empty\else{\em\@tmp}\\\fi#4}}%
-  \endgroup}
+    \FoldingPacket{%
+      \centering%
+      \scriptsize%
+      \ifx#5\empty\else\mbox{#5}\\\fi%
+			\mbox{\gamenameabbrev} / \mbox{\gamedateabbrev}\\%
+      \bfseries%
+      \mbox{}#2%
+    }{%
+      \raggedright\small Trigger: \em#3%
+    }{%
+      \em%
+      \tiny%
+      \mbox{\gamenameabbrev} / \mbox{\gamedateabbrev}%
+      \hfill%
+      \bfseries%
+      #2%
+    }{%
+      \scriptsize%
+      \bfseries%
+      \em
+      #3:%
+    }{%
+      \small\parindent=10pt\relax%
+      \begingroup%
+        \def\@tmp{#1}%
+        \unless\ifx\@tmp\empty%
+          \emph{\@tmp}\\%
+        \fi%
+        #4%
+      \endgroup%
+    }%
+  \endgroup%
+}
 
 
 %%%%%
-%% \EnvelopeMempacket{owner}{trigger}{text}
-\newcommand{\EnvelopeMempacket}[4][]{\begingroup%
+%% \EnvelopeMempacket{owner}{trigger}{text}{title}
+\newcommand{\EnvelopeMempacket}[5][]{%
+  \begingroup%
     \packetspace\whitespace%
     \packetwidth\memwidth%
-    \EnvelopePacket%
-      {\scriptsize\mbox{\gamenameabbrev} / \mbox{\gamedateabbrev}\\%
-       \bfseries{\mbox{}#2}}%
-      {\raggedright\small Trigger: \em #3}%
-      {\em\tiny\mbox{\gamenameabbrev} / \mbox{\gamedateabbrev}%
-                     \hfill\bfseries #2}%
-      {\scriptsize\bfseries\em #3:}%
-      {\small\parindent=10pt\relax%
-        \def\@tmp{#1}\ifx\@tmp\empty\else{\em\@tmp}\\\fi#4}%
-  \endgroup}
+    \EnvelopePacket{%
+      \scriptsize%
+			\ifx#5\empty\else\mbox{#5: }\fi
+      \mbox{\gamenameabbrev} / \mbox{\gamedateabbrev}\\%
+      \bfseries\mbox{}#2%
+    }{%
+      \raggedright%
+      \small%
+      Trigger: \em#3%
+    }{%
+      \em%
+      \tiny%
+      \mbox{\gamenameabbrev} / \mbox{\gamedateabbrev}%
+      \hfill%
+      \bfseries#2%
+    }{%
+      \scriptsize%
+      \bfseries%
+      \em#3:%
+    }{%
+      \small%
+      \parindent=10pt\relax%
+      \def\@tmp{#1}%
+      \unless\ifx\@tmp\empty%
+        \emph{\@tmp}\\%
+      \fi%
+      #4%
+    }%
+  \endgroup%
+}
 
 
 %%%%%
 %% \CoverMempacket{owner}{name}{text}
 \newcommand{\CoverMempacket}[3][]{%
-  \Cover{#2\def\@tmp{#1}\ifx\@tmp\empty\else\\{\em\@tmp}\fi}{#3}%
-  }
+  \Cover{%
+    #2%
+    \def\@tmp{#1}%
+    \unless\ifx\@tmp\empty%
+      \\\emph{\@tmp}%
+    \fi%
+  }{#3}%
+}
 
 
 %%%%%
 %% \PageMempacket{trigger}{text}
 \newcommand{\PageMempacket}[3][]{%
-  \Page{#2}{\def\@tmp{#1}\ifx\@tmp\empty\else{\em\@tmp}\\\fi#3}%
-  }
+  \Page{#2}{%
+    \def\@tmp{#1}%
+    \unless\ifx\@tmp\empty%
+      \emph{\@tmp}\\%
+    \fi#3%
+  }%
+}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3961,15 +4719,15 @@
 \@elementmapping{ItemPacket}{%
   \@numopt\ItemCard{\MYname}{\MYtext}{\MYmark}%
   \ContentsStrip{\MYname}{\MYcontents}%
-  }
+}
 
 \@elementmapping{ItemFold}{%
   \FoldingItem{\MYname}{\MYnumber}{\MYtext}{\MYcontents}%
-  }
+}
 
 \@elementmapping{ItemEnvelope}{%
   \EnvelopeItem{\MYname}{\MYnumber}{\MYtext}{\MYcontents}%
-  }
+}
 
 \@elementmapping{ItemLabel}{\LabelItem{\MYname}{\MYnumber}{\MYtext}}
 
@@ -4018,60 +4776,79 @@
     \setbox\temp@box=\hbox{#4}%
     \ifdim\wd\temp@box>0sp%
       \setbox\temp@box=\hbox{%
-          \temp@dimen\itemwidth%
-          \advance\temp@dimen-2\whitespace%
-          \advance\temp@dimen-2\shadesep%
-          \fboxrule=0pt%
-          \fboxsep=\shadesep%
-          \colorbox{lightgray}{%
-            \parbox{\temp@dimen}{\centering\bfseries\footnotesize{#4}}}}%
-    \fi%
-    \setbox\temp@box=\vbox{%
-        \centering%
-        \leftskip=\whitespace plus1fil%
-        \rightskip=\whitespace plus1fil%
-        \hsize=\itemwidth%
-        \vskip\whitespace
-        {\small\lefttop\hfill\righttop}
-        \vskip\whitespace\vfil
-        {\bfseries\large{#2}}
-        \def\@tmp{#1}\ifx\@tmp\empty\else
-          \vskip\whitespace\vfil
-          {\bfseries\large{#1}}
-        \fi
-        \vskip\whitespace\vfil
         \temp@dimen\itemwidth%
         \advance\temp@dimen-2\whitespace%
-        \parbox{\temp@dimen}{\footnotesize\raggedright#3}\vfil
-        \vskip\whitespace\vfil
-        \ifdim\ht\temp@box>0sp%
-          \unhbox\temp@box%
-          \vskip\whitespace
-        \fi%
-        {\small\leftbottom\hfill\rightbottom}
-        \vskip\whitespace
+        \advance\temp@dimen-2\shadesep%
+        \fboxrule=0pt%
+        \fboxsep=\shadesep%
+        \colorbox{lightgray}{%
+          \parbox{\temp@dimen}{\centering\bfseries\footnotesize#4}%
         }%
+      }%
+    \fi%
+    \setbox\temp@box=\vbox{%
+      \centering%
+      \leftskip=\whitespace plus1fil%
+      \rightskip=\whitespace plus1fil%
+      \hsize=\itemwidth%
+      \vskip\whitespace%
+      \begingroup%
+        \small\lefttop\hfill\righttop%
+      \endgroup%
+      \vskip\whitespace\vfil%
+      \textbf{\large#2}%
+      \def\@tmp{#1}%
+      \unless\ifx\@tmp\empty%
+        \vskip\whitespace\vfil%
+        \textbf{\large#1}%
+      \fi%
+      \vskip\whitespace\vfil%
+      \temp@dimen\itemwidth%
+      \advance\temp@dimen-2\whitespace%
+      \parbox{\temp@dimen}{\footnotesize\raggedright#3}%
+      \vfil%
+      \vskip\whitespace\vfil%
+      \ifdim\ht\temp@box>0sp%
+        \unhbox\temp@box%
+        \vskip\whitespace
+      \fi%
+      \begingroup%
+        \small\leftbottom\hfill\rightbottom%
+      \endgroup%
+      \vskip\whitespace
+    }%
     \temp@dimen\ht\temp@box%
     \advance\temp@dimen\dp\temp@box%
     \ifdim\temp@dimen>\itemheight%
       \itemheight\temp@dimen%
       \typeout{! item card oversized}%
     \fi%
-    \doublecard%
-      {\fbox{\vbox to\itemheight{\unvbox\temp@box}}}%
-      {\vbox to\itemheight{%
-         \hsize=\itemwidth%
-         \centering%
-         \vfill
-         \fboxsep=5pt%
-         \fbox{\fbox{\parbox{.6\itemwidth}{%
-           \centering%
-           \large\bfseries\mbox{\gamenameabbrev}\par\mbox{\gamedateabbrev}\par
-           \large item card\par\vskip5pt
-           \normalsize(turn to other side)
-           }}}%
-         \vfill}}%
-  \endgroup}
+    \doublecard{%
+      \fbox{\vbox to\itemheight{\unvbox\temp@box}}%
+    }{%
+      \vbox to\itemheight{%
+        \hsize=\itemwidth%
+        \centering%
+        \vfill
+        \fboxsep=5pt%
+        \fbox{%
+          \fbox{%
+            \parbox{.6\itemwidth}{%
+              \centering%
+              \large%
+              \bfseries%
+              \mbox{\gamenameabbrev}\par%
+              \mbox{\gamedateabbrev}\par
+              \large item card\par\vskip5pt
+              \normalsize(turn to other side)
+            }%
+          }%
+        }%
+        \vfill%
+      }%
+    }%
+  \endgroup%
+}
 
 
 %%%%%
@@ -4083,18 +4860,29 @@
     \lineskip=0pt%
     \parindent=0pt%
     \def\baselinstretch{0}%
-    \card{\fbox{\vbox{\hsize=\itemwidth%
-      \leftskip\whitespace%
-      \rightskip\whitespace%
-      \vskip\whitespace
-      {\scriptsize\mbox{\gamenameabbrev}/\mbox{\gamedateabbrev}%
-                        \hfill{\bfseries#1}}%
-      \vskip\whitespace
-      \temp@dimen\hsize%
-      \advance\temp@dimen-2\whitespace%
-      \parbox{\temp@dimen}{\scriptsize\parindent10pt{#2}}%
-      \vskip\whitespace}}}%
-  \endgroup}
+    \card{%
+      \fbox{%
+        \vbox{%
+          \hsize=\itemwidth%
+          \leftskip\whitespace%
+          \rightskip\whitespace%
+          \vskip\whitespace
+          \begingroup%
+            \scriptsize%
+            \mbox{\gamenameabbrev}/\mbox{\gamedateabbrev}%
+            \hfill%
+            \textbf{#1}%
+          \endgroup
+          \vskip\whitespace
+          \temp@dimen\hsize%
+          \advance\temp@dimen-2\whitespace%
+          \parbox{\temp@dimen}{\scriptsize\parindent10pt{#2}}%
+          \vskip\whitespace%
+        }%
+      }%
+    }%
+  \endgroup%
+}
 
 
 %%%%%
@@ -4102,14 +4890,25 @@
 \newcommand{\FoldingItem}[4]{%
   \begingroup%
     \packetwidth\itemwidth%
-    \FoldingPacket%
-      {\centering\scriptsize\mbox{\gamenameabbrev} / \mbox{\gamedateabbrev}%
-       \par\transfer}%
-      {\centering\scriptsize{\bfseries#1\\#2}\vskip.5\whitespace{#3}}%
-      {\scriptsize\mbox{\gamenameabbrev}\hfill\mbox{\gamedateabbrev}}%
-      {\scriptsize\centering{#1}\par\relax{#2}}%
-      {\scriptsize\parindent10pt\relax{#4}}%
-  \endgroup}
+    \FoldingPacket{%
+      \centering%
+      \scriptsize%
+      \mbox{\gamenameabbrev} / \mbox{\gamedateabbrev}%
+      \par\transfer%
+    }{%
+      \centering%
+      \scriptsize%
+      \textbf{#1\\#2}\vskip.5\whitespace
+      #3%
+    }{%
+      \scriptsize\mbox{\gamenameabbrev}\hfill\mbox{\gamedateabbrev}%
+    }{%
+      \scriptsize\centering{#1}\par\relax{#2}%
+    }{%
+      \scriptsize\parindent10pt\relax{#4}%
+    }%
+  \endgroup%
+}
 
 
 %%%%%
@@ -4117,13 +4916,22 @@
 \newcommand{\EnvelopeItem}[4]{%
   \begingroup%
     \packetwidth\itemwidth%
-    \EnvelopePacket%
-      {\scriptsize\mbox{\gamenameabbrev/\gamedateabbrev}\hfill\transfer}%
-      {\centering\scriptsize{\bfseries#1\\#2}\vskip.5\whitespace{#3}}%
-      {\scriptsize\mbox{\gamenameabbrev}\hfill\mbox{\gamedateabbrev}}%
-      {\scriptsize\centering{#1}\par\relax{#2}}%
-      {\scriptsize\parindent10pt\relax{#4}}%
-  \endgroup}
+    \EnvelopePacket{%
+      \scriptsize%
+      \mbox{\gamenameabbrev/\gamedateabbrev}\hfill\transfer%
+    }{%
+      \centering%
+      \scriptsize%
+      \textbf{#1\\#2}\vskip.5\whitespace{#3}%
+    }{%
+      \scriptsize\mbox{\gamenameabbrev}\hfill\mbox{\gamedateabbrev}%
+    }{%
+      \scriptsize\centering{#1}\par\relax{#2}%
+    }{%
+      \scriptsize\parindent10pt\relax{#4}%
+    }%
+  \endgroup%
+}
 
 
 %%%%%
@@ -4135,19 +4943,31 @@
     \lineskip=0pt%
     \parindent=0pt%
     \def\baselinstretch{0}%
-    \card%
-      {\fbox{\vbox{\hsize=.7\itemwidth%
-        \leftskip.5\whitespace%
-        \rightskip.5\whitespace%
-        \vskip.5\whitespace%
-        {\tiny\mbox{\gamenameabbrev}/\mbox{\gamedateabbrev}\hfill\transfer}%
-        \vskip.5\whitespace%
-        \temp@dimen\hsize%
-        \advance\temp@dimen-\whitespace%
-        \parbox{\temp@dimen}{%
-          \raggedright\footnotesize{\bfseries#1 \ #2}\\#3}%
-        \vskip.5\whitespace}}}%
-  \endgroup}
+    \card{%
+      \fbox{%
+        \vbox{%
+          \hsize=.7\itemwidth%
+          \leftskip.5\whitespace%
+          \rightskip.5\whitespace%
+          \vskip.5\whitespace%
+          \begingroup%
+            \tiny%
+            \mbox{\gamenameabbrev}/\mbox{\gamedateabbrev}\hfill\transfer%
+          \endgroup%
+          \vskip.5\whitespace%
+          \temp@dimen\hsize%
+          \advance\temp@dimen-\whitespace%
+          \parbox{\temp@dimen}{%
+            \raggedright%
+            \footnotesize%
+            \textbf{#1 \ #2}\\#3%
+          }%
+          \vskip.5\whitespace%
+        }%
+      }%
+    }%
+  \endgroup%
+}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -4178,17 +4998,19 @@
 \@elementmapping{ItemPacket}{%
   \@numopt\ItemCard{\MYname}{\MYtext}{\MYmark}%
   \ContentsStrip{\MYname}{\MYcontents}%
-  }
+}
 
 \@elementmapping{ItemFold}{%
   \FoldingItem{\MYname}{\MYnumber}{\MYtext}{\MYcontents}%
-  }
+}
 
 \@elementmapping{ItemEnvelope}{%
   \EnvelopeItem{\MYname}{\MYnumber}{\MYtext}{\MYcontents}%
-  }
+}
 
-\@elementmapping{ItemLabel}{}
+\@elementmapping{ItemLabel}{
+	\LabelItem{\MYname}{\MYnumber}{\MYtext}%
+}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 }
 
@@ -4219,9 +5041,11 @@
 \newdimen\bookwidth      \bookwidth  = \textwidth
 \newdimen\bookheight     \bookheight = 3in
 \def\transfer{Freely Transferable}
-\def\notebooktext{A Notebook.  Opened pages are in-game items;
-  un-opened pages are not.  You may start with the first page open.
-  You may only open pages when directed to.}
+\def\notebooktext{%
+  A Notebook.  Opened pages are in-game items; un-opened pages are
+  not.  You may start with the first page open.  You may only open
+  pages when directed to.%
+}
 \def\familydefault{\sfdefault}
 
 
@@ -4233,34 +5057,41 @@
 \def\hdotfill{\hbox to\hsize{\leaders\hbox to2pt{\tiny\smash.\hfil}\hfil}}
 
 \def\fold@back{%
-  \makebox[0pt][r]{\hbox{%
-    \leftskip=0pt plus1fil%
-    \rightskip=0pt%
-    \lineskip=1pt%
-    \def\baselinstretch{0}%
-    \vbox to\vsize{%
-      \vfill%
-      \tiny\break fold\break back\break here\break%
-      \vfill}%
-    \vdotfill}}}
+  \makebox[0pt][r]{%
+    \hbox{%
+      \leftskip=0pt plus1fil%
+      \rightskip=0pt%
+      \lineskip=1pt%
+      \def\baselinstretch{0}%
+      \vbox to\vsize{%
+        \vfill%
+        \tiny\break fold\break back\break here\break%
+        \vfill}%
+      \vdotfill%
+    }%
+  }%
+}
 
 
 %%%%%
 %% \begin{page}{<string>}  <contents>  \end{page}
-\newcommand\page[2][]{\begingroup%
-  \def\identifier{\@nbref{#2}}%
-  \fboxsep=-\fboxrule%
-  \baselineskip=0pt%
-  \parindent=0pt%
-  \def\baselinstretch{0}%
-  \setbox\temp@box=\vbox\bgroup%
+\newcommand\page[2][]{%
+  \begingroup%
+    \def\identifier{\@nbref{#2}}%
+    \fboxsep=-\fboxrule%
+    \baselineskip=0pt%
+    \parindent=0pt%
+    \def\baselinstretch{0}%
+    \setbox\temp@box=\vbox\bgroup%
       \hsize\bookwidth%
       \advance\hsize-2\whitespace%
       \leftskip\whitespace plus1fil%
       \rightskip\whitespace plus1fil%
       \vskip2\whitespace%
-      {\footnotesize\mbox{\gamenameabbrev}/\mbox{\gamedateabbrev}%
-                          \hfill\transfer}
+      \begingroup%
+        \footnotesize%
+        \mbox{\gamenameabbrev}/\mbox{\gamedateabbrev}\hfill\transfer%
+      \endgroup%
       \vskip\whitespace\vfill%
       \temp@dimen\hsize%
       \advance\temp@dimen-\leftskip%
@@ -4269,47 +5100,62 @@
         \parindent0pt%
         \parskip.5\baselineskip%
         \relax\small%
-  }
+}
 
 \def\endpage{%
         \relax%
       \end{minipage}%
       \vskip\whitespace\vfill%
-      \egroup%
-  \temp@dimen\ht\temp@box%
-  \advance\temp@dimen\dp\temp@box%
-  \ifdim\temp@dimen>\bookheight%
-    \bookheight\temp@dimen%
-    \typeout{! notebook page oversized}
-  \fi%
-  \doublecard%
-    {\fbox{\hbox to\bookwidth{\vsize\bookheight\relax%
-      \hfill
-      \raisebox{.5\vsize}{%
-        \rotatebox[origin=c]{90}{\tiny staple binding along here}}%
-      \hfill
-      \vbox to\vsize{\unvbox\temp@box}%
-      }}}%
-    {\mbox{\hbox to\bookwidth{\vsize\bookheight\relax%
-      \vbox to\vsize{
-        \hsize\bookwidth%
-        \advance\hsize-2\whitespace%
-        \divide\hsize2%
-        \leftskip\whitespace plus1fil%
-        \rightskip\whitespace plus1fil%
-        \vskip.5\whitespace
-        {\tiny staple along here}\break
-        \vfill
-        \parbox{.3\hsize}{\centering%
-          {\bfseries\Large\identifier}\\[.5\whitespace]%
-          \tiny Do not open this page until you are directed to do so.%
-          }\break
-        \vfill
+    \egroup%
+    \temp@dimen\ht\temp@box%
+    \advance\temp@dimen\dp\temp@box%
+    \ifdim\temp@dimen>\bookheight%
+      \bookheight\temp@dimen%
+      \typeout{! notebook page oversized}
+    \fi%
+    \doublecard{%
+      \fbox{%
+        \hbox to\bookwidth{%
+          \vsize\bookheight\relax%
+          \hfill
+          \raisebox{.5\vsize}{%
+            \rotatebox[origin=c]{90}{\tiny staple binding along here}%
+          }%
+          \hfill
+          \vbox to\vsize{\unvbox\temp@box}%
         }%
-      \fold@back
-      \hfill
-      }}}%
-  \endgroup}
+      }%
+    }{%
+      \mbox{%
+        \hbox to\bookwidth{%
+          \vsize\bookheight\relax%
+          \vbox to\vsize{
+            \hsize\bookwidth%
+            \advance\hsize-2\whitespace%
+            \divide\hsize2%
+            \leftskip\whitespace plus1fil%
+            \rightskip\whitespace plus1fil%
+            \vskip.5\whitespace
+            \begingroup%
+              \tiny staple along here%
+            \endgroup%
+            \break
+            \vfill
+            \parbox{.3\hsize}{%
+              \centering%
+              \textbf{\Large\identifier}\\[.5\whitespace]%
+              \tiny Do not open this page until you are directed to do so.%
+            }%
+            \break
+            \vfill
+          }%
+          \fold@back
+          \hfill
+        }%
+      }%
+    }%
+  \endgroup%
+}
 
 
 %%%%%
@@ -4321,7 +5167,8 @@
     \def\@nbref##1{}%
     \renewcommand\page[2][]{%
       \begingroup%
-        \def\@tmp{##1}\ifx\@tmp\empty%
+        \def\@tmp{##1}%
+        \ifx\@tmp\empty%
           \count0=\@nbpagecount %
           \advance\count0by1%
           \xdef\@nbpagecount{\the\count0}%
@@ -4330,10 +5177,13 @@
           \gdef\@nbid{##1}%
         \fi%
       \endgroup%
-      \etoss{\toss[2]{%
-        \expandafter\def\csname nb.##2\endcsname{\?\@nbid}}}%
-      \setbox\temp@box=\vbox\bgroup%
+      \etoss{%
+        \toss[2]{%
+          \expandafter\def\csname nb.##2\endcsname{\?\@nbid}%
+        }%
       }%
+      \setbox\temp@box=\vbox\bgroup%
+    }%
     \def\endpage{\egroup}%
     \setbox\temp@box=\vbox{#2}%
   \endgroup%
@@ -4346,27 +5196,39 @@
     \advance\bookwidth-2\whitespace%
     \divide\bookwidth2%
     \setbox\temp@box=\vbox{%
-        \hsize\bookwidth%
-        \leftskip\whitespace plus1fil%
-        \rightskip\whitespace plus1fil%
-        \vskip2\whitespace%
-        {\footnotesize\mbox{\gamenameabbrev}/\mbox{\gamedateabbrev}%
-                            \hfill\transfer}
-        \vskip\whitespace\vfill%
-        {\BRANCHTYPES{Notebook}{\MAP{\TYPE}{%
-           \MYname\ifx\MYnumber\empty\else%
-           \break\vskip\whitespace\MYnumber\fi}}%
-         \bfseries#1}\break
-        \vskip\whitespace\vfill%
-        \temp@dimen\hsize%
-        \advance\temp@dimen-\leftskip%
-        \advance\temp@dimen-\rightskip%
-        \begin{minipage}{\temp@dimen}%
-          \parindent0pt%
-          \parskip.5\baselineskip%
-          {\small\notebooktext}%
-        \end{minipage}%
-        \vskip\whitespace\vfill}%
+      \hsize\bookwidth%
+      \leftskip\whitespace plus1fil%
+      \rightskip\whitespace plus1fil%
+      \vskip2\whitespace%
+      {\footnotesize\mbox{\gamenameabbrev}/\mbox{\gamedateabbrev}%
+                          \hfill\transfer}
+      \vskip\whitespace\vfill%
+      \begingroup%
+        \BRANCHTYPES{Notebook}{%
+          \MAP{\TYPE}{%
+            \MYname%
+            \unless\ifx\MYnumber\empty%
+              \break\vskip\whitespace%
+              \MYnumber%
+            \fi%
+          }%
+        }%
+        \bfseries#1%
+      \endgroup%
+      \break
+      \vskip\whitespace\vfill%
+      \temp@dimen\hsize%
+      \advance\temp@dimen-\leftskip%
+      \advance\temp@dimen-\rightskip%
+      \begin{minipage}{\temp@dimen}%
+        \parindent0pt%
+        \parskip.5\baselineskip%
+        \begingroup%
+          \small\notebooktext%
+        \endgroup%
+      \end{minipage}%
+      \vskip\whitespace\vfill%
+    }%
     \temp@dimen\ht\temp@box%
     \advance\temp@dimen\dp\temp@box%
     \ifdim\temp@dimen>\bookheight%
@@ -4374,27 +5236,35 @@
       \typeout{! notebook cover oversized}
     \fi%
     \advance\bookwidth2\whitespace%
-    \card%
-      {\fbox{\hbox to\bookwidth{\vsize\bookheight\relax%
-        \hfill
-        \raisebox{.5\vsize}{%
-          \rotatebox[origin=c]{90}{\tiny staple binding along here}}%
-        \hfill
-        \vbox to\vsize{\unvbox\temp@box}%
-        }}}%
+    \card{%
+      \fbox{%
+        \hbox to\bookwidth{%
+          \vsize\bookheight\relax%
+          \hfill
+          \raisebox{.5\vsize}{%
+            \rotatebox[origin=c]{90}{\tiny staple binding along here}%
+          }%
+          \hfill
+          \vbox to\vsize{\unvbox\temp@box}%
+        }%
+      }%
+    }%
   \endgroup%
-  #2}
+  #2%
+}
 
 
 %%%%%
 %%
 \gdef\@nbpagecount{0}
-\def\nbref#1{{\bf\@nbref{#1}}}
-\def\@nbref#1{\ifcsname nb.#1\endcsname%
+\def\nbref#1{\textbf{\@nbref{#1}}}
+\def\@nbref#1{%
+  \ifcsname nb.#1\endcsname%
     \csname nb.#1\endcsname%
   \else%
     \typeout{! Notebook reference string #1 does not exist in this notebook}%
-  \fi}
+  \fi%
+}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -4421,8 +5291,10 @@
 %%%%%
 %% make them non-transferable
 \def\transfer{Not Transferable}
-\def\notebooktext{This notebook is out-of-game.  You may start with
-  the first page open.  You may only open pages when directed to.}
+\def\notebooktext{%
+  This notebook is out-of-game.  You may start with the first page
+  open.  You may only open pages when directed to.%
+}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -4455,7 +5327,8 @@
 %% Uses of \cash are set to \makemorechange (after it is changed
 %% to Money macros for actual bills, it prints the bill).
 \@elementmapping{Money}{%
-  \@numopt\MoneyBill{\MYshortprint}{\MYlongprint}{\MYbillprint}}
+  \@numopt\MoneyBill{\MYshortprint}{\MYlongprint}{\MYbillprint}%
+}
 
 \makemorechange
 
@@ -4489,27 +5362,53 @@
     \baselineskip=0pt%
     \lineskip=0pt%
     \def\baselinestretch{0}%
-    \doublecard%
-      {\framebox{\vbox to\moneyheight{%
-         \hsize=\moneywidth%
-         \leftskip=\whitespace plus1fil%
-         \rightskip=\whitespace plus1fil%
-         \vskip\whitespace
-         \large\mbox{\gamenameabbrev}\hfill{#2}\break\vfill
-         {\Huge\bfseries #2}\break\vskip\whitespace
-         {#3\def\@tmp{#1}\ifx\@tmp\empty\else\ \ \ #1\fi}\break\vfill
-         {#2}\hfill\mbox{\gamedateabbrev}\break
-         \vskip\whitespace}}}%
-      {\vbox to\moneyheight{%
-         \hsize=\moneywidth%
-         \leftskip=\whitespace plus1fil%
-         \rightskip=\whitespace plus1fil%
-         \vskip\whitespace \vfill
-         \mbox{\gamenameabbrev} / \mbox{\gamedateabbrev}\break\vfill
-         {\Large #4}\break\vfill
-         Freely Transferable\break\vfill
-         \vskip\whitespace}}%
-  \endgroup}
+    \doublecard{%
+      \framebox{%
+        \vbox to\moneyheight{%
+          \hsize=\moneywidth%
+          \leftskip=\whitespace plus1fil%
+          \rightskip=\whitespace plus1fil%
+          \vskip\whitespace%
+          \large%
+          \mbox{\gamenameabbrev}\hfill%
+          \begingroup%
+            #2%
+          \endgroup%
+          \break\vfill%
+          \textbf{\Huge#2}\break\vskip\whitespace
+          \begingroup%
+            #3%
+            \def\@tmp{#1}%
+            \unless\ifx\@tmp\empty%
+              \ \ \ #1%
+            \fi%
+          \endgroup%
+          \break\vfill%
+          \begingroup%
+            #2%
+          \endgroup%
+          \hfill%
+          \mbox{\gamedateabbrev}\break%
+          \vskip\whitespace%
+        }%
+      }%
+    }{%
+      \vbox to\moneyheight{%
+        \hsize=\moneywidth%
+        \leftskip=\whitespace plus1fil%
+        \rightskip=\whitespace plus1fil%
+        \vskip\whitespace\vfill
+        \mbox{\gamenameabbrev} / \mbox{\gamedateabbrev}\break\vfill
+        \begingroup%
+          \Large #4%
+        \endgroup%
+        \break\vfill%
+        Freely Transferable\break\vfill%
+        \vskip\whitespace%
+      }%
+    }%
+  \endgroup%
+}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -4539,75 +5438,134 @@
 
 %%%%%
 %%
-\@elementmapping{Sign}{
-  \BigSign%
-    {\MYname\ifx\MYnumber\empty\else\\\MYnumber\fi}%
-    {\MYloc}%
-    {\MYtext}%
-  }
+\@elementmapping{Sign}{%
+  \BigSign{%
+    \MYname%
+    \unless\ifx\MYnumber\empty%
+      \\\MYnumber%
+    \fi%
+  }{%
+    \MYloc%
+  }{%
+    \MYtext%
+  }%
+}
 
-\@elementmapping{SignMedium}{
-  \MediumSign%
-    {\MYname\ifx\MYnumber\empty\else\\\MYnumber\fi}%
-    {\MYloc}%
-    {\MYtext}%
-  }
+\@elementmapping{SignMedium}{%
+  \MediumSign{%
+    \MYname%
+    \unless\ifx\MYnumber\empty%
+      \\\MYnumber%
+    \fi%
+  }{%
+    \MYloc%
+  }{%
+    \MYtext%
+  }%
+}
 
-\@elementmapping{SignSmall}{
-  \SmallSign%
-    {\MYname\ifx\MYnumber\empty\else\\\MYnumber\fi}%
-    {\MYloc}%
-    {\MYtext}%
-  }
+\@elementmapping{SignSmall}{%
+  \SmallSign{%
+    \MYname%
+    \unless\ifx\MYnumber\empty%
+      \\\MYnumber%
+    \fi%
+  }{%
+    \MYloc%
+  }{%
+    \MYtext%
+  }%
+}
 
-\@elementmapping{SignTiny}{
-  \TinySign%
-    {\MYname\ifx\MYnumber\empty\else\\\MYnumber\fi}%
-    {\MYloc}%
-    {\MYtext}%
-  }
+\@elementmapping{SignTiny}{%
+  \TinySign{%
+    \MYname%
+    \unless\ifx\MYnumber\empty%
+      \\\MYnumber%
+    \fi%
+  }{%
+    \MYloc%
+  }{%
+    \MYtext%
+  }%
+}
 
-\@elementmapping{SignDot}{
-  \DotSign%
-    {\MYname\ifx\MYnumber\empty\else\\\MYnumber\fi}%
-    {\MYloc}%
-  }
+\@elementmapping{SignDot}{%
+  \DotSign{%
+    \MYname%
+    \unless\ifx\MYnumber\empty%
+      \\\MYnumber%
+    \fi%
+  }{%
+    \MYloc%
+  }%
+}
 
-\@elementmapping{Label}{
-  \BigLabel%
-    {\MYname\ifx\MYnumber\empty\else\\\MYnumber\fi}%
-    {\MYtext}%
-  }
+\@elementmapping{Label}{%
+  \BigLabel{%
+    \MYname%
+    \unless\ifx\MYnumber\empty%
+      \\\MYnumber%
+    \fi%
+  }{%
+    \MYtext%
+  }%
+}
 
-\@elementmapping{LabelMedium}{
-  \MediumLabel%
-    {\MYname\ifx\MYnumber\empty\else\\\MYnumber\fi}%
-    {\MYtext}%
-  }
+\@elementmapping{LabelMedium}{%
+  \MediumLabel{%
+    \MYname%
+    \unless\ifx\MYnumber\empty%
+      \\\MYnumber%
+    \fi%
+  }{%
+    \MYtext%
+  }%
+}
 
-\@elementmapping{LabelSmall}{
-  \SmallLabel%
-    {\MYname\ifx\MYnumber\empty\else\\\MYnumber\fi}%
-    {\MYtext}%
-  }
+\@elementmapping{LabelSmall}{%
+  \SmallLabel{%
+    \MYname%
+    \unless\ifx\MYnumber\empty%
+      \\\MYnumber%
+    \fi%
+  }{%
+    \MYtext%
+  }%
+}
 
-\@elementmapping{SignStrip}{
-  \Strip%
-    {\MYloc\ \MYname\ifx\MYnumber\empty\else\ (\MYnumber)\fi}%
-    {\MYtext}%
-  }
+\@elementmapping{SignStrip}{%
+  \Strip{%
+    \MYloc\ \MYname%
+    \unless\ifx\MYnumber\empty%
+      \\\MYnumber%
+    \fi%
+  }{%
+    \MYtext%
+  }%
+}
 
-\@elementmapping{LabelCover}{
-  \CoverLabel%
-    {\MYname\ifx\MYnumber\empty\else\\\MYnumber\fi}%
-    {\MYtext}%
-  }
+\@elementmapping{LabelCover}{%
+  \CoverLabel{%
+    \MYname%
+    \unless\ifx\MYnumber\empty%
+      \\\MYnumber%
+    \fi%
+  }{%
+    \MYtext%
+  }%
+}
 
-\@elementmapping{LabelPage}{
-  \PageLabel%
-    {\MYname\ifx\MYnumber\empty\else\\\MYnumber\fi}%
-    {\MYtext}%
-  }
+\@elementmapping{LabelPage}{%
+  \PageLabel{%
+    \MYname%
+    \unless\ifx\MYnumber\empty%
+      \\\MYnumber%
+    \fi%
+  }{%
+    \MYtext%
+  }%
+}
 
 
 %%%%%
@@ -4627,8 +5585,11 @@
 %%%%%
 %%
 
-\def\noremove{Please do not remove this until \takedownby.\break
-  \vskip.5\whitespace --- The MIT Assassins' Guild ---}
+\def\noremove{%
+  \unless\ifx\takedownby\empty{Please do not remove this until \takedownby.}\fi\break
+  \vskip.5\whitespace%
+  --- \larporg{} ---%
+}
 
 \long\def\@signfront#1#2#3{%
   \begingroup%
@@ -4636,34 +5597,52 @@
     \baselineskip=0pt%
     \parindent=0pt%
     \def\baselinstretch{0}%
-    \fbox{\vbox to\signheight{\hsize\signwidth%
-      \leftskip\whitespace plus1fil%
-      \rightskip\whitespace plus1fil%
-      \vskip\whitespace%
-      {\mbox{\gamenameabbrev}\hfill\mbox{\signdate}}\break\vfill
-      {\bfseries#2}\break\vfill
-      {\fboxsep\whitespace\fbox{\parbox{.7\signwidth}{%
-        \centering\bfseries#1}}}\break\vfill
-      {\parbox{.7\signwidth}{\parskip.5\baselineskip\raggedright#3}}%
-      \break\vfill\vfill\vfill
-      {\lineskip=3pt\noremove}\break
-      \vskip\whitespace}}%
-  \endgroup}
+    \fbox{%
+      \vbox to\signheight{%
+        \hsize\signwidth%
+        \leftskip\whitespace plus1fil%
+        \rightskip\whitespace plus1fil%
+        \vskip\whitespace%
+        \mbox{\gamenameabbrev}\hfill\mbox{\signdate}\break\vfill
+        \textbf{#2}\break\vfill
+        \fboxsep\whitespace%
+        \fbox{%
+          \parbox{.7\signwidth}{\centering\bfseries#1}%
+        }%
+        \break\vfill
+        \parbox{.7\signwidth}{\parskip.5\baselineskip\raggedright#3}%
+        \break\vfill\vfill\vfill
+        \begingroup%
+          \lineskip=3pt\noremove%
+        \endgroup%
+        \break
+        \vskip\whitespace%
+      }%
+    }%
+  \endgroup%
+}
 
 \def\@signback{%
   \begingroup%
     \parindent=0pt%
     \def\baselinstretch{0}%
     \fboxsep=\whitespace%
-    \fbox{\fbox{\vbox to.6\signheight{\hsize.6\signwidth%
-      \leftskip.1\whitespace plus1fil%
-      \rightskip.1\whitespace plus1fil%
-      \vskip.1\whitespace%
-      \mbox{\gamenameabbrev}\hfill\mbox{\signdate}\break\vfill
-      This is a sign being used by the MIT Assassins' Guild.\break\vfill
-      Please do not throw this away.\break
-      \vskip.1\whitespace}}}%
-  \endgroup}
+    \fbox{%
+      \fbox{%
+        \vbox to.6\signheight{%
+          \hsize.6\signwidth%
+          \leftskip.1\whitespace plus1fil%
+          \rightskip.1\whitespace plus1fil%
+          \vskip.1\whitespace%
+          \mbox{\gamenameabbrev}\hfill\mbox{\signdate}\break\vfill
+          This is a sign being used for the LARP \gamename{}.\break\vfill
+          Please do not throw this away.\break
+          \vskip.1\whitespace%
+        }%
+      }%
+    }%
+  \endgroup%
+}
 
 \long\def\@labelfront#1#2{%
   \begingroup%
@@ -4671,17 +5650,25 @@
     \baselineskip=0pt%
     \parindent=0pt%
     \def\baselinstretch{0}%
-    \fbox{\vbox to\signheight{\hsize\signwidth%
-      \leftskip\whitespace plus1fil%
-      \rightskip\whitespace plus1fil%
-      \vskip\whitespace%
-      {\mbox{\gamenameabbrev}\hfill\mbox{\signdate}}\break\vfill
-      {\fboxsep\whitespace\fbox{\parbox{.7\signwidth}{%
-        \centering\bfseries#1}}}\break\vfill
-      {\parbox{.7\signwidth}{\parskip.5\baselineskip\raggedright#2}}%
-      \break\vfill\vfill\vfill
-      \vskip\whitespace}}%
-  \endgroup}
+    \fbox{%
+      \vbox to\signheight{%
+        \hsize\signwidth%
+        \leftskip\whitespace plus1fil%
+        \rightskip\whitespace plus1fil%
+        \vskip\whitespace%
+        \mbox{\gamenameabbrev}\hfill\mbox{\signdate}\break\vfill
+        \fboxsep\whitespace%
+        \fbox{%
+          \parbox{.7\signwidth}{\centering\bfseries#1}%
+        }%
+        \break\vfill
+        \parbox{.7\signwidth}{\parskip.5\baselineskip\raggedright#2}%
+        \break\vfill\vfill\vfill
+        \vskip\whitespace%
+      }%
+    }%
+  \endgroup%
+}
 
 
 %%%%%
@@ -4695,24 +5682,30 @@
   \begingroup%
     \signwidth\textwidth%
     \signheight\textheight%
-    \doublecard%
-      {\Large\@signfront%
-         {\Huge\relax#1}%
-         {\Large\relax#2}%
-         {\large#3}%
-      }%
-      {\huge\@signback}%
-  \endgroup}
+    \doublecard{%
+      \Large%
+      \@signfront{\Huge\relax#1}{\Large\relax#2}{\large#3}%
+    }{%
+      \huge%
+      \@signback%
+    }%
+  \endgroup%
+}
 
 
 \newcommand{\MediumSign}[3]{%
   \begingroup%
     \signwidth\mediumwidth%
     \signheight\mediumheight%
-    \doublecard%
-      {\normalsize\@signfront{#1}{#2}{#3}}%
-      {\normalsize\@signback}%
-  \endgroup}
+    \doublecard{%
+      \normalsize%
+      \@signfront{#1}{#2}{#3}%
+    }{%
+      \normalsize%
+      \@signback%
+    }%
+  \endgroup%
+}
 
 
 \newcommand{\SmallSign}[3]{%
@@ -4720,10 +5713,15 @@
     \signwidth\smallwidth%
     \signheight\smallheight%
     \whitespace5pt%
-    \doublecard%
-      {\small\@signfront{#1}{#2}{\baselineskip=0pt\relax#3}}%
-      {\whitespace5pt\scriptsize\@signback}%
-  \endgroup}
+    \doublecard{%
+      \small%
+      \@signfront{#1}{#2}{\baselineskip=0pt\relax#3}%
+    }{%
+      \whitespace5pt\scriptsize%
+      \@signback%
+    }%
+  \endgroup%
+}
 
 
 %%%%%
@@ -4737,20 +5735,24 @@
   \begingroup%
     \signwidth\textwidth%
     \signheight\textheight%
-    \card%
-      {\Large\@labelfront%
-         {\Huge\relax#1}%
-         {\large#2}%
-      }%
-  \endgroup}
+    \card{%
+      \Large%
+      \@labelfront{\Huge\relax#1}{\large#2}%
+    }%
+  \endgroup%
+}
 
 
 \newcommand{\MediumLabel}[2]{%
   \begingroup%
     \signwidth\mediumwidth%
     \signheight\mediumheight%
-    \card{\normalsize\@labelfront{#1}{#2}}%
-  \endgroup}
+    \card{%
+      \normalsize%
+      \@labelfront{#1}{#2}%
+    }%
+  \endgroup%
+}
 
 
 \newcommand{\SmallLabel}[2]{%
@@ -4758,8 +5760,12 @@
     \signwidth\smallwidth%
     \signheight\smallheight%
     \whitespace5pt%
-    \card{\small\@labelfront{#1}{\baselineskip=0pt\relax#2}}%
-  \endgroup}
+    \card{%
+      \small%
+      \@labelfront{#1}{\baselineskip=0pt\relax#2}%
+    }%
+  \endgroup%
+}
 
 
 %%%%%
@@ -4775,12 +5781,17 @@
     \advance\fboxsep\whitespace%
     \advance\signwidth-2\fboxsep%
     \card{%
-      \fbox{\parbox{\signwidth}{%
-        \tiny\raggedright%
-        #2\hfill{\bfseries#1}\hfill\mbox{\gamenameabbrev}/\mbox{\signdate}%
-        \\[\whitespace]#3}}%
+      \fbox{%
+        \parbox{\signwidth}{%
+          \tiny\raggedright%
+          #2\hfill{\bfseries#1}\hfill\mbox{\gamenameabbrev}/\mbox{\signdate}%
+          \\[\whitespace]%
+          #3%
+        }%
       }%
-  \endgroup}
+    }%
+  \endgroup%
+}
 
 
 \newcommand{\DotSign}[2]{%
@@ -4791,14 +5802,25 @@
     \advance\fboxsep\whitespace%
     \advance\signwidth-2\fboxsep%
     \card{%
-      \fbox{\parbox{\signwidth}{%
-        \centering\tiny\mbox{\gamenameabbrev}\\[\whitespace]
-        {\scriptsize%
-         {\bfseries#1}\hspace{1sp}\\[\whitespace]%
-         {#2}}\hspace{1sp}\\[\whitespace]
-        \mbox{\signdate}}}%
+      \fbox{%
+        \parbox{\signwidth}{%
+          \centering\tiny%
+          \mbox{\gamenameabbrev}\\[\whitespace]
+          \begingroup%
+            \scriptsize%
+            \textbf{#1}%
+          \endgroup%
+          \hspace{1sp}\\[\whitespace]%
+          \begingroup%
+            #2%
+          \endgroup%
+          \hspace{1sp}\\[\whitespace]%
+          \mbox{\signdate}%
+        }%
       }%
-  \endgroup}
+    }%
+  \endgroup%
+}
 
 
 %%%%%
@@ -4815,23 +5837,40 @@
     \advance\fboxsep.7\whitespace%
     \advance\signwidth-2\fboxsep%
     \setbox\trig@box=\vbox{%
-        \hsize\signwidth\centering%
-        \def\@tmp{\parbox{.45\signwidth}{\centering\tiny%
+      \hsize\signwidth\centering%
+      \def\@tmp{%
+        \parbox{.45\signwidth}{%
+          \centering\tiny%
           \mbox{\gamenameabbrev}/\mbox{\signdate}\\[.25\whitespace]%
-          \footnotesize#1}}%
-        \@tmp\hfil\hfil\@tmp}%
-    \setbox\text@box=\vbox{\hsize\signwidth%
-        \parbox{\hsize}{\raggedright\tiny%
-          \mbox{\gamenameabbrev}/\mbox{\signdate}\hspace{\whitespace}#1%
-          \\[.25\whitespace]\footnotesize#2}}%
+          \footnotesize#1%
+        }%
+      }%
+      \@tmp\hfil\hfil\@tmp%
+    }%
+    \setbox\text@box=\vbox{%
+      \hsize\signwidth%
+      \parbox{\hsize}{%
+        \raggedright\tiny%
+        \mbox{\gamenameabbrev}/\mbox{\signdate}\hspace{\whitespace}#1%
+        \\[.25\whitespace]%
+        \footnotesize#2%
+      }%
+    }%
     \signheight\ht\trig@box%
     \ifdim\signheight<\ht\text@box%
       \signheight\ht\text@box%
     \fi%
-    \doublecard%
-      {\fbox{\vbox to\signheight{\vfill\box\text@box}}}%
-      {\box\trig@box}%
-  \endgroup}
+    \doublecard{%
+      \fbox{%
+        \vbox to\signheight{%
+          \vfill\box\text@box%
+        }%
+      }%
+    }{%
+      \box\trig@box%
+    }%
+  \endgroup%
+}
 
 
 %%%%%
@@ -4875,9 +5914,13 @@
 \SURFACEMAP{GM}{\iflist\GMbadge{\MYname}{\MYplayer}\fi}
 
 \def\@production{%
-  \@setowner{GMs}\SORT{GM}{alpha<}{\playeralphabetical}{\EVERY{GM}{}}{}%
-  \@setowner{Observers}\pageof{\Observer}%
-  \charsproduction\EVERY{Place}{}}
+  \@setowner{GMs}%
+  \SORT{GM}{alpha<}{\playeralphabetical}{\EVERY{GM}{}}{}%
+  \@setowner{Observers}%
+  \pageof{\Observer}%
+  \charsproduction%
+  \EVERY{Place}{}%
+}
 \def\@compendium{\@production}
 
 
@@ -4897,55 +5940,47 @@
 %% parts of namebadges
 \def\lefttop{Name-Badge}
 \def\righttop{Not Transferable}
-%\def\leftbottom{\mbox{\gamenameabbrev}}
-%\def\rightbottom{\mbox{\gamedateabbrev}}
+\def\leftbottom{\mbox{\gamenameabbrev}}
+\def\rightbottom{\mbox{\gamedateabbrev}}
 \def\backtext{I'M NOT HERE}
 \definecolor{badgeback}{gray}{.25}
 
 
 %%%%%
-%% \NameBadge{field1}{field2}{field3}{field4}
+%% \NameBadge{field1}{field2}{field3}{field4}{field5}{field6}
+%% Default: {\MYname}{\MYcharpronouns}{\MYnumber}{\MYplayer}{\MYplayerpronouns}{\MYdesc}
 %% \GMbadge{name}
-%%% \Observer
-\newcommand{\NameBadge}[7]{%
+%% \Observer
+\newcommand{\NameBadge}[6]{%
   \begingroup%
-    \doublecard%
-      {\light@badge{%
-        {\huge         \textbf{#1}}\\ %\vfil%
-				{\Large        #7} {\Large (#5)}\vfil%
-        %{\bfseries\LARGE #2}\vfil%
-        {\Large \textbf{\emph{#4}}}\vfil
-				{\large \emph{#3 (#6)}} \hfill {\Large \textbf{\##2}}%\vfil%
-				}
-			}%
-      {\badge@note}%
-  \endgroup}
-
-%\newcommand{\NameBadge}[7]{%
-  %\begingroup%
-    %\doublecard%
-      %{\light@badge{%
-        %{\Huge        \textbf{#3}}\vfil%
-				%{\Large        (#6)}\vfil%
-				%}
-			%}%
-      %{\badge@note}%
-  %\endgroup}
+    \doublecard{%
+      \light@badge{%
+        {\huge         \textbf{#1}}\vfil%
+				\ifx#2\empty\else{\bfseries\LARGE #2}\fi \hspace{1cm}%
+        \ifx#3\empty\else{\bfseries\LARGE \##3}\fi\vfil%
+        {\large         #4}\ifx#5\empty\else{\normalsize \ (#5)}\fi\vfil%
+        {\bfseries\Large #6}\vfil%
+      }%
+    }{\badge@note}%
+  \endgroup%
+}
 
 \newcommand{\GMbadge}[2]{%
   \begingroup%
-    \doublecard%
-      {\dark@badge{%
+    \doublecard{%
+      \dark@badge{%
         {\bfseries\Huge #1}\vfil%
-        {\LARGE         #2}\vfil}}%
-      {\badge@note}%
-  \endgroup}
+        {\LARGE         #2}\vfil%
+      }%
+    }{\badge@note}%
+  \endgroup%
+}
 
 \newcommand{\Observer}{%
   \begingroup%
-    \doublecard%
-      {\dark@badge{\bfseries\Huge OBSERVER\vfil}}%
-      {\badge@note}%
+    \doublecard{%
+      \dark@badge{\bfseries\Huge OBSERVER\vfil}%
+    }{\badge@note}%
   \endgroup}
 
 
@@ -4953,32 +5988,75 @@
 %% Internal macros, increasingly more internal
 \long\def\light@badge#1{%
   \hbox{\light@side{#1}\hskip\whitespace\badge@back}%
-  }
+}
 
 \long\def\dark@badge#1{%
   \hbox{\dark@side{#1}\hskip\whitespace\badge@back}%
-  }
+}
 
 \def\badge@back{%
-  \dark@side{\bfseries\Huge\backtext\vfil}}
+  \dark@side{\bfseries\Huge\backtext\vfil}%
+}
 
 \def\badge@note{%
-  \vbox to\badgeheight{\hsize=2\badgewidth%
+  \vbox to\badgeheight{%
+    \hsize=2\badgewidth%
     \leftskip=\badgewidth plus1fil%
     \rightskip=0pt plus1fil%
     \vfill
     \fboxsep=5pt%
-    \fbox{\fbox{\parbox{.6\badgewidth}{%
-      \centering%
-      %\Large\bfseries\leftbottom\par\rightbottom\par
-      Name Badge\par\vskip5pt
-      \normalsize(turn to other side)
-      }}}%
-    \vfill}%
-  }
+    \fbox{%
+      \fbox{%
+        \parbox{.6\badgewidth}{%
+          \centering%
+          \Large\bfseries\leftbottom\par\rightbottom\par
+          Name Badge\par\vskip5pt
+          \normalsize(turn to other side)
+        }%
+      }%
+    }%
+    \vfill%
+  }%
+}
 
 \newbox\@badgebox
 \newdimen\@badgedimen
+
+\def\nobadgedagger{\let\@badgedagger\empty}
+\def\bigbadgedagger{\let\@badgedagger\relax}
+\def\smallbadgedagger{\let\@badgedagger\null}
+\nobadgedagger
+
+\badgedagger %% get value from .cls file
+
+\def\@daggerbackground{%
+  \unless\ifx\@badgedagger\empty%
+    \makebox[0pt][l]{%
+      \@badgedimen\badgewidth%
+      \advance\@badgedimen-2\whitespace%
+      \makebox[\@badgedimen]{%
+        \ifx\@badgedagger\relax%
+          \def\@fudge{-.9}%
+        \else%
+          \def\@fudge{-.865}%
+        \fi%
+        \raisebox{\@fudge\totalheight}[0pt][0pt]{%
+          \includegraphics[%
+            angle=-100,%
+            origin=c,%
+            width=0.8\badgewidth,%
+          ]{%
+            \ifx\@badgedagger\relax%
+              \postscript/bigdagger%
+            \else%
+              \postscript/smalldagger%
+            \fi%  
+          }%
+        }%
+      }%
+    }%
+  \fi%
+}
 
 \long\def\light@side#1{%
   \begingroup%
@@ -4989,16 +6067,17 @@
     \parindent=0pt%
     \def\baselinestretch{0}%
     \setbox\@badgebox=\vbox{%
-        \centering%
-        \leftskip=\whitespace plus1fil%
-        \rightskip=\whitespace plus1fil%
-        \hsize=\badgewidth%
-        \vskip\whitespace
-        \lefttop \hfill \righttop \vfil
-        {#1}
-        %\leftbottom \hfill \rightbottom
-        %\vskip\whitespace
-				}%
+      \centering%
+      \leftskip=\whitespace plus1fil%
+      \rightskip=\whitespace plus1fil%
+      \hsize=\badgewidth%
+      \vskip\whitespace%
+      \@daggerbackground%
+      \lefttop \hfill \righttop \vfil
+      {#1}
+      \leftbottom \hfill \rightbottom
+      \vskip\whitespace%
+    }%
     \@badgedimen\ht\@badgebox%
     \advance\@badgedimen\dp\@badgebox%
     \ifdim\@badgedimen>\badgeheight%
@@ -5006,7 +6085,8 @@
       \typeout{! badge oversized}%
     \fi%
     \fbox{\vbox to\badgeheight{\unvbox\@badgebox}}%
-  \endgroup}
+  \endgroup%
+}
 
 \long\def\dark@side#1{%
   \begingroup%
@@ -5017,24 +6097,30 @@
     \parindent=0pt%
     \def\baselinestretch{0}%
     \setbox\@badgebox=\vbox{%
-        \centering%
-        \leftskip=\whitespace plus1fil%
-        \rightskip=\whitespace plus1fil%
-        \hsize=\badgewidth%
-        \vskip\whitespace
-        \lefttop \hfill \righttop \vfil
-        {#1}
-        %\leftbottom \hfill \rightbottom
-        \vskip\whitespace}%
+      \centering%
+      \leftskip=\whitespace plus1fil%
+      \rightskip=\whitespace plus1fil%
+      \hsize=\badgewidth%
+      \vskip\whitespace
+      \lefttop \hfill \righttop \vfil
+      {#1}
+      \leftbottom \hfill \rightbottom
+      \vskip\whitespace%
+    }%
     \@badgedimen\ht\@badgebox%
     \advance\@badgedimen\dp\@badgebox%
     \ifdim\@badgedimen>\badgeheight%
       \badgeheight\@badgedimen%
       \typeout{! badge oversized}%
     \fi%
-    \fbox{\colorbox{badgeback}{\color{white}%
-      \vbox to\badgeheight{\unvbox\@badgebox}}}%
-  \endgroup}
+    \fbox{%
+      \colorbox{badgeback}{%
+        \color{white}%
+        \vbox to\badgeheight{\unvbox\@badgebox}%
+      }%
+    }%
+  \endgroup%
+}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -5042,7 +6128,53 @@
 
 
 
-\DeclareGameSubOption{statcards}{cardsheet}{%
+\DeclareGameSubOption{deathreports}{cardsheet}{%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Uses: deathreports option (internal)
+%%
+%% Commands provided:
+%%   \deathreport
+%%
+%%%%%
+
+
+\gdef\mytype{Death Reports (internal)}
+
+
+%%%%%
+%% \deathreport -> meant to be back side of statcard or skillcard
+\newdimen\death@height
+\newdimen\death@width
+
+\newcommand{\deathreport}{%
+  \vtop to \death@height{%
+    \baselineskip=20pt plus1fil minus1fil%
+    \lineskip=0pt%
+    \parindent=0pt%
+    \def\baselinestretch{0}%
+    \leftskip=\whitespace plus1fil%
+    \rightskip=\whitespace plus1fil%
+    \hsize=\death@width%
+    \vskip\whitespace%
+    {\large\bfseries Death Report}\break
+    When: \hrulefill\break
+    Where: \hrulefill\break
+    How: \hrulefill\break
+    By Whom: \hrulefill\break
+    Why (if you know): \hrulefill\break
+    \null\hrulefill
+    \vskip\whitespace%
+  }%
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+}
+
+
+
+\DeclareGameSubOption{statcards}{deathreports}{%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
 %% Uses: cardsheet option
@@ -5059,11 +6191,14 @@
 %%%%%
 %% Char macros produce stat cards
 \@bycharmappings{%
-  \ifstats\begingroup%
-    \long\def\@setsubowner##1##2{##2}%
-    \long\def\@transownersetsubowner##1##2{##2}%
-    \StatCard{\@contact}{\@flatten@field{Stat}\MYstats}%
-  \endgroup\fi}
+  \ifstats%
+    \begingroup%
+      \long\def\@setsubowner##1##2{##2}%
+      \long\def\@transownersetsubowner##1##2{##2}%
+      \StatCard{\@contact}{\@flatten@field{Stat}\MYstats}%
+    \endgroup%
+  \fi%
+}
 
 \def\@compendium{\@production}
 
@@ -5087,6 +6222,12 @@
 
 
 %%%%%
+%% set \death@height and \death@width
+\death@height\statcardheight
+\death@width\statcardwidth
+
+
+%%%%%
 %% \StatCard{name}{\stat{name}{abbrev}{value} commands}
 \newbox\temp@box
 \newbox\stats@box
@@ -5102,110 +6243,95 @@
     \parindent=0pt%
     \def\baselinestretch{0}%
     \setbox\temp@box=\vbox{%
-        \small\lefttop\hfill\righttop
-        \vskip1.5\whitespace
-        {\normalsize\bfseries#1}
-        \vskip2\whitespace
-        \leftbottom\hfill\rightbottom}%
+      \small\lefttop\hfill\righttop
+      \vskip1.5\whitespace
+      {\normalsize\bfseries#1}
+      \vskip2\whitespace
+      \leftbottom\hfill\rightbottom%
+    }%
     \stats@height\statcardheight%
     \advance\stats@height-\ht\temp@box%
     \advance\stats@height-\dp\temp@box%
     \setbox\temp@box=\vbox{%
-        \temp@dimen\statcardwidth%
-        \advance\temp@dimen-.5\temp@dimen%
-        \advance\temp@dimen-3\whitespace%
-	\BRANCHTYPES{Stat}{\SURFACEMAP{\TYPE}{%
+      \temp@dimen\statcardwidth%
+      \advance\temp@dimen-.5\temp@dimen%
+      \advance\temp@dimen-3\whitespace%
+      \BRANCHTYPES{Stat}{%
+        \SURFACEMAP{\TYPE}{%
           \global\setbox\stats@box=\vbox{%
-              \unvbox\stats@box%
-              \vfill%
-              \hrule height2pt width0pt%
-              \hbox to\temp@dimen{%
-                \setbox\temp@box=\hbox{\bfseries\MYabbrev:}%
-                \advance\temp@dimen-\wd\temp@box%
-                \advance\temp@dimen-.5\whitespace%
-                \box\temp@box\hfill%
-                \parbox[t]{\temp@dimen}{\raggedleft\MYvalue}}%
-              \hrule height2pt width0pt%
-              \vfill}}}%
-        \scriptsize\baselineskip0pt\lineskip0pt%
-        \global\setbox\stats@box=\vbox{}%
-        #2}%
+            \unvbox\stats@box%
+            \vfill%
+            \hrule height2pt width0pt%
+            \hbox to\temp@dimen{%
+              \setbox\temp@box=\hbox{\bfseries\MYabbrev:}%
+              \advance\temp@dimen-\wd\temp@box%
+              \advance\temp@dimen-.5\whitespace%
+              \box\temp@box\hfill%
+              \parbox[t]{\temp@dimen}{\raggedleft\MYvalue}}%
+            \hrule height2pt width0pt%
+            \vfill%
+          }%
+        }%
+      }%
+      \scriptsize\baselineskip0pt\lineskip0pt%
+      \global\setbox\stats@box=\vbox{}%
+      #2%
+    }%
     \global\setbox\temp@box\null%
     \temp@dimen\ht\stats@box%
     \advance\temp@dimen\dp\stats@box%
     \ifdim\temp@dimen>\stats@height%
       \global\setbox\stats@box=\hbox{%
-          \splittopskip0pt plus1fill%
-          \setbox\temp@box\vsplit\stats@box to.5\temp@dimen%
-          \temp@dimen\ht\temp@box%
-          \advance\temp@dimen\dp\temp@box%
-          \ifdim\temp@dimen>\stats@height%
-            \stats@height\temp@dimen%
-          \fi%
-          \temp@dimen\ht\stats@box%
-          \advance\temp@dimen\dp\stats@box%
-          \ifdim\temp@dimen>\stats@height%
-            \stats@height\temp@dimen%
-          \fi%
-          \hfill%
-          \vbox to\stats@height{\unvbox\temp@box\vfill}%
-          \hfill%
-          \vrule width.2pt%
-          \hfill%
-          \vbox to\stats@height{\unvbox\stats@box}%
-          \hfill}%
+        \splittopskip0pt plus1fill%
+        \setbox\temp@box\vsplit\stats@box to.5\temp@dimen%
+        \temp@dimen\ht\temp@box%
+        \advance\temp@dimen\dp\temp@box%
+        \ifdim\temp@dimen>\stats@height%
+          \stats@height\temp@dimen%
+        \fi%
+        \temp@dimen\ht\stats@box%
+        \advance\temp@dimen\dp\stats@box%
+        \ifdim\temp@dimen>\stats@height%
+          \stats@height\temp@dimen%
+        \fi%
+        \hfill%
+        \vbox to\stats@height{\unvbox\temp@box\vfill}%
+        \hfill%
+        \vrule width.2pt%
+        \hfill%
+        \vbox to\stats@height{\unvbox\stats@box}%
+        \hfill%
+      }%
     \else%
       \global\setbox\stats@box=\hbox{%
-          \vbox to\stats@height{\unvbox\stats@box}}%
+        \vbox to\stats@height{\unvbox\stats@box}%
+      }%
     \fi%
     \setbox\temp@box=\vbox{%
-        \leftskip=\whitespace plus1fil%
-        \rightskip=\whitespace plus1fil%
-        \hsize=\statcardwidth%
-        \vskip\whitespace
-        \small\lefttop\hfill\righttop
-        \vskip.5\whitespace\vfill
-        {\normalsize\bfseries#1}\break
-        \vskip.5\whitespace\vfill
-        \unhbox\stats@box\break%
-        \vskip.5\whitespace\vfill
-        \leftbottom\hfill\rightbottom
-        \vskip\whitespace}%
+      \leftskip=\whitespace plus1fil%
+      \rightskip=\whitespace plus1fil%
+      \hsize=\statcardwidth%
+      \vskip\whitespace
+      \small\lefttop\hfill\righttop
+      \vskip.5\whitespace\vfill
+      {\normalsize\bfseries#1}\break
+      \vskip.5\whitespace\vfill
+      \unhbox\stats@box\break%
+      \vskip.5\whitespace\vfill
+      \leftbottom\hfill\rightbottom
+      \vskip\whitespace%
+    }%
     \temp@dimen\ht\temp@box%
     \advance\temp@dimen\dp\temp@box%
     \ifdim\temp@dimen>\statcardheight%
       \statcardheight\temp@dimen%
       \typeout{! statcard oversized}
     \fi%
-    \doublecard%
-      {\fbox{\vbox to\statcardheight{\unvbox\temp@box}}}%
-      {\deathreport}%
-  \endgroup}
-
-
-%%%%%
-%% \deathreport -> back side of stat card
-\newdimen\death@height
-\death@height\statcardheight
-
-\newcommand{\deathreport}{%
-  \vtop to \death@height{%
-    \baselineskip=20pt plus1fil minus1fil%
-    \lineskip=0pt%
-    \parindent=0pt%
-    \def\baselinestretch{0}%
-    \leftskip=\whitespace plus1fil%
-    \rightskip=\whitespace plus1fil%
-    \hsize=\statcardwidth%
-    \vskip\whitespace%
-    {\large\bfseries Death Report}\break
-    When: \hrulefill\break
-    Where: \hrulefill\break
-    How: \hrulefill\break
-    By Whom: \hrulefill\break
-    Why (if you know): \hrulefill\break
-    \null\hrulefill
-    \vskip\whitespace}}
+    \doublecard{%
+      \fbox{\vbox to\statcardheight{\unvbox\temp@box}}%
+    }{\deathreport}%
+  \endgroup%
+}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -5213,7 +6339,7 @@
 
 
 
-\DeclareGameSubOption{skilllists}{cardsheet}{%
+\DeclareGameSubOption{skilllists}{deathreports}{%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
 %% Uses: cardsheet option
@@ -5221,7 +6347,7 @@
 %%
 %%%%%
 
-\SingleCards\SingleSiding
+\DoubleCards\DoubleSiding
 \MarginsXY{15pt}{15pt}\NoFill
 
 \gdef\mytype{Skill List Cards}
@@ -5230,14 +6356,20 @@
 %%%%%
 %%
 \@bycharmappings{%
-  \ifskills\begingroup%
-    \long\def\@setsubowner##1##2{##2}%
-    \long\def\@transownersetsubowner##1##2{##2}%
-    \SkillList%
-      {\MYname}%
-      {\@flatten@field{Stat}\MYstats}%
-      {\@flatten@field{Abil}\MYskills}%
-  \endgroup\fi}
+  \ifskills%
+    \begingroup%
+      \long\def\@setsubowner##1##2{##2}%
+      \long\def\@transownersetsubowner##1##2{##2}%
+      \SkillList{%
+        \MYname%
+      }{%
+        \@flatten@field{Stat}\MYstats%
+      }{%
+        \@flatten@field{Abil}\MYskills%
+      }%
+    \endgroup%
+  \fi%
+}
 
 \def\@compendium{\@production}
 
@@ -5258,6 +6390,12 @@
 
 
 %%%%%
+%% set \death@height and \death@width
+\death@height\skillheight
+\death@width\skillwidth
+
+
+%%%%%
 %% \SkillList
 \newbox\skill@front
 \newdimen\skill@wd
@@ -5273,35 +6411,44 @@
     \skill@wd=\skillwidth%
     \advance\skill@wd by-2\whitespace%
     \setbox\skill@front=\vbox{%
-        \leftskip=\whitespace plus1fil%
-        \rightskip=\whitespace plus1fil%
-        \hsize=\skillwidth%
-        \vskip\whitespace
-        {\small\skill@type\hfill\skill@owner}\break
-        \vfil
-        {\bfseries\small{#1}}\break
-        \vfil
-        {\parbox{\skill@wd}{\scriptsize\raggedright{%
-          \parindent5pt\begin{skilllist}%
-	    \BRANCHTYPES{Stat}{\SURFACEMAP{\TYPE}{%
-	      \item\makebox[1.3in]{\MYname:\hfill\MYvalue}}}%
-	    \multicolsep\lineskip\relax%
-	    \begin{multicols}{2}\raggedcolumns#2\end{multicols}%
-	    #3%
-	  \end{skilllist}%
-	  }}}\break
-        \vskip\whitespace\vfil
-        {\small\gamenameabbrev/\gamedateabbrev\hfill\skill@trans}%
-        \vskip\whitespace}%
+      \leftskip=\whitespace plus1fil%
+      \rightskip=\whitespace plus1fil%
+      \hsize=\skillwidth%
+      \vskip\whitespace
+      {\small\skill@type\hfill\skill@owner}\break
+      \vfil
+      {\bfseries\small{#1}}\break
+      \vfil
+      \parbox{\skill@wd}{%
+        \scriptsize\raggedright%
+        \parindent5pt%
+        \begin{skilllist}%
+          \BRANCHTYPES{Stat}{%
+            \SURFACEMAP{\TYPE}{%
+              \item\makebox[1.3in]{\MYname:\hfill\MYvalue}%
+            }%
+          }%
+          \multicolsep\lineskip\relax%
+	  \begin{multicols}{2}\raggedcolumns#2\end{multicols}%
+	  #3%
+        \end{skilllist}%
+      }%
+      \break
+      \vskip\whitespace\vfil
+      {\small\gamenameabbrev/\gamedateabbrev\hfill\skill@trans}%
+      \vskip\whitespace%
+    }%
     \temp@dimen\ht\skill@front%
     \advance\temp@dimen\dp\skill@front%
     \ifdim\temp@dimen>\skillheight%
       \skillheight\temp@dimen%
       \typeout{! skill list card oversized}%
     \fi%
-    \card%
-      {\fbox{\vbox to\skillheight{\unvbox\skill@front}}}%
-  \endgroup}
+    \doublecard{%
+      \fbox{\vbox to\skillheight{\unvbox\skill@front}}%
+    }{\deathreport}%
+  \endgroup%
+}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -5313,7 +6460,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%
 %%%%%
-\SingleCards\SingleSiding
+\DoubleCards\DoubleSiding
 \MarginsXY{20pt}{0pt}
 \NoFill
 
@@ -5325,22 +6472,32 @@
   \def\@production{%
     \@preprocids{\EVERY{Char}{}\EVERY{Place}{}\EVERY{Player}{\@fakeplayer}}%
     \SORT{Char}{alpha<}{\playeralphabetical}{\@charids}{%
-      \@givennoplayer{\@boxmap}}%
-    \@degenerateids\boxlabel{GMs}}%
-  }
+      \@givennoplayer{\@boxmap}%
+    }%
+    \@degenerateids\boxlabel{GMs}%
+  }%
+}
 
 \def\boxbycharacter{%
   \def\@boxmap{%
     \iflabel%
-      \BoxLabel{\MYname%
-        \ifx\@degenerate\relax\unless\ifx\MYplayer\empty\\(\MYplayer)\fi\fi}%
-    \fi}%
+      \BoxLabel{%
+        \MYname%
+        \ifx\@degenerate\relax%
+          \unless\ifx\MYplayer\empty%
+            \\(\MYplayer)%
+          \fi%
+        \fi%
+      }%
+    \fi%
+  }%
   \@bycharmappings{\@boxmap}%
   \def\@production{%
     \@preprocids{\EVERY{Char}{}\EVERY{Place}{}}%
     \SORT{Char}{alpha<}{\alphabetical}{\@charids}{\@boxmap}%
-    \@degenerateids\boxlabel{GMs}}%
-  }
+    \@degenerateids\boxlabel{GMs}%
+  }%
+}
 
 \theboxpref
 
@@ -5359,14 +6516,20 @@
 
 %%%%%
 %%
-\def\BoxLabel#1{{%
-  \def\@bl@box{\parbox{.45\hsize}{\centering\small\bfseries\sffamily#1}}%
-  \card{\vbox to.4in{\hsize3.75in%
-    \vfill%
-    \hbox to\hsize{\hfill\@bl@box\hfill\hfill\@bl@box\hfill}%
-    \vfill%
-    \hrule}}
-  }}
+\def\BoxLabel#1{%
+  \begingroup%
+    \def\@bl@box{\parbox{.45\hsize}{\centering\small\bfseries\sffamily#1}}%
+    \doublecard{%
+      \vbox to.4in{%
+        \hsize3.75in%
+        \vfill%
+        \hbox to\hsize{\hfill\@bl@box\hfill\hfill\@bl@box\hfill}%
+        \vfill%
+        \hrule%
+      }%
+    }{}%
+  \endgroup%
+}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -5402,107 +6565,230 @@
   \@setowner{PCs}\EVERY{PC}{}%
   \@setowner{NPCs}\EVERY{NPC}{}%
   \@setowner{Places}\EVERY{Place}{}%
-  }
+}
 
 \def\@compendium{\@production}
 
 \def\@cheatfields{%
-  \def\@i##1##2{\unless\ifx##1\empty%
-    \@cheatmark{\em##2}: ##1%
-  \fi}%
+  \def\@i##1##2{%
+    \unless\ifx##1\empty%
+      \@cheatmark{\em##2}: {\let\par\empty##1}%
+    \fi%
+  }%
   \@ownedfields%
-  }
+}
 
 \def\@cheatnotempty#1#2{\unless\ifx#1\empty\@cheatmark{\em#2}: #1\fi}
 
 \def\@cheatid#1#2{%
   \let\@cheattmp\MYname%
-  #1{\unless\ifx\MYname\@cheattmp\@cheatmark{\em#2}: \MYname\fi}}
+  #1{%
+    \unless\ifx\MYname\@cheattmp%
+      \@cheatmark{\em#2}: \MYname%
+    \fi%
+  }%
+}
 
 \def\@cheatmark{\item}
 
-\BRANCHTYPES{Char}{\SURFACEMAP{\TYPE}{%
-  \gettags%
-  \CheatsheetEntry{\MYname%
-    \unless\ifx\MYplayer\empty\ (\MYplayer)\fi%
-    \unless\ifx\MYnumber\empty\ (\MYnumber)\fi%
+\BRANCHTYPES{Char}{%
+  \SURFACEMAP{\TYPE}{%
+    \gettags%
+    \CheatsheetEntry{%
+      \MYname%
+      \unless\ifx\MYplayer\empty%
+        \ (\MYplayer)%
+      \fi%
+      \unless\ifx\MYnumber\empty%
+        \ (\MYnumber)%
+      \fi%
+      \unless\ifx\MYfile\empty%
+        \ \MYfile%
+      \fi%
     }{%
-    \@cheatid\real{real name}
-    \@cheatid\nick{nickname}
-    \@cheatid\maiden{maiden name}
-    \@cheatnotempty\MYdesc{desc}
-    \BRANCHTYPES{Stat}{\SURFACEMAP{\TYPE}{%
-      {\em\MYabbrev}:~\MYvalue\hspace{1em}}}%
-    \unless\ifx\MYstats\empty\@cheatmark\MYstats\fi%
-    \long\def\doid#1{#1}
-    \@cheatfields}%
-  }}
+      \@cheatid\real{real name}
+      \@cheatid\nick{nickname}
+      \@cheatid\maiden{maiden name}
+      \@cheatnotempty\MYdesc{desc}
+      %\@cheatnotempty\MYwrapup{wrapup}
+      \BRANCHTYPES{Stat}{%
+        \SURFACEMAP{\TYPE}{%
+          \emph{\MYabbrev}:~\MYvalue\hspace{1em}%
+        }%
+      }%
+      \unless\ifx\MYstats\empty%
+        \@cheatmark\MYstats%
+      \fi%
+      \long\def\doid#1{#1}%
+      \@cheatfields%
+    }%
+  }%
+}
 
-\BRANCHTYPES{Place}{\SURFACEMAP{\TYPE}{%
-  \CheatsheetEntry{\MYname}{%
-    \@cheatnotempty\MYnumber{number}
-    \@cheatnotempty\MYwhere{where}
-    \@cheatnotempty\MYwhen{when}
-    \long\def\doid#1{#1}
-    \@cheatfields}%
-  }}
+\BRANCHTYPES{Place}{%
+  \SURFACEMAP{\TYPE}{%
+    \CheatsheetEntry{%
+      \MYname%
+    }{%
+      \@cheatnotempty\MYnumber{number}
+      \@cheatnotempty\MYwhere{where}
+      \@cheatnotempty\MYwhen{when}
+      \long\def\doid#1{#1}
+      \@cheatfields%
+    }%
+  }%
+}
 
 \def\@subownercheatsheet#1{%
   \uniquemark%
   \begingroup%
     \ifx\@cheatmark\ME%
-       \typeout{! \expandafter\unexpanded\expandafter{\ME{}} %
-         repeated within itself (ignored)}%
+       \typeout{%
+         ! \expandafter\unexpanded\expandafter{\ME{}}
+         repeated within itself (ignored)%
+       }%
     \else%
       \ADD{\let\@cheatmark\ME}%
       #1%
       \@testfields%
       \ifx\@owner\relax%
         \let\@cheatmark\empty%
-        \ {\bf(}%
+        \let\par\empty%
+        \ \textbf{(}%
         \@cheatfields%
-        \hskip-1em{\bf)}%
+        \hskip-1em\textbf{)}%
       \fi%
       \hskip1em%
       \ADD{\let\@cheatmark\relax}%
     \fi%
   \endgroup%
-  }
+}
 
-\BRANCHTYPES{SubOwner}{\MAP{\TYPE}{%
-  \@subownercheatsheet{\MYname\unless\ifx\MYnumber\empty\ (\MYnumber)\fi}%
-  }}
+\BRANCHTYPES{SubOwner}{%
+  \MAP{\TYPE}{%
+    \@subownercheatsheet{%
+      \MYname%
+      \unless\ifx\MYnumber\empty%
+        \ (\MYnumber)%
+      \fi%
+    }%
+  }%
+}
 
 \def\@testloc{\mylocation}
-\BRANCHTYPES{Sign}{\MAP{\TYPE}{%
-  \@subownercheatsheet{%
-    \MYname\unless\ifx\MYnumber\empty\ (\MYnumber)\fi%
-    \unless\ifx\MYloc\@testloc\unless\ifx\MYloc\empty\ {\bf(\MYloc)}\fi\fi%
+\BRANCHTYPES{Sign}{%
+  \MAP{\TYPE}{%
+    \@subownercheatsheet{%
+      \MYname\unless\ifx\MYnumber\empty\ (\MYnumber)\fi%
+      \unless\ifx\MYloc\@testloc%
+        \unless\ifx\MYloc\empty%
+          \ \textbf{(\MYloc)}%
+        \fi%
+      \fi%
     }%
-  }}
+  }%
+}
 
 
 %%%%%
 %%
-\long\def\CheatsheetEntry#1#2{\card{\parbox{186pt}{%
-  \raggedright%
-  \scriptsize%
-  \begin{itemz}[#1]%
-    %% list functionality
-    \long\def\multi##1##2{%
-      \ifnum##1>1\ensuremath{\mathbf{##1\times}}\fi%
-      \ifnum##1>0\relax##2\fi}%
-    \makenochange%
-    \long\def\raw##1{{\em raw code}\hskip1em}%
-    \long\def\pageof##1{page\ensuremath{\mathbf{\times}}##1}%
-    %% if no \items, produce \item none
-    \global\let\@itemzhere\empty%
-    \let\@normitem\item%
-    \def\item{\global\let\@itemzhere\relax\@normitem\relax}%
-    #2%
-    \let\item\@normitem%
-    \ifx\@itemzhere\empty\item none\fi%
-  \end{itemz}}}}
+\long\def\CheatsheetEntry#1#2{%
+  \card{%
+    \parbox{186pt}{%
+      \raggedright%
+      \scriptsize%
+      \begin{itemz}[#1]%
+        %% list functionality
+        \long\def\multi##1##2{%
+          \ifnum##1>1%
+            \ensuremath{\mathbf{##1\times}}%
+          \fi%
+          \ifnum##1>0\relax%
+            ##2%
+          \fi%
+        }%
+        \makenochange%
+        \long\def\raw##1{{\em raw code}\hskip1em}%
+        \long\def\pageof##1{page\ensuremath{\mathbf{\times}}##1}%
+        %% if no \items, produce \item none
+        \global\let\@itemzhere\empty%
+        \let\@normitem\item%
+        \def\item{\global\let\@itemzhere\relax\@normitem\relax}%
+        #2%
+        \let\item\@normitem%
+        \ifx\@itemzhere\empty%
+          \item none%
+        \fi%
+      \end{itemz}
+    }%
+  }%
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+}
+
+
+
+\begingroup%
+  \catcode`[=1
+  \catcode`]=2
+  \catcode`{=12
+  \catcode`}=12
+  \gdef\@openbrace[{]%
+  \gdef\@closebrace[}]%
+\endgroup
+
+\DeclareGameOption{json}{
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%
+%%%%%
+\pagestyle{empty}
+
+\def\@production{\EVERY{Owner}[\DEFAULTOPTIONHOOK]{}}
+\def\@compendium{\@production}
+
+\newwrite\@outfile
+\long\def\@writeout#1{%
+  \begingroup%
+    \let\protect\@unexpandable@protect%
+    \immediate\write\@outfile{#1}%
+  \endgroup%
+}
+
+\def\@@strip#1{}
+\def\@strip{\expandafter\@@strip\string}
+\gdef\@firstjson{}
+
+\BRANCHTYPES{Owner}{%
+  \MAP{\TYPE}{%
+    \ifx\@firstjson\empty%
+      \@writeout{ \@openbrace}%
+      \gdef\@firstjson{\relax}%
+    \else%
+      \@writeout{ \@closebrace,\@openbrace}%
+    \fi%
+    \edef\@macro{\expandafter\@strip\MYCOMMAND}%
+    \def\@types{"\MYTYPESTRING"}%
+    \PARENTTYPES{\MYTYPESTRING}{\edef\@types{\@types,"\TYPE"}}%
+    \jsonkeyval{macro}{\@macro}%
+    \jsonkeyval{name}{\MYname}%
+    \jsonkeyval{number}{\MYnumber}%
+    \unless\ifx\MYjson\empty%
+      \@writeout{ \space\MYjson}%
+    \fi%
+    \@writeout{ \space"classes":[\@types]}%
+  }%
+}
+
+\immediate\openout\@outfile=\jobname.json
+\@writeout{[}
+\AtEndDocument{%
+  \@writeout{ \@closebrace}%
+  \@writeout{]}%
+  \immediate\closeout\@outfile%
+}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

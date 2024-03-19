@@ -10,22 +10,6 @@
 %% provided by LaTeX/parsename.sty.  See that file and
 %% Extras/README-namemappings for ways to take advantage of this.
 %%
-%%
-%%
-%% \MYsex is set to either \male, \female, \neuter, or \ambiguous, as
-%% correct for the character.  \mfn{<masculine>}{<feminine>}{<neuter>}
-%% will produce the correct form based on the current value of \MYsex
-%% (\ambiguous will lead to <masculine>/<feminine>).  \mfn should only
-%% be used within the scope of a Char macro.  \mf{<masc>}{<fem>} works
-%% just like \mfn with the <neut> arg left blank.
-%%
-%% \pronoun{<command>}{<masc>}{<fem>}{<neut>} makes <command> a
-%% wrapper around \mfn.  It is used to create a list of
-%% gender-sensitive macros, mostly pronouns.  For example, given
-%% \pronoun{\They}{He}{She}{It}, \cJamesBond{\They} will produce He.
-%%
-%%
-%%
 %% \badgetrue and \badgefalse toggle whether or not a Char macro will
 %% produce a namebadge.
 %%
@@ -48,13 +32,14 @@
 %%
 %%%%%
 
-
+\input \latex/gender.sty
 
 %%%%%
 %% If a field is declared by \F, it must be given a value by \s inside
 %% \NEW, even if it's blank.  If you want it to be optional, declare
 %% it with \FD<field> {<default>} here.
 %%
+%%%% Character stats
 %% Use \newstat to create stats (below, in \PRESETS{Char}).  The
 %% <default> value is used unless the given Char macro sets the field.
 %% For example:
@@ -64,9 +49,11 @@
 %% would give character a Hit Points stat, abbreviated HP, referenced
 %% as the \MYhp field, that defaults to 5.
 \PRESETS{Char}{
-  \FD\MYfirst{}
+	\FD\MYdesc	{}   %% badge description
+  \F\MYgender	{}	 %% must be set by a command like \hehim etc.
+	\FD\MYfirst{}
+
 	\FD\MYlast{}
-	\FD\MYdesc	{} %% badge description
 
 	\newstat\MYcr	{Combat Rating}{CR}{2} %% for DarkWater-style combat
 	\newstat\MYmorality	{Morality Score}{MS}{} % Morality Score for students
@@ -74,92 +61,33 @@
   \newstat\MYsScore	{S-Score}{SS}{N/A} % knows about the baby sea serpent
   \newstat\MYlScore	{L-Score}{LS}{N/A} % library navigation bonus
   \newstat\MYfScore	{F-Score}{FS}{N/A} % is eligible as the faledon heir
-
-  \FD\MYsex	{\male} %% \male, \female, \neuter, \ambiguous
-  \FD\MYCharpronouns	{} %% \male, \female, \neuter, \ambiguous
-  \FD\MYPlaypronouns	{} %% \male, \female, \neuter, \ambiguous
+	\F\MYcharpronouns   %% must be set by a command like \hehim etc.
+	\FD\MYplayerpronouns{}   %% DO NOT use \theythem, write ``they/them'' or whatever
 	\FD\MYrole	{} %% playerlist role
   \FD\MYgroupstr{} %% playerlist groupstring
   \FD\MYfile	{} %% character sheet filename (including .tex)
   \FS\MYtext	{\ifx\MYfile\empty\else%
 		  \getextractenvs{document}{\chars/\MYfile}%
 		\fi}
+		
+	%\newstat\MYhp	{Hit Points}{HP}{5}
   \badgetrue\statstrue\skillstrue\sheettrue\listtrue\labeltrue
   }
 
 \POSTSETS{Char}{
   \resolvestats
   }
-
-
-%%%%%
-%% pronouns and similar gender-based macros
-%%
-%% \male, \female, \neuter, \ambiguous
-%% \mfn{<masculine>}{<feminine>}{<neuter>}
-%% \mf{<masculine>}{<feminine>}
-%% \pronoun{<command>}{<masculine>}{<feminine>}{<neuter>}
-\def\male{0}\def\female{1}\def\nonbinary{2}\def\ambiguous{3}
-\newcommand{\mfn}[3]{\ifcase\MYsex#1\or#2\or#3\else#1/#2\fi}
-\newcommand{\mf}[2]{\mfn{#1}{#2}{}}
-\newcommand{\pronoun}[4]{\def#1{\mfn{#2}{#3}{#4}}}
-
-\pronoun{\they}		{he}{she}{they}
-\pronoun{\They}		{He}{She}{They}
-\pronoun{\them}		{him}{her}{them}
-\pronoun{\Them}		{Him}{Her}{Them}
-\pronoun{\their}	{his}{her}{their}
-\pronoun{\Their}	{His}{Her}{Their}
-\pronoun{\theirs}	{his}{hers}{theirs}
-\pronoun{\Theirs}	{His}{Hers}{Theirs}
-\pronoun{\themself}	{himself}{herself}{themself}
-\pronoun{\Themself}	{Himself}{Herself}{Themself}
-\pronoun{\theyare} 	{he is}{she is}{they are}
-\pronoun{\Theyare} 	{He is}{She is}{They are}
-
-\pronoun{\plural}	{s}{s}{}
-\pronoun{\pluralC}	{es}{es}{}
-\pronoun{\pluralY}	{ies}{ies}{y}
-\pronoun{\are}	{is}{is}{are}
-\pronoun{\re}	{'s}{'s}{'re}
-\pronoun{\does}	{does}{does}{do}
-\pronoun{\have}	{has}{has}{have}
-\pronoun{\were}	{was}{was}{were}
-
-\pronoun{\spouse}	{husband}{wife}{spouse}
-\pronoun{\Spouse}	{Husband}{Wife}{Spouse}
-\pronoun{\child}	{son}{daughter}{child}
-\pronoun{\Child}	{Son}{Daughter}{Child}
-\pronoun{\kid}		{boy}{girl}{child}
-\pronoun{\Kid}		{Boy}{Girl}{Child}
-\pronoun{\stray}	{urchin}{waif}{stray}
-\pronoun{\Stray}	{Urchin}{Waif}{Stray}
-\pronoun{\pal}		{guy}{gal}{pal}
-\pronoun{\Pal}		{Guy}{Gal}{Pal}
-\pronoun{\sibling}	{brother}{sister}{sibling}
-\pronoun{\Sibling}	{Brother}{Sister}{Sibling}
-\pronoun{\parent}	{father}{mother}{parent}
-\pronoun{\Parent}	{Father}{Mother}{Parent}
-\pronoun{\auncle}	{uncle}{aunt}{auncle}
-\pronoun{\Auncle}	{Uncle}{Aunt}{Auncle}
-\pronoun{\nibling}	{nephew}{niece}{nibling}
-\pronoun{\Nibling}	{Nephew}{Niece}{Nibling}
-%% \def\aunt{\uncle}
-%% \def\Aunt{\Uncle}
-\pronoun{\person}	{man}{woman}{person}
-\pronoun{\Person}	{Man}{Woman}{Person}
-\pronoun{\sex}		{male}{female}{nonbinary}
-\pronoun{\Sex}		{Male}{Female}{Nonbinary}
-\pronoun{\God}		{God}{Goddess}{Diety}
-\pronoun{\Deity}		{God}{Goddess}{Diety}
-\pronoun{\Majesty}		{King}{Queen}{Majesty}
-\pronoun{\Heir}		{Prince}{Princess}{Heir}
-\pronoun{\heir}		{Prince}{Princess}{Heir}
-\pronoun{\cleric}		{Priest}{Priestess}{Cleric}
-\pronoun{\clergy}		{Priest}{Priestess}{Cleric}
-\pronoun{\partner}	{boyfriend}{girlfriend}{partner}
-
-
+	
+\newcommand{\plural}{\verbs}
+\newcommand{\pluralC}{\verbes}
+\newcommand{\pluralY}{\verby}
+\newcommand{\does}{do\verbes}
+\newcommand{\theyare}{\they \are}
+\newcommand{\Theyare}{\They \are}
+\newcommand{\Majesty}{\Monarch}
+\newcommand{\God}{\Deity}
+\newcommand{\clergy}{\cleric}
+%%%%% Defines pronounful contact and intro mappings.
 
 %%%%%
 %% PC is a subtype of Char, for regular PCs.
@@ -241,10 +169,12 @@
   \s\MYfile	{COS_Student_LibAssist.tex}
   \s\MYnumber	{229}
   \s\MYdesc	{A student from the Children of the Sun, with clever eyes.}
-  \s\MYsex	{\female}
-	\s\MYCharpronouns	{She/Her}
-  \s\MYPlaypronouns {She/Her}
+  \sheher
+	%%\s\MYCharpronouns	{she/her}
+  %\s\MYplayerpronouns {she/her}
   \s\MYplayer	{Sarah Terman}
+	\s\MYplayerpronouns{she/her}
+	\sheher
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bStudentBlue{}\bAgrarians{}}
   \s\MYgreens	{\gVotingInstructions{}\gCoSStudentMorality{}\gBMUse{}\gCursemakingBasic{}\gWeekendSchedule{}}
@@ -267,9 +197,10 @@
   \s\MYfile	{COS_Student_ChupStudent.tex}
   \s\MYnumber	{134}
   \s\MYdesc	{A student from the Children of the Sun; a well known slacker.}
-  \s\MYsex	{\nonbinary}
-	\s\MYCharpronouns	{They/Them}
-  \s\MYPlaypronouns {She/They}
+  %\theythem
+	%%\s\MYCharpronouns	{they/them}
+	\theythem
+  \s\MYplayerpronouns {she/they}
 	\s\MYplayer	{Kate Hill}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bStudentBlue{}\bAgrarians{}\bCult{}}
@@ -293,9 +224,10 @@
   \s\MYfile	{COS_Student_Adopted.tex}
   \s\MYnumber	{138}
   \s\MYdesc	{A student from the Children of the Sun, with a bit of a rebellious streak.}
-  \s\MYsex	{\nonbinary}
-	\s\MYCharpronouns	{They/Them}
-  \s\MYPlaypronouns {They/Them}
+  \theythem
+	%%\s\MYCharpronouns	{they/them}
+  \s\MYplayerpronouns {they/them}
+	\theythem
   \s\MYplayer	{Milena Milojicic}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bStudentBlue{}\bAgrarians{}}
@@ -319,10 +251,11 @@
 	\s\MYlast {}
   \s\MYfile	{COS_Student_Disney.tex}
   \s\MYnumber	{280}
-  \s\MYdesc	{A student from the Children of the Sun; surprisingly young to be a Clerc.}
-  \s\MYsex	{\nonbinary}
-	\s\MYCharpronouns	{They/Them}
-  \s\MYPlaypronouns {They/Them}	
+  \s\MYdesc	{A student from the Children of the Sun; surprisingly young to be a Cleric.}
+  %\theythem
+	%%\s\MYCharpronouns	{they/them}
+	\theythem
+  \s\MYplayerpronouns {they/them}	
   \s\MYplayer	{Moss Bosch}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bStudentBlue{}\bAgrarians{}\bCoSCleric{}}
@@ -347,10 +280,11 @@
   \s\MYfile	{COS_Teacher_Interpol.tex}
   \s\MYnumber	{391}
   \s\MYdesc	{The combat teacher from the Children of the Sun; with uncanny reflexes.}
-  \s\MYsex	{\male}
-	\s\MYCharpronouns	{He/Him}
-  \s\MYPlaypronouns {He/Him}
+  %\hehim
+	%%\s\MYCharpronouns	{he/him}
+  \s\MYplayerpronouns {he/him}
   \s\MYplayer	{Joseph Oliveira}
+	\hehim
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTeacherBlue{}\bAgrarians{}}
   \s\MYgreens	{\gPreparingTheRitual{}\gCoSTeacherRanking{}\gWeekendSchedule{}}
@@ -373,10 +307,11 @@
   \s\MYfile	{COS_Teacher_History.tex}
   \s\MYnumber	{421}
   \s\MYdesc	{The history teacher from the Children of the Sun; with a studious look.}
-  \s\MYsex	{\male}
-	\s\MYCharpronouns	{He/Him}
-  \s\MYPlaypronouns {He/Him}
+  %\hehim
+	%%\s\MYCharpronouns	{he/him}
+  \s\MYplayerpronouns {he/him}
   \s\MYplayer	{Zev Trubowitch}
+	\hehim
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTeacherBlue{}\bAgrarians{}}
   \s\MYgreens	{\gPreparingTheRitual{}\gTreaty{}\gCoSTeacherRanking{}\gWeekendSchedule{}}
@@ -400,10 +335,11 @@
   \s\MYfile	{COS_Teacher_Prince.tex}
   \s\MYnumber	{344}
   \s\MYdesc	{The cursebreaking teacher from the Children of the Sun, who looks much like the Queen.}
-  \s\MYsex	{\male}
-	\s\MYCharpronouns	{He/Him}
-  \s\MYPlaypronouns {He/They}
+  %\hehim
+	%%\s\MYCharpronouns	{he/him}
+  \s\MYplayerpronouns {he/they}
   \s\MYplayer	{David Neubauer}
+	\hehim
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTeacherBlue{}\bAgrarians{}}
   \s\MYgreens	{\gUnsuspectingBirdie{}\gCrownPrince{}\gTreaty{}\gCoSTeacherRanking{}\gCursemakingBasic{}\gCursemakingAdvanced{}\gWeekendSchedule{}}
@@ -426,9 +362,10 @@
   \s\MYfile	{COS_Teacher_Music.tex}
   \s\MYnumber	{579}
   \s\MYdesc	{The music teacher from the Children of the Sun, with impeccable timing.}
-  \s\MYsex	{\nonbinary}
-	\s\MYCharpronouns	{They/Them}
-  \s\MYPlaypronouns {They/She}
+  %\theythem
+	%%\s\MYCharpronouns	{they/them}
+	\theythem
+  \s\MYplayerpronouns {they/she}
   \s\MYplayer	{Dana Murphy}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTeacherBlue{}\bAgrarians{}}
@@ -453,9 +390,10 @@
   \s\MYfile	{COS_Advisor_Evil.tex}
   \s\MYnumber	{594}
   \s\MYdesc	{An advisor from the Children of the Sun, with calculating eyes.}
-  \s\MYsex	{\male}
-	\s\MYCharpronouns	{He/Him}
-  \s\MYPlaypronouns {He/Him}
+  %\hehim
+	%%\s\MYCharpronouns	{he/him}
+  \s\MYplayerpronouns {he/him}
+	\hehim
   \s\MYplayer	{David Simkins}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bAdvisorBlue{}\bAgrarians{}}
@@ -479,9 +417,9 @@
   \s\MYfile	{COS_Advisor_WildCard.tex}
   \s\MYnumber	{435}
   \s\MYdesc	{An advisor from the Children of the Sun, with a distracted look.}
-  \s\MYsex	{\male}
-	\s\MYCharpronouns	{He/Him}
-  \s\MYPlaypronouns {He/Him}
+  \hehim
+	%%\s\MYCharpronouns	{he/him}
+  \s\MYplayerpronouns {he/him}
   \s\MYplayer	{Sam Tillis}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bAdvisorBlue{}\bAgrarians{}}
@@ -505,9 +443,9 @@
   \s\MYfile	{COS_Advisor_Curse.tex}
   \s\MYnumber	{784}
   \s\MYdesc	{An advisor from the Children of the Sun; very old and very eccentric.}
-  \s\MYsex	{\male}
-	\s\MYCharpronouns	{He/Him}
-  \s\MYPlaypronouns {He/Him}
+  \hehim
+	%\s\MYCharpronouns	{he/him}
+  \s\MYplayerpronouns {he/him}
   \s\MYplayer	{Daniel Whalen}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bAdvisorBlue{}\bAgrarians{}}
@@ -531,9 +469,9 @@
   \s\MYfile	{COS_Advisor_Hedonist.tex}
   \s\MYnumber	{571}
   \s\MYdesc	{An advisor from the Children of the Sun, wearing very fancy clothes for a Cleric.}
-  \s\MYsex	{\male}
-	\s\MYCharpronouns	{He/Him}
-  \s\MYPlaypronouns {He/Him}
+  \hehim
+	%\s\MYCharpronouns	{he/him}
+  \s\MYplayerpronouns {he/him}
   \s\MYplayer	{Peter Lofgren}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bAdvisorBlue{}\bAgrarians{}\bCoSCleric{}}
@@ -558,9 +496,9 @@
   \s\MYfile	{FPF_Student_TechStar.tex}
   \s\MYnumber	{176}
   \s\MYdesc	{A student from the Free People, well known for inventing the Vid-Com devices}
-  \s\MYsex	{\female}
-	\s\MYCharpronouns	{She/Her}
-  \s\MYPlaypronouns {She/Her}
+  \sheher
+	%\s\MYCharpronouns	{she/her}
+  \s\MYplayerpronouns {she/her}
   \s\MYplayer	{Rachael Monosson}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTech{}\bStudentBlue{}}
@@ -584,9 +522,9 @@
   \s\MYfile	{FPF_Student_Ambition.tex}
   \s\MYnumber	{262}
   \s\MYdesc	{A student from the Free People, shining with promise}
-  \s\MYsex	{\male}
-	\s\MYCharpronouns	{He/Him}
-  \s\MYPlaypronouns {He/Him}
+  \hehim
+	%\s\MYCharpronouns	{he/him}
+  \s\MYplayerpronouns {he/him}
   \s\MYplayer	{Phillip Kelly}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTech{}\bStudentBlue{}}
@@ -611,9 +549,9 @@
   \s\MYfile	{FPF_Student_Heir.tex}
   \s\MYnumber	{237}
   \s\MYdesc	{A student from the Free People; Heir to the Faledon fortune}
-  \s\MYsex	{\female}
-	\s\MYCharpronouns	{She/Her}
-  \s\MYPlaypronouns {She/Her}
+  \sheher
+	%\s\MYCharpronouns	{she/her}
+  \s\MYplayerpronouns {she/her}
   \s\MYplayer	{Jessica Bainbridge-Smith}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTech{}\bStudentBlue{}}
@@ -637,9 +575,9 @@
   \s\MYfile	{FPF_Student_Scholarship.tex}
   \s\MYnumber	{260}
   \s\MYdesc	{A student from the Free People; as pious as they come}
-  \s\MYsex	{\male}
-	\s\MYCharpronouns	{He/Him}
-  \s\MYPlaypronouns {He/Him}
+  \hehim
+	%\s\MYCharpronouns	{he/him}
+  \s\MYplayerpronouns {he/him}
   \s\MYplayer	{Aaron Gorfein}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTech{}\bStudentBlue{}\bFPFCleric{}}
@@ -663,9 +601,9 @@
   \s\MYfile	{FPF_Teacher_Ethics.tex}
   \s\MYnumber	{423}
   \s\MYdesc	{The ethics teacher from the Free People; gives the best advice}
-  \s\MYsex	{\female}
-	\s\MYCharpronouns	{She/Her}
-  \s\MYPlaypronouns {She/Her}
+  \sheher
+	%\s\MYCharpronouns	{she/her}
+  \s\MYplayerpronouns {she/her}
   \s\MYplayer	{Marie Chelberg}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTech{}\bTeacherBlue{}}
@@ -690,9 +628,9 @@
   \s\MYfile	{FPF_Teacher_Beetle.tex}
   \s\MYnumber	{472}
   \s\MYdesc	{The religion teacher from the Free People; a careful and patient cleric}
-  \s\MYsex	{\nonbinary}
-	\s\MYCharpronouns	{They/Them}
-  \s\MYPlaypronouns {She/They}
+  \theythem
+	%\s\MYCharpronouns	{they/them}
+  \s\MYplayerpronouns {she/they}
   \s\MYplayer	{Olivia Montoya}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTech{}\bTeacherBlue{}\bFPFCleric{}}
@@ -717,9 +655,9 @@
   \s\MYfile	{FPF_Teacher_Librarian.tex}
   \s\MYnumber	{481}
   \s\MYdesc	{The librarian from the Free People; looks a little overwhelmed}
-  \s\MYsex	{\male}
-	\s\MYCharpronouns	{He/Him}
-  \s\MYPlaypronouns {Any}
+  \hehim
+	%\s\MYCharpronouns	{he/him}
+  \s\MYplayerpronouns {any}
   \s\MYplayer	{Nik Heath}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTech{}\bTeacherBlue{}}
@@ -744,9 +682,9 @@
   \s\MYfile	{FPF_Teacher_ChupInventor.tex}
   \s\MYnumber	{527}
   \s\MYdesc	{The Poly Sci teacher from the Free People, with a shrewd look}
-  \s\MYsex	{\male}
-	\s\MYCharpronouns	{He/Him}
-  \s\MYPlaypronouns {He/Him}
+  \hehim
+	%\s\MYCharpronouns	{he/him}
+  \s\MYplayerpronouns {he/him}
   \s\MYplayer	{Michael Micheletti}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTech{}\bTeacherBlue{}\bCult{}}
@@ -770,9 +708,9 @@
   \s\MYfile	{FPF_Advisor_Diplomat.tex}
   \s\MYnumber	{563}
   \s\MYdesc	{An advisor from the Free People, and a consumate diplomat}
-  \s\MYsex	{\male}
-	\s\MYCharpronouns	{He/Him}
-  \s\MYPlaypronouns {He/Him}
+  \hehim
+	%\s\MYCharpronouns	{he/him}
+  \s\MYplayerpronouns {he/him}
   \s\MYplayer	{Eric Leitterman}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTech{}\bAdvisorBlue{}}
@@ -797,9 +735,9 @@
   \s\MYfile	{FPF_Advisor_HeadScientist.tex}
   \s\MYnumber	{514}
   \s\MYdesc	{An advisor from the Free People; the head scientist on the Storm project}
-  \s\MYsex	{\nonbinary}
-	\s\MYCharpronouns	{They/Them}
-  \s\MYPlaypronouns {They/Them}
+  \theythem
+	%\s\MYCharpronouns	{they/them}
+  \s\MYplayerpronouns {they/them}
   \s\MYplayer	{Aer van de Water}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTech{}\bAdvisorBlue{}}
@@ -825,9 +763,9 @@
   \s\MYfile	{FPF_Advisor_AntiChup.tex}
   \s\MYnumber	{645}
   \s\MYdesc	{An advisor from the Free People; the most powerful Cleric in the country}
-  \s\MYsex	{\male}
-	\s\MYCharpronouns	{He/Him}
-  \s\MYPlaypronouns {He/Him}
+  \hehim
+	%\s\MYCharpronouns	{he/him}
+  \s\MYplayerpronouns {he/him}
   \s\MYplayer	{David Black}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTech{}\bAdvisorBlue{}\bFPFCleric{}}
@@ -851,9 +789,9 @@
   \s\MYfile	{FPF_Advisor_AssistantScientist.tex}
   \s\MYnumber	{285}
   \s\MYdesc	{An advisor from the Free People; head assistant on the Storm Project}
-  \s\MYsex	{\female}
-	\s\MYCharpronouns	{She/Her}
-  \s\MYPlaypronouns {She/Her}
+  \sheher
+	%\s\MYCharpronouns	{she/her}
+  \s\MYplayerpronouns {she/her}
   \s\MYplayer	{Amanda Stowers}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTech{}\bAgrarians{}\bAdvisorBlue{}}
@@ -877,9 +815,9 @@
   \s\MYfile	{}
   \s\MYnumber	{285}
   \s\MYdesc	{Who is that?}
-  \s\MYsex	{\female}
-	\s\MYCharpronouns	{She/Her}
-  \s\MYPlaypronouns {She/Her}
+  \sheher
+	%\s\MYCharpronouns	{she/her}
+  \s\MYplayerpronouns {she/her}
   \s\MYplayer	{Amanda Stowers}
   
   \s\MYblues	{}
@@ -898,9 +836,9 @@
   \s\MYfile	{WR_Student_President.tex}
   \s\MYnumber	{219}
   \s\MYdesc	{A student from the Wave Riders, and student body president}
-  \s\MYsex	{\male}
-	\s\MYCharpronouns	{He/Him}
-  \s\MYPlaypronouns {He/Him}
+  \hehim
+	%\s\MYCharpronouns	{he/him}
+  \s\MYplayerpronouns {he/him}
   \s\MYplayer	{Ross Cheung}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bVikings{}\bStudentBlue{}}
@@ -924,9 +862,9 @@
   \s\MYfile	{WR_Student_Initiate.tex}
   \s\MYnumber	{234}
   \s\MYdesc	{A student from the Wave Riders, and a quiet initiate to the Clergy}
-  \s\MYsex	{\female}
-	\s\MYCharpronouns	{She/Her}
-  \s\MYPlaypronouns {She/Her}
+  \sheher
+	%\s\MYCharpronouns	{she/her}
+  \s\MYplayerpronouns {she/her}
   \s\MYplayer	{Danielle Goudeau}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bVikings{}\bStudentBlue{}\bLeauCleric{}}
@@ -950,9 +888,9 @@
   \s\MYfile	{WR_Student_PirateChild.tex}
   \s\MYnumber	{226}
   \s\MYdesc	{A student from the Wave Riders; known to get up to some mischief}
-  \s\MYsex	{\female}
-	\s\MYCharpronouns	{She/Her}
-  \s\MYPlaypronouns {She/Her}
+  \sheher
+	%\s\MYCharpronouns	{she/her}
+  \s\MYplayerpronouns {she/her}
   \s\MYplayer	{Mags Simkins}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bVikings{}\bStudentBlue{}}
@@ -977,9 +915,9 @@
   \s\MYfile	{WR_Student_WarlordDaughter.tex}
   \s\MYnumber	{133}
   \s\MYdesc	{A student from the Wave Riders; Daughter to the Warlord}
-  \s\MYsex	{\female}
-	\s\MYCharpronouns	{She/Her}
-  \s\MYPlaypronouns {She/Her}
+  \sheher
+	%\s\MYCharpronouns	{she/her}
+  \s\MYplayerpronouns {she/her}
   \s\MYplayer	{Autumn Rauscher}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bVikings{}\bStudentBlue{}\bLeauCleric{}}
@@ -1003,9 +941,9 @@
 	  \s\MYfile	{WR_Teacher_FlowPriest.tex}
   \s\MYnumber	{589}
   \s\MYdesc	{The mathematics teacher from the Wave Riders, and an energetic Cleric of Flow}
-  \s\MYsex	{\female}
-	\s\MYCharpronouns	{She/Her}
-  \s\MYPlaypronouns {She/Her}
+  \sheher
+	%\s\MYCharpronouns	{she/her}
+  \s\MYplayerpronouns {she/her}
   \s\MYplayer	{Amy Russo}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bVikings{}\bTeacherBlue{}\bLeauCleric{}}
@@ -1030,9 +968,9 @@
   \s\MYfile	{WR_Teacher_ChupSecond.tex}
   \s\MYnumber	{449}
   \s\MYdesc	{The economics teacher from the Wave Riders; a bit of a loner}
-  \s\MYsex	{\male}
-	\s\MYCharpronouns	{He/Him}
-  \s\MYPlaypronouns {He/Him}
+  \hehim
+	%\s\MYCharpronouns	{he/him}
+  \s\MYplayerpronouns {he/him}
   \s\MYplayer	{Andy Reyes}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bVikings{}\bTeacherBlue{}\bCult{}}
@@ -1056,9 +994,9 @@
   \s\MYfile	{WR_Teacher_ChupAvenger.tex}
   \s\MYnumber	{620}
   \s\MYdesc	{The art teacher from the Wave Riders; a bit of a dreamer}
-  \s\MYsex	{\male}
-	\s\MYCharpronouns	{He/Him}
-  \s\MYPlaypronouns {He/Him}
+  \hehim
+	%\s\MYCharpronouns	{he/him}
+  \s\MYplayerpronouns {he/him}
   \s\MYplayer	{Joe Landoph}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bVikings{}\bTeacherBlue{}\bCult{}}
@@ -1083,9 +1021,9 @@
   \s\MYfile	{WR_Teacher_Pirate.tex} %
   \s\MYnumber	{412}
   \s\MYdesc	{The shop teacher from the Wave Riders; genial and approachable}
-  \s\MYsex	{\female}
-	\s\MYCharpronouns	{She/Her}
-  \s\MYPlaypronouns {She/Her}
+  \sheher
+	%\s\MYCharpronouns	{she/her}
+  \s\MYplayerpronouns {she/her}
   \s\MYplayer	{Morgan Rivers}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bVikings{}\bTeacherBlue{}}
@@ -1110,9 +1048,9 @@
   \s\MYfile	{WR_Advisor_ChupLeader.tex}
   \s\MYnumber	{256}
   \s\MYdesc	{An Advisor from the Wave Riders; Madrone's well organized secretary}
-  \s\MYsex	{\male}
-	\s\MYCharpronouns	{He/Him}
-  \s\MYPlaypronouns {He/Him}
+  \hehim
+	%\s\MYCharpronouns	{he/him}
+  \s\MYplayerpronouns {he/him}
   \s\MYplayer	{Ben Shaya}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bVikings{}\bAdvisorBlue{}\bCult{}}
@@ -1136,9 +1074,9 @@
   \s\MYfile	{WR_Advisor_JuniorStatesman.tex}
   \s\MYnumber	{313}
   \s\MYdesc	{An Advisor from the Wave Riders; a skilled diplomat stepping out of Madrone's shadow}
-  \s\MYsex	{\male}
-	\s\MYCharpronouns	{He/Him}
-  \s\MYPlaypronouns {He/Him}
+  \hehim
+	%\s\MYCharpronouns	{he/him}
+  \s\MYplayerpronouns {he/him}
   \s\MYplayer	{Buck Greenwald}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bVikings{}\bAdvisorBlue{}}
@@ -1163,9 +1101,9 @@
   \s\MYfile	{WR_Advisor_Bunker.tex}
   \s\MYnumber	{683}
   \s\MYdesc	{An Advisor from the Wave Riders; the foremost L'eau engineer}
-  \s\MYsex	{\male}
-	\s\MYCharpronouns	{He/Him}
-  \s\MYPlaypronouns {He/Him}
+  \hehim
+	%\s\MYCharpronouns	{he/him}
+  \s\MYplayerpronouns {he/him}
   \s\MYplayer	{Ronan Beltracchi}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bVikings{}\bAdvisorBlue{}}
@@ -1190,9 +1128,9 @@
   \s\MYfile	{WR_Advisor_EbbPriest.tex}
   \s\MYnumber	{664}
   \s\MYdesc	{An Advisor from the Wave Riders; a no-nonsense Cleric of Ebb}
-  \s\MYsex	{\male}
-	\s\MYCharpronouns	{He/Him}
-  \s\MYPlaypronouns {He/They}
+  \hehim
+	%\s\MYCharpronouns	{he/him}
+  \s\MYplayerpronouns {he/they}
   \s\MYplayer	{Louis Wasserman}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bVikings{}\bAdvisorBlue{}\bLeauCleric{}}
@@ -1216,9 +1154,9 @@
   \s\MYfile	{WR_Principle.tex}
   \s\MYnumber	{667}
   \s\MYdesc	{The Principal of the College; the oldest and most knowledgeable person here}
-  \s\MYsex	{\male}
-	\s\MYCharpronouns	{He/Him}
-  \s\MYPlaypronouns {He/Him}
+  \hehim
+	%\s\MYCharpronouns	{he/him}
+  \s\MYplayerpronouns {he/him}
   \s\MYplayer	{Chris Chelberg}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bVikings{}\bTeacherBlue{}}
@@ -1246,14 +1184,14 @@
   %\s\MYname	{Test NPC}
   %\s\MYnumber	{00000}
   %\s\MYdesc	{a test}
-  %\s\MYsex	{\male}
+  %\hehim
 %}
 %
 %\NEW{NPC}{\cSomeGuy}{
   %\s\MYname	{Test NPC2}
   %\s\MYnumber	{00000}
   %\s\MYdesc	{a test}
-  %\s\MYsex	{\male}
+  %\hehim
 %}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1264,139 +1202,139 @@
 
 \NEW{NPC}{\cQueen}{
   \s\MYname	{Queen \pre Ammeline Sunstruck}
-  \s\MYsex	{\female}
+  \sheher
 }
 
 \NEW{NPC}{\cConsort}{
   \s\MYname	{Diamond}
-  \s\MYsex	{\nonbinary}
+  \theythem
 }
 
 \NEW{NPC}{\cFarmGod}{
   \s\MYname	{Luminary}
-  \s\MYsex	{\nonbinary}
+  \theythem
 }
 
 \NEW{NPC}{\cAdoptedParentOne}{ %Yvonne's parent
   \s\MYname	{Eldrin Amberlight}
-  \s\MYsex	{\male}
+  \hehim
 }
 
 \NEW{NPC}{\cPirateChildParent}{ %Pirate Child parent
   \s\MYname	{Kotta Eventide}
-  \s\MYsex	{\female}
+  \sheher
 }
 
 \NEW{NPC}{\cEvilNemesis}{ %Person hunting Evil's family
   \s\MYname	{Jaris}
-  \s\MYsex	{\male}
+  \hehim
 }
 
 \NEW{NPC}{\cDisneyMentor}{ %%Disney's priest mentor from old days
   \s\MYname	{Gradah}
-  \s\MYsex	{\female}
+  \sheher
 }
 
 \NEW{NPC}{\cDisneySect}{ %%Disney's sect
   \s\MYname	{Aethers}
-  \s\MYsex	{\female}
+  \sheher
 }
 
 %%%%%%Tech Society Character Listing%%%%%%%%%%%%%%%%%%%%%%%%%%
 \NEW{NPC}{\cTechGod}{
   \s\MYname	{Kero}
-  \s\MYsex	{\female}
+  \sheher
 }
 
 \NEW{NPC}{\cFaledonParent}{
   \s\MYname	{Aerio Faledon}
-  \s\MYsex	{\nonbinary}
+  \theythem
 }
 
 \NEW{NPC}{\cCouncilPriest}{
   \s\MYname	{Artax}
-  \s\MYsex	{\nonbinary}
+  \theythem
 }
 
 \NEW{NPC}{\cArbiter}{
   \s\MYname	{Laero}
-  \s\MYsex	{\nonbinary}
+  \theythem
 }
 
 \NEW{NPC}{\cElected}{
   \s\MYname	{Serra}
-  \s\MYsex	{\nonbinary}
+  \theythem
 }
 
 \NEW{NPC}{\cWar}{
   \s\MYname	{Wyren}
-  \s\MYsex	{\nonbinary}
+  \theythem
 }
 
 \NEW{NPC}{\cLibrarianMom}{
   \s\MYname	{Cecilia Drake}
-  \s\MYsex	{\nonbinary}
+  \theythem
 }
 
 \NEW{NPC}{\cHeirSibling}{ %%\cHeir{}'s sibling who was killed six years ago
   \s\MYname	{Edon Faledon}
-  \s\MYsex	{\male}
+  \hehim
 }
 
 %%%%%%Viking Society Character Listing%%%%%%%%%%%%%%%%%%%%%%%%%%
 \NEW{NPC}{\cEbbFull}{
   \s\MYname	{Ebb, Goddess of the Island}
-  \s\MYsex	{\female}
+  \sheher
 }
 
 \NEW{NPC}{\cEbb}{
   \s\MYname	{Ebb\suf, Goddess of the Island}
-  \s\MYsex	{\female}
+  \sheher
 }
 
 \NEW{NPC}{\cFlowFull}{
   \s\MYname	{Flow, Goddess of the Moon}
-  \s\MYsex	{\female}
+  \sheher
 }
 
 \NEW{NPC}{\cFlow}{
   \s\MYname	{Flow\suf, Goddess of the Moon}
-  \s\MYsex	{\female}
+  \sheher
 }
 
 \NEW{NPC}{\cLoud}{ %%Warlord
   \s\MYname	{Zain \suf of the 10th Fleet, Black Crow Ship}
-  \s\MYsex	{\female}
+  \sheher
 }
 
 \NEW{NPC}{\cQuiet}{ %%Warlord's partner
   \s\MYname	{Wetha \suf of the 10th Fleet, Black Crow Ship}
-  \s\MYsex	{\nonbinary}
+  \theythem
 }
 
 \NEW{NPC}{\cHeadDiplomat}{ %%Ross's Uncle; was supposed to be head diplomat
   \s\MYname	{Madrone \suf of the 1st Fleet, Drova's Landing}
-  \s\MYsex	{\male}
+  \hehim
 }
 
 \NEW{NPC}{\cJoeKill}{ %%Joe's most recent Kill.
   \s\MYname	{Ulos}
-  \s\MYsex	{\male}
+  \hehim
 }
 
 \NEW{NPC}{\cSaviourFleet}{ %%rescued Amanda
   \s\MYname	{4th Fleet, Pink Coral Ship}
-  \s\MYsex	{\female}
+  \sheher
 }
 
 \NEW{NPC}{\cSavFlet}{ %%rescued Amanda, shortened
   \s\MYname	{Pink Coral}
-  \s\MYsex	{\female}
+  \sheher
 }
 
 %%% Chup NPCs%%%
 \NEW{NPC}{\cGenesis}{ %%Chup God
   \s\MYname	{Genesis}
-  \s\MYsex	{\male}
+  \hehim
 }
 
