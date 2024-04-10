@@ -39,7 +39,7 @@
 %% Basic custom game information; gets used everywhere.  Don't put
 %% linebreaks in these and keep their lengths reasonable.
 \def\gamename{Children of the Gods}
-\def\gamedate{NOV 11 to 13, 2022}
+\def\gamedate{October 4 to 6, 2024}
 
 
 %%%%%
