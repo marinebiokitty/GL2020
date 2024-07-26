@@ -2068,7 +2068,7 @@
   \newid\nick{}
   \newid\maiden{}
   \let\@myfile\empty
-  \def\@contact{\contactmapping\ifx\MYplayer\empty\else, played by \optionalparen{\MYplayer}{\MYplayerpronouns}\fi}
+  \def\@contact{\contactmapping\ifx\MYplayer\empty\else{ (\MYcharpronouns)}, played by \optionalparen{\MYplayer}{\MYplayerpronouns}\fi}
   \FS\MYcontact{\@contact}
   \idnormal
   \allmap{\full}
