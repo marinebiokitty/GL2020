@@ -31,4 +31,4 @@ ls | grep tex | xargs sed -i 's/\([^\\a-zA-Z]\)c\([A-Z][a-zA-Z]*\){/\1\\c\2{/g' 
 
 ### Eliminate \do.
 ls | grep tex | xargs sed -i 's/\\c\([a-zA-Z]*\){\\do}/do\\c\1{\\verbes}/g'                           # \cCharacter{\do} -> do\cCharacter{\verbes}
-ls | grep tex | xargs sed -i 's/\\c\([a-zA-Z]*\){\\\([tT]\)heydo}/\\c\1{\\\2hey} do\\c\1{\\verbes}/g' # \cCharacter{\theydo} -> \cCharacter{\they} do\cCharacter{\verbes}++++++++++++++++++
+ls | grep tex | xargs sed -i 's/\\c\([a-zA-Z]*\){\\\([tT]\)heydo}/\\c\1{\\\2hey} do\\c\1{\\verbes}/g' # \cCharacter{\theydo} -> \cCharacter{\they} do\cCharacter{\verbes}
