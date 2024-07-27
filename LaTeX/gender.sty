@@ -68,13 +68,6 @@
 	\genderpronouns{#1}{#2}{\singularconjugation{}#3}
 }
 
-\newcommand{\theywere}{\they{} \were{}}
-\newcommand{\Theywere}{\They{} \were{}}
-\newcommand{\theyhave}{\they{} \have{}}
-\newcommand{\Theyhave}{\They{} \have{}}
-\newcommand{\theydo}{\they{} \do{}}
-\newcommand{\Theydo}{\They{} \do{}}
-
 %%%%%% Defaults for potentially gendered nouns.
 
 \newcommand{\genderednoundefaults}{
@@ -109,6 +102,19 @@
 	\def\deity{deity}
 	\def\Count{Count} % lowercase-c count unfortunately conflicts with important LaTeX commands and can't be redefined
 }
+
+%%%%% Composite and modified verbs.
+
+% \theyverb, \Theyverb
+\newcommand{\theyare}{\they{} \are}
+\newcommand{\Theyare}{\They{} \are}
+\newcommand{\theywere}{\they{} \were{}}
+\newcommand{\Theywere}{\They{} \were{}}
+\newcommand{\theyhave}{\they{} \have{}}
+\newcommand{\Theyhave}{\They{} \have{}}
+\newcommand{\theydo}{\they{} \do{}}
+\newcommand{\Theydo}{\They{} \do{}}
+
 
 %%%%% Capitalized pronouns and commands.
 % Other gendered pronouns and nouns could go here, but they only need to be here if they're used both uncapitalized and capitalized,
