@@ -103,30 +103,22 @@
 	\def\Count{Count} % lowercase-c count unfortunately conflicts with important LaTeX commands and can't be redefined
 }
 
-%%%%% Composite and modified verbs.
-
-% \theyverb, \Theyverb
-\newcommand{\theyare}{\they{} \are}
-\newcommand{\Theyare}{\They{} \are}
-\newcommand{\theywere}{\they{} \were{}}
-\newcommand{\Theywere}{\They{} \were{}}
-\newcommand{\theyhave}{\they{} \have{}}
-\newcommand{\Theyhave}{\They{} \have{}}
-\newcommand{\theydo}{\they{} \do{}}
-\newcommand{\Theydo}{\They{} \do{}}
-
-
 %%%%% Capitalized pronouns and commands.
 % Other gendered pronouns and nouns could go here, but they only need to be here if they're used both uncapitalized and capitalized,
 % usually at the beginnings of sentences.  As a result, this leaves out some nouns: I don't know why you would ever start a
 % sentence with, ``Person...''
+
+% Verbs
+\newcommand{\Are}{\titlecap{\are}}
+\newcommand{\Were}{\titlecap{\were}}
+\newcommand{\Have}{\titlecap{\have}}
+\newcommand{\Do}{\titlecap{\do}}
 
 % Pronouns
 \newcommand{\They}{\titlecap{\they}}
 \newcommand{\Them}{\titlecap{\them}}
 \newcommand{\Their}{\titlecap{\their}}
 \newcommand{\Themself}{\titlecap{\themself}}
-\newcommand{\Do}{\titlecap{\do}}
 
 % Familial connections
 \newcommand{\Spouse}{\titlecap{\spouse}}
@@ -145,6 +137,28 @@
 \newcommand{\Deity}{\titlecap{\deity}}
 \newcommand{\Duke}{\titlecap{\duke}}
 \newcommand{\Baron}{\titlecap{\baron}}
+
+
+%%%%% Composite and modified verbs.
+
+% \theyverb, \Theyverb
+\newcommand{\theyare}{\they{} \are{}}
+\newcommand{\Theyare}{\They{} \are{}}
+\newcommand{\theywere}{\they{} \were{}}
+\newcommand{\Theywere}{\They{} \were{}}
+\newcommand{\theyhave}{\they{} \have{}}
+\newcommand{\Theyhave}{\They{} \have{}}
+\newcommand{\theydo}{\they{} \do{}}
+\newcommand{\Theydo}{\They{} \do{}}
+
+% \verbthey
+\newcommand{\arethey}{\are{} \they{}}
+\newcommand{\Arethey}{\Are{} \they{}}
+\newcommand{\werethey}{\were{} \they{}}
+\newcommand{\Werethey}{\Were{} \they{}}
+\newcommand{\havethey}{\have{} \they{}}
+\newcommand{\Havethey}{\Have{} \they{}}
+% skipping do, which shouldn't be its own command, it's a verbes
 
 %%%%% Built-in gender/pronoun sets.
 
