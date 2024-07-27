@@ -9,7 +9,7 @@ ls | grep tex | xargs sed -i 's/\\c\([A-Za-z]*\){\\\([Tt]\)hey} \(is|are\)/\\c\1
 ls | grep tex | xargs sed -i 's/\\c\([A-Za-z]*\){\\\([Tt]\)hey} \(was|were\)/\\c\1{\\\2heywere\3}/g'  # \cCharacter{\They} was/were -> \cCharacter{\Theywere}
 # have/has can't be corrected automatically: "doesn't he have a carrot" is correct, "he have a carrot" isn't.
 
-ls | grep tex | xargs sed -i 's/\\c\([A-Za-z]*\){\\\([Tt]\)hey}'\''(re|s\)/\\c\1{\\\2heyre}/g'          # \cCharacter{\They}'re/\cCharacter{\They}'s -> \cCharacter{\Theyre}
+ls | grep tex | xargs sed -i 's/\\c\([A-Za-z]*\){\\\([Tt]\)hey}'\''\(re|s\)/\\c\1{\\\2heyre}/g'          # \cCharacter{\They}'re/\cCharacter{\They}'s -> \cCharacter{\Theyre}
 ls | grep tex | xargs sed -i 's/\\c\([A-Za-z]*\){\\\([Tt]\)hey}'\''ve/\\c\1{\\\2heyve}/g'                # \cCharacter{\They}'ve -> \cCharacter{\Theyve}
 
 ls | grep tex | xargs sed -i 's/\(is|are\) \\c\([A-Za-z]*\){\\they}/\\c\2{\\arethey}/g'               # is/are \cCharacter{\they} -> \cCharacter{\arethey}
