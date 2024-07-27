@@ -13,7 +13,6 @@
 \newcommand{\genderpronouns}[3]{
 	\newcommand{#1}[1][]{
 		\genderednoundefaults
-		\def\themself{\them{}self}
 		% If this command is passed any arguments, it overwrites the previous version.
 		\ifx#1\empty
 			\s\MYcharpronouns{#2}
@@ -72,6 +71,7 @@
 %%%%%% Defaults for potentially gendered nouns.
 
 \newcommand{\genderednoundefaults}{
+	\def\themself{\them{}self}
 	
 	% familial relationships
 	\def\spouse{spouse}
