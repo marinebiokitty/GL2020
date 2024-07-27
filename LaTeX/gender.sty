@@ -13,6 +13,7 @@
 \newcommand{\genderpronouns}[3]{
 	\newcommand{#1}[1][]{
 		\genderednoundefaults
+		\def\themself{\them{}self}
 		% If this command is passed any arguments, it overwrites the previous version.
 		\ifx#1\empty
 			\s\MYcharpronouns{#2}
@@ -158,7 +159,7 @@
 \newcommand{\Werethey}{\Were{} \they{}}
 \newcommand{\havethey}{\have{} \they{}}
 \newcommand{\Havethey}{\Have{} \they{}}
-% skipping do, which shouldn't be its own command, it's a verbes
+% skipping do, which shouldn't be its own command
 
 %%%%% Built-in gender/pronoun sets.
 
@@ -167,7 +168,6 @@
 	\def\them{him}
 	\def\their{his}
 	\def\theirs{his}
-	\def\themself{himself}
 		
 	% familial relationships
 	\def\spouse{husband}
@@ -199,7 +199,6 @@
 	\def\them{her}
 	\def\their{her}
 	\def\theirs{hers}
-	\def\themself{herself}
 		
 	% familial relationships
 	\def\spouse{wife}
@@ -235,7 +234,6 @@
 	\def\them{them}
 	\def\their{their}
 	\def\theirs{theirs}
-	\def\themself{themself}
 }
 
 \singulargenderpronouns{\zezir}{ze/zir}{
@@ -243,7 +241,6 @@
 	\def\them{zir}
 	\def\their{zir}
 	\def\theirs{zirs}
-	\def\themself{zirself}
 }
 
 \singulargenderpronouns{\itits}{it/its}{
@@ -251,7 +248,6 @@
 	\def\them{it}
 	\def\their{its}
 	\def\theirs{its}
-	\def\themself{itself}
 }
 
 \pluralgenderpronouns{\eyem}{ey/em}{
@@ -259,7 +255,6 @@
 	\def\them{em}
 	\def\their{eir}
 	\def\theirs{eirs}
-	\def\themself{emself}
 }
 
 \singulargenderpronouns{\avoidpronouns}{avoid pronouns}{
@@ -283,7 +278,6 @@
 	\def\them{fae}
 	\def\their{faer}
 	\def\theirs{faers}
-	\def\themself{faeself}
 }
 
 %% Mixed pronoun sets.
