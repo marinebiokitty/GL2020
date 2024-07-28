@@ -93,7 +93,7 @@
 \def\defaultnamemappings{
   \titlemap{\full}
   \mapnickinformal
-	\intromap{{\full}{ }{(\MYcharpronouns)}}
+	\intromap{\textbf{{\full}{ }{(\MYcharpronouns)}}}
   }
 
 
