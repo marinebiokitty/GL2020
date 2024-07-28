@@ -189,32 +189,32 @@
 %% out) the tlist environment that corresponds to abilities.
 \def\charsheetlists{%
   % listed mempackets
-  \begin{tlist}{Memory/Event Packets}
-    \MYmems
-  \end{tlist}
+  %\begin{tlist}{Memory/Event Packets}
+   % \MYmems
+  %\end{tlist}
   % listed bluesheets
   \begin{tlist}{Bluesheets}
     \MYblues
   \end{tlist}
   %% listed greensheets
-  \begin{tlist}{Greensheets}
-    \MYgreens
-  \end{tlist}
+  %\begin{tlist}{Greensheets}
+   % \MYgreens
+  %\end{tlist}
   %% listed abilities
-  \begin{tlist}{Abilities}
-    \MYabils
-    \MYskills
-  \end{tlist}
+  %\begin{tlist}{Abilities}
+    %\MYabils
+    %\MYskills
+  %\end{tlist}
   %% listed items, etc
-  \begin{tlist}{Items}
-    \MYitems
-    \MYwhites
-    \MYcash
-  \end{tlist}
+  %\begin{tlist}{Items}
+    %\MYitems
+    %\MYwhites
+   % \MYcash
+  %\end{tlist}
   %% listed stats
-  \begin{tlist}{Stats}
-    \MYstats
-  \end{tlist}
+  %\begin{tlist}{Stats}
+    %\MYstats
+  %\end{tlist}
   
   }
 
