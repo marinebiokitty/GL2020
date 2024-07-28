@@ -1,5 +1,7 @@
 #!/bin/bash
 
+mv listchar-PRINT.tex listchar-BACKUP.tex
+
 for character in "$@"
 do
   cat >listchar-PRINT.tex <<EOL
@@ -15,3 +17,5 @@ EOL
   /mnt/c/Users/wasse/AppData/local/Programs/MiKTeX/miktex/bin/x64/pdflatex.exe -include-directory="C:/Users/wasse/Documents/GitHub/GL2020/LaTeX/" listchar-PRINT.tex
   mv listchar-PRINT.pdf $character.pdf
 done
+
+mv listchar-BACKUP.tex listchar-PRINT.tex
