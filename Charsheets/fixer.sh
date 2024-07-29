@@ -25,8 +25,8 @@ ls | grep tex | xargs sed -i 's/\(Has\|Have\) \\c\([A-Za-z]*\){\\they}/\\c\2{\\H
 
 ls | grep tex | xargs sed -i "s/“\([^“”]\)”/``\1''/g"                                                # “curly quoted” -> ``curly quoted''
 
-ls | grep tex | xargs sed -i 's/^\\c\([A-Za-z]*\){\\they/\\c\1{\\They/g'                             # uncapitalized \they at the beginning of a paragraph(also \theyare, etc)
-ls | grep tex | xargs sed -i 's/\. \+\\c\([A-Za-z]*\){\\they/\. \\c\1{\\They/g'                  # uncapitalized \they at the beginning of a sentence within a paragraph
+ls | grep tex | xargs sed -i 's/^\\c\([A-Za-z]*\){\\the\(y\|ir\)/\\c\1{\\The\2/g'                             # uncapitalized \they at the beginning of a paragraph(also \theyare, \their, etc)
+ls | grep tex | xargs sed -i 's/\. \+\\c\([A-Za-z]*\){\\the\(y\|ir\)/\. \\c\1{\\The\2/g'                  # uncapitalized \they at the beginning of a sentence within a paragraph
 
 ### Eliminate \do.
 #ls | grep tex | xargs sed -i 's/\\c\([a-zA-Z]*\){\\do}/do\\c\1{\\verbes}/g'                           # \cCharacter{\do} -> do\cCharacter{\verbes}
