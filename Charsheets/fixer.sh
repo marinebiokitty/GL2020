@@ -8,7 +8,7 @@ ls | grep tex | xargs sed -i 's/\\c\([A-Za-z]+\){\([A-Za-z]*\)}/\\c\1{\\\2}/g'  
 ls | grep tex | xargs sed -i 's/\\\([Tt]\)hey \\\(are\|were\|have\)/\\\1hey\2/g'                      # \cCharacter{\they \are} -> \Theyare, etc
 ls | grep tex | xargs sed -i 's/\\c\([A-Za-z]*\){\\\([tT]\)hey} \\c\1{\\\(are\|were\|have\)}/\\c\1{\\\2hey\3}/g' # \cCharacter{\They} \cCharacter{\are} -> \cCharacter{\Theyare}, for both capitalizations, are, were, have
 
-ls | grep tex | xargs sed -i 's/\\c\([A-Za-z]*\){\\\([Tt]\)hey} \(is\|are\)/\\c\1{\\\2heyare\3}/g'     # \cCharacter{\They} is/are -> \cCharacter{\Theyare}
+ls | grep tex | xargs sed -i 's/\\c\([A-Za-z]*\){\\\([Tt]\)hey} \(is\|are\)/\\c\1{\\\2heyare}/g'     # \cCharacter{\They} is/are -> \cCharacter{\Theyare}
 ls | grep tex | xargs sed -i 's/\\c\([A-Za-z]*\){\\\([Tt]\)hey} \(was\|were\)/\\c\1{\\\2heywere\3}/g'  # \cCharacter{\They} was/were -> \cCharacter{\Theywere}
 # have/has can't be corrected automatically: "doesn't he have a carrot" is correct, "he have a carrot" isn't.
 
