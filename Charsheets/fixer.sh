@@ -35,3 +35,4 @@ ls | grep tex | xargs sed -i 's/\. \+\\c\([A-Za-z]*\){\\the\(y\|ir\)/\. \\c\1{\\
 # Use \intro.
 
 ls | grep tex | xargs sed -i 's/\\c\([A-Z][A-Za-z]*\){\\full} (\\c\1{\\[Tt]hey}\/\\c\1{\\[Tt]hem})/\\c\1{\\intro}/g'
+ls | grep tex | xargs sed -i 's/\\c\([A-Z][A-Za-z]*\){\\intro}'s/\\c\1{\\intros}/g'
