@@ -94,6 +94,7 @@
   \titlemap{\full}
   \mapnickinformal
 	\intromap{\textbf{{\full}{ }{(\MYcharpronouns)}}}
+  \def\intros{\textbf{{\full}{'s }{(\MYcharpronouns)}}}
   }
 
 

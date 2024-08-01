@@ -9,7 +9,7 @@ import java.util.regex.*;
  */
 public class Introfier {
     private static final Pattern CHARACTER_REFERENCE = Pattern.compile(
-        "(?<!\\{)\\\\c([A-Z][A-Za-z]*)\\{(\\\\full|\\\\intro)?\\}"
+        "(?<!\\{)\\\\c([A-Z][A-Za-z]*)\\{(\\\\full|\\\\intro|\\\\intros)?\\}"
     ); // \cStartsWithUpperCase{\optionallyOneCommand}, *not* preceded by a {
 
     public static void main(String[] args) throws IOException {
@@ -23,7 +23,7 @@ public class Introfier {
                     String charCommand = matchResult.group(1);
                     if (!seenCharacters.add(charCommand)) {
                         return "$0"; // we've already seen this character; don't replace anything
-                    } else {
+                    } else if (!matchResult.group(2).equals("intros")) {
                         return "\\\\c$1{\\\\intro}";
                     }
                 });
