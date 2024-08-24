@@ -16,93 +16,70 @@
 \begin{document}
 \name{\gTallyingVotes{}}
 
-Count total votes by desired location. Each student gets between 1 and 4 votes, with some vote switching, and a few anonymous options. Add tally marks for each students' votes, and then count up the total.
-
-\begin{tabularx}{\textwidth}{|>{\centering\arraybackslash}X |>{\centering\arraybackslash}X | >{\centering\arraybackslash}X | >{\centering\arraybackslash} m{2cm} | >{\centering\arraybackslash}X |}
+Count total votes by desired location. Each student gets between 1 and 5 votes, with some vote switching, and a few anonymous options. Use tally marks to count the votes
+\begin{tabularx}{\textwidth}{|>{\centering\arraybackslash}X |>{\centering\arraybackslash}m {8cm} |}
 \hline
-	\textbf{Voter} & \textbf{\pFarm{}}  & \textbf{\pTech{}} & \textbf{\pShip{}} & \textbf{\pSchool{}} \\
-\hline
-\hline
-	\cLibAssist{}	&	&	&	&  \\
-\hline	
-	\cChupStudent{}	&	&	&	&	 \\
-\hline
-	\cAdopted{}	&	&	&	&	 \\
-\hline
-	\cDisney{}	&	&	&	&	 \\
-\hline
-	\cTechStar{}	&	&	&	&	 \\
-\hline
-	\cAmbition{}	&	&	&	&	 \\
-\hline
-	\cHeir{}	&	&	&	&	 \\
-\hline
-	\cScholarship{}	&	&	&	&	 \\
-\hline
-	\cPresident{}	&	&	&	&	 \\
-\hline
-	\cInitiate{}	&	&	&	&	 \\
-\hline
-	\cPirateChild{}	&	&	&	&	 \\
-\hline
-	\cWarlordDaughter{}	&	&	&	&	 \\
-\hline
-	Anonymous	&	&	&	&	 \\
-\hline
-	Other	&	&	&	&	 \\
-\hline
-\hline
-	\textbf{SUM}	&	&	&	&	 \\
-\hline
-\end{tabularx}
-
-For \textbf{nations}, a relic attuned to them \textbf{removes} 3 votes from their total. For the \textbf{School}, 1 relic must be attuned to it for it to be a valid target. If none are attuned, those votes fizzle. If more than 1 is attuned to the school, the additional relic(s) \textbf{add} 3 votes to that total.
-
-\begin{tabularx}{\textwidth}{|>{\centering\arraybackslash}X |>{\centering\arraybackslash} m{6cm} |}
-\hline
-	\textbf{Relic by Theoretical Nation} & \textbf{Attuned To} \\
-\hline
+	\textbf{Location} & Num of Votes \\
 \hline
 	\pFarm{}	&	\\
-\hline
+\hline	
 	\pTech{}	&	\\
-\hline
+\hline	
 	\pShip{}	&	\\
-\hline
+\hline	
+	\pSchool{}	&	\\
+\hline	
+	Coor. Zero	&	\\
+\hline	
+	Coor. One	&	\\
+\hline	
 \end{tabularx}
 
-Other factors also affect the storm’s targeting, although these are not generally known. Only the principal (\cPrincipal{}) and the \pGoaties{} leader (\cChupLeader{}) starts with this information; they may choose to disseminate it or not. Any of these three rituals not being completed correctly will add one vote to the School. \textbf{If all three fail}, then the school will be a valid target even without any relics attuned to it!!! Since this would be next to impossible to achieve, both the votes and the valid targeting will stand if the FoG manages to accomplish this.
+Count relic attunement: For the \textbf{School}, 1 relic must be attuned to it for it to be a valid target. If none are attuned, then student and treaty votes toward the school fizzle.  For either Divine location {Coordinate Zero or One), the Lightning rod must have been incorporated into the preparations. Each relic is worth 6 votes \textbf{except} a relic attuned to the school is worth 8 votes instead.
 
 \begin{tabularx}{\textwidth}{|>{\centering\arraybackslash}X |>{\centering\arraybackslash} m{6cm} |}
 \hline
-	\textbf{Factor} & \textbf{Impact} \\
+	\textbf{Relic} & \textbf{Attuned To (worth 6 or 8 votes)} \\
 \hline
 \hline
-	Setting up the Ritual to Control the Storm	&	\\
+	Relic 1	&	\\
 \hline
-	The Graduation Ceremony	&	\\
+	Relic 2	&	\\
 \hline
-	Renewing the Ley Lines	&	\\
+	Relic 3	&	\\
 \hline
 \end{tabularx}
 
 
-\subsection*{Final Summary}
-Use the table below to collect the total votes from the two previous tables and figure out where the storm is ultimately going to be sent.
+Any treaty in place that declares a target for the Storm also affects where the storm will go. Record below where any treaty says the Storm should go. At game start the ``End of Suffering’’ treaty is in place, and declares the target to be the \pShip{}. If the ``End of Suffering’’ treaty is nullified, and no new target declared, the Treaty portion of the storm control fizzles.
 
+\vspace{2cm}
+
+Treaty Target: \rule{8cm}{0.4pt}
+
+\vfill
+
+\subsection*{Final Summary}
+Use the table below to collect the results from the three components that influence the Storm direction. If there is a tie (all 3 components direct the storm differently), the Votes from the Students trumps the other two. 
 \newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
-\begin{tabularx}{\textwidth}{|>{\centering\arraybackslash}X |>{\centering\arraybackslash}X | >{\centering\arraybackslash}X | >{\centering\arraybackslash} m{2cm} | >{\centering\arraybackslash}X |}
+
+\begin{tabularx}{\textwidth}{|>{\centering\arraybackslash}X |>{\centering\arraybackslash}X |>{\centering\arraybackslash}X | >{\centering\arraybackslash}X  | >{\centering\arraybackslash} m{2.5cm} |}
+
 \hline
-	 & \textbf{\pFarm{}}  & \textbf{\pTech{}} & \textbf{\pShip{}} & \textbf{\pSchool{}} \\
+	Location & 	Student Votes  & Relic Votes (+6,+8) & Treaty Vote (+18) & Total \\
 \hline
 \hline
-	Votes from Students	&	&	&	&  \\
-\hline	
-	Effect of Relics (+3,-3,etc.)	&	&	&	&	 \\
+	\pFarm{} &	&	& & \\
 \hline
-	Effect of Rituals	&	&	&	&	 \\
+	\pTech{} &	&	& & \\
 \hline
-	\textbf{Total}	&	&	&	&	 \\
+	\pShip{} &	&	& & \\
+\hline
+	\pSchool{} &	&	& & \\
+\hline
+	Coor. Zero &	&	& & \\
+\hline
+	Coor One &	&	& & \\
 \hline
 \hline
 \multicolumn{2}{|C{6cm}|}{\textbf{Target with Highest Total: (This is where the storm is going)}} & \multicolumn{3}{|c|}{} \\
@@ -111,3 +88,4 @@ Use the table below to collect the total votes from the two previous tables and 
 
 
 \end{document}
+
