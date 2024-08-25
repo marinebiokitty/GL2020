@@ -5,7 +5,6 @@
 %%
 %%%%%
 
-
 %%%%%
 %% Item macros are for normal item cards.
 \DECLARESUBTYPE{Item}{TransElement}
@@ -185,15 +184,16 @@
 \NEW{ItemEnvelope}{\iSignetRing}{ %%\cHedonist{} starts with this
   \s\MYname	{A Fancy Ring}
   \s\MYnumber	{9876}
-  \s\MYtext	{A very fancy, very expensive ring with an immaculately cut blue gem. You may only open this item if specifically told to do so by a mechanic.}
+  \s\MYtext	{A very fancy, very expensive ring with an immaculately cut gem. You may only open this item if specifically told to do so by a mechanic.}
   \s\MYcontents	{This ring is not what it appears to be. There is an enchantment upon it that hides its true nature as one of the two \pFarm{} Royal Family signet rings. It can be used to endorse documents as official. Only the \cQueen{\Majesty}, or \cQueen{\their} heir should ever have this. What is it doing here?}
 }
 
 
-\NEW{Item}{\iFolderOfNotes}{ %%\cDisney{} starts with this
+\NEW{ItemEnvelope}{\iFolderOfNotes}{ %%\cDisney{} starts with this
   \s\MYname	{A Folder of Notes}
   \s\MYnumber	{3196} 
-  \s\MYtext	{These are a few hastily scribbled notes. Most of them are in code, although the word ``Genesis’’ is written out several times. The reader is left to wonder why.}
+  \s\MYtext	{These are a few hastily scribbled notes, all in code. If you wish to decode the notes, you may do so by roleplay concentrating on this task for 20 minutes. You may take no actions other than brief conversation during this time. If \textbf{someone helps you}, the task will take 10 minutes. If specifically \textbf{\cFlowPriest{}} (the mathematics teacher), \cHeadScientist{}, or \cAssistantScientist{} helps too, the task will take only 5 minutes. If these notes are \textbf{\yours}, you may skip the time entirely. You know your own code. \emph{Once the required time has elapsed, you may read the contents of the attached envelope. Put them back when you are done. In the future you may freely review the information without redoing the timer}. }
+  \s\MYcontents	{The decoded notes speak of a group called the ``Followers of Genesis'' - a heretical cult that worships \cGenesis{}, the \cGenesis{\God} of luck, instead of one of the Patron Deities. The notes include a list of suspects: \cJuniorStatesman{\full}, \cChupLeader{\full}, and \cEbbPriest{\full}. Curious that \cBunker{} is not part of the list.}
 }
 
 \NEW{ItemEnvelope}{\iWIPProtection}{ %Adopted
@@ -219,12 +219,13 @@
   \s\MYtext	{A letter from the \cChupStudent{\formal} family, addressed to \cChupStudent{}. You summarize the gist of the letter as: ``You are getting married on Monday and consequently moving to the \pTech{} to live with your new family! Isn’t that so great for the family!?!’’}
 }
 
-\NEW{ItemEnvelope}{\iScryingAmulet}{ %Prince
-  \s\MYname	{A Scrying Amulet}
-  \s\MYnumber	{9848}
-  \s\MYtext	{This amulet has a dark surface. It is theoretically possible to attune an item such as this to a specific target or location. You may freely open this item to see what it is attuned to, but you may not change the attunement, or use it to scry unless you have a separate ability that describes how to do that.}
-  \s\MYcontents	{This amulet is attuned to: \underline{\hline{2cm}}}
+\NEW{Item}{\iLibBookPages}{ %%\cChupStudent
+  \s\MYname	{Pages Torn from a Magical Book}
+  \s\MYnumber	{9655}
+  \s\MYtext	{This handful of pages was clearly torn from a magical book (probably one in the library.) The pages discuss how fragile the Ley Lines are. Without the physical dirt of the floating island to insulate them, it is speculated that they would rapidly destroy each other. While only a hypothesis, the implication of destroying the Ley Lines is to reduce all magic across \pEarth{} to almost nothing. The consequences of such a sudden and thorough loss of magic are overwhelming to consider. What could destroy the island is left to the reader’s imagination.}
 }
+
+
 
 %%FPF Character Items
 
@@ -238,7 +239,7 @@
 \NEW{Item}{\iVCDBlueprint}{ %%TechStar starts with this
   \s\MYname	{Blueprint for Vid-Com Devices}
   \s\MYnumber	{9558}
-  \s\MYtext	{A detailed blue-print for how to build the new fangled long distance communication devices developed by \cTechStar{} as part of the Tech Star Competition last year.
+  \s\MYtext	{A detailed blueprint for how to build the new fangled long distance communication devices developed by \cTechStar{} as part of the Tech Star Competition last year.
 	}
 }
 
@@ -248,6 +249,8 @@
   \s\MYtext	{\textbf{This item has a phys rep.} This is a real live, celestial beetle. It is wrapped in the divine energy of \cTechGod{}. What is it doing here? Usually the beetles are kept safe in the temples, in little colonies of a dozen or so.
 	
 	If you wish to attack this creature, you must have the ``\iScythe{},''and it must be attuned to a location. Using it to attack this creature will deattune the scythe.
+
+Anyone in possession of this Avatar gains +4 CR. \textbf{Possession can only be relinquished voluntarily, though the Avatar may choose to abandon you should your actions displease it}.
 	
 \vspace{2mm}
 \textbf{Current CR: 8}
@@ -259,7 +262,7 @@
   \s\MYname	{Charging Stone}
   \s\MYnumber	{9225}
 	\tass{}
-  \s\MYtext	{If the item is currently empty (envelope is flat) you may choose to deposit 1 unit of magical energy into this vessel. If you do so, take one of your CR stones and put it inside the attached envelope (envelope will no longer lay flat). Your CR is now reduced by 1 temporarily. At the next meal, you may take additional stones from the stock to replenish up to your normal CR. Unless you have an ability that allows you to use Tass, you cannot use this item for anything, or retrieve the magic stored inside of it.}
+  \s\MYtext	{If the item is currently empty (envelope is flat) you may choose to deposit 1 unit of magical energy into this vessel. If you do so, take one of your CR stones and put it inside the attached envelope (envelope will no longer lay flat). Your CR is now reduced by 1 temporarily. At the next meal, you may take additional stones from the stock to replenish up to your normal CR. Unless you have an ability that allows you to use \textbf{Tass,} you cannot use this item for anything, or retrieve the magic stored inside of it.}
   \s\MYcontents	{$<$Assemble this envelope like a voting stone by hot-gluing a stone to the outside (diff color than the voting stones or CR stones), then toss this piece of paper; there are no paper contents to this item.)$>$}
 }
 
@@ -277,26 +280,10 @@
   \s\MYcontents	{This is the real deal. It is the genuine, one and only Faledon Family Signet Ring / Heir Seal. Very valuable.}
 }
 
-%\NEW{ItemEnvelope}{\iInvisibilityCloak}{ %%\cScholarship and \cAntiChup
-  %\s\MYname	{Cloak of Invisibility}
-  %\s\MYnumber	{4541} %Checknumber
-  %\s\MYtext	{IMBUED TECHNOLOGY. A piece of technomagic that allows the wearer to temporarily become invisible. See the associated ability ``\aInvisibility{}’’ inside the item-envelope.}
-  %\s\MYcontents	{N/A}
-	%\s\MYabils	{\aInvisibilityCloak{}}
-%}
-
 \NEW{Item}{\iFaledonLetter}{ %%\cHeir
   \s\MYname	{A Letter from Home}
   \s\MYnumber	{9150}
   \s\MYtext	{A letter from the \cHeir{\formal} family, addressed to \cHeir{}. You summarize the gist of the letter as: ``You are getting married on Monday! Isn’t that so great for the family!?!’’}
-}
-
-\NEW{ItemEnvelope}{\iMagicTag}{ %%\cScholarship
-  \s\MYname	{Magical Tracking Tag}
-  \s\MYnumber	{9596}
-  \s\MYtext	{Open when you notice you have this item in your possession. This item may be shown to other characters but may not be given away, taken away or destroyed, unless you find a specific mechanic saying otherwise.}
-  \s\MYcontents	{What in the name of all the Deities is this thing? You definitely didn’t have it at the start of the Time of Deciding. It gives you a very uncomfortable feeling, and it seems to be impossible to remove. The research notebook entitled ``\nGetItOff{}'' is now yours to work with.}
-	\s\MYgreens	{\nGetItOff{}}
 }
 
 \NEW{ItemEnvelope}{\iLightningRod}{ %%\cHeadScientist{}
@@ -308,7 +295,6 @@
   \s\MYcontents	{N/A}
 	\s\MYgreens	{\gLightningRod{}}
 }
-
 
 %%%%%  WR Character Items  %%%%%%
 \NEW{Item}{\iCursedLetter}{ %%\cInitiate starts with this
@@ -344,10 +330,10 @@
 	\unstash{}
   \s\MYtext	{A wooden chalice, inset with 5 jet colored gemstones spaced evenly around the bowl. To the untrained eye the item is ordinary, but to a skilled craftsman, the elegance is apparent in the perfection of the simple design. This Relic was gifted to the \pShippies{} by \cEbb{} and \cFlow{} 250 years ago.
 
-As long as this Relic is attuned to someplace, it has the power to cleanse illness and afflictions (such as those caused by curses). Using this effect will cause the relic to deattune. See the associated greensheet (\gStatusCleanse{}) for details. If the item changes hands, make sure the greensheet goes with it.
+As long as this Relic is attuned to someplace, it has the power to cleanse illness and afflictions (such as those caused by curses). Using this effect will cause the relic to deattune. Ask a GM if you do not know how to de-attune a relic. See the associated greensheet (\gStatusCleanse{}) for details. If the item changes hands, make sure the greensheet goes with it.
 
 Relics that are attuned will have a piece of paper inside the envelope. You may open the envelope at any time to check if there is a piece of paper inside. \textbf{DO NOT READ the paper if present.}}
-  \s\MYcontents	{Current Attunment: \pShip{}}
+  \s\MYcontents	{Current Attunement: \pShip{}}
   \s\MYgreens	{\gStatusCleanse{}}
 }
 
@@ -362,21 +348,21 @@ As long as this Relic is attuned,  it has the power to restrain anyone or anythi
 
 Relics that are attuned will have a piece of paper inside the envelope. You may open the envelope at any time to check if there is a piece of paper inside. \textbf{DO NOT READ the paper if present.}
 }
-  \s\MYcontents	{Current Attunment: \pShip{}}
+  \s\MYcontents	{Current Attunement: \pShip{}}
 }
 
 \NEW{ItemEnvelope}{\iMirror}{  
   \s\MYname	{Cassiopeia’s Mirror}
   \s\MYnumber	{9370}
   \bulky	{1}
-	\unstash{}
-  \s\MYtext	{A large standing mirror. The frame is finely engraved silver. Despite being ancient, it shows not a speck of tarnish. The frame of this Relic was crafted by the Church of \cTechGod{}, and the mirrored surface gifted by \cTechGod{} in time immemorial.
+\unstash{}
+  \s\MYtext	{A large handheld mirror. The frame is finely engraved gold. Despite being ancient, it shows not a speck of tarnish. The frame of this Relic was crafted by the Church of \cTechGod{}, and the mirrored surface gifted by \cTechGod{} in time immemorial.
 
-As long as this Relic is attuned, it has the power to show a silent image of what is happening currently in a location you specify greater than 50 miles away (it’s kind of like a spyglass or a telescope; it doesn’t render things closer than 50 miles with any resolution). Only the person holding the mirror will see the image. Using this effect will de-attune the relic. See a GM if you wish to use this ability.
+As long as this Relic is attuned, it has the power to show a silent image of what is happening currently in a location you specify greater than 50 miles away (it’s kind of like a spyglass or a telescope; it doesn’t render things closer than 50 miles with any resolution). Only the person holding the mirror will see the image. Using this effect will de-attune the relic. See a GM if you do not know how to de-attune a relic.. See a GM if you wish to use this ability.
 
 Relics that are attuned will have a piece of paper inside the envelope. You may open the envelope at any time to check if there is a piece of paper inside. \textbf{DO NOT READ the paper if present.}
 }
-  \s\MYcontents	{Current Attunment: \pTech{}}
+  \s\MYcontents	{Current Attunement: \pTech{}}
 }
 
 \NEW{ItemEnvelope}{\iLariat}{  
@@ -386,10 +372,10 @@ Relics that are attuned will have a piece of paper inside the envelope. You may 
 	\unstash{}
   \s\MYtext	{A long, thin length of rope. It is quite light for its size, and incredibly strong. This Relic was created by the first winner of the Tech Star Competition 150 years ago.
 
-As long as this Relic is attuned,  it has the power to compel the truth from its target. Using this effect will cause the relic to deattune. See the associated greensheet (\gTruthRelic{}) for details. If the item changes hands, make sure the greensheet goes with it.
+As long as this Relic is attuned,  it has the power to compel the truth from its target. Using this effect will cause the relic to deattune. See the associated greensheet (\gTruthRelic{}) for details. If the item changes hands, make sure the greensheet goes with it. See a GM if you do not know how to de-attune a relic.
 
 Relics that are attuned will have a piece of paper inside the envelope. You may open the envelope at any time to check if there is a piece of paper inside. \textbf{DO NOT READ the paper if present.}}
-  \s\MYcontents	{Current Attunment: \pTech{}}
+  \s\MYcontents	{Current Attunement: \pTech{}}
   \s\MYgreens	{\gTruthRelic{}}
 }
 
@@ -400,7 +386,7 @@ Relics that are attuned will have a piece of paper inside the envelope. You may 
 	\unstash{}
   \s\MYtext	{A long, ceremonial scythe. The blade is engraved with a pastoral scene, and the handle is made of the finest mahogany. The balance is perfect. According to legend, this Relic was given to the \pFarmers{} by \cFarmGod{} on the day they were created.
 
-As long as this Relic is attuned, it has the power to boost your CR for 1 attack by +3, allow you to attack an Avatar of one of the Deities, or allow you to kill someone without suffering the usual consequences. Using any one of these effects will cause the relic to deattune. See the associated greensheet (\gDeathRelic{}) for details. If the item changes hands, make sure the greensheet goes with it.
+As long as this Relic is attuned, it has the power to boost your CR for 1 attack by +4, allow you to attack an Avatar of one of the Deities, and/or  allow you to kill someone without suffering the usual consequences. Using any of these effects will cause the relic to deattune. See the associated greensheet (\gDeathRelic{}) for details. If the item changes hands, make sure the greensheet goes with it. See a GM if you do not know how to de-attune a relic.
 
 Relics that are attuned will have a piece of paper inside the envelope. You may open the envelope at any time to check if there is a piece of paper inside. \textbf{DO NOT READ the paper if present.}}
 	\s\MYcontents	{Current Attunment: N/A (Don't even put this paper in the envelope during prod)}
@@ -415,7 +401,7 @@ Relics that are attuned will have a piece of paper inside the envelope. You may 
 	\unstash{}
   \s\MYtext	{A tall, heavy vessel. If you look inside the narrow neck, it is empty, but if you shake it you can hear liquid sloshing around inside. This Relic was created by the Church of \cFarmGod{} approximately 3 centuries ago.
 
-As long as this Relic is attuned, it has the power to heal. Using this effect will cause the relic to deattune. See the associated greensheet (\gHealingRelic{}) for details. If the item changes hands, make sure the greensheet goes with it.
+As long as this Relic is attuned, it has the power to heal and even revive the recently dead. Using this effect will cause the relic to deattune. See the associated greensheet (\gHealingRelic{}) for details. If the item changes hands, make sure the greensheet goes with it. See a GM if you do not know how to de-attune a relic.
 
 Relics that are attuned will have a piece of paper inside the envelope. You may open the envelope at any time to check if there is a piece of paper inside. \textbf{DO NOT READ the paper if present.}
 	}
@@ -429,11 +415,11 @@ Relics that are attuned will have a piece of paper inside the envelope. You may 
 	\unstash{}
   \s\MYtext	{A silver horseshoe. It radiates a power equal to any of the other Relics, but the essence doesn’t match any of the Patron Deities.
 
-As long as this Relic is attuned to someplace, it has the power to temporarily improve your luck. Using this effect will cause the relic to deattune. See the associated greensheet (\gLuckRelic{}) for details. If the item changes hands, make sure the greensheet goes with it.
+As long as this Relic is attuned, it has the power to temporarily improve your luck. Using this effect will cause the relic to de-attune. See a GM if you do not know how to de-attune a relic. See the associated greensheet (\gLuckRelic{}) for details. If the item changes hands, make sure the greensheet goes with it.
 
 Relics that are attuned will have a piece of paper inside the envelope. You may open the envelope at any time to check if there is a piece of paper inside. \textbf{DO NOT READ the paper if present.}
 	}
-  \s\MYcontents	{Current Attunment: N/A; don't put this paper in during prod.}
+  \s\MYcontents	{Current Attunement: \pSchool{}.}
 	\s\MYgreens	{\gLuckRelic{}}
 }
 
@@ -447,7 +433,7 @@ As long as this Relic is attuned to someplace, it has the power to grant 5 minut
  
 Relics that are attuned will have a piece of paper inside the envelope. You may open the envelope at any time to check if there is a piece of paper inside. \textbf{DO NOT READ the paper if present.}
 }
-  \s\MYcontents	{Current Attunment: \textbf{N/A} (do not put this paper in the envelope during prod)}
+  \s\MYcontents	{Current Attunement: \textbf{N/A} (do not put this paper in the envelope during prod)}
 	\s\MYgreens	{\gInvisible{}}
 }
 
@@ -477,16 +463,20 @@ Relics that are attuned will have a piece of paper inside the envelope. You may 
 \NEW{ItemEnvelope}{\iVotingStones}{
   \s\MYname	{Voting Stone}
   \s\MYnumber	{9490}
-  \s\MYtext	{(This item cannot be stolen, traded, or given away unless a mechanic enables it.) Open as directed by the ``\gVotingInstructions{}'' Greensheet. If you do not have the greensheet, someone with the sheet can explain it to you.}
+  \s\MYtext	{(This item cannot be stolen, traded, or given away unless a mechanic enables it.) Open as directed by the ``\gVotingStones{}'' Greensheet. If you do not have the greensheet, someone with the sheet can explain it to you.}
   \s\MYcontents	{I cast this vote to send the storm to: \makebox[1.5in]{\hrulefill}}
 }
 
 \NEW{Item}{\iAvatarSeaSerpent}{
-  \s\MYname	{A Baby Sea Serpent that radiates Ebb's Energy}
+  \s\MYname	{A Baby Sea Serpent that Radiates Ebb's Energy}
   \s\MYnumber	{5180} %CheckNumber
-  \s\MYtext	{\textbf{This item has a phys rep.} This is a real live, newly hatched, sea serpent. It glows with \cEbb{}’s aura and energy, and can actually be handled and cared for in relative safety by clerics of \cEbb{}. It tries to bite everyone else. It is clearly very newly made as the avatar, and still somewhat vulnerable. 
+  \bulky	{2}
+  \s\MYtext	{\textbf{This item has a phys rep.} This is a real live, newly hatched, sea serpent. It glows with \cEbb{}’s aura and energy, and can actually be handled and cared for in relative safety by clerics of \cEbb{}. It tries to bite everyone else. It is clearly very newly made as the Avatar, and still somewhat vulnerable. 
 	
 If you wish to attack this Avatar, you must have the ``\iScythe{},''and it must be attuned to a location. Using it to attack this Avatar will deattune the scythe.	
+
+Anyone in possession of this Avatar gains +4 CR. \textbf{Possession can only be relinquished voluntarily, though the Avatar may choose to abandon you should your actions displease it}.
+
 \vspace{2mm}
 \textbf{Current CR: }
 	}
@@ -495,9 +485,13 @@ If you wish to attack this Avatar, you must have the ``\iScythe{},''and it must 
 \NEW{Item}{\iAvatarRabbit}{
   \s\MYname	{A White Rabbit that radiates Divine Energy}
   \s\MYnumber	{5217} %CheckNumber
+  \bulky	{1}
   \s\MYtext	{\textbf{This item has a phys rep.} This is a real live, white rabbit. It has some sort of divine energy around it, almost like an Avatar. But none of the Patron Deities have a rabbit for an avatar\ldots{}
 
 If you wish to attack this creature, you must have the ``\iScythe{},''and it must be attuned to a location. Using it to attack this creature will deattune the scythe.
+
+Anyone in possession of this Avatar gains +4 CR. \textbf{Possession can only be relinquished voluntarily, though the Avatar may choose to abandon you should your actions displease it}.
+
 	
 \vspace{2mm}
 \textbf{Current CR: 8}
@@ -509,14 +503,14 @@ If you wish to attack this creature, you must have the ``\iScythe{},''and it mus
   \s\MYname	{Cure: Courage of the Lion}
   \s\MYnumber	{9872}
   \s\MYtext	{Once activated, whoever this cure is active on should open the envelope and remove it's contents. Write ``expended'' on the paper, and keep it with you as a reminder of the effects until they wear off. Discard this envelope to the nearest stock.}
-	\s\MYcontents {You feel a powerful strength roaring through you. \emph{(OOC: Increase your current and maximum CR by +1 for 10 minutes)}}
+	\s\MYcontents {You feel a powerful strength roaring through you. \emph{(OOC: Increase your current and maximum CR by +3 for 10 minutes)}}
 }
 
 \NEW{ItemEnvelope}{\iWeakness}{
   \s\MYname	{Curse: Weakness of the Donkey}
   \s\MYnumber	{9019}
   \s\MYtext	{Once activated, whoever this cure is active on should open the envelope and remove it's contents. Write ``expended'' on the paper, and keep it with you as a reminder of the effects until they wear off. Discard this envelope to the nearest stock.}
-	\s\MYcontents {Your body feels heavy, as if you’re dragging a heavy weight, even though there’s nothing behind you. You know you can’t act as quickly now. \emph{(OOC: -1 CR. Decrease your current and maximum CR by 1 for 10 minutes.)} }
+	\s\MYcontents {Your body feels heavy, as if you’re dragging a heavy weight, even though there’s nothing behind you. You know you can’t act as quickly now. \emph{(OOC: -1 CR. Decrease your current and maximum CR by 3 for 10 minutes.)} }
 }
 
 \NEW{ItemEnvelope}{\iSlowActingPoison}{
@@ -544,17 +538,17 @@ If you wish to attack this creature, you must have the ``\iScythe{},''and it mus
 }
 
 \NEW{ItemEnvelope}{\iSight}{
-  \s\MYname	{Cure: Sight of the Falcon}
+  \s\MYname	{Cure: Balm of the Hummingbird}
   \s\MYnumber	{9307}
   \s\MYtext	{Once activated, whoever this cure is active on should open the envelope and remove it's contents. Write ``expended'' on the paper, and keep it with you as a reminder of the effects until they wear off. Discard this envelope to the nearest stock.}
-	\s\MYcontents {Light returns to you. Soft like a candle, but growing steadily brighter. You blink. You see fuzzy shapes. You blink again. Color returns. You blink once more, and your sight is restored. \emph{(OOC: if you were under the effects of the \iBlindness{}, the effect is immediately ended.)} }
+	\s\MYcontents {You feel a gentle warmth like sweet nectar spreading through your body, from your head all the way down to your toes. When at last your body is brimming with it, you feel the Curse you are under lifting. \emph{(OOC: Immediately cancels the effects of a single use of \iBlindness{}, \iRestraint{}, \iBabble{}, \textbf{or} \iWeakness{}; this Cure has \textbf{no effect} on any other type of Curse.)} }
 }
 
 \NEW{ItemEnvelope}{\iInsight}{
   \s\MYname	{Cure: Insight of the Eagle}
   \s\MYnumber	{9169}
   \s\MYtext	{Once activated, whoever this cure is active on should open the envelope and remove it's contents. Write ``expended'' on the paper, and keep it with you as a reminder of the effects until they wear off. Discard this envelope to the nearest stock.}
-	\s\MYcontents {A moment of clairvoyance flashes through you, as if the path into your future was blazing with light. You feel sure of where you’re going now. \emph{(OOC: in the library, \textbf{at one juncture}, you may look at all of the options before picking one. After doing this, the effect fades.)} }
+	\s\MYcontents {A moment of clairvoyance flashes through you, as if the path into your future was blazing with light. You feel sure of where you’re going now. \emph{(OOC: in the library, \textbf{at one page/juncture}, you may look at where all of the options lead before picking one. After doing this, the effect fades.)} }
 }
 
 \NEW{ItemEnvelope}{\iRestraint}{
@@ -568,14 +562,14 @@ If you wish to attack this creature, you must have the ``\iScythe{},''and it mus
   \s\MYname	{Cure: Strength of the Horse}
   \s\MYnumber	{9087}
   \s\MYtext	{Once activated, whoever this cure is active on should open the envelope and remove it's contents. Write ``expended'' on the paper, and keep it with you as a reminder of the effects until they wear off. Discard this envelope to the nearest stock.}
-	\s\MYcontents {Your heart skips a beat, then begins to pump harder and your muscles swell under your skin in a not entirely pleasant manner. \emph{(OOC: \textbf{For the next 10 minutes,} you may carry up to 4 hands bulk freely, or drag up to 6.)} }
+	\s\MYcontents {Your heart skips a beat, then begins to pump harder and your muscles swell under your skin in a not entirely pleasant manner. \emph{(OOC: \textbf{For the next 1 hour,} you may carry up to 4 hands bulk freely, or drag up to 6.)} }
 }
 
 \NEW{ItemEnvelope}{\iSkill}{
   \s\MYname	{Cure: Skill of the Swallow}
   \s\MYnumber	{9526}
   \s\MYtext	{Once activated, whoever this cure is active on should open the envelope and remove it's contents. Write ``expended'' on the paper, and keep it with you as a reminder of the effects until they wear off. Discard this envelope to the nearest stock.}
-	\s\MYcontents {A flash of insight appears in your mind like a bird swooping down on unsuspecting prey. It all makes so much sense now! You feel confident you can accomplish your goal in half the time. \emph{(OOC: Through cleverness and strength you are able to reduce the time required for any \textbf{one} mechanic by half. E.g. If something requires meditating for 5 minutes, you may accomplish that thing in 2.5 minutes. If a cooldown is 10 minutes long, you may wait only 5, etc. This includes the charging time for curses.)} }
+	\s\MYcontents {A flash of insight appears in your mind like a bird swooping down on unsuspecting prey. It all makes so much sense now! You feel confident you can accomplish your goal instantly. \emph{(OOC: Through cleverness and strength you are able to eliminate the time required for any \textbf{one} mechanic (\textbf{except} Library research), resolving the mechanic instantly. E.g. If something requires meditating for 5 minutes, you may accomplish that thing immediately.. This includes the charging time for curses.)} }
 }
 
 \NEW{ItemEnvelope}{\iHonesty}{
@@ -592,22 +586,15 @@ If you wish to attack this creature, you must have the ``\iScythe{},''and it mus
 	\s\MYcontents {Your tongue suddenly feels so large and awkward in your mouth. Despite your best efforts, the only sounds you’re able to make are nonsense syllables. \emph{(OOC you can speak only gibberish for 5 minutes.)} }
 }
 
-\NEW{Item}{\iFastActingPoison}{
+\NEW{ItemEnvelope}{\iFastActingPoison}{
   \s\MYname	{Curse: Venom of the Cobra}
   \s\MYnumber	{9299}
   \s\MYtext	{An ominous vial of fast acting poison - odorless, tasteless, and dissolves instantly in liquid. Not something you would want to be caught carrying.\emph{ (OOC: This item may not be ``activated'' like a standard curse. Unless you have a mechanic that mentions this item specifically, you must speak with a GM if you wish to use this curse on someone.)}}
-}
-
-\NEW{ItemEnvelope}{\iMindWipeCurse}{
-  \s\MYname	{Curse: Memory of the Goldfish}
-  \s\MYnumber	{9244}
-  \s\MYtext	{A vial of cloudy liquid. The curse stored in this object is sufficiently potent that while you cannot determine the details with a cursory investigation, anyone can tell that the effect will be akin to a significant or complete mind-wipe. This curse may be applied like any other curse with the following \textbf{addition:} After applying the curse and marking it as ``expended'', open the item envelope and give the research-notebook inside to whoever you activated the curse on.}
-	\s\MYcontents {N/A}
-	\s\MYgreens	{\nReverseMindWipe{}}
+  \s\MYcontents {This Curse is tied to the bloodline of: \underline{\hspace{2cm}}}
 }
 
 \NEW{Item}{\iProtection}{%Adopted
-  \s\MYname	{Cure: Protection of the Pagolin}
+  \s\MYname	{Cure: Protection of the Pangolin}
   \s\MYnumber	{9306}
   \s\MYtext	{This curse is not a standard curse people would be familiar with, but it is sufficiently potent that you can guess at its probable effects, based on its name. \textbf{(OOC: Can only be activated by a special mechanic. If you do not know the mechanic, you may not activate the curse on yourself or anyone else.)}
 	}
@@ -667,12 +654,6 @@ If you wish to attack this creature, you must have the ``\iScythe{},''and it mus
   \s\MYname	{Morning Glory}
   \s\MYnumber	{9409}
   \s\MYtext	{A bright pink morning glory flower, glistening with dew, unopened buds promising more vibrant blooms yet to come.}
-}
-
-\NEW{Item}{\iSunflower}{ 
-  \s\MYname	{Sunflower}
-  \s\MYnumber	{9349}
-  \s\MYtext	{Bright yellow petals surround a broad, brown center full of immature seeds. It has a rather prickly stem.}
 }
 
 \NEW{Item}{\iFlameOrchid}{ 
@@ -798,7 +779,6 @@ If you wish to attack this creature, you must have the ``\iScythe{},''and it mus
 \NEW{Item}{\iMagitechParts}{
   \s\MYname	{Misc. Magitech parts}
   \s\MYnumber	{9030}
-	\bulky{1}
   \s\MYtext	{A respectable pile of raw materials and common (and uncommon) magitech parts. Useful for constructing technological marvels.}
 }
 
@@ -833,7 +813,7 @@ If you wish to attack this creature, you must have the ``\iScythe{},''and it mus
 \NEW{ItemEnvelope}{\iMagicMusicBox}{
   \s\MYname	{Magical Music Box}
   \s\MYnumber	{4572} %CheckNumber
-  \s\MYtext	{\textbf{This item has a phys rep.} A music box vibrating softly with some sort of enchantment. \textbf{ONLY IF} this item has the word ``imbued'' written on it, you may open the envelope to read the ability inside. As long as you possess the music box, you may use the ability.}
+  \s\MYtext	 A music box vibrating softly with some sort of enchantment. {\textbf{This item has a phys rep. And an ability that you may freely look at, but not use without meeting the requirements listed here.}\textbf{IF} this item has the word ``imbued'' written on it, you may freely use the ability stored inside. If the item is not ``imbued,’’ you may sacrifice 1 CR stone each time you wish to use the ability.}
   \s\MYcontents	{N/A}
 	\s\MYabils	{\aHealingMusicBox{}}
 }
@@ -841,17 +821,16 @@ If you wish to attack this creature, you must have the ``\iScythe{},''and it mus
 \NEW{Item}{\iPedestalForRelic}{
   \s\MYname	{Pedestal for Relic}
   \s\MYnumber	{9582} 
-	\bulky{2}
+	\bulky{3}
 	\unstash{}
-  \s\MYtext	{\textbf{This item has a phys rep.} This is a pedestal specially constructed to hold one of the Relics to help channel their energy into the Ritual to Control the Storm.}
+  \s\MYtext	{\textbf{This item has a phys rep.} This is a pedestal specially constructed to hold one of the Relics to help channel their energy into the Ritual to Control the Storm. The pedestal \textbf{may} be restricted in what attunement it will accept. If so, that restriction will be written on this item card.}
 }
 
 \NEW{Item}{\iToyBoat}{
   \s\MYname	{A Toy Boat}
   \s\MYnumber	{9436} 
-	\bulky{2}
-	\unstash{}
-  \s\MYtext	{This cute little toy boat is quite well made for being cobbled together from a roughly carved wooden hull, an eagle feather for a sail, and some bits of thread for rigging.}
+	\bulky{1}
+  \s\MYtext	{This cute little toy boat is quite well made for being cobbled together from a roughly carved wooden hull, an eagle feather for a sail, and some spider webs for rigging.}
 }
 
 \NEW{Item}{\iVidCom}{
@@ -865,7 +844,7 @@ If you wish to attack this creature, you must have the ``\iScythe{},''and it mus
   \s\MYnumber	{9999}  
   \s\MYtext	{\textbf{This item has a phys rep.} A small, glass vial. This vial can be used to hold any liquid for which the mechanic does not specify further constraints (e.g.: requires a specially prepared container.) If you fill the vial with a liquid, write the liquid on the vial (e.g: water, honey, blood, etc.)
 
-If you also have an item in your possession that could be considered sharp enough to pierce skin (e.g.: a knife, a needle, etc) or are in a location where such an implement could be trivially found (Such locations will specify that you could cut yourself on something.), you can fill this vial with blood from yourself, a willing other, or someone unable to resist (e.g.: knocked out, or restrained).
+If you also have an item in your possession that could be considered sharp enough to pierce skin (e.g.: a knife, a broken piece of glass, etc) or are in a location where such an implement could be trivially found \textbf{(Such locations will specify that you could cut yourself on something.),} you can fill this vial with blood from yourself, a willing other, or someone unable to resist (e.g.: knocked out, or restrained).
 }
 }
 
@@ -888,6 +867,7 @@ If you also have an item in your possession that could be considered sharp enoug
 \NEW{Item}{\iBabySeaSerpent}{
   \s\MYname	{A Baby Sea Serpent}
   \s\MYnumber	{5158} %CheckNumber
+  \bulky	{1}
   \s\MYtext	{\textbf{See a GM for the phys rep if necessary.} This is a real live, newly hatched, sea serpent. How on \pEarth{} did it get here? It is very bitey. Watch your fingers! If you wish to hurt or kill the baby for some reason, you must first knock it out with a normal CR attack. The serpent’s CR is listed below:
 	
 \vspace{2mm}
@@ -897,12 +877,6 @@ If you also have an item in your possession that could be considered sharp enoug
 
 
 %%%%%%%%%%%%% Teacher Lounge %%%%%%%%%%%%%%
-\NEW{Item}{\iThread}{
-  \s\MYname	{Length of Thread}
-  \s\MYnumber	{9177}
-  \s\MYtext	{A plain length of thread. Good for a small mending project or some such.}
-}
-
 \NEW{Item}{\iFancyCloth}{
   \s\MYname	{Fancy Cloth}
   \s\MYnumber	{9447}
@@ -913,3 +887,4 @@ If you also have an item in your possession that could be considered sharp enoug
 %%%%%%%%%%%%% Advisor Lounge %%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

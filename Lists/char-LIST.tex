@@ -56,12 +56,10 @@
 	\FD\MYlast{}
 
 	\newstat\MYcr	{Combat Rating}{CR}{2} %% for DarkWater-style combat
-	\newstat\MYmorality	{Morality Score}{MS}{} % Morality Score for students
 	\newstat\MYvScore	{V-Score}{VS}{N/A} % Chups and Avengers
   \newstat\MYsScore	{S-Score}{SS}{N/A} % knows about the baby sea serpent
   \newstat\MYlScore	{L-Score}{LS}{N/A} % library navigation bonus
-  \newstat\MYfScore	{F-Score}{FS}{N/A} % is eligible as the faledon heir
-	\F\MYcharpronouns   %% must be set by a command like \hehim etc.
+ 	\F\MYcharpronouns   %% must be set by a command like \hehim etc.
 	\FD\MYplayerpronouns{}   %% DO NOT use \theythem, write ``they/them'' or whatever
 	\FD\MYrole	{} %% playerlist role
   \FD\MYgroupstr{} %% playerlist groupstring
@@ -98,8 +96,7 @@
 \DECLARESUBTYPE{NPC}{Char}
 \PRESETS{NPC}{
 	\badgefalse\sd\MYgroupstr{npc}
-	\intromap{{\full}{ }{(\MYcharpronouns)}}
-  \def\intros{{\full}{'s }{(\MYcharpronouns)}}
+	\intromap{{\full}{ }{(\MYcharpronouns)}} % not bold
 }
 
 
@@ -179,17 +176,15 @@
 	\theythem
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bStudentBlue{}\bAgrarians{}}
-  \s\MYgreens	{\gVotingInstructions{}\gCoSStudentMorality{}\gBMUse{}\gCursemakingBasic{}\gWeekendSchedule{}}
+  \s\MYgreens	{\gVotingStones{}\gBMUse{}\gCursemakingBasic{}\gWeekendSchedule{}}
   \s\MYabils	{\aJewelry{}\aPrivate{}}
   \s\MYitems	{}
   \s\MYwhites	{}
   
   \s\MYcr	{5} %Combat Score
-  \s\MYmorality	{0} % Morality Score for students
   \s\MYvScore	{0} % Chups and Avengers
   \s\MYsScore	{} % knows about the baby sea serpent
-  \s\MYlScore	{3} % library navigation bonus
-  \s\MYfScore	{} % is eligible as the faledon heir
+  \s\MYlScore	{2} % library navigation bonus
 }
 
 \NEW{PC}{\cChupStudent}{
@@ -205,18 +200,16 @@
   \s\MYplayerpronouns {she/her}
 	\s\MYplayer	{Cait O'Brien}
   
-  \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bStudentBlue{}\bAgrarians{}\bCult{}}
-  \s\MYgreens	{\gVotingInstructions{}\gFoGStudentMorality{}\gWeekendSchedule{}}
+  \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bStudentBlue{}\bAgrarians{}\bCult{} \bTech{}}
+  \s\MYgreens	{\gVotingStones{}\gWhatHappenedToSister{} \gWeekendSchedule{}}
   \s\MYabils	{\aPreviewVoteOne{}\aStealVoteOne{}\aPreviewVoteOne{}\aStealVoteOne{}\aPreviewVoteOne{}\aStealVoteOne{}\aManipulateVoteOne{}\aManipulateVoteOne{}\aLuck{}\aGenesisGift{}}
-  \s\MYitems	{\iSnowfallLetter{}}
+  \s\MYitems	{\iSnowfallLetter{} \iLibBookPages{}}
   \s\MYwhites	{}
 
   \s\MYcr	{6} %Combat Score
-  \s\MYmorality	{1} % Morality Score for students
   \s\MYvScore	{1} % Chups and Avengers
   \s\MYsScore	{} % knows about the baby sea serpent
-  \s\MYlScore	{0} % library navigation bonus
-  \s\MYfScore	{} % is eligible as the faledon heir
+  \s\MYlScore	{1} % library navigation bonus
 }
 
 \NEW{PC}{\cAdopted}{
@@ -233,18 +226,16 @@
   \s\MYplayer	{Matthew McNally}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bStudentBlue{}\bAgrarians{}}
-  \s\MYgreens	{\gVotingInstructions{}\gCoSStudentMorality{}\gMusicBox{}\gPunishKidnappers{}\gBMUse{}\gCursemakingBasic{}\gWeekendSchedule{}}
+  \s\MYgreens	{\gVotingStones{}\gMusicBox{}\gPunishKidnappers{}\gBMUse{}\gCursemakingBasic{}\gWeekendSchedule{}}
   \s\MYabils	{\aJewelry{}}
   \s\MYitems	{\iWIPProtection{}\iWIPCurse{}}
   \s\MYwhites	{}
   \s\MYmems	{\mPacketThree{}}
 
   \s\MYcr	{5} %Combat Score
-  \s\MYmorality	{0} % Morality Score for students
   \s\MYvScore	{0} % Chups and Avengers
   \s\MYsScore	{1} % knows about the baby sea serpent
   \s\MYlScore	{0} % library navigation bonus
-  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cDisney}{
@@ -261,18 +252,16 @@
   \s\MYplayer	{Miranda Chadbourne}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bStudentBlue{}\bAgrarians{}\bCoSCleric{}}
-  \s\MYgreens	{\gVotingInstructions{}\gCoSStudentMorality{}\gPreparingTheRitual{}\gCoSCleric{}\gWeekendSchedule{}}
-  \s\MYabils	{\aStealVoteOne{}\aLockPick{}\aPickPocket{}}
+  \s\MYgreens	{\gVotingStones{}\gPreparingTheRitual{}\gCoSCleric{}\gWeekendSchedule{}\nRestoreMemories{}}
+  \s\MYabils	{\aStealVoteOne{}\aPickPocket{}}
   \s\MYitems	{\iFolderOfNotes{}\iLocket{}}
   \s\MYwhites	{}
 	\s\MYmems		{\mPacketA{}\mCPacket{}\mWThree{}}
 
   \s\MYcr	{5} %Combat Score
-  \s\MYmorality	{1} % Morality Score for students
   \s\MYvScore	{0} % Chups and Avengers
   \s\MYsScore	{1} % knows about the baby sea serpent
   \s\MYlScore	{0} % library navigation bonus
-  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cInterpol}{
@@ -288,18 +277,16 @@
   \s\MYplayer	{Senja Beaman}
 	\theyshe
   
-  \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTeacherBlue{}\bAgrarians{}}
-  \s\MYgreens	{\gPreparingTheRitual{}\gCoSTeacherRanking{}\gWeekendSchedule{}}
-  \s\MYabils	{\aManipulateVoteOne{}\aLying{}\aLockPick{}}
+  \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTeacherBlue{}\bAgrarians{} \bTech{}\bVikings{}}
+  \s\MYgreens	{\gPreparingTheRitual{}\gVotingStones{}\gWeekendSchedule{}}
+  \s\MYabils	{\aManipulateVoteOne{}\aLying{}\aPickPocket{}}
   \s\MYitems	{}
   \s\MYwhites	{\wLibLetter{}}
 
   \s\MYcr	{5} %Combat Score
-  \s\MYmorality	{} % Morality Score for students
   \s\MYvScore	{0} % Chups and Avengers
   \s\MYsScore	{} % knows about the baby sea serpent
   \s\MYlScore	{0} % library navigation bonus
-  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cHistory}{
@@ -315,19 +302,17 @@
   \s\MYplayer	{Nicholas Fortugno}
 	\hehim
   
-  \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTeacherBlue{}\bAgrarians{}}
-  \s\MYgreens	{\gPreparingTheRitual{}\gTreaty{}\gCoSTeacherRanking{}\gWeekendSchedule{}}
-  \s\MYabils	{\aTransferVoteOne{}\aLying{}\aLockPick{}}
+  \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTeacherBlue{}\bAgrarians{} \bTech{}\bVikings{}}
+  \s\MYgreens	{\gPreparingTheRitual{}\gTreaty{}\gFlowerPower{}\gVotingStones{}\gWeekendSchedule{}}
+  \s\MYabils	{\aTransferVoteOne{}\aLying{}}
   \s\MYitems	{}
   \s\MYwhites	{\wQueenLetter{}}
   \s\MYmems	{\mWTwo{}\mGreenHeadband{}}
 
   \s\MYcr	{4} %Combat Score
-  \s\MYmorality	{} % Morality Score for students
   \s\MYvScore	{0} % Chups and Avengers
   \s\MYsScore	{} % knows about the baby sea serpent
   \s\MYlScore	{1} % library navigation bonus
-  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cPrince}{
@@ -341,20 +326,18 @@
 	%%\s\MYCharpronouns	{he/him}
   \s\MYplayerpronouns {she/they}
   \s\MYplayer	{Autumn Starfall}
-	\theybutaprince
+	\shethey
   
-  \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTeacherBlue{}\bAgrarians{}}
-  \s\MYgreens	{\gUnsuspectingBirdie{}\gCrownPrince{}\gTreaty{}\gCoSTeacherRanking{}\gCursemakingBasic{}\gCursemakingAdvanced{}\gWeekendSchedule{}}
+  \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTeacherBlue{}\bAgrarians{}\bTech{}}
+  \s\MYgreens	{\gTreaty{}\gVotingStones{}\gCursemakingBasic{}\gCursemakingAdvanced{}\gWeekendSchedule{}}
   \s\MYabils	{\aTransferVoteOne{}\aJewelry{}}
   \s\MYitems	{}
   \s\MYwhites	{}
 
   \s\MYcr	{4} %Combat Score
-  \s\MYmorality	{} % Morality Score for students
   \s\MYvScore	{0} % Chups and Avengers
   \s\MYsScore	{} % knows about the baby sea serpent
-  \s\MYlScore	{1} % library navigation bonus
-  \s\MYfScore	{} % is eligible as the faledon heir
+  \s\MYlScore	{0} % library navigation bonus
 }
 
 \NEW{PC}{\cMusic}{
@@ -371,18 +354,16 @@
   \s\MYplayer	{Patty Kirsch}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTeacherBlue{}\bAgrarians{}}
-  \s\MYgreens	{\gPassingOutVotes{}\gCeremonyOfExcellence{}\gPreparingTheRitual{}\gNewPrincipal{}\gCoSTeacherRanking{}\gFlowerPower{}\gWeekendSchedule{}}
+  \s\MYgreens	{\gCeremonyOfExcellence{}\gPreparingTheRitual{}\gNewPrincipal{}\gVotingStones{}\gFlowerPower{}\gWeekendSchedule{}}
   \s\MYabils	{\aPreviewVoteOne{}\aSonata{}}
   \s\MYitems	{}
   \s\MYwhites	{}
   \s\MYmems	{\mCPacket{}\mLuca{}\mGreenHeadband{}}
 
   \s\MYcr	{4} %Combat Score
-  \s\MYmorality	{} % Morality Score for students
   \s\MYvScore	{0} % Chups and Avengers
   \s\MYsScore	{} % knows about the baby sea serpent
   \s\MYlScore	{1} % library navigation bonus
-  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cEvil}{
@@ -398,18 +379,16 @@
 	\shethey
   \s\MYplayer	{Jocelyn Bothe}
   
-  \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bAdvisorBlue{}\bAgrarians{}}
-  \s\MYgreens	{\gAssassinateWarlord{}\gTreaty{}\gCoSAdvisorRanking{}\gWeekendSchedule{}}
+  \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bAdvisorBlue{}\bAgrarians{} \bTech{}\bVikings{}}
+  \s\MYgreens	{\gAssassinateWarlord{}\gTreaty{}\gVotingStones{}\gWeekendSchedule{}\gBMUse{}}
   \s\MYabils	{\aPreviewVoteOne{}\aLying{}\aNewTopic{}}
   \s\MYitems	{\iGlassVial{}}
   \s\MYwhites	{}
 
   \s\MYcr	{3} %Combat Score
-  \s\MYmorality	{} % Morality Score for students
   \s\MYvScore	{0} % Chups and Avengers
   \s\MYsScore	{} % knows about the baby sea serpent
   \s\MYlScore	{0} % library navigation bonus
-  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cWildCard}{
@@ -425,17 +404,15 @@
   \s\MYplayer	{Eric Fritz}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bAdvisorBlue{}\bAgrarians{}}
-  \s\MYgreens	{\gTreaty{}\gCoSAdvisorRanking{}\nFifthDeity{}\gFlowerPower{}\gWeekendSchedule{}}
+  \s\MYgreens	{\gTreaty{}\gVotingStones{} \gWhatHappenedToSister{} \gFlowerPower{}\gWeekendSchedule{}}
   \s\MYabils	{\aUseTass{}}
   \s\MYitems	{\iChargingStone{}\iChargingStone{}}%charged stones
   \s\MYwhites	{}
 
   \s\MYcr	{3} %Combat Score
-  \s\MYmorality	{} % Morality Score for students
   \s\MYvScore	{0} % Chups and Avengers
   \s\MYsScore	{} % knows about the baby sea serpent
   \s\MYlScore	{0} % library navigation bonus
-  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cCurse}{
@@ -451,17 +428,15 @@
   \s\MYplayer	{Bishop Clarke}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bAdvisorBlue{}\bAgrarians{}}
-  \s\MYgreens	{\gMagicBeans{}\gTreaty{}\gCoSAdvisorRanking{}\gCursemakingBasic{}\gCursemakingAdvanced{}\gWeekendSchedule{}}
+  \s\MYgreens	{\gMagicBeans{}\gTreaty{}\gVotingStones{}\gCursemakingBasic{}\gCursemakingAdvanced{}\gWeekendSchedule{}}
   \s\MYabils	{}
   \s\MYitems	{\iBeansNB{}}
   \s\MYwhites	{}
 
-  \s\MYcr	{2} %Combat Score
-  \s\MYmorality	{} % Morality Score for students
+  \s\MYcr	{3} %Combat Score
   \s\MYvScore	{0} % Chups and Avengers
   \s\MYsScore	{} % knows about the baby sea serpent
   \s\MYlScore	{0} % library navigation bonus
-  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cHedonist}{
@@ -477,17 +452,15 @@
   \s\MYplayer	{Wren Steinbergh}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bAdvisorBlue{}\bAgrarians{}\bCoSCleric{}}
-  \s\MYgreens	{\gBMUse{}\gTreaty{}\gCoSCleric{}\gCoSAdvisorRanking{}\gWeekendSchedule{}}
+  \s\MYgreens	{\gBMUse{}\gTreaty{}\gVotingStones{}\gCoSCleric{}\gWeekendSchedule{}}
   \s\MYabils	{}
   \s\MYitems	{\iSignetRing{}\iPitcher{}\iTuningFork{}\iCourage{}\iInsight{}\iSlowActingPoison{}}
   \s\MYwhites	{}
 
   \s\MYcr	{3} %Combat Score
-  \s\MYmorality	{} % Morality Score for students
   \s\MYvScore	{0} % Chups and Avengers
   \s\MYsScore	{} % knows about the baby sea serpent
   \s\MYlScore	{0} % library navigation bonus
-  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 %%%%%%%%%%%%%% FPF %%%%%%%%%%%%%%%
@@ -504,17 +477,15 @@
   \s\MYplayer	{Julian Blechner}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTech{}\bStudentBlue{}}
-  \s\MYgreens	{\gVotingInstructions{}\gFPFStudentMorality{}\gBMUse{}\nRestoreMemories{}\gMagitechCrafting{}\gWeekendSchedule{}}
+  \s\MYgreens	{\gVotingStones{}\gBMUse{}\nRestoreMemories{}\gMagitechCrafting{}\gWeekendSchedule{}}
   \s\MYabils	{\aBuildVCD{}}
   \s\MYitems	{\iVCDBlueprint{}}
   \s\MYwhites	{}
 
   \s\MYcr	{5} %Combat Score
-  \s\MYmorality	{0} % Morality Score for students
   \s\MYvScore	{0} % Chups and Avengers
   \s\MYsScore	{} % knows about the baby sea serpent
   \s\MYlScore	{0} % library navigation bonus
-  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cAmbition}{
@@ -530,18 +501,16 @@
   \s\MYplayer	{Dave Rothfeder}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTech{}\bStudentBlue{}}
-  \s\MYgreens	{\gVotingInstructions{}\gFPFStudentMorality{}\gFaledonHeir{}\gTreaty{}\gWeekendSchedule{}}
+  \s\MYgreens	{\gVotingStones{}\gMagicBeans{}\gFaledonHeir{}\gTreaty{}\gWeekendSchedule{}}
   \s\MYabils	{\aPreviewVoteOne{}\aOration{}}
   \s\MYitems	{}
   \s\MYwhites	{}
 
 
   \s\MYcr	{5} %Combat Score
-  \s\MYmorality	{0} % Morality Score for students
   \s\MYvScore	{0} % Chups and Avengers
   \s\MYsScore	{} % knows about the baby sea serpent
-  \s\MYlScore	{0} % library navigation bonus
-  \s\MYfScore	{0} % is eligible as the faledon heir
+  \s\MYlScore	{2} % library navigation bonus
 }
 
 \NEW{PC}{\cHeir}{
@@ -556,18 +525,16 @@
   \s\MYplayerpronouns {they/them}
   \s\MYplayer	{Seamus Reynolds}
   
-  \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTech{}\bStudentBlue{}}
-  \s\MYgreens	{\gWhatHappenedSixYearsAgo{}\gVotingInstructions{}\gFPFStudentMorality{}\gFaledonHeir{}\gCursemakingBasic{}\gWeekendSchedule{}}
+  \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTech{}\bStudentBlue{}\bAgrarians{}}
+  \s\MYgreens	{\gWhatHappenedSixYearsAgo{}\gVotingStones{}\gFaledonHeir{}\gCursemakingBasic{}\gWeekendSchedule{}}
   \s\MYabils	{}
   \s\MYitems	{\iFaledonLetter{}}
   \s\MYwhites	{}
 
   \s\MYcr	{5} %Combat Score
-  \s\MYmorality	{0} % Morality Score for students
   \s\MYvScore	{0} % Chups and Avengers
   \s\MYsScore	{} % knows about the baby sea serpent
   \s\MYlScore	{0} % library navigation bonus
-  \s\MYfScore	{1} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cScholarship}{
@@ -583,17 +550,15 @@
   \s\MYplayer	{Megan Moncrief}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTech{}\bStudentBlue{}\bFPFCleric{}}
-  \s\MYgreens	{\gVotingInstructions{}\gFPFStudentMorality{}\gUnsuspectingBirdie{}\gTreaty{}\gFPFInitiate{}\nCreationThree{}\gWeekendSchedule{}}
+  \s\MYgreens	{\gVotingStones{}\gTreaty{}\gFPFInitiate{}\nCreationThree{}\gWeekendSchedule{}}
   \s\MYabils	{\aPickPocket{}}
-  \s\MYitems	{\iMagicTag{}}
+  \s\MYitems	{}
   \s\MYwhites	{}
 
   \s\MYcr	{6} %Combat Score
-  \s\MYmorality	{2} % Morality Score for students
   \s\MYvScore	{0} % Chups and Avengers
   \s\MYsScore	{} % knows about the baby sea serpent
-  \s\MYlScore	{2} % library navigation bonus
-  \s\MYfScore	{} % is eligible as the faledon heir
+  \s\MYlScore	{1} % library navigation bonus
 }
 
 \NEW{PC}{\cEthics}{
@@ -609,18 +574,16 @@
   \s\MYplayer	{Kylene Roberts}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTech{}\bTeacherBlue{}}
-  \s\MYgreens	{\gTreaty{}\gBMUse{}\gFPFTeacherRanking{}\gWeekendSchedule{}}
+  \s\MYgreens	{\gTreaty{}\gBMUse{}\gVotingStones{}\gWeekendSchedule{}}
   \s\MYabils	{\aTransferVoteOne{}\aHaveYouConsidered{}\aPrivate{}}
   \s\MYitems	{}
   \s\MYwhites	{}
   \s\MYmems	{\mGreenHeadband{}}
 
   \s\MYcr	{4} %Combat Score
-  \s\MYmorality	{} % Morality Score for students
   \s\MYvScore	{0} % Chups and Avengers
   \s\MYsScore	{} % knows about the baby sea serpent
   \s\MYlScore	{1} % library navigation bonus
-  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cBeetle}{
@@ -636,18 +599,16 @@
   \s\MYplayer	{Tamasin Wohlers}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTech{}\bTeacherBlue{}\bFPFCleric{}}
-  \s\MYgreens	{\gPassingOutVotes{}\gPreparingTheRitual{}\gLeyLines{}\gNewPrincipal{}\gFPFCleric{}\gFPFTeacherRanking{}\gWeekendSchedule{}}
+  \s\MYgreens	{\gPreparingTheRitual{}\gLeyLines{}\gNewPrincipal{}\gFPFCleric{}\gVotingStones{}\gWeekendSchedule{}}
   \s\MYabils	{\aManipulateVoteOne{}\aBeetle{}}
   \s\MYitems	{\iAvatarBeetle{}\iChargingStone{}}%charged stone
   \s\MYwhites	{}
   \s\MYmems	{\mGreenHeadband{}}
 
   \s\MYcr	{4} %Combat Score
-  \s\MYmorality	{} % Morality Score for students
   \s\MYvScore	{0} % Chups and Avengers
   \s\MYsScore	{} % knows about the baby sea serpent
   \s\MYlScore	{1} % library navigation bonus
-  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cLibrarian}{
@@ -663,18 +624,16 @@
   \s\MYplayer	{Max Saltonstall}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTech{}\bTeacherBlue{}}
-  \s\MYgreens	{\gFPFTeacherRanking{}\gWeekendSchedule{}}
-  \s\MYabils	{\aTransferVoteOne{}}
+  \s\MYgreens	{\gVotingStones{}\gWeekendSchedule{}}
+  \s\MYabils	{\aTransferVoteOne{}\aNewTopic{}}
   \s\MYitems	{}
   \s\MYwhites	{}
   \s\MYmems	{\mLibMemories{}}
 
   \s\MYcr	{3} %Combat Score
-  \s\MYmorality	{} % Morality Score for students
   \s\MYvScore	{0} % Chups and Avengers
   \s\MYsScore	{} % knows about the baby sea serpent
-  \s\MYlScore	{2} % library navigation bonus
-  \s\MYfScore	{} % is eligible as the faledon heir
+  \s\MYlScore	{1} % library navigation bonus
 }
 
 \NEW{PC}{\cChupInventor}{
@@ -690,17 +649,15 @@
   \s\MYplayer	{Robert Wensley}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTech{}\bTeacherBlue{}\bCult{}}
-  \s\MYgreens	{\gBMSupply{}\gFoGCleric{}\gFPFTeacherRanking{}\gWeekendSchedule{}}
+  \s\MYgreens	{\gBMSupply{}\gVotingStones{}\gWeekendSchedule{}\gMagitechCrafting{}}
   \s\MYabils	{\aUseTass{}\aPreviewVoteThree{}\aLuck{}}
   \s\MYitems	{\multi{6}{\iChargingStone{}}}%4 empty, 2 charged.
   \s\MYwhites	{}
 
   \s\MYcr	{4} %Combat Score
-  \s\MYmorality	{} % Morality Score for students
   \s\MYvScore	{1} % Chups and Avengers
   \s\MYsScore	{} % knows about the baby sea serpent
   \s\MYlScore	{0} % library navigation bonus
-  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cDiplomat}{
@@ -715,19 +672,17 @@
   \s\MYplayerpronouns {she/her}
   \s\MYplayer	{Andrea Humez}
   
-  \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTech{}\bAdvisorBlue{}}
-  \s\MYgreens	{\gAssassinateWarlord{}\gSealingFaledonHeir{}\gTreaty{}\gFPFAdvisorRanking{}\gWeekendSchedule{}}
+  \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTech{}\bAdvisorBlue{} \bAgrarians{}\bVikings{}}
+  \s\MYgreens	{\gAssassinateWarlord{}\gSealingFaledonHeir{}\gTreaty{}\gVotingStones{}\gWeekendSchedule{}}
   \s\MYabils	{\aLying{}\aOration{}}
   \s\MYitems	{\iMirror{}\iGlassVial{}\iFaledonRing{}}
   \s\MYwhites	{}
   \s\MYmems	{\mLuca{}\mGreenHeadband{}}
 
   \s\MYcr	{3} %Combat Score
-  \s\MYmorality	{} % Morality Score for students
   \s\MYvScore	{0} % Chups and Avengers
   \s\MYsScore	{} % knows about the baby sea serpent
   \s\MYlScore	{0} % library navigation bonus
-  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cHeadScientist}{
@@ -743,19 +698,17 @@
   \s\MYplayer	{Alyse Leung}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTech{}\bAdvisorBlue{}}
-  \s\MYgreens	{\gTreaty{}\gFPFAdvisorRanking{}\nCreationTwo{}\gMagitechCrafting{}\gWeekendSchedule{}}
+  \s\MYgreens	{\gTreaty{}\gVotingStones{}\nCreationTwo{}\gMagitechCrafting{}\gWeekendSchedule{}}
   \s\MYabils	{\aNewTopic{}}
-  \s\MYitems	{\iGlassVial{}\iEngagementRing{}}
+  \s\MYitems	{\iGlassVial{}\iEngagementRing{}\iLightningRod{}}
   \s\MYmems	{\mIdleThoughts{}\mGreenHeadband{}}
   \s\MYwhites	{}
 
 
   \s\MYcr	{3} %Combat Score
-  \s\MYmorality	{} % Morality Score for students
   \s\MYvScore	{0} % Chups and Avengers
   \s\MYsScore	{} % knows about the baby sea serpent
   \s\MYlScore	{0} % library navigation bonus
-  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cAntiChup}{
@@ -770,18 +723,16 @@
   \s\MYplayerpronouns {she/they}
   \s\MYplayer	{Elizabeth O'Hara}
   
-  \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTech{}\bAdvisorBlue{}\bFPFCleric{}}
-  \s\MYgreens	{\gUnsuspectingBirdie{}\gTreaty{}\gFPFCleric{}\gFPFAdvisorRanking{}\gWeekendSchedule{}}
+  \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTech{}\bAdvisorBlue{}\bFPFCleric{} \bAgrarians{}\bVikings{}}
+  \s\MYgreens	{\gTreaty{}\gFPFCleric{}\gVotingStones{}\gWeekendSchedule{}}
   \s\MYabils	{\aPreviewVoteOne{}\aLying{}}
   \s\MYitems	{\iChargingStone{}\iScholarship{}\iTuningFork{}}%Charged stone
   \s\MYwhites	{}
 
   \s\MYcr	{3} %Combat Score
-  \s\MYmorality	{} % Morality Score for students
   \s\MYvScore	{0} % Chups and Avengers
   \s\MYsScore	{} % knows about the baby sea serpent
   \s\MYlScore	{0} % library navigation bonus
-  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cAssistantScientist}{
@@ -796,21 +747,19 @@
   \s\MYplayerpronouns {she/her}
   \s\MYplayer	{Christine Clarke}
   
-  \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTech{}\bAgrarians{}\bAdvisorBlue{}}
-  \s\MYgreens	{\gMindWipe{}\gPreparingTheRitual{}\gTreaty{}\gFPFAdvisorRanking{}\gMagitechCrafting{}\gBMUse{}\gWeekendSchedule{}}
-  \s\MYabils	{\aPrivate{}\aNewTopic{}\aDisguise{}}
+  \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bTech{}\bAgrarians{}\bAdvisorBlue{} \bAgrarians{}\bVikings{}}
+  \s\MYgreens	{\gPreparingTheRitual{}\gTreaty{}\gVotingStones{}\gMagicBeans{} \gMagitechCrafting{}\gBMUse{}\gWeekendSchedule{}}
+  \s\MYabils	{\aPrivate{}\aDisguise{}}
   \s\MYitems	{}
   \s\MYwhites	{}
 
   \s\MYcr	{5} %Combat Score
-  \s\MYmorality	{} % Morality Score for students
   \s\MYvScore	{0} % Chups and Avengers
   \s\MYsScore	{} % knows about the baby sea serpent
   \s\MYlScore	{0} % library navigation bonus
-  \s\MYfScore	{} % is eligible as the faledon heir
 }
 %%%Alice's character's original name and identity. Does not need sheets etc.
-\NEW{NPC}{\cKidScientist}{
+\NEW{PC}{\cKidScientist}{
   \s\MYname	{Luca Belleville}
 	\s\MYfirst {Luca Belleville}
 	\s\MYlast {}
@@ -844,17 +793,15 @@
   \s\MYplayer	{Charlotte Dragga}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bVikings{}\bStudentBlue{}}
-  \s\MYgreens	{\gWhatHappenedSixYearsAgo{}\gVotingInstructions{}\gWRStudentMorality{}\nFindAssassin{}\gWeekendSchedule{}}
+  \s\MYgreens	{\gWhatHappenedSixYearsAgo{}\gVotingStones{}\nFindAssassin{}\gWeekendSchedule{}}
   \s\MYabils	{\aPreviewVoteOne{}\aStay{}}
   \s\MYitems	{}
   \s\MYwhites	{}
 
   \s\MYcr	{5} %Combat Score
-  \s\MYmorality	{0} % Morality Score for students
   \s\MYvScore	{0} % Chups and Avengers
   \s\MYsScore	{} % knows about the baby sea serpent
   \s\MYlScore	{2} % library navigation bonus
-  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cInitiate}{
@@ -870,17 +817,15 @@
   \s\MYplayer	{Liz Barlow}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bVikings{}\bStudentBlue{}\bLeauCleric{}}
-  \s\MYgreens	{\gBadLuckCurse{}\gVotingInstructions{}\gWRStudentMorality{}\gEbbAvatar{}\gWRInitiate{}\gWeekendSchedule{}}
+  \s\MYgreens	{\gBadLuckCurse{}\gVotingStones{}\gEbbAvatar{}\gWRInitiate{}\gWeekendSchedule{}}
   \s\MYabils	{\aUnobtrusive{}}
   \s\MYitems	{\iCursedLetter{}}
   \s\MYwhites	{}
 
   \s\MYcr	{5} %Combat Score
-  \s\MYmorality	{1} % Morality Score for students
   \s\MYvScore	{0} % Chups and Avengers
   \s\MYsScore	{} % knows about the baby sea serpent
   \s\MYlScore	{0} % library navigation bonus
-  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cPirateChild}{
@@ -896,18 +841,16 @@
   \s\MYplayer	{Sydney Scott}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bVikings{}\bStudentBlue{}}
-  \s\MYgreens	{\gVotingInstructions{}\gWRStudentMorality{}\gWeekendSchedule{}}
-  \s\MYabils	{\aStealVoteOne{}\aLockPick{}\aFirePhobia{}\aPickPocket{}}
+  \s\MYgreens	{\gVotingStones{}\gWeekendSchedule{}}
+  \s\MYabils	{\aStealVoteOne{}\aFirePhobia{}\aPickPocket{}}
   \s\MYitems	{}
   \s\MYwhites	{}
   \s\MYmems	{\mParent{}}
 
   \s\MYcr	{6} %Combat Score
-  \s\MYmorality	{0} % Morality Score for students
   \s\MYvScore	{0} % Chups and Avengers
   \s\MYsScore	{1} % knows about the baby sea serpent
   \s\MYlScore	{0} % library navigation bonus
-  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cWarlordDaughter}{
@@ -923,17 +866,15 @@
   \s\MYplayer	{Eljay Rich}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bVikings{}\bStudentBlue{}\bLeauCleric{}}
-  \s\MYgreens	{\gVotingInstructions{}\gWRStudentMorality{}\gEbbAvatar{}\gWRInitiate{}\nWhoCursedWarlord{}\gWeekendSchedule{}}
+  \s\MYgreens	{\gVotingStones{}\gEbbAvatar{}\gWRInitiate{}\nWhoCursedWarlord{}\gWeekendSchedule{}}
   \s\MYabils	{\aLettersHome{}\aWarlordDaughter{}}
   \s\MYitems	{\iWarlordRing{}}
   \s\MYwhites	{}
 
   \s\MYcr	{5} %Combat Score
-  \s\MYmorality	{1} % Morality Score for students
   \s\MYvScore	{0} % Chups and Avengers
   %\s\MYsScore	{} % knows about the baby sea serpent
   \s\MYlScore	{0} % library navigation bonus
-  %\s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cFlowPriest}{
@@ -949,18 +890,16 @@
   \s\MYplayer	{Jan-Willem Maessen}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bVikings{}\bTeacherBlue{}\bLeauCleric{}}
-  \s\MYgreens	{\gMagicBeans{}\gPreparingTheRitual{}\gEbbAvatar{}\gWRCleric{}\gWRTeacherRanking{}\gWeekendSchedule{}}
+  \s\MYgreens	{\gMagicBeans{}\gPreparingTheRitual{}\gEbbAvatar{}\gWRCleric{}\gVotingStones{}\gWeekendSchedule{}}
   \s\MYabils	{\aTransferVoteOne{}}
   \s\MYitems	{}
   \s\MYwhites	{}
   \s\MYmems	{\mGreenHeadband{}}
 
   \s\MYcr	{4} %Combat Score
-  \s\MYmorality	{} % Morality Score for students
   \s\MYvScore	{0} % Chups and Avengers
   \s\MYsScore	{} % knows about the baby sea serpent
   \s\MYlScore	{1} % library navigation bonus
-  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cChupSecond}{
@@ -976,21 +915,19 @@
   \s\MYplayer	{Edwin Karat}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bVikings{}\bTeacherBlue{}\bCult{}}
-  \s\MYgreens	{\gBMRun{}\gGenesisAvatar{}\gFoGCleric{}\gWRTeacherRanking{}\gWeekendSchedule{}}
+  \s\MYgreens	{\gBMRun{}\gGenesisAvatar{}\gFoGCleric{}\gVotingStones{}\gRitualControlStorm{} \gWeekendSchedule{}}
   \s\MYabils	{\aTransferVoteThree{}\aLuck{}\aNewTopic{}}
   \s\MYitems	{}
   \s\MYwhites	{}
 
-  \s\MYcr	{1} %Combat Score
-  \s\MYmorality	{} % Morality Score for students
+  \s\MYcr	{2} %Combat Score
   \s\MYvScore	{1} % Chups and Avengers
   \s\MYsScore	{} % knows about the baby sea serpent
-  \s\MYlScore	{0} % library navigation bonus
-  \s\MYfScore	{} % is eligible as the faledon heir
+  \s\MYlScore	{2} % library navigation bonus
 }
 
 \NEW{PC}{\cChupAvenger}{
-  \s\MYname	{Brooke \suf of 4th Fleet, Pink Coral Ship} % Barnaby
+  \s\MYname	{Brooke \suf of 6th Fleet, Port of Safe Passage} % Barnaby
 	\s\MYfirst {Brooke of 6th Fleet,}
 	\s\MYlast {Port of Safe Passage}
   \s\MYfile	{WR_Teacher_ChupAvenger.tex}
@@ -1002,18 +939,16 @@
   \s\MYplayer	{Dawn Daigneault}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bVikings{}\bTeacherBlue{}\bCultAvenger{}}
-  \s\MYgreens	{\gEscapingFoG{}\gRestoringLove{}\gWRTeacherRanking{}\gWeekendSchedule{}}
+  \s\MYgreens	{\gEscapingFoG{}\gRestoringLove{}\gVotingStones{}\gWeekendSchedule{}}
   \s\MYabils	{\aManipulateVoteOne{}\aLuck{}}
   \s\MYitems	{}
   \s\MYwhites	{}
   \s\MYmems	{\mGreenHeadband{}}
 
   \s\MYcr	{5} %Combat Score
-  \s\MYmorality	{} % Morality Score for students
   \s\MYvScore	{2} % Chups and Avengers
   \s\MYsScore	{} % knows about the baby sea serpent
   \s\MYlScore	{0} % library navigation bonus
-  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cPirate}{
@@ -1028,19 +963,17 @@
   \s\MYplayerpronouns {she/her}
   \s\MYplayer	{Megan Coppock}
   
-  \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bVikings{}\bTeacherBlue{}}
-  \s\MYgreens	{\gWRInitiate{}\gWRTeacherRanking{}\gWeekendSchedule{}}
+  \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bVikings{}\bTeacherBlue{} \bAgrarians{}}
+  \s\MYgreens	{\gWRInitiate{}\gVotingStones{}\gWeekendSchedule{}\gMagitechCrafting{}}
   \s\MYabils	{\aPreviewVoteOne{}\aPickPocket{}}
   \s\MYitems	{}
   \s\MYwhites	{}
   \s\MYmems	{\mGreenHeadband{}}
 
   \s\MYcr	{4} %Combat Score
-  \s\MYmorality	{} % Morality Score for students
   \s\MYvScore	{0} % Chups and Avengers
   \s\MYsScore	{} % knows about the baby sea serpent
   \s\MYlScore	{1} % library navigation bonus
-  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cChupLeader}{
@@ -1055,18 +988,16 @@
   \s\MYplayerpronouns {they/them}
   \s\MYplayer	{Lyall Watkins}
   
-  \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bVikings{}\bAdvisorBlue{}\bCult{}}
-  \s\MYgreens	{\gPreparingTheRitual{}\gGenesisAvatar{}\gTreaty{}\gFoGCleric{}\gWRAdvisorRanking{}\gWeekendSchedule{}}
+  \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bVikings{}\bAdvisorBlue{}\bCult{} \bAgrarians{}\bTech{}}
+  \s\MYgreens	{\gPreparingTheRitual{}\gGenesisAvatar{}\gTreaty{}\gFoGCleric{}\gVotingStones{}\gWeekendSchedule{}}
   \s\MYabils	{\aManipulateVoteThree{}\aImpassionedSpeech{}\aLuck{}}
   \s\MYitems	{\iHorseshoe{}}
   \s\MYwhites	{}
 
   \s\MYcr	{5} %Combat Score
-  \s\MYmorality	{} % Morality Score for students
   \s\MYvScore	{1} % Chups and Avengers
   \s\MYsScore	{} % knows about the baby sea serpent
   \s\MYlScore	{0} % library navigation bonus
-  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cJuniorStatesman}{
@@ -1081,19 +1012,17 @@
   \s\MYplayerpronouns {they/them}
   \s\MYplayer	{Joie Martin}
   
-  \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bVikings{}\bAdvisorBlue{}}
-  \s\MYgreens	{\gTreaty{}\gWRAdvisorRanking{}\nFindAssassin{}\gWeekendSchedule{}}
+  \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bVikings{}\bAdvisorBlue{} \bAgrarians{}\bTech{}}
+  \s\MYgreens	{\gTreaty{}\gVotingStones{}\nFindAssassin{}\gWeekendSchedule{}}
   \s\MYabils	{\aPreviewVoteOne{}\aManipulateVoteOne{}\aOration{}}
   \s\MYitems	{\iMadroneNotes{}}
   \s\MYwhites	{}
-	\s\MYmems 	{\mHummingbirds{}}
+	\s\MYmems 	{}
 
-  \s\MYcr	{3} %Combat Score
-  \s\MYmorality	{} % Morality Score for students
+  \s\MYcr	{4} %Combat Score
   \s\MYvScore	{0} % Chups and Avengers
   \s\MYsScore	{} % knows about the baby sea serpent
   \s\MYlScore	{0} % library navigation bonus
-  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cBunker}{
@@ -1102,25 +1031,23 @@
 	\s\MYlast {Red Shark Ship}
   \s\MYfile	{WR_Advisor_Bunker.tex}
   \s\MYnumber	{683}
-  \s\MYdesc	{An Advisor from the Wave Riders; the foremost L'eau engineer}
+  \s\MYdesc	{An Advisor from the Wave Riders; the foremost Wave Rider engineer}
   \hehim
 	%\s\MYCharpronouns	{he/him}
   \s\MYplayerpronouns {any}
   \s\MYplayer	{Rick Weinberger}
   
-  \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bVikings{}\bAdvisorBlue{}}
-  \s\MYgreens	{\gTreaty{}\gWRAdvisorRanking{}\gMagitechCrafting{}\gWeekendSchedule{}}
+  \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bVikings{}\bAdvisorBlue{} \bAgrarians{}\bTech{}}
+  \s\MYgreens	{\gTreaty{}\gVotingStones{}\gMagitechCrafting{}\gWeekendSchedule{}}
   \s\MYabils	{\aExamineBunkers{}\aUseTass{}\aLying{}}
-  \s\MYitems	{\iChargingStone{}\iChargingStone{}}%2 charged stones
+  \s\MYitems	{\iChargingStone{}\iChargingStone{}\iMagitechParts{}\iMagitechParts{}\iMagitechParts{}}%2 charged stones
   \s\MYwhites	{}
   \s\MYmems	{\mGreenHeadband{}}
 
   \s\MYcr	{3} %Combat Score
-  \s\MYmorality	{} % Morality Score for students
   \s\MYvScore	{0} % Chups and Avengers
   \s\MYsScore	{} % knows about the baby sea serpent
   \s\MYlScore	{0} % library navigation bonus
-  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cEbbPriest}{
@@ -1136,17 +1063,15 @@
   \s\MYplayer	{July Pilowsky}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bVikings{}\bAdvisorBlue{}\bLeauCleric{}}
-  \s\MYgreens	{\gEbbAvatar{}\gTreaty{}\gWRCleric{}\gWRAdvisorRanking{}\nCreationOne{}\gWeekendSchedule{}}
+  \s\MYgreens	{\gEbbAvatar{}\gTreaty{}\gWRCleric{}\gVotingStones{}\nCreationOne{}\gWeekendSchedule{}}
   \s\MYabils	{}
   \s\MYitems	{\iTuningFork{}\iChalice{}}
   \s\MYwhites	{}
 
   \s\MYcr	{3} %Combat Score
-  \s\MYmorality	{} % Morality Score for students
   \s\MYvScore	{0} % Chups and Avengers
   \s\MYsScore	{} % knows about the baby sea serpent
   \s\MYlScore	{0} % library navigation bonus
-  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 \NEW{PC}{\cPrincipal}{
@@ -1162,18 +1087,16 @@
   \s\MYplayer	{Samara Metzler}
   
   \s\MYblues	{\bWorld{}\bSchool{}\bDramatisPersonae{}\bVikings{}\bTeacherBlue{}}
-  \s\MYgreens	{\gVotingInstructions{}\gPassingOutVotes{}\gCeremonyOfExcellence{}\gHireTeacher{}\gLeyLines{} \gNewPrincipal{}\gPreparingTheRitual{}\gWeekendSchedule{}}
+  \s\MYgreens	{\gVotingStones{}\gCeremonyOfExcellence{}\gHireTeacher{}\gLeyLines{} \gRitualControlStorm{} \gNewPrincipal{}\gPreparingTheRitual{}\gWeekendSchedule{}\gNPCGuide{}}
   \s\MYabils	{\aPreviewVoteThree{}\aOration{}}
-  \s\MYitems	{}
+  \s\MYitems	{\multi{6}{\iChalk{}}}
   \s\MYwhites	{}
   \s\MYmems	{\mWOne{}\mLuca{}\mGreenHeadband{}}
 
   \s\MYcr	{4} %Combat Score
-  \s\MYmorality	{} % Morality Score for students
   \s\MYvScore	{0} % Chups and Avengers
   \s\MYsScore	{} % knows about the baby sea serpent
   \s\MYlScore	{2} % library navigation bonus
-  \s\MYfScore	{} % is eligible as the faledon heir
 }
 
 
@@ -1344,4 +1267,5 @@
   \s\MYname	{Genesis}
   \hehim
 }
+
 
