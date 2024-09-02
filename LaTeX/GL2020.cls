@@ -197,25 +197,25 @@
   \begin{tlist}{Bluesheets}
     \MYblues
   \end{tlist}
-  %% listed greensheets
-  %\begin{tlist}{Greensheets}
-   % \MYgreens
-  %\end{tlist}
-  %% listed abilities
-  %\begin{tlist}{Abilities}
-    %\MYabils
-    %\MYskills
-  %\end{tlist}
-  %% listed items, etc
-  %\begin{tlist}{Items}
-    %\MYitems
-    %\MYwhites
-   % \MYcash
-  %\end{tlist}
-  %% listed stats
-  %\begin{tlist}{Stats}
-    %\MYstats
-  %\end{tlist}
+  % listed greensheets
+  \begin{tlist}{Greensheets}
+    \MYgreens
+  \end{tlist}
+  % listed abilities
+  \begin{tlist}{Abilities}
+    \MYabils
+    \MYskills
+  \end{tlist}
+  % listed items, etc
+  \begin{tlist}{Items}
+    \MYitems
+    \MYwhites
+    \MYcash
+  \end{tlist}
+  % listed stats
+  \begin{tlist}{Stats}
+    \MYstats
+  \end{tlist}
   
   }
 

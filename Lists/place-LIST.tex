@@ -48,7 +48,7 @@
 
 \NEW{Place}{\pGMHQ}{
   \s\MYname	{GM HQ}
-  \s\MYsigns	{\sMurderConsequences{}\sMurdered{}\sSignA{}\sSignCOne{}\sSignCTwo{}\sSignN{}\sSignP{}\sSignR{}\sSignT{}\sSignV{}\sFlowerPower{}\sCurses{}}
+  \s\MYsigns	{\sMurderConsequences{}\sMurdered{}\sSignCOne{}\sSignCTwo{}\sSignG{}\sSignJOne{}\sSignJTwo{}\sSignP{}\sSignR{}\sSignT{}\sFlowerPower{}\sCurses{}}
 
   \s\MYitems	{
 	%Avatars
@@ -60,11 +60,11 @@
 	\multi{45}{\iVotingStones{}}\multi{10}{\iMagitechParts{}}
 	}
 
-  \s\MYgreens  {\multi{2}{\gPreGameCoS{}\gPreGameFPF{}\gPreGameWR{}	\gPreGameStudent{}\gPreGameTeacher{}\gPreGameAdvisor{}}
-	\multi{4}{\gGMGuide{}\gPreGameSafety{}\gFoGStudentMorality{}}
-	\multi{6}{\gPostGame{}\gMidGame{}\gMidGame{}}
-	
-	\gTallyingVotes{}\gVotingAuthority{}\gPreparingTheRitual{}}
+\s\MYgreens  {\gPreGameCoS{}\gPreGameFPF{}\gPreGameWR{}	\gPreGameStudent{}\gPreGameTeacher{}\gPreGameAdvisor{} 
+	\gTallyingVotes{}\gVotingStones{}\gPreparingTheRitual{}
+	\multi{4}{\gGMGuide{}\gPreGameSafety{}\gPostGame{}}
+	\multi{6}{\gMidGame{}\gMidGame{}\gCalibrationWS{}}
+	}
 	
   \s\MYwhites  {\multi{4}{\wWarlordResignationOfficial{}}\wWarlordResignationToDaughter{}}
   \s\MYabils	{\multi{12}{\aLuck{}}}
@@ -93,7 +93,7 @@
 
 \NEW{Place}{\pTemple}{
   \s\MYname	{The Temple}
-  \s\MYsigns	{\sAppeal{}\sDecorativeChestForStaff{}\sCandleCabinet{}\sSignEOne{}\sSignETwo{}\sRedBrick{}\sRedBrickNineUnder{}\sRedBrick{}\sRedBrickTenUnder{}}
+  \s\MYsigns	{\sTemple{}\sAppeal{}\sDecorativeChestForStaff{}\sCandleCabinet{}\sSignEOne{}\sSignETwo{}\sRedBrick{}\sRedBrickNineUnder{}\sRedBrick{}\sRedBrickTenUnder{}}
   \s\MYitems	{}
   \s\MYgreens	{\gStormSurgeInside{}}
 }
@@ -150,10 +150,7 @@
   \s\MYsigns	{\sStudentGeneral{}\sStudentBookCaseOne{}\sStudentBookCaseTwo{}
   		\sRedBrick{}\sRedBrickOneUnder{}\sRedBrick{}\sRedBrickTwoUnder{}
   		\sBunkerOneCover{}\sBunkerOneDamaged{}\sBunkerOneRepaired{}
-		\sSRDisney{}\sSRChupStudent{}\sSRAdopted{}\sSRLibAssist{}
-		\sSRAmbition{}\sSRScholarship{}\sSRTechStar{}\sSRHeir{}
-		\sSRPresident{}\sSRInitiate{}\sSRWarlordDaughter{}\sSRPirateChild{}
-								}
+		}
   \s\MYitems	{}
   \s\MYgreens	{\gStormSurgeInside{}}
 }
@@ -163,10 +160,6 @@
   \s\MYsigns	{\sTeacherGeneral{}\sLinenCloset{}
   		\sRedBrick{}\sRedBrickThreeUnder{}\sRedBrick{}\sRedBrickFourUnder{}
   		\sBunkerTwoCover{}\sBunkerTwoDamaged{}\sBunkerTwoRepaired{}
-		\sTRPrincipal{}
-		\sTRInterpol{}\sTRMusic{}\sTRPrince{}\sTRHistory{}
-		\sTRBeetle{}\sTREthics{}\sTRChupInventor{}\sTRLibrarian{}
-		\sTRFlowPriest{}\sTRChupSecond{}\sTRChupAvenger{}\sTRPirate{}
 		}
   \s\MYitems	{}
   \s\MYgreens	{\gStormSurgeInside{}}
@@ -177,9 +170,6 @@
   \s\MYsigns	{\sAdvisorGeneral{}
   		\sRedBrick{}\sRedBrickFiveUnder{}\sRedBrick{}\sRedBrickSixUnder{}
   		\sBunkerThreeCover{}\sBunkerThreeDamaged{}\sBunkerThreeRepaired{} 
-		\sAREvil{}\sARWildCard{}\sARHedonist{}\sARCurse{}
-		\sARDiplomat{}\sARAntiChup{}\sARHeadScientist{}\sARAssistantScientist{}
-		\sAREbbPriest{}\sARJuniorStatesman{}\sARChupLeader{}\sARBunker{}
 		}
   \s\MYitems	{}
   \s\MYgreens	{\gStormSurgeInside{}}
@@ -232,7 +222,7 @@
 }
 
 \NEW{Place}{\pShip}{ %Name of the ``Viking'' country
-  \s\MYname	{Wave Riders} % L'eau
+  \s\MYname	{Wave Rider}
 }
 
 \NEW{Place}{\pShippie}{ %Individal who lives in the ``Viking'' country
@@ -276,9 +266,10 @@
 }
 
 \NEW{Place}{\pInterpol}{ %Interpol
-  \s\MYname	{Interpol NEEDS A REAL NAME}
+  \s\MYname	{Order of the Black Crocus}
 }
 
 \NEW{Place}{\pSpine}{ %Mountain range seperating CoS and FpF
   \s\MYname	{Bones of the World}
 }
+
