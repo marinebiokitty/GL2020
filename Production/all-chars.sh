@@ -2,9 +2,10 @@
 
 mv listchar-PRINT.tex listchar-BACKUP.tex
 
-for character in "$@"
-do
-  cat >listchar-PRINT.tex <<EOL
+character=$1
+charname=$2
+
+cat >listchar-PRINT.tex <<EOL
 
 %% character sheets printed
 \documentclass[listchar]{GL2020} %% make sure name of class is correct
@@ -14,8 +15,7 @@ do
 
 \end{document}
 EOL
-  /mnt/c/Users/wasse/AppData/local/Programs/MiKTeX/miktex/bin/x64/pdflatex.exe -include-directory="C:/Users/wasse/Documents/GitHub/GL2020/LaTeX/" listchar-PRINT.tex
-  mv listchar-PRINT.pdf $character.pdf
-done
+/mnt/c/Users/wasse/AppData/local/Programs/MiKTeX/miktex/bin/x64/pdflatex.exe -include-directory="C:/Users/wasse/Documents/GitHub/GL2020/LaTeX/" listchar-PRINT.tex
+mv listchar-PRINT.pdf $charname.pdf
 
 mv listchar-BACKUP.tex listchar-PRINT.tex
