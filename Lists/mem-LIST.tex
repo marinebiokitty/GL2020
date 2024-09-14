@@ -77,13 +77,15 @@
 
 \NEW{MemFold}{\mTest}{
   \s\MYname	{Test Trigger}
+	\s\MYtrigger {Open if you see a red handkerchief.}
   \s\MYtext	{This is a Test of a fold-n-staple memory packet}
   }
   
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \NEW{MemEnvelope}{\mPacketA}{
-  \s\MYname	{Packet A: Do not open unless directed to do so.}
+  \s\MYname	{Packet A}
+	\s\MYtrigger {Do not open unless directed to do so.}
   \s\MYtext	{You are suddenly flooded with memories and sensations. \textbf{Fall unconscious for 5 minutes.} You can use that time to read the rest of the stuff inside this packet.
 
 \emph{In your unconscious state, the following memories and knowledge flood into you.}
@@ -104,50 +106,59 @@ As you stare in horror,  \cDisneyMentor{} grabs your shoulder and pulls you away
   }
 
 \NEW{MemFold}{\mCPacket}{
-  \s\MYname	{C-Packet: Open only if prompted to.}
+  \s\MYname	{C-Packet}
+	\s\MYtrigger {Do not open unless directed to do so.}
   \s\MYtext	{You have been cursed, by some sort of degenerative curse. You don't feel well. Act wobbly and disoriented for \textbf{5 minutes}. \emph{You no longer regenerate magical energy at meal times - if you put a unit of magical energy into an item of Tass, or use it for some other mechanic, it is gone forever.} Over the course of months your body will waste away and you will die unless you can find a cure. \textbf{The only cure to a curse this intense must lie with the one who cast it.} Find them if you want to reverse it.}
 }
 
 \NEW{MemEnvelope}{\mPacketThree}{
-  \s\MYname	{Packet 3: Open when prompted to.}
+  \s\MYname	{Packet 3}
+	\s\MYtrigger {Open when you meet the requirements listed in ``\gPunishKidnappers{}.''}
   \s\MYtext	{These curses you have managed are actually really complex. There is no ``graduating'' from a basic cursemaker to an advanced one, but there is no denying your skill now. You are now able to create curses that require $>$2 ingredients, as reflected in your new greensheet (included here-in).}
   \s\MYgreens	{\gCursemakingAdvanced{}}
 }
 
 \NEW{MemFold}{\mParent}{
-  \s\MYname	{Open if/when you find and talk to your parent for at least 2 minutes}
+  \s\MYname	{Parent?}
+	\s\MYtrigger {Open if/when you find and talk to your parent for at least 2 minutes.}
   \s\MYtext	{Your vision blacks out and you faint - go unconscious for 5 minutes and read the rest of this packet in the meantime. 
 
 \emph{You are overcome with a vision from a Deity. The self-same one from your dream. This time they reveal themselves -- it's Luminary, the Deity of the Children of the Sun. And on either side of them, Ebb and Flow. “Justice!” they scream, so loud you can barely hear it. “Balance,” they whisper, so quiet it nearly deafens you. What has your parent done that is in such desperate need of penance? When you regain consciousness, you remember this dream perfectly.} }
 }
 
 \NEW{MemFold}{\mWOne}{
-  \s\MYname	{W Packet: Do not open unless directed to do so.}
-  \s\MYtext	{Some scholars have observed an almost angry or rueful tone in Kero's teachings around respecting intellectual property, an almost sorrowful tone in Luminary's teachings around refraining from violence, and an almost defiant tone in Ebb's and Flow's teachings around Balance and repaying others in kind. When it comes to the universal prohibition against murder, a few scholars have noted a hint of regret in the teachings of the Patron Gods. While many theories abound, none really resonate with the \textbf{full truth} yet.}
+  \s\MYname	{W Packet}
+	\s\MYtrigger {Do not open unless directed to do so.}
+  \s\MYtext	{Some scholars have observed an almost angry or rueful tone in \cTechGod{}'s teachings around respecting intellectual property, an almost sorrowful tone in \cFarmGod{}'s teachings around refraining from violence, and an almost defiant tone in \cEbb{}'s and \cFlow{}'s teachings around Balance and repaying others in kind. When it comes to the universal prohibition against murder, a few scholars have noted a hint of regret in the teachings of the Patron Gods. While many theories abound, none really resonate with the \textbf{full truth} yet.}
 }
 
 \NEW{MemFold}{\mWTwo}{
-  \s\MYname	{W Packet: Do not open unless directed to do so.}
-  \s\MYtext	{In some of the oldest, most obscure histories, there are references to “The Wars of the Gods” from before the dawn of time — a series of cataclysmic conflicts that shaped the Cengea we know today, including forming the mountain range known as the Bones of the World. The references are fragmentary and vague, but every war has its winners and losers. What if those now known as the Patron Gods were the victors of those conflicts, and those now known as the minor gods were the losers?}
+  \s\MYname	{W Packet}
+	\s\MYtrigger {Do not open unless directed to do so.}
+  \s\MYtext	{In some of the oldest, most obscure histories, there are references to ``The Wars of the Gods'' from before the dawn of time — a series of cataclysmic conflicts that shaped the Cengea we know today, including forming the mountain range known as the Bones of the World. The references are fragmentary and vague, but every war has its winners and losers. What if those now known as the Patron Gods were the victors of those conflicts, and those now known as the minor gods were the losers?}
 }
 
 \NEW{MemFold}{\mWThree}{
-  \s\MYname	{W Packet: Do not open unless directed to do so.}
-  \s\MYtext	{In some of the earliest known religious writings, there are references to \pEarth{} as the “Corpse of the Creator.” They were always assumed to be metaphorical or mistranslations, but what if they are literally true?}
+  \s\MYname	{W Packet}
+	\s\MYtrigger {Do not open unless directed to do so.}
+  \s\MYtext	{In some of the earliest known religious writings, there are references to \pEarth{} as the ``Corpse of the Creator.'' They were always assumed to be metaphorical or mistranslations, but what if they are literally true?}
 }
 
 \NEW{MemFold}{\mLuca}{
-  \s\MYname	{Open if you see badge number 285}
+  \s\MYname	{Why do they look familiar?}
+	\s\MYtrigger {Open if you see badge number \cAssistantScientist{\MYnumber}}	
   \s\MYtext	{That person looks awfully familiar. They remind you of someone. But no, it couldn't be. Could it? They look very much like \cKidScientist{\full}. \cKidScientist{\They} did have family in the \pTech{}, but not by the name \cAssistantScientist{\formal}\ldots{}}
 }
 
 \NEW{MemFold}{\mGreenHeadband}{
-  \s\MYname	{Open if you see a BLUE headband.}
+  \s\MYname	{It Can't Be!}
+  \s\MYtrigger {Open if you see a BLUE headband.}
   \s\MYtext	{Oh my Deities, it's \cKidScientist{}!! Six years older, sure, but it is, without a doubt, \cKidScientist{\them}. How in the world did \cKidScientist{\they} survive?}
 }
 
 \NEW{MemFold}{\mSisterMemory}{
-  \s\MYname	{Open if you complete the ritual to look into the past and learn what happened to your sister (read ``Sign J - 2 Day Dreaming of the Past’’ first).}
+  \s\MYname	{Who is that?}
+  \s\MYtrigger	{Open if you complete the ritual to look into the past and learn what happened to your sister (read ``\sSignJTwo{}’’ first).}
   \s\MYtext	{You recognize the young woman in \cWildCard{\formal} colors as your sister, Lorraine. The young \cHedonist{\person} in \cHedonist{\formal} colors is clearly a young \cHedonist{}.}
 }
 	
