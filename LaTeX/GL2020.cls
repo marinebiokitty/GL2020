@@ -190,9 +190,9 @@
 %% out) the tlist environment that corresponds to abilities.
 \def\charsheetlists{%
   % listed mempackets
-  %\begin{tlist}{Memory/Event Packets}
-   % \MYmems
-  %\end{tlist}
+  \begin{tlist}{Memory/Event Packets}
+    \MYmems
+  \end{tlist}
   % listed bluesheets
   \begin{tlist}{Bluesheets}
     \MYblues
